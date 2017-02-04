@@ -1,0 +1,2 @@
+# spyder-terminal
+Bash terminal
