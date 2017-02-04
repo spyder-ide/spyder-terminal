@@ -1,0 +1,16 @@
+# Quantified code ignore file
+# ---------------------------
+# https://docs.quantifiedcode.com/configuration/config_checkignore.html
+
+# Test folders
+**/tests/**
+**/tests/
+tests/**
+
+# External libraries
+**/external/**
+**/external/
+external/**
+# Ignore files
+versioneer.py
+spyder_terminal/_version.py

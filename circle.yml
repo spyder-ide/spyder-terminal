@@ -1,0 +1,54 @@
+# https://circleci.com/gh/spyder-ide/spyder-terminal
+
+machine:
+  environment:
+    # Python versions to tests (Maximum of 4 different versions)
+    PY_VERSIONS:       “3.6 3.5 3.4 2.7”
+
+    # Conda variables and aliases for commands
+    CMD_LINT_CIOCHECK:  /home/ubuntu/miniconda/envs/lint/bin/ciocheck
+    CMD_ROOT_PYTHON:    /home/ubuntu/miniconda/bin/python
+    CMD_TEST_COVERALLS: /home/ubuntu/miniconda/envs/test/bin/coveralls
+    CMD_TEST_PIP:       /home/ubuntu/miniconda/envs/test/bin/pip
+    CMD_TEST_PYTEST:    /home/ubuntu/miniconda/envs/test/bin/pytest
+    CMD_TEST_PYTHON:    /home/ubuntu/miniconda/envs/test/bin/python
+    MINICONDA:          /home/ubuntu/miniconda
+    PATH:               /home/ubuntu/miniconda/bin:$PATH
+
+dependencies:
+  cache_directories:
+    - "anacondafusionjs/node_modules"
+    - "scripts/anaconda-fusion-demos"
+
+  override:
+    # Conda install
+    - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    - bash Miniconda3-latest-Linux-x86_64.sh -b -p $MINICONDA
+    - conda config --set always_yes True
+
+    # Environment for tests
+    - export PY_VERSIONS=($PY_VERSIONS) &&
+      export PYTHON_VERSION=${PY_VERSIONS[$CIRCLE_NODE_INDEX]} && 
+      echo -e "PYTHON = $PYTHON_VERSION \n============" &&
+      conda create -n test python=$PYTHON_VERSION -q;
+    - conda install -n test --file requirements.txt -q
+    - "$CMD_TEST_PIP install coveralls"
+
+    # Install, build JS and install python 
+    - $CMD_TEST_PYTHON setup.py develop;
+
+    # Environment for lint checks
+    - conda create -n lint ciocheck python -c conda-forge -q
+
+test:
+  override:
+    # Check Python style
+    - $CMD_LINT_CIOCHECK spyder-terminal -dt: # note the colon
+        parallel: true
+
+    # Run Python tests
+    - $CMD_TEST_PYTEST spyder-terminal --cov=spyder-terminal: # note the colon        parallel: true
+
+    # Python coverage and post it to coveralls.io
+    - $CMD_TEST_COVERALLS:
+        parallel: true

@@ -1,0 +1,6 @@
+include CHANGELOG.md
+include CONTRIBUTORS.md
+include LICENSE.txt
+include README.rst
+include versioneer.py
+include spyder_terminal/_version.py
