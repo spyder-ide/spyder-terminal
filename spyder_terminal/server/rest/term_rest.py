@@ -17,7 +17,9 @@ class MainHandler(tornado.web.RequestHandler):
 
     @tornado.gen.coroutine
     def post(self):
-        pid = yield self.application.term_manager.create_term()
+        rows = int(self.get_argument('rows', None, 23))
+        cols = int(self.get_argument('cols', None, 73))
+        pid = yield self.application.term_manager.create_term(rows, cols)
         self.write(pid)
 
 class ResizeHandler(tornado.web.RequestHandler):
