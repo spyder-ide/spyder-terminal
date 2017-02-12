@@ -25,7 +25,7 @@ def get_description():
     return data
 
 
-REQUIREMENTS = ['spyder']
+REQUIREMENTS = ['spyder', 'pexpect', 'tornado']
 
 
 setup(

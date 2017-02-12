@@ -22,3 +22,4 @@ class TerminalPlugin(SpyderPluginWidget):
     """Terminal plugin."""
     pass
 
+

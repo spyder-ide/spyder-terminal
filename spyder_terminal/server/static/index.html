@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+        <title>xterm.js demo</title>
+        <link rel="stylesheet" href="static/css/xterm.css" />
+        <link rel="stylesheet" href="static/js/addons/fullscreen/fullscreen.css" />
+        <link rel="stylesheet" href="static/css/style.css" />
+      	<script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/1.0.0/fetch.min.js"></script>
+        <script src="static/js/xterm.js" ></script>
+        <script src="static/js/addons/attach/attach.js" ></script>
+        <script src="static/js/addons/fit/fit.js" ></script>
+        <script src="static/js/addons/fullscreen/fullscreen.js" ></script>
+    </head>
+    <body>
+        <h1>xterm.js: xterm, in the browser</h1>
+        <div id="terminal-container"></div>
+        <div>
+          <h2>Options</h2>
+          <p>
+            <label><input type="checkbox" id="option-cursor-blink"> cursorBlink</label>
+          </p>
+          <p>
+            <label>scrollback <input type="number" id="option-scrollback" value="1000" /></label>
+          </p>
+          <p>
+            <label>tabStopWidth <input type="number" id="option-tabstopwidth" value="8" /></label>
+          </p>
+          <div>
+          	<h3>Size</h3>
+            <div>
+              <div style="display: inline-block; margin-right: 16px;">
+                <label for="cols">Columns</label>
+                <input type="number" id="cols" />
+              </div>
+              <div style="display: inline-block; margin-right: 16px;">
+                <label for="rows">Rows</label>
+                <input type="number" id="rows" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <p><strong>Attention:</strong> The demo is a barebones implementation and is designed for xterm.js evaluation purposes only. Exposing the demo to the public as is would introduce security risks for the host.</p>
+        <script src="static/js/main.js" defer ></script>
+    </body>
+</html>
