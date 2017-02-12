@@ -43,7 +43,7 @@ class TermManager(object):
         self.os = os.name
         if self.os == WINDOWS:
             self.cmd = 'cmd'
-            self.pty_fork = pspawn.PopenSpawn
+            self.pty_fork = lambda x: pspawn.PopenSpawn(x,encoding="utf-8")
         else:
             self.cmd = '/usr/bin/env bash'
             self.pty_fork = pexpect.spawnu
@@ -76,8 +76,8 @@ class TermManager(object):
     def execute(self, pid, cmd):
         term = self.consoles[pid]['tty']
         if self.os == WINDOWS:
-            self.sockets[pid].notify(cmd)
-            print(cmd)
+            # self.sockets[pid].notify(cmd)
+            print(repr(cmd))
             if cmd == '\n' or cmd == '\r\n':
                 term.sendline()
         term.send(cmd)
