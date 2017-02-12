@@ -14,6 +14,9 @@ import pexpect.popen_spawn as pspawn
 
 WINDOWS = 'nt'
 
+if os.name == WINDOWS:
+    import utils.wexpect
+
 class TermReader(object):
     def __init__(self, tty, socket):
         self.tty = tty
