@@ -14,7 +14,7 @@ import tornado.ioloop
 # import pexpect.popen_spawn as pspawn
 
 if os.name == WINDOWS:
-    import winpexpect
+    import utils.winpexpect
 else:
     import pexpect
 
