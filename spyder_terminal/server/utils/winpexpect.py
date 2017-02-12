@@ -566,6 +566,7 @@ class winspawn(spawn):
         child_handle = res[0]
         res[1].Close()  # don't need thread handle
 
+        print("Here?")
         ConnectNamedPipe(cmd_pipe)
         ConnectNamedPipe(stdin_pipe)
         ConnectNamedPipe(stdout_pipe)
