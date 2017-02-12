@@ -71,6 +71,8 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def execute(self, pid, cmd):
+        if self.os == WINDOWS:
+            print(cmd)
         term = self.consoles[pid]['tty']
         term.send(cmd)
 
