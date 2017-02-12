@@ -76,8 +76,9 @@ class TermManager(object):
     def execute(self, pid, cmd):
         term = self.consoles[pid]['tty']
         if self.os == WINDOWS:
+            self.sockets[pid].notify(cmd)
             print(cmd)
-            if cmd == '\n' or cmd = '\r\n':
+            if cmd == '\n' or cmd == '\r\n':
                 term.sendline()
         term.send(cmd)
 
