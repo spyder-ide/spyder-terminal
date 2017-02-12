@@ -2613,7 +2613,7 @@ def log_error(e):
         fout.close()   
 
 def excepthook(etype, value, tb):
-	log_error(''.join(traceback.format_exception(etype, value, tb)))
+    log_error(''.join(traceback.format_exception(etype, value, tb)))
 
 sys.excepthook = excepthook
         
@@ -2650,7 +2650,7 @@ def join_args(args):
     commandline = []
     for arg in args:
         if re.search('[\^!$%&()[\]\s]', arg):
-			arg = '"%s"' % arg
+            arg = '"%s"' % arg
         commandline.append(arg)
     return ' '.join(commandline)
 
