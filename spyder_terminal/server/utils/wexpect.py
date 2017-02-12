@@ -2640,6 +2640,7 @@ def which (filename):
 
     for path in pathlist:
         f = os.path.join(path, filename)
+        print(f)
         if os.access(f, os.X_OK):
             return f
     return None
