@@ -131,7 +131,7 @@ def split_command_line(cmdline):
                 state.current = state.previous
                 state.previous = s_in_escape
     if state.current != s_free:
-        raise ValueError, 'Illegal command line.'
+        raise ValueError('Illegal command line.')
     return result
 
 
