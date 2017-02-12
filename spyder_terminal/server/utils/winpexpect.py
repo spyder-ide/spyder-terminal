@@ -590,6 +590,7 @@ class winspawn(spawn):
         self.child_handle = OpenProcess(PROCESS_ALL_ACCESS, False, self.pid)
         WaitForSingleObject(child_handle, INFINITE)
 
+        print("Before I/O")
         # Start up the I/O threads
         self.child_fd = open_osfhandle(stdin_pipe.Detach(), 0)  # for pexpect
         self.stdout_handle = stdout_pipe
