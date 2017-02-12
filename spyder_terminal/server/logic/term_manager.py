@@ -47,7 +47,8 @@ class TermManager(object):
         if self.os == WINDOWS:
             self.cmd = 'cmd'
             # self.pty_fork = lambda x: pspawn.PopenSpawn(x,encoding="utf-8")
-            self.pty_fork = utils.wexpect.spawn
+            # self.pty_fork = utils.wexpect.spawn
+            self.pty_fork = utils.winpexpect.winspawn
         else:
             self.cmd = '/usr/bin/env bash'
             self.pty_fork = pexpect.spawnu
