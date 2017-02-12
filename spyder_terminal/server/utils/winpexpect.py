@@ -572,6 +572,7 @@ class winspawn(spawn):
         ConnectNamedPipe(stdout_pipe)
         ConnectNamedPipe(stderr_pipe)
 
+        print("Connection?")
         # Tell the stub what to do and wait for it to exit
         WriteFile(cmd_pipe, 'command=%s\n' % command)
         WriteFile(cmd_pipe, 'args=%s\n' % args)
