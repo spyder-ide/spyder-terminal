@@ -79,7 +79,7 @@ class TermManager(object):
             print(cmd)
             if cmd == '\n':
                 cmd = '\r\n'
-            term.sendline(cmd)
+            term.send(cmd)
         term.send(cmd)
 
     @tornado.gen.coroutine
