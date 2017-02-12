@@ -14,7 +14,14 @@ import random
 import time
 import signal
 
-from Queue import Queue, Empty
+is_py2 = sys.version[0] == '2'
+
+if is_py2:
+    from Queue import Queue, Empty
+else:
+    from queue import Queue, Empty
+
+# from Queue import Queue, Empty
 from threading import Thread, Lock
 
 from .pexpect import spawn, ExceptionPexpect, EOF, TIMEOUT
