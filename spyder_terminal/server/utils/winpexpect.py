@@ -226,7 +226,7 @@ def _create_named_pipe(template, sids=None):
             pipe = CreateNamedPipe(name, PIPE_ACCESS_DUPLEX,
                                    0, 1, 1, 1, 100000, sattrs)
             SetHandleInformation(pipe, HANDLE_FLAG_INHERIT, 0)
-        except WindowsError, e:
+        except WindowsError(e):
             if e.winerror != ERROR_PIPE_BUSY:
                 raise
         else:
@@ -277,7 +277,7 @@ def _stub(cmd_name, stdin_name, stdout_name, stderr_name):
         res = CreateProcess(input['command'], input['args'], sattrs, None,
                             True, CREATE_NEW_CONSOLE, os.environ, os.getcwd(),
                             startupinfo)
-    except WindowsError, e:
+    except WindowsError(e):
         message = _quote_header(str(e))
         WriteFile(cmd_pipe, 'status=error\nmessage=%s\n\n' % message)
         ExitProcess(3)
@@ -416,11 +416,11 @@ def run (command, timeout=-1, withexitstatus=False, events=None, extra_args=None
                 child.terminate()
                 raise TypeError ('The callback must be a string or function type.')
             event_count = event_count + 1
-        except TIMEOUT, e:
+        except TIMEOUT(e):
             child_result_list.append(child.before)
             child.terminate()
             break
-        except EOF, e:
+        except EOF(e):
             child_result_list.append(child.before)
             child.close()
             break
@@ -722,7 +722,7 @@ class winspawn(spawn):
                 TerminateProcess(self.child_handle, 1)
                 time.sleep(self.delayafterterminate)
                 return (not self.isalive())                  
-            except WindowsError, e:
+            except WindowsError(e):
                 # ERROR_ACCESS_DENIED (also) happens when the child has already
                 # exited.
                 return  (e.winerror == ERROR_ACCESS_DENIED and not self.isalive())
@@ -923,7 +923,7 @@ class winspawn(spawn):
             try:
                 err, data = ReadFile(handle, self.maxread)
                 assert err == 0  # not expecting error w/o overlapped io
-            except WindowsError, e:
+            except WindowsError(e):
                 if e.winerror == ERROR_BROKEN_PIPE:
                     status = 'eof'
                     data = ''
