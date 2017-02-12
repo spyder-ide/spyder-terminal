@@ -223,6 +223,7 @@ def _create_security_attributes(*sids, **kwargs):
 
 def _create_named_pipe(template, sids=None):
     """INTERNAL: create a named pipe."""
+    print("Pipe!")
     if sids is None:
         sattrs = None
     else:
