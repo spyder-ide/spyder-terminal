@@ -852,7 +852,7 @@ class spawn_unix (object):
         if self.child_fd in r:
             try:
                 s = os.read(self.child_fd, size)
-            except OSError, e: # Linux does  as is
+            except OSError as e: # Linux does  as is
                 self.flag_eof = True
                 raise EOF ('End Of File (EOF) in read_nonblocking(). Exception style platform.')
             if s == '': # BSD style
@@ -1156,7 +1156,7 @@ class spawn_unix (object):
 
         try:
             pid, status = os.waitpid(self.pid, waitpid_options)
-        except OSError, e: # No child proce as es
+        except OSError as e: # No child proce as es
             if e[0] == errno.ECHILD:
                 raise ExceptionPexpect ('isalive() encountered condition where "terminated" is 0, but there was no child process. Did someone else call waitpid() on our process?')
             else:
@@ -1168,7 +1168,7 @@ class spawn_unix (object):
         if pid == 0:
             try:
                 pid, status = os.waitpid(self.pid, waitpid_options) ### os.WNOHANG) # Solaris!
-            except OSError, e: # This should never happe as ..
+            except OSError as e: # This should never happe as ..
                 if e[0] == errno.ECHILD:
                     raise ExceptionPexpect ('isalive() encountered condition that should never happen. There was no child process. Did someone else call waitpid() on our process?')
                 else:
@@ -2014,7 +2014,7 @@ class Wtty:
         except Exception as e:
             try:
                 AttachConsole(self.__parentPid)
-            except Exception, as x:
+            except Exception as as x:
                 log_error(e)
                 log_error(ex)
             self.__consin = None
