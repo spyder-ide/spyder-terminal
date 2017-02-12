@@ -608,6 +608,7 @@ class winspawn(spawn):
         
         tmfind = time.time()
         while True:
+            print("Am I Here?")
             EnumWindows(cb_comparewnd, None)
             if find_hwnds:
                 self.child_hwnd = find_hwnds[0]
