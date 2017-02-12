@@ -28,7 +28,10 @@ class TermReader(object):
             timeout = 0
             if os.name == WINDOWS:
                 timeout = 100
-            _in = self.tty.read_nonblocking(timeout=timeout, size=1000)
+                self.tty.expect('')
+                _in = self.tty.before
+            else:
+                _in = self.tty.read_nonblocking(timeout=timeout, size=1000)
             if len(_in) > 0:
                 print(_in)
             self.socket.notify(_in)
