@@ -24,8 +24,6 @@ class TermReader(object):
 
     @tornado.gen.coroutine
     def consume_lines(self):
-        # print("Reading")
-        # while self.tty.isalive():
         try:
             _in = self.tty.read_nonblocking(timeout=0, size=1000)
             self.socket.notify(_in)
@@ -60,9 +58,7 @@ class TermManager(object):
         term = self.consoles[pid]
         self.sockets[pid] = socket
         term['tty'].expect('')
-        # self.sockets[pid].notify(term['tty'].before)
         term['read'] = TermReader(term['tty'], socket)
-        # a = yield term['read'].consume_lines()
 
     @tornado.gen.coroutine
     def stop_term(self, pid):
@@ -78,5 +74,6 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def resize_term(self, pid, rows, cols):
-        term = self.consoles[pid]['tty']
-        term.setwinsize(rows, cols)
+        if self.os != WINDOWS:
+            term = self.consoles[pid]['tty']
+            term.setwinsize(rows, cols)
