@@ -38,7 +38,7 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
-        print "Closing server...\n"
+        print("Closing server...\n")
         tornado.ioloop.IOLoop.instance().stop()
 
 if __name__ == '__main__':
