@@ -2602,7 +2602,7 @@ def log_error(e):
     if hasattr(sys.stdout, 'isatty') and sys.stdout.isatty():
         # Only try to print if stdout is a tty, otherwise we might get
         # an 'invalid handle' exception
-        print e
+        print(e)
     # Log to the script (or packed executable if running 'frozen') directory
     # if it is writable (packed executable might be installed to a location 
     # where we don't have write access)
