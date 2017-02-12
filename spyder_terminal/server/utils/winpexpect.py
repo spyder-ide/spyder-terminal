@@ -522,6 +522,7 @@ class winspawn(spawn):
         self.command = command
         self.args = args
         command = which(self.command)
+        print(command)
         if command is None:
             raise ExceptionPexpect('Command not found: %s' % self.command)
         args = join_command_line(self.args)
@@ -608,7 +609,6 @@ class winspawn(spawn):
         
         tmfind = time.time()
         while True:
-            print("Am I Here?")
             EnumWindows(cb_comparewnd, None)
             if find_hwnds:
                 self.child_hwnd = find_hwnds[0]
