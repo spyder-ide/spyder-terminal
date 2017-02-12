@@ -37,11 +37,12 @@ class TermManager(object):
     """Wrapper around pexpect to execute local commands."""
     def __init__(self):
         self.os = os.name
-        self.cmd = '/usr/bin/env bash'
-        self.pty_fork = pexpect.spawnu
         if self.os == WINDOWS:
             self.cmd = 'cmd'
             self.pty_fork = pspawn.PopenSpawn
+        else:
+            self.cmd = '/usr/bin/env bash'
+            self.pty_fork = pexpect.spawnu
         self.sockets = {}
         self.consoles = {}
 
