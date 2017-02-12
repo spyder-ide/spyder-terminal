@@ -2,21 +2,17 @@
 
 from __future__ import unicode_literals
 
-WINDOWS = 'nt'
-
 import os
 import sys
 import time
+import pexpect
 import hashlib
 import tornado.web
 import tornado.gen
 import tornado.ioloop
-# import pexpect.popen_spawn as pspawn
+import pexpect.popen_spawn as pspawn
 
-if os.name == WINDOWS:
-    import utils.winpexpect
-else:
-    import pexpect
+WINDOWS = 'nt'
 
 class TermReader(object):
     def __init__(self, tty, socket):
@@ -34,8 +30,8 @@ class TermReader(object):
                 timeout = 100
                 self.tty.expect('')
             _in = self.tty.read_nonblocking(timeout=timeout, size=1000)
-            if len(_in) > 0:
-                print(_in)
+            # if len(_in) > 0:
+            #     print(_in)
             self.socket.notify(_in)
         except:
             pass
@@ -47,8 +43,7 @@ class TermManager(object):
         self.os = os.name
         if self.os == WINDOWS:
             self.cmd = 'cmd'
-            # self.pty_fork = pspawn.PopenSpawn
-            self.pty_fork = winpexpect.spawn
+            self.pty_fork = pspawn.PopenSpawn
         else:
             self.cmd = '/usr/bin/env bash'
             self.pty_fork = pexpect.spawnu
@@ -79,11 +74,12 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def execute(self, pid, cmd):
+        term = self.consoles[pid]['tty']
         if self.os == WINDOWS:
             print(cmd)
             if cmd == '\n':
                 cmd = '\r\n'
-        term = self.consoles[pid]['tty']
+            term.sendline(cmd)
         term.send(cmd)
 
     @tornado.gen.coroutine

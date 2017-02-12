@@ -18,4 +18,4 @@ MIT, see LICENSE for more details.
 
 import os
 if os.name == 'nt':
-    import utils.winpexpect
+    import utils.wexpect
