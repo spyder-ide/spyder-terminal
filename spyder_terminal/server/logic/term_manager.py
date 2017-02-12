@@ -2,17 +2,21 @@
 
 from __future__ import unicode_literals
 
+WINDOWS = 'nt'
+
 import os
 import sys
 import time
-import pexpect
 import hashlib
 import tornado.web
 import tornado.gen
 import tornado.ioloop
-import pexpect.popen_spawn as pspawn
+# import pexpect.popen_spawn as pspawn
 
-WINDOWS = 'nt'
+if os.name == WINDOWS:
+    import winpexpect
+else:
+    import pexpect
 
 class TermReader(object):
     def __init__(self, tty, socket):
@@ -43,7 +47,8 @@ class TermManager(object):
         self.os = os.name
         if self.os == WINDOWS:
             self.cmd = 'cmd'
-            self.pty_fork = pspawn.PopenSpawn
+            # self.pty_fork = pspawn.PopenSpawn
+            self.pty_fork = winpexpect.spawn
         else:
             self.cmd = '/usr/bin/env bash'
             self.pty_fork = pexpect.spawnu
