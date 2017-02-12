@@ -25,7 +25,10 @@ class TermReader(object):
     @tornado.gen.coroutine
     def consume_lines(self):
         try:
-            _in = self.tty.read_nonblocking(timeout=0, size=1000)
+            timeout = 0
+            if os.name == WINDOWS:
+                timeout = 1
+            _in = self.tty.read_nonblocking(timeout=timeout, size=1000)
             self.socket.notify(_in)
         except:
             pass
@@ -50,7 +53,6 @@ class TermManager(object):
         tty = self.pty_fork(self.cmd)
         self.consoles[pid] = {'tty':tty, 'read':None}
         self.resize_term(pid, rows, cols)
-        # self.sockets[pid] = socket
         raise tornado.gen.Return(pid)
 
     @tornado.gen.coroutine
