@@ -28,7 +28,7 @@ def main():
                                           debug=True,
                                           serve_traceback=True,
                                           autoreload=True, **settings)
-    print "Server is now at: 127.0.0.1:8000"
+    print("Server is now at: 127.0.0.1:8000")
     application.term_manager = term_manager.TermManager()
     application.logger = LOGGER
     ioloop = tornado.ioloop.IOLoop.instance()
@@ -38,7 +38,7 @@ def main():
     except KeyboardInterrupt:
         pass
     finally:
-        print "Closing server...\n"
+        print("Closing server...\n")
         tornado.ioloop.IOLoop.instance().stop()
 
 if __name__ == '__main__':

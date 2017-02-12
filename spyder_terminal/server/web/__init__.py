@@ -15,7 +15,9 @@ with the code
 Copyright (c) 2016, Edgar A. Margffoy.
 MIT, see LICENSE for more details.
 """
-import main_handler
+import os
+import sys
+import web.main_handler
 
 __version__ = '1.0.0'
 

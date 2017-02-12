@@ -47,7 +47,7 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def create_term(self, rows, cols):
-        pid = hashlib.md5(str(time.time())).hexdigest()[0:6]
+        pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
         tty = self.pty_fork(self.cmd)
         self.consoles[pid] = {'tty':tty, 'read':None}
         self.resize_term(pid, rows, cols)
