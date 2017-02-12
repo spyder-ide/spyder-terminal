@@ -1640,7 +1640,7 @@ class spawn_windows (spawn_unix, object):
         self.name = '<' + repr(self) + '>' # File-like object.
         self.encoding = None # File-like object.
         self.closed = True # File-like object.
-        self.ocwd = os.getcwdu()
+        self.ocwd = os.getcwd()
         self.cwd = cwd
         self.env = env
 
