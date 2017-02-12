@@ -2014,7 +2014,7 @@ class Wtty:
         except Exception as e:
             try:
                 AttachConsole(self.__parentPid)
-            except Exception as as x:
+            except Exception as x:
                 log_error(e)
                 log_error(ex)
             self.__consin = None
