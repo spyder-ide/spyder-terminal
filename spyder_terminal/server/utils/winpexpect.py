@@ -599,6 +599,7 @@ class winspawn(spawn):
         self.stderr_reader = Thread(target=self._child_reader,
                                     args=(self.stderr_handle,))
         self.stderr_reader.start()
+        print("Threads!")
 
         # find the handle of the child console window
         find_hwnds = []
