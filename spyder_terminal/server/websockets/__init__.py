@@ -13,6 +13,7 @@ with the code
 Copyright (c) 2016, Edgar A. Margffoy.
 MIT, see LICENSE for more details.
 """
-import term_ws
+
+import websockets.term_ws
 
 __version__ = '1.0.0'
