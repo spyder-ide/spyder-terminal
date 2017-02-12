@@ -77,9 +77,8 @@ class TermManager(object):
         term = self.consoles[pid]['tty']
         if self.os == WINDOWS:
             print(cmd)
-            if cmd == '\n':
-                cmd = '\r\n'
-            term.send(cmd)
+            if cmd == '\n' or cmd = '\r\n':
+                term.sendline()
         term.send(cmd)
 
     @tornado.gen.coroutine
