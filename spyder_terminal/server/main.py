@@ -20,6 +20,7 @@ clr = 'clear'
 if os.name == 'nt':
     clr = 'cls'
 
+
 def main():
     logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
     settings = {"static_path": os.path.join(
@@ -40,6 +41,7 @@ def main():
     finally:
         print("Closing server...\n")
         tornado.ioloop.IOLoop.instance().stop()
+
 
 if __name__ == '__main__':
     os.system(clr)

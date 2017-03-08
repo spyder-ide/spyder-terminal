@@ -8,13 +8,14 @@
 """Terminal Widget."""
 
 import os
+import sys
 import subprocess
 from qtpy.QtCore import QUrl, Signal, Slot
 from qtpy.QtWidgets import (QFrame, QHBoxLayout, QLabel, QProgressBar, QMenu,
                             QVBoxLayout, QWidget)
-from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
-                                     QWebEngineView, WEBENGINE)
-
+from qtpy.QtWebEngineWidgets import WEBENGINE
+from spyder.widgets.browser import WebView, WebPage
+# from PyQt5.QtWebChannel import QWebChannel
 
 
 class TerminalWidget(QWidget):
@@ -28,30 +29,22 @@ class TerminalWidget(QWidget):
         self.setLayout(layout)
 
 
-class TermView(QWebEngineView):
+class TermView(WebView):
     """XTerm Wrapper"""
-    def __init__(self, parent):
-        QWebEngineView.__init__(self, parent)
-        self.zoom_factor = 1.
-
-    def createWindow(self, webwindowtype):
-        import webbrowser
-        webbrowser.open(to_text_string(self.url().toString()))
-
-    def setHtml(self, html, baseUrl=QUrl()):
-        """
-        Reimplement Qt method to prevent WebEngine to steal focus
-        when setting html on the page
-
-        Solution taken from
-        https://bugreports.qt.io/browse/QTBUG-52999
-        """
-        if WEBENGINE:
-            self.setEnabled(False)
-            super(TermView, self).setHtml(html, baseUrl)
-            self.setEnabled(True)
-        else:
-            super(TermView, self).setHtml(html, baseUrl)
+    def __init__(self, parent, term_url='http://127.0.0.1:8000'):
+        WebView.__init__(self, parent)
+        # QWebEngineView.__init__(self, parent)
+        print(WEBENGINE)
+        # self.zoom_factor = 1.
+        self.num_cols = 24
+        self.num_rows = 13
+        self.term_url = QUrl(term_url)
+        # self.channel = QWebChannel(self.page())
+        # page = WebPage(self)
+        # page.setWebChannel(self.channel)
+        # self.setPage(page)
+        # print(type(self.))
+        self.load(self.term_url)
 
 
 def test():
@@ -61,14 +54,13 @@ def test():
 
     # cur_dir = osp.join(get_module_path('spyder'), 'widgets')
     app = qapplication(test_time=8)
-    
+    term = TerminalWidget(None)
+    term.show()
     # introspector = IntrospectionManager()
 
     # test = EditorPluginExample()
-    test.resize(900, 700)
-    test.show()
-
-
+    # test.resize(900, 700)
+    # test.show()
     sys.exit(app.exec_())
 
 
