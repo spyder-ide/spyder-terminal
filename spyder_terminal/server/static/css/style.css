@@ -1,83 +1,66 @@
-
-@font-face {
-  font-family: 'PowerlineSymbols';
-  src: url('PowerlineSymbols.eot') format('embedded-opentype');
-  font-weight: normal;
-  font-style: normal;
+html {
+   margin: 0px;
+   height: 100%;
+   width: 100%;
 }
-
-@font-face {
-  font-family: 'PowerlineSymbols';
-  src:  url('PowerlineSymbols.otf')  format('opentype'),
-         url(data:application/x-font-woff;charset=utf-8;base64,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
-AMZlt8oAAAAAzPTtNQAAAADNHg9a) format('woff'), url('PowerlineSymbols.ttf')  format('truetype'), url('PowerlineSymbols.svg#PowerlineSymbols') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
 
 body {
-    font-family: helvetica, sans-serif, arial;
+   margin: 0px;
+   min-height: 100%;
+   width: 100%;
+}
+
+body {
+    /*font-family: helvetica, sans-serif, arial;*/
+    font-family: 'Ubuntu', sans-serif;
     font-size: 1em;
     color: #111;
 }
+
+
 
 h1 {
     text-align: center;
 }
 
 #terminal-container {
-    /*width: 800px;*/
-    /*height: 450px;*/
+    /*margin: 0 auto;*/
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
     /*width: auto;*/
-    /*height: auto;*/
-    margin: 0 auto;
-    /*padding: 2px;*/
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: auto;
-    height: auto;
-    z-index: 255;
+    /*height: 100%;*/
+    /*height:     auto;*/       /* These two lines were the key. */
+    height:100vh;
+    /*min-height: 100%;*/
+    /*overflow:   hidden;*/ /* Do not use this, it crops in small browsers. */
+    margin:     0px;
+    padding:    0px;
+    /*z-index: 255;*/
+    /*align-items: stretch;*/
 }
 
 #terminal-container .terminal {
     background-color: #111;
     color: #fafafa;
     padding: 2px;
+    font-family: 'ubuntu-powerline', monospace;
+    height:100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    #terminal-container .terminal {
-        font-family: 'PowerlineSymbols';
-    }
+.xterm-viewport {
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    height:100% !important;
 }
+
+/*@media screen and (-webkit-min-device-pixel-ratio:0) {*/
+    /*#terminal-container .terminal {*/
+        /*font-family: 'powerlinesymbolsmedium';*/
+    /*}*/
+/*}*/
 
