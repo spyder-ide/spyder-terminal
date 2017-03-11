@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 
 import os
-import sys
 import routes
 import logging
 import coloredlogs
 import tornado.web
 import tornado.ioloop
-from tornado import gen
 from logic import term_manager
 
 
@@ -19,6 +17,7 @@ coloredlogs.install(level='info')
 clr = 'clear'
 if os.name == 'nt':
     clr = 'cls'
+
 
 def main():
     logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
@@ -40,6 +39,7 @@ def main():
     finally:
         print("Closing server...\n")
         tornado.ioloop.IOLoop.instance().stop()
+
 
 if __name__ == '__main__':
     os.system(clr)

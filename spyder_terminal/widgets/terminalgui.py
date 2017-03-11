@@ -7,14 +7,10 @@
 # -----------------------------------------------------------------------------
 """Terminal Widget."""
 
-import os
-import subprocess
+import sys
 from qtpy.QtCore import QUrl, Signal, Slot
-from qtpy.QtWidgets import (QFrame, QHBoxLayout, QLabel, QProgressBar, QMenu,
-                            QVBoxLayout, QWidget)
-from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
-                                     QWebEngineView, WEBENGINE)
-
+from qtpy.QtWidgets import (QVBoxLayout, QWidget)
+from spyder.widgets.browser import WebView
 
 
 class TerminalWidget(QWidget):
@@ -28,47 +24,20 @@ class TerminalWidget(QWidget):
         self.setLayout(layout)
 
 
-class TermView(QWebEngineView):
+class TermView(WebView):
     """XTerm Wrapper"""
-    def __init__(self, parent):
-        QWebEngineView.__init__(self, parent)
-        self.zoom_factor = 1.
-
-    def createWindow(self, webwindowtype):
-        import webbrowser
-        webbrowser.open(to_text_string(self.url().toString()))
-
-    def setHtml(self, html, baseUrl=QUrl()):
-        """
-        Reimplement Qt method to prevent WebEngine to steal focus
-        when setting html on the page
-
-        Solution taken from
-        https://bugreports.qt.io/browse/QTBUG-52999
-        """
-        if WEBENGINE:
-            self.setEnabled(False)
-            super(TermView, self).setHtml(html, baseUrl)
-            self.setEnabled(True)
-        else:
-            super(TermView, self).setHtml(html, baseUrl)
+    def __init__(self, parent, term_url='http://127.0.0.1:8000'):
+        WebView.__init__(self, parent)
+        self.term_url = QUrl(term_url)
+        self.load(self.term_url)
 
 
 def test():
     from spyder.utils.qthelpers import qapplication
-    # from spyder.config.base import get_module_path
-    # from spyder.utils.introspection.manager import IntrospectionManager
-
-    # cur_dir = osp.join(get_module_path('spyder'), 'widgets')
     app = qapplication(test_time=8)
-    
-    # introspector = IntrospectionManager()
-
-    # test = EditorPluginExample()
-    test.resize(900, 700)
-    test.show()
-
-
+    term = TerminalWidget(None)
+    # term.resize(900, 700)
+    term.show()
     sys.exit(app.exec_())
 
 

@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 import os
-import sys
 import time
 import pexpect
 import hashlib
@@ -13,6 +12,7 @@ import tornado.ioloop
 import pexpect.popen_spawn as pspawn
 
 WINDOWS = 'nt'
+
 
 class TermReader(object):
     def __init__(self, tty, socket):
@@ -24,10 +24,12 @@ class TermReader(object):
 
     @tornado.gen.coroutine
     def consume_lines(self):
-        # print("Reading")
-        # while self.tty.isalive():
         try:
-            _in = self.tty.read_nonblocking(timeout=0, size=1000)
+            timeout = 0
+            if os.name == WINDOWS:
+                timeout = 100
+                self.tty.expect('')
+            _in = self.tty.read_nonblocking(timeout=timeout, size=1000)
             self.socket.notify(_in)
         except:
             pass
@@ -39,7 +41,7 @@ class TermManager(object):
         self.os = os.name
         if self.os == WINDOWS:
             self.cmd = 'cmd'
-            self.pty_fork = pspawn.PopenSpawn
+            self.pty_fork = lambda x: pspawn.PopenSpawn(x, encoding="utf-8")
         else:
             self.cmd = '/usr/bin/env bash'
             self.pty_fork = pexpect.spawnu
@@ -50,9 +52,8 @@ class TermManager(object):
     def create_term(self, rows, cols):
         pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
         tty = self.pty_fork(self.cmd)
-        self.consoles[pid] = {'tty':tty, 'read':None}
+        self.consoles[pid] = {'tty': tty, 'read': None}
         self.resize_term(pid, rows, cols)
-        # self.sockets[pid] = socket
         raise tornado.gen.Return(pid)
 
     @tornado.gen.coroutine
@@ -60,9 +61,7 @@ class TermManager(object):
         term = self.consoles[pid]
         self.sockets[pid] = socket
         term['tty'].expect('')
-        # self.sockets[pid].notify(term['tty'].before)
         term['read'] = TermReader(term['tty'], socket)
-        # a = yield term['read'].consume_lines()
 
     @tornado.gen.coroutine
     def stop_term(self, pid):
@@ -74,9 +73,15 @@ class TermManager(object):
     @tornado.gen.coroutine
     def execute(self, pid, cmd):
         term = self.consoles[pid]['tty']
+        if self.os == WINDOWS:
+            self.sockets[pid].notify(cmd)
+            print(repr(cmd))
+            if cmd == '\n' or cmd == '\r\n' or cmd == '\r':
+                term.sendline()
         term.send(cmd)
 
     @tornado.gen.coroutine
     def resize_term(self, pid, rows, cols):
-        term = self.consoles[pid]['tty']
-        term.setwinsize(rows, cols)
+        if self.os != WINDOWS:
+            term = self.consoles[pid]['tty']
+            term.setwinsize(rows, cols)
