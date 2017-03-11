@@ -26,6 +26,10 @@ function setTerminalSize () {
   term.resize(cols, rows);
 }
 
+window.onresize = function(event) {
+    term.fit();
+}
+
 colsElement.addEventListener('change', setTerminalSize);
 rowsElement.addEventListener('change', setTerminalSize);
 
@@ -56,6 +60,7 @@ function createTerminal() {
     if (!pid) {
       return;
     }
+    term.fit();
     var cols = size.cols,
         rows = size.rows,
         url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
