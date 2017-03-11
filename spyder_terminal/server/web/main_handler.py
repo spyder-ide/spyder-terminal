@@ -1,9 +1,8 @@
 # -*- coding: iso-8859-15 -*-
 
-import os
-import sys
 import tornado.web
 import tornado.escape
+
 
 class MainHandler(tornado.web.RequestHandler):
     def initialize(self, db=None):

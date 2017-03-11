@@ -8,7 +8,6 @@
 """Setup script for spyder_terminal."""
 
 # Standard library imports
-import ast
 import os
 
 # Third party imports
@@ -17,6 +16,7 @@ import versioneer
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
+
 
 def get_description():
     """Get long description."""
@@ -37,7 +37,8 @@ setup(
     license='MIT',
     author='Spyder Project Contributors',
     author_email='admin@spyder-ide.org',
-    description='Spyder Plugin for displaying a virtual terminal (OS independent) inside the main Spyder window',
+    description='Spyder Plugin for displaying a virtual terminal '
+                '(OS independent) inside the main Spyder window',
     long_description=get_description(),
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=REQUIREMENTS,

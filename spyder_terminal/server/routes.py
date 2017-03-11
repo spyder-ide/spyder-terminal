@@ -18,7 +18,7 @@ import web
 import rest
 import websockets
 
-#Define new rest associations
+# Define new rest associations
 REST = [
     (r"/api/terminals", rest.term_rest.MainHandler),
     (r"/api/terminals/(.*)/size", rest.term_rest.ResizeHandler)

@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 import os
-import sys
 import time
 import pexpect
 import hashlib
@@ -31,8 +30,6 @@ class TermReader(object):
                 timeout = 100
                 self.tty.expect('')
             _in = self.tty.read_nonblocking(timeout=timeout, size=1000)
-            # if len(_in) > 0:
-            #     print(_in)
             self.socket.notify(_in)
         except:
             pass
@@ -44,7 +41,7 @@ class TermManager(object):
         self.os = os.name
         if self.os == WINDOWS:
             self.cmd = 'cmd'
-            self.pty_fork = lambda x: pspawn.PopenSpawn(x,encoding="utf-8")
+            self.pty_fork = lambda x: pspawn.PopenSpawn(x, encoding="utf-8")
         else:
             self.cmd = '/usr/bin/env bash'
             self.pty_fork = pexpect.spawnu
@@ -55,7 +52,7 @@ class TermManager(object):
     def create_term(self, rows, cols):
         pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
         tty = self.pty_fork(self.cmd)
-        self.consoles[pid] = {'tty':tty, 'read':None}
+        self.consoles[pid] = {'tty': tty, 'read': None}
         self.resize_term(pid, rows, cols)
         raise tornado.gen.Return(pid)
 

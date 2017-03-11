@@ -1,13 +1,11 @@
 #!/usr/bin/env python
 
 import os
-import sys
 import routes
 import logging
 import coloredlogs
 import tornado.web
 import tornado.ioloop
-from tornado import gen
 from logic import term_manager
 
 
