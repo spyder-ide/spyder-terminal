@@ -9,7 +9,7 @@
 @font-face {
   font-family: 'PowerlineSymbols';
   src:  url('PowerlineSymbols.otf')  format('opentype'),
-         url(data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAYYAA0AAAAACKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAF/AAAABwA
+	     url(data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAYYAA0AAAAACKQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAAF/AAAABwA
 AAAcYHi0WkdERUYAAAXYAAAAJAAAACgAOgAmT1MvMgAAAaQAAABLAAAAYIweUiJjbWFwAAACEAAA
 AE0AAAFS4L4KD2dhc3AAAAXQAAAACAAAAAj//wADZ2x5ZgAAAngAAAG+AAAB8A6gTpZoZWFkAAAB
 MAAAADMAAAA2CvZMqGhoZWEAAAFkAAAAIAAAACQGGgE3aG10eAAAAfAAAAAeAAAAHgZ5AJFsb2Nh
@@ -41,33 +41,4 @@ AMZlt8oAAAAAzPTtNQAAAADNHg9a) format('woff'), url('PowerlineSymbols.ttf')  forma
   font-style: normal;
 }
 
-
-body {
-    font-family: helvetica, sans-serif, arial;
-    font-size: 1em;
-    color: #111;
-}
-
-h1 {
-    text-align: center;
-}
-
-#terminal-container {
-    width: 800px;
-    height: 450px;
-    margin: 0 auto;
-    padding: 2px;
-}
-
-#terminal-container .terminal {
-    background-color: #111;
-    color: #fafafa;
-    padding: 2px;
-}
-
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-    #terminal-container .terminal {
-        font-family: 'PowerlineSymbols';
-    }
-}
 

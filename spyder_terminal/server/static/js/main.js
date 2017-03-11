@@ -42,6 +42,7 @@ optionElements.tabstopwidth.addEventListener('change', function () {
 createTerminal();
 
 function createTerminal() {
+  console.log("Creating term...");
   // Clean terminal
   while (terminalContainer.children.length) {
     terminalContainer.removeChild(terminalContainer.children[0]);
@@ -92,6 +93,7 @@ function createTerminal() {
 
 function runRealTerminal() {
   term.attach(socket);
+  console.log("Am I Alive?");
   term._initialized = true;
   // socket.send("ssdf");
 }
@@ -116,6 +118,7 @@ function runFakeTerminal() {
   term.prompt();
 
   term.on('key', function (key, ev) {
+    console.log(key);
     var printable = (
       !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
     );

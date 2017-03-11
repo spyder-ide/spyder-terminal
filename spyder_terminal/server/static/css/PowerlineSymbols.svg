@@ -1,0 +1,50 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<svg>
+<metadata>
+Created by FontForge 20090622 at Sat Mar 11 01:33:23 2017
+ By deploy user
+Created with FontForge 2.0 (http://fontforge.sf.net)
+</metadata>
+<defs>
+<font id="PowerlineSymbols" horiz-adv-x="517" >
+  <font-face 
+    font-family="PowerlineSymbols"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1000"
+    panose-1="2 0 6 9 0 0 0 0 0 0"
+    ascent="800"
+    descent="-200"
+    bbox="-28 -183 545 952"
+    underline-thickness="24"
+    underline-position="-49"
+    unicode-range="U+2588-U+E0B3"
+  />
+<missing-glyph 
+d="M50 0v533h417v-533h-417zM100 50h317v433h-317v-433z" />
+    <glyph glyph-name=".notdef" 
+d="M50 0v533h417v-533h-417zM100 50h317v433h-317v-433z" />
+    <glyph glyph-name=".null" horiz-adv-x="0" 
+ />
+    <glyph glyph-name="nonmarkingreturn" 
+ />
+    <glyph glyph-name="block" unicode="&#x2588;" 
+d="M0 952h518v-1135h-518v1135z" />
+    <glyph glyph-name="uniE0A0" unicode="&#xe0a0;" 
+d="M208 -178h-135v235q0 87 39 143q27 40 82 75l75 48q42 27 62 68q19 38 19 102v161h-102l143 167l142 -167h-102v-188q0 -94 -26 -144q-25 -50 -78 -84l-37 -25q-47 -31 -62 -60q-20 -35 -20 -96v-235zM208 400l-135 -87v639h135v-552z" />
+    <glyph glyph-name="uniE0A1" unicode="&#xe0a1;" 
+d="M342 470v-64h-247v439h75v-375h172zM345 366h77v-439h-81l-120 285l9 -190v-95h-76v439h80l121 -286l-10 209v77z" />
+    <glyph glyph-name="uniE0A2" unicode="&#xe0a2;" 
+d="M129 0q-68 0 -68 69v336q0 74 59 74v149q0 66 41 112q39 42 98 42t98 -42q41 -46 41 -112v-149q59 0 59 -74v-336q0 -69 -69 -69h-259zM259 719q-33 0 -53 -25q-19 -23 -19 -66v-149h144v149q0 41 -20 66t-52 25zM286 115v158q33 17 33 54q0 26 -17 43q-18 18 -43 18
+t-43 -18t-18 -43q0 -37 33 -54v-158h55z" />
+    <glyph glyph-name="uniE0B0" unicode="&#xe0b0;" 
+d="M0 952l518 -567l-518 -568v1135z" />
+    <glyph glyph-name="uniE0B1" unicode="&#xe0b1;" 
+d="M-28 885l47 46l499 -546l-499 -547l-47 47l455 500z" />
+    <glyph glyph-name="uniE0B2" unicode="&#xe0b2;" 
+d="M518 -183l-518 568l518 567v-1135z" />
+    <glyph glyph-name="uniE0B3" unicode="&#xe0b3;" 
+d="M90 385l455 -500l-46 -47l-499 547l499 546l46 -46z" />
+  </font>
+</defs></svg>
