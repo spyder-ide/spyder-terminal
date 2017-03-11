@@ -55,11 +55,11 @@ def test():
     # cur_dir = osp.join(get_module_path('spyder'), 'widgets')
     app = qapplication(test_time=8)
     term = TerminalWidget(None)
+    term.resize(900, 700)
     term.show()
     # introspector = IntrospectionManager()
 
     # test = EditorPluginExample()
-    # test.resize(900, 700)
     # test.show()
     sys.exit(app.exec_())
 
