@@ -77,6 +77,8 @@ function createTerminal() {
   var initialGeometry = term.proposeGeometry(),
       cols = initialGeometry.cols,
       rows = initialGeometry.rows;
+  console.log(cols);
+  console.log(rows);
 
   // colsElement.value = cols;
   // rowsElement.value = rows;
