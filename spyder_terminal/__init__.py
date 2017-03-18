@@ -8,6 +8,7 @@
 """Spyder Terminal Plugin."""
 
 from ._version import get_versions
+from .terminalplugin import TerminalPlugin as PLUGIN_CLASS
 
 __version__ = get_versions()['version']
 del get_versions

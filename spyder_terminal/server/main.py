@@ -31,7 +31,7 @@ def main():
     application.term_manager = term_manager.TermManager()
     application.logger = LOGGER
     ioloop = tornado.ioloop.IOLoop.instance()
-    application.listen(8000)
+    application.listen(8000, address='127.0.0.1')
     try:
         ioloop.start()
     except KeyboardInterrupt:
