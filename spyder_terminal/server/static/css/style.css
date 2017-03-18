@@ -38,7 +38,7 @@ h1 {
     /*overflow:   hidden;*/ /* Do not use this, it crops in small browsers. */
     margin:     0px;
     padding:    0px;
-    /*z-index: 255;*/
+    z-index: 255;
     /*align-items: stretch;*/
 }
 

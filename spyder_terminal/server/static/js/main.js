@@ -53,7 +53,7 @@ function createTerminal() {
   }
   term = new Terminal({
     cursorBlink: true,
-    scrollback: 500,
+    scrollback: 5000,
     tabStopWidth: 8
   });
   // term.fit();
@@ -89,14 +89,20 @@ function createTerminal() {
     charHeight = Math.ceil(term.element.offsetHeight / rows);
 
     res.text().then(function (pid) {
+      term.fit()
       window.pid = pid;
       socketURL += pid;
       socket = new WebSocket(socketURL);
       socket.onopen = runRealTerminal;
-      socket.onclose = runFakeTerminal;
-      socket.onerror = runFakeTerminal;
+      socket.onclose = closeTerm;
+      socket.onerror = closeTerm;
     });
   });
+}
+
+function closeTerm() {
+  console.log("Closed via server");
+  term.writeln("Pipe closed")
 }
 
 function runRealTerminal() {
@@ -106,44 +112,44 @@ function runRealTerminal() {
   // socket.send("ssdf");
 }
 
-function runFakeTerminal() {
-  if (term._initialized) {
-    return;
-  }
+// function runFakeTerminal() {
+//   if (term._initialized) {
+//     return;
+//   }
 
-  term._initialized = true;
+//   term._initialized = true;
 
-  var shellprompt = '$ ';
+//   var shellprompt = '$ ';
 
-  term.prompt = function () {
-    term.write('\r\n' + shellprompt);
-  };
+//   term.prompt = function () {
+//     term.write('\r\n' + shellprompt);
+//   };
 
-  term.writeln('Welcome to xterm.js');
-  term.writeln('This is a local terminal emulation, without a real terminal in the back-end.');
-  term.writeln('Type some keys and commands to play around.');
-  term.writeln('');
-  term.prompt();
+//   term.writeln('Welcome to xterm.js');
+//   term.writeln('This is a local terminal emulation, without a real terminal in the back-end.');
+//   term.writeln('Type some keys and commands to play around.');
+//   term.writeln('');
+//   term.prompt();
 
-  term.on('key', function (key, ev) {
-    console.log(key);
-    var printable = (
-      !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
-    );
+//   term.on('key', function (key, ev) {
+//     console.log(key);
+//     var printable = (
+//       !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey
+//     );
 
-    if (ev.keyCode == 13) {
-      term.prompt();
-    } else if (ev.keyCode == 8) {
-     // Do not delete the prompt
-      if (term.x > 2) {
-        term.write('\b \b');
-      }
-    } else if (printable) {
-      term.write(key);
-    }
-  });
+//     if (ev.keyCode == 13) {
+//       term.prompt();
+//     } else if (ev.keyCode == 8) {
+//      // Do not delete the prompt
+//       if (term.x > 2) {
+//         term.write('\b \b');
+//       }
+//     } else if (printable) {
+//       term.write(key);
+//     }
+//   });
 
-  term.on('paste', function (data, ev) {
-    term.write(data);
-  });
-}
+//   term.on('paste', function (data, ev) {
+//     term.write(data);
+//   });
+// }
