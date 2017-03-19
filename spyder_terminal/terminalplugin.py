@@ -7,7 +7,11 @@
 # -----------------------------------------------------------------------------
 """Terminal Plugin."""
 
+import os
 import sys
+import time
+import subprocess
+import os.path as osp
 
 from qtpy.QtWidgets import QApplication, QMessageBox, QVBoxLayout, QMenu
 from qtpy.QtCore import Qt, Signal
@@ -26,6 +30,9 @@ from spyder.plugins import SpyderPluginWidget
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 
 
+LOCATION = osp.realpath(osp.join(os.getcwd(),
+                                 osp.dirname(__file__)))
+
 # class TerminalConfigPage(PluginConfigPage):
 #     """Terminal plugin preferences."""
 #     pass
@@ -40,7 +47,11 @@ class TerminalPlugin(SpyderPluginWidget):
         SpyderPluginWidget.__init__(self, parent)
         self.tab_widget = None
         self.menu_actions = None
-
+        self.server = subprocess.Popen(
+            ['python', osp.join(LOCATION, 'server', 'main.py')],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE)
+        time.sleep(0.25)
         self.main = parent
 
         self.terms = []
@@ -111,6 +122,7 @@ class TerminalPlugin(SpyderPluginWidget):
         """Perform actions before parent main window is closed"""
         for term in self.terms:
             term.close()
+        self.server.terminate()
         return True
 
     def refresh_plugin(self):
@@ -124,6 +136,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def register_plugin(self):
         """Register plugin in Spyder's main window"""
+        # print("Am I being called?")
         self.focus_changed.connect(self.main.plugin_focus_changed)
         self.main.add_dockwidget(self)
         self.create_new_term(give_focus=False)
