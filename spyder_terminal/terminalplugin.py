@@ -51,7 +51,7 @@ class TerminalPlugin(SpyderPluginWidget):
             ['python', osp.join(LOCATION, 'server', 'main.py')],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
-        time.sleep(0.25)
+        time.sleep(0.5)
         self.main = parent
 
         self.terms = []
