@@ -12,9 +12,11 @@ import os
 
 # Third party imports
 from setuptools import find_packages, setup
-from setupbase import Bower
 import versioneer
 
+from setupbase import (DevelopWithBuildStatic,
+                       SdistWithBuildStatic,
+                       BuildStatic)
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -28,11 +30,20 @@ def get_description():
 
 REQUIREMENTS = ['spyder', 'pexpect', 'tornado']
 
+cmdclass = {
+    'build_static': BuildStatic,
+    # 'develop': DevelopWithBuildStatic,
+    'sdist': SdistWithBuildStatic
+}
 
-setup_args = dict(
+ver_cmd = versioneer.get_cmdclass()
+cmdclass.update(ver_cmd)
+
+setup(
     name='spyder_terminal',
     version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    # cmdclass=versioneer.get_cmdclass(),
+    cmdclass=cmdclass,
     keywords=['Spyder', 'Plugin'],
     url='https://github.com/spyder-ide/spyder-ide',
     license='MIT',
@@ -56,15 +67,3 @@ setup_args = dict(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
     ])
-
-setup_args['cmdclass'] = {
-    'jsdeps': Bower
-}
-
-
-def main():
-    setup(**setup_args)
-
-
-if __name__ == '__main__':
-    main()
