@@ -91,3 +91,5 @@ ENV/
 # Other
 .DS_Store
 
+# Bower components
+spyder_terminal/server/static/components/*

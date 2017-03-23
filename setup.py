@@ -12,6 +12,7 @@ import os
 
 # Third party imports
 from setuptools import find_packages, setup
+from setupbase import Bower
 import versioneer
 
 
@@ -28,7 +29,7 @@ def get_description():
 REQUIREMENTS = ['spyder', 'pexpect', 'tornado']
 
 
-setup(
+setup_args = dict(
     name='spyder_terminal',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
@@ -55,3 +56,15 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
     ])
+
+setup_args['cmdclass'] = {
+    'jsdeps': Bower
+}
+
+
+def main():
+    setup(**setup_args)
+
+
+if __name__ == '__main__':
+    main()

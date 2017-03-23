@@ -25,7 +25,7 @@ from spyder.utils import icon_manager as ima
 from spyder.utils.qthelpers import (create_action, create_toolbutton,
                                     add_actions)
 from spyder.widgets.tabs import Tabs
-from spyder.plugins import SpyderPluginWidget
+# from spyder.plugins import SpyderPluginWidget
 
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 
@@ -86,7 +86,7 @@ class TerminalPlugin(SpyderPluginWidget):
         layout.addWidget(self.tabwidget)
         self.setLayout(layout)
 
-    #------ SpyderPluginMixin API ---------------------------------------------
+    # ------ SpyderPluginMixin API --------------------------------
     def on_first_registration(self):
         """Action to be performed on first plugin registration"""
         self.main.tabify_plugins(self.main.extconsole, self)
@@ -95,7 +95,7 @@ class TerminalPlugin(SpyderPluginWidget):
         """Update font from Preferences"""
         pass
 
-    #------ SpyderPluginWidget API --------------------------------------------
+    # ------ SpyderPluginWidget API ------------------------------
     def get_plugin_title(self):
         """Return widget title"""
         title = _('System Terminal')
@@ -141,9 +141,9 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.add_dockwidget(self)
         self.create_new_term(give_focus=False)
 
-     #------ Public API (for terminals) ---------------------------------------
+    # ------ Public API (for terminals) -------------------------
     def get_terms(self):
-        """Return notebooks list"""
+        """Return terminal list"""
         return [cl for cl in self.terms if isinstance(cl, TerminalWidget)]
 
     def get_focus_term(self):
@@ -180,7 +180,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.tabwidget.removeTab(self.tabwidget.indexOf(term))
         self.terms.remove(term)
 
-    #------ Public API (for tabs) ---------------------------------------------
+    # ------ Public API (for tabs) ---------------------------
     def add_tab(self, widget):
         """Add tab"""
         self.terms.append(widget)
