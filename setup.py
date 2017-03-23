@@ -14,6 +14,9 @@ import os
 from setuptools import find_packages, setup
 import versioneer
 
+from setupbase import (DevelopWithBuildStatic,
+                       SdistWithBuildStatic,
+                       BuildStatic)
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -27,11 +30,20 @@ def get_description():
 
 REQUIREMENTS = ['spyder', 'pexpect', 'tornado']
 
+cmdclass = {
+    'build_static': BuildStatic,
+    # 'develop': DevelopWithBuildStatic,
+    'sdist': SdistWithBuildStatic
+}
+
+ver_cmd = versioneer.get_cmdclass()
+cmdclass.update(ver_cmd)
 
 setup(
     name='spyder_terminal',
     version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    # cmdclass=versioneer.get_cmdclass(),
+    cmdclass=cmdclass,
     keywords=['Spyder', 'Plugin'],
     url='https://github.com/spyder-ide/spyder-ide',
     license='MIT',

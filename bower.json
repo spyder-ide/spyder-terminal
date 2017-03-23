@@ -1,0 +1,24 @@
+{
+  "name": "spyder-terminal",
+  "homepage": "https://github.com/spyder-ide/spyder-terminal",
+  "authors": [
+    "Spyder Project Contributors <admin@spyder-ide.org>"
+  ],
+  "description": "Spyder Qt System Console",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "spyder_terminal/server/static/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "xterm.js": "^2.4.0",
+    "fetch": "^2.0.3",
+    "promise-polyfill": "^6.0.2"
+  }
+}
