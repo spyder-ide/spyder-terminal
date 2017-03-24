@@ -9,8 +9,10 @@
 
 import sys
 from qtpy.QtCore import QUrl, Signal, Slot
+from spyder.config.gui import config_shortcut
 from qtpy.QtWidgets import (QVBoxLayout, QWidget)
 from spyder.widgets.browser import WebView
+from qtpy.QtWebEngineWidgets import QWebEnginePage
 
 
 class TerminalWidget(QWidget):
@@ -22,6 +24,22 @@ class TerminalWidget(QWidget):
         layout = QVBoxLayout()
         layout.addWidget(self.view)
         self.setLayout(layout)
+
+        self.shortcuts = self.create_shortcuts()
+
+    def create_shortcuts(self):
+        copy = config_shortcut(self.copy, context='Terminal',
+                               name='Copy text from terminal', parent=self)
+        paste = config_shortcut(self.paste, context='Terminal',
+                                name='Paste text into terminal',
+                                parent=self)
+        return [copy, paste]
+
+    def copy(self):
+        self.view.triggerPageAction(QWebEnginePage.Copy)
+
+    def paste(self):
+        self.view.triggerPageAction(QWebEnginePage.Paste)
 
 
 class TermView(WebView):

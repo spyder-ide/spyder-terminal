@@ -25,6 +25,7 @@ from spyder.utils import icon_manager as ima
 from spyder.utils.qthelpers import (create_action, create_toolbutton,
                                     add_actions)
 from spyder.widgets.tabs import Tabs
+from spyder.config.gui import set_shortcut, config_shortcut
 # from spyder.plugins import SpyderPluginWidget
 
 from spyder_terminal.widgets.terminalgui import TerminalWidget
@@ -69,6 +70,8 @@ class TerminalPlugin(SpyderPluginWidget):
         menu_btn.setMenu(self.menu)
         menu_btn.setPopupMode(menu_btn.InstantPopup)
         add_actions(self.menu, self.menu_actions)
+        if not self.get_option('first_time', True):
+            self.shortcuts = self.create_shortcuts()
         corner_widgets = {Qt.TopRightCorner: [new_term_btn, menu_btn]}
         self.tabwidget = Tabs(self, menu=self.menu, actions=self.menu_actions,
                               corner_widgets=corner_widgets)
@@ -86,9 +89,19 @@ class TerminalPlugin(SpyderPluginWidget):
         layout.addWidget(self.tabwidget)
         self.setLayout(layout)
 
+    def create_shortcuts(self):
+        open_new_term = config_shortcut(self.create_new_term,
+                                        context='Terminal',
+                                        name='Open new Terminal',
+                                        parent=self)
+        return [open_new_term]
+
     # ------ SpyderPluginMixin API --------------------------------
     def on_first_registration(self):
         """Action to be performed on first plugin registration"""
+        set_shortcut('Terminal', 'Copy text from terminal', 'Ctrl+Alt+C')
+        set_shortcut('Terminal', 'Paste text into terminal', 'Ctrl+Alt+V')
+        set_shortcut('Terminal', 'Open new Terminal', 'Ctrl+Shift+T')
         self.main.tabify_plugins(self.main.extconsole, self)
 
     def update_font(self):
