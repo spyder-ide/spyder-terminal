@@ -43,7 +43,7 @@ h1 {
 }
 
 #terminal-container .terminal {
-    background-color: #111;
+    background-color: #000;
     color: #fafafa;
     padding: 2px;
     font-family: 'ubuntu-powerline', monospace;
@@ -51,12 +51,12 @@ h1 {
     overflow-y: hidden;
     overflow-x: hidden;
 }
-
+/*
 .xterm-viewport {
     overflow-y: hidden !important;
     overflow-x: hidden !important;
     height:100% !important;
-}
+}*/
 
 /*@media screen and (-webkit-min-device-pixel-ratio:0) {*/
     /*#terminal-container .terminal {*/
