@@ -14,9 +14,10 @@ import subprocess
 import os.path as osp
 
 from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
-                            QShortcut, QKeySequence)
+                            QShortcut)
 
 from qtpy.QtCore import Qt, Signal
+from qtpy.QtGui import QKeySequence
 
 from spyder.plugins import SpyderPluginWidget
 
@@ -91,6 +92,10 @@ class TerminalPlugin(SpyderPluginWidget):
 
         layout.addWidget(self.tabwidget)
         self.setLayout(layout)
+
+        paste_shortcut = QShortcut(QKeySequence("Ctrl+Shift+T"),
+                                   self, self.create_new_term)
+        paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
     # def setup_shortcuts(self):
     #     set_shortcut('Terminal', 'Copy text from terminal', 'Ctrl+Alt+C')
@@ -184,7 +189,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def create_new_term(self, name=None, give_focus=True):
         font = self.get_plugin_font()
-        print(font.family())
+        # print(font.family())
         term = TerminalWidget(self, font=font)
         self.add_tab(term)
 
@@ -201,6 +206,8 @@ class TerminalPlugin(SpyderPluginWidget):
         term.close()
         self.tabwidget.removeTab(self.tabwidget.indexOf(term))
         self.terms.remove(term)
+        if self.tabwidget.count() == 0:
+            self.create_new_term()
 
     # ------ Public API (for tabs) ---------------------------
     def add_tab(self, widget):

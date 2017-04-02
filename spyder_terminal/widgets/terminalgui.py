@@ -12,7 +12,8 @@ import sys
 from spyder.config.base import _
 from qtpy.QtCore import Qt, QUrl, Signal, Slot
 from spyder.config.gui import config_shortcut
-from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
+from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget, QShortcut)
+from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
 from spyder.utils import icon_manager as ima
 from qtpy.QtWebEngineWidgets import QWebEnginePage
@@ -30,6 +31,7 @@ class TerminalWidget(QFrame):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
         self.setLayout(layout)
+
 
         # self.shortcuts = self.create_shortcuts()
 
@@ -60,6 +62,13 @@ class TermView(WebView):
                                           shortcut='Ctrl+Alt+V')
         self.term_url = QUrl(term_url)
         self.load(self.term_url)
+        copy_shortcut = QShortcut(QKeySequence("Ctrl+Alt+C"),
+                                  self, self.copy)
+        copy_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
+
+        paste_shortcut = QShortcut(QKeySequence("Ctrl+Alt+V"),
+                                   self, self.paste)
+        paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
     def copy(self):
         self.triggerPageAction(QWebEnginePage.Copy)
