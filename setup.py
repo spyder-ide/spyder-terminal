@@ -12,11 +12,14 @@ import os
 
 # Third party imports
 from setuptools import find_packages, setup
-import versioneer
 
 from setupbase import (DevelopWithBuildStatic,
                        SdistWithBuildStatic,
                        BuildStatic)
+
+# Loca imports
+from spyder_terminal import __version__
+
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -36,13 +39,10 @@ cmdclass = {
     'sdist': SdistWithBuildStatic
 }
 
-ver_cmd = versioneer.get_cmdclass()
-cmdclass.update(ver_cmd)
 
 setup(
     name='spyder_terminal',
-    version=versioneer.get_version(),
-    # cmdclass=versioneer.get_cmdclass(),
+    version=__version__,
     cmdclass=cmdclass,
     keywords=['Spyder', 'Plugin'],
     url='https://github.com/spyder-ide/spyder-ide',
@@ -56,7 +56,7 @@ setup(
     install_requires=REQUIREMENTS,
     include_package_data=True,
     classifiers=[
-        'Development Status :: 1 - Planning',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: MIT License',
