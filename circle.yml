@@ -1,54 +1,48 @@
-# https://circleci.com/gh/spyder-ide/spyder-terminal
+# https://circleci.com/gh/spyder-ide/spyder-terminal/
 
 machine:
   environment:
     # Python versions to tests (Maximum of 4 different versions)
-    PY_VERSIONS:       “3.6 3.5 3.4 2.7”
-
-    # Conda variables and aliases for commands
-    CMD_LINT_CIOCHECK:  /home/ubuntu/miniconda/envs/lint/bin/ciocheck
-    CMD_ROOT_PYTHON:    /home/ubuntu/miniconda/bin/python
-    CMD_TEST_COVERALLS: /home/ubuntu/miniconda/envs/test/bin/coveralls
-    CMD_TEST_PIP:       /home/ubuntu/miniconda/envs/test/bin/pip
-    CMD_TEST_PYTEST:    /home/ubuntu/miniconda/envs/test/bin/pytest
-    CMD_TEST_PYTHON:    /home/ubuntu/miniconda/envs/test/bin/python
-    MINICONDA:          /home/ubuntu/miniconda
-    PATH:               /home/ubuntu/miniconda/bin:$PATH
+    # The last container is used to test with pyqt5 wheels
+    PY_VERSIONS: "2.7 3.6 3.5"
+    # For Coveralls
+    COVERALLS_REPO_TOKEN: botdGLk6Cu4ZwAYkl3WVyt3AdJwdfpRhO
+    # Environment variables used by astropy helpers
+    TRAVIS_OS_NAME: "linux"
+    CONDA_DEPENDENCIES_FLAGS: "--quiet"
+    CONDA_DEPENDENCIES: "pytest pytest-cov"
+    PIP_DEPENDENCIES: "coveralls pytest-qt pytest-xvfb"
 
 dependencies:
-  cache_directories:
-    - "anacondafusionjs/node_modules"
-    - "scripts/anaconda-fusion-demos"
-
+  pre:
+    # We need to run a window manager to avoid focus problems when running our tests.
+    # See https://github.com/TestFX/TestFX/issues/158#issuecomment-62421691
+    - sudo apt-get install matchbox-window-manager
+    - sudo npm install bower
   override:
-    # Conda install
-    - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
-    - bash Miniconda3-latest-Linux-x86_64.sh -b -p $MINICONDA
-    - conda config --set always_yes True
-
-    # Environment for tests
+    # First convert PY_VERSIONS to an array and then select the python version based on the CIRCLE_NODE_INDEX
     - export PY_VERSIONS=($PY_VERSIONS) &&
-      export PYTHON_VERSION=${PY_VERSIONS[$CIRCLE_NODE_INDEX]} &&
-      echo -e "PYTHON = $PYTHON_VERSION \n============" &&
-      conda create -n test python=$PYTHON_VERSION -q;
-    - conda install -n test --file requirements.txt -q
-    - "$CMD_TEST_PIP install coveralls"
-
-    # Install, build JS and install python
-    - $CMD_TEST_PYTHON setup.py develop;
-
-    # Environment for lint checks
-    - conda create -n lint ciocheck python -c conda-forge -q
+      export TRAVIS_PYTHON_VERSION=${PY_VERSIONS[$CIRCLE_NODE_INDEX]} &&
+      echo -e "PYTHON = $TRAVIS_PYTHON_VERSION \n============" &&
+      git clone git://github.com/astropy/ci-helpers.git > /dev/null &&
+      source ci-helpers/travis/setup_conda_$TRAVIS_OS_NAME.sh &&
+      export PATH="$HOME/miniconda/bin:$PATH" &&
+      source activate test &&
+      conda install -q ciocheck -c spyder-ide --no-update-deps &&
+      if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip install -q pyqt5 spyder tornado pexpect coloredlogs; else conda install -q spyder tornado pexpect coloredlogs; fi &&
+      python setup.py install > /dev/null;
+    - DISPLAY=:99 /usr/bin/matchbox-window-manager:
+        background: true
+    - sleep 5
 
 test:
   override:
-    # Check Python style
-    - $CMD_LINT_CIOCHECK spyder-terminal -dt: # note the colon
+    # Style checks
+    - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && ciocheck spyder_notebook: # note the colon
         parallel: true
-
-    # Run Python tests
-    - $CMD_TEST_PYTEST spyder-terminal --cov=spyder-terminal: # note the colon        parallel: true
-
-    # Python coverage and post it to coveralls.io
-    - $CMD_TEST_COVERALLS:
+    # Tests
+    - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && python runtests.py: # note the colon
         parallel: true
+    # Coveralls
+    - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && coveralls: # note the colon
+parallel: true

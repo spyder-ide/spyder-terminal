@@ -33,6 +33,7 @@ from spyder.config.gui import set_shortcut, config_shortcut
 
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 from spyder.py3compat import is_text_string, to_text_string
+from spyder.utils.misc import select_port
 
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
