@@ -29,7 +29,6 @@ dependencies:
       source activate test &&
       conda install -q ciocheck -c spyder-ide --no-update-deps &&
       if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip install -q pyqt5 spyder tornado pexpect; else conda install -q spyder tornado pexpect; fi &&
-      python setup.py build_static &&
       python setup.py install > /dev/null;
     - DISPLAY=:99 /usr/bin/matchbox-window-manager:
         background: true
