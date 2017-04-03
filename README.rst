@@ -46,6 +46,7 @@ Project information
 Description
 -----------
 Spyder Plugin for displaying a virtual terminal (OS independent) inside the main Spyder window.
+This plugin allows you to execute flawlessly any bash command inside spyder, even ncurses applications like ``nano`` or ``vi``.
 
 Installation
 ------------
