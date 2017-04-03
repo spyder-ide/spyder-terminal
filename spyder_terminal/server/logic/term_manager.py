@@ -20,6 +20,7 @@ class TermReader(object):
     """This class allows to read continously from a terminal stream."""
 
     def __init__(self, tty, socket):
+        """Terminal reader constructor."""
         self.tty = tty
         self.socket = socket
         self.p_callback = tornado.ioloop.PeriodicCallback(self.consume_lines,
@@ -47,6 +48,7 @@ class TermManager(object):
     """Wrapper around pexpect to execute local commands."""
 
     def __init__(self):
+        """Main terminal handler constructor."""
         self.os = os.name
         if self.os == WINDOWS:
             self.cmd = 'cmd'

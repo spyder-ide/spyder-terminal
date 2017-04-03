@@ -10,7 +10,7 @@ class MainSocket(tornado.websocket.WebSocketHandler):
     """Handles long polling communication between xterm.js and server."""
 
     def open(self, pid, *args, **kwargs):
-        """Opens a Websocket associated to a console."""
+        """Open a Websocket associated to a console."""
         print("WebSocket opened")
         print(pid)
         self.pid = pid
@@ -18,15 +18,15 @@ class MainSocket(tornado.websocket.WebSocketHandler):
         print("TTY On!")
 
     def on_close(self):
-        """Closes console communication."""
+        """Close console communication."""
         print('TTY Off!')
         print("WebSocket closed")
         self.application.term_manager.stop_term(self.pid)
 
     def on_message(self, message):
-        """Executes a command on console."""
+        """Execute a command on console."""
         self.application.term_manager.execute(self.pid, message)
 
     def notify(self, message):
-        """Writes stdout/err to client."""
+        """Write stdout/err to client."""
         self.write_message(message)

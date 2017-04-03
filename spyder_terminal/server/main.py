@@ -22,7 +22,7 @@ if os.name == 'nt':
 
 
 def main():
-    """Creates and setups a new tornado server."""
+    """Create and setup a new tornado server."""
     logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
     settings = {"static_path": os.path.join(
         os.path.dirname(__file__), "static")}

@@ -127,8 +127,12 @@ class TerminalPlugin(SpyderPluginWidget):
         return self.menu_actions
 
     def get_focus_widget(self):
-        """Return the widget to give focus to when
-        this plugin's dockwidget is raised on top-level."""
+        """
+        Set focus on current selected terminal.
+
+        Return the widget to give focus to when
+        this plugin's dockwidget is raised on top-level.
+        """
         term = self.tabwidget.currentWidget()
         if term is not None:
             return term.view

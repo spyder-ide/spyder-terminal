@@ -43,10 +43,10 @@ class TerminalWidget(QFrame):
 
 
 class TermView(WebView):
-    """XTerm Wrapper"""
+    """XTerm Wrapper."""
 
     def __init__(self, parent, term_url='http://127.0.0.1:8070', font=None):
-        """WebView main constructor."""
+        """Webview main constructor."""
         WebView.__init__(self, parent)
         self.copy_action = create_action(self, _("Copy text"),
                                          icon=ima.icon('editcopy'),
@@ -75,7 +75,7 @@ class TermView(WebView):
         self.triggerPageAction(QWebEnginePage.Paste)
 
     def contextMenuEvent(self, event):
-        """Overrides Qt method."""
+        """Override Qt method."""
         menu = QMenu(self)
         actions = [self.pageAction(QWebEnginePage.SelectAll),
                    self.copy_action, self.paste_action, None,

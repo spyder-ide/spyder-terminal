@@ -1,5 +1,7 @@
 # -*- coding: iso-8859-15 -*-
 
+"""Basic static index.html HTTP handler."""
+
 import tornado.web
 import tornado.escape
 
