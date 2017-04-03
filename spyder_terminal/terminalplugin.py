@@ -13,8 +13,11 @@ import time
 import subprocess
 import os.path as osp
 
-from qtpy.QtWidgets import QApplication, QMessageBox, QVBoxLayout, QMenu
+from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
+                            QShortcut)
+
 from qtpy.QtCore import Qt, Signal
+from qtpy.QtGui import QKeySequence
 
 from spyder.plugins import SpyderPluginWidget
 
@@ -25,10 +28,11 @@ from spyder.utils import icon_manager as ima
 from spyder.utils.qthelpers import (create_action, create_toolbutton,
                                     add_actions)
 from spyder.widgets.tabs import Tabs
+from spyder.config.gui import set_shortcut, config_shortcut
 # from spyder.plugins import SpyderPluginWidget
 
 from spyder_terminal.widgets.terminalgui import TerminalWidget
-
+from spyder.py3compat import is_text_string, to_text_string
 
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
@@ -69,6 +73,9 @@ class TerminalPlugin(SpyderPluginWidget):
         menu_btn.setMenu(self.menu)
         menu_btn.setPopupMode(menu_btn.InstantPopup)
         add_actions(self.menu, self.menu_actions)
+        # if self.get_option('first_time', True):
+        # self.setup_shortcuts()
+        # self.shortcuts = self.create_shortcuts()
         corner_widgets = {Qt.TopRightCorner: [new_term_btn, menu_btn]}
         self.tabwidget = Tabs(self, menu=self.menu, actions=self.menu_actions,
                               corner_widgets=corner_widgets)
@@ -86,6 +93,22 @@ class TerminalPlugin(SpyderPluginWidget):
         layout.addWidget(self.tabwidget)
         self.setLayout(layout)
 
+        paste_shortcut = QShortcut(QKeySequence("Ctrl+Shift+T"),
+                                   self, self.create_new_term)
+        paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
+
+    # def setup_shortcuts(self):
+    #     set_shortcut('Terminal', 'Copy text from terminal', 'Ctrl+Alt+C')
+    #     set_shortcut('Terminal', 'Paste text into terminal', 'Ctrl+Alt+V')
+    #     set_shortcut('Terminal', 'Open new Terminal', 'Ctrl+Shift+T')
+
+    # def create_shortcuts(self):
+    #     open_new_term = config_shortcut(self.create_new_term,
+    #                                     context='Terminal',
+    #                                     name='Open new Terminal',
+    #                                     parent=self)
+    #     return [open_new_term]
+
     # ------ SpyderPluginMixin API --------------------------------
     def on_first_registration(self):
         """Action to be performed on first plugin registration"""
@@ -93,7 +116,9 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def update_font(self):
         """Update font from Preferences"""
-        pass
+        font = self.get_plugin_font()
+        for term in self.terms:
+            term.set_font(font)
 
     # ------ SpyderPluginWidget API ------------------------------
     def get_plugin_title(self):
@@ -163,7 +188,9 @@ class TerminalPlugin(SpyderPluginWidget):
             return terminal
 
     def create_new_term(self, name=None, give_focus=True):
-        term = TerminalWidget(self)
+        font = self.get_plugin_font()
+        # print(font.family())
+        term = TerminalWidget(self, font=font)
         self.add_tab(term)
 
     def close_term(self, index=None, term=None):
@@ -179,6 +206,8 @@ class TerminalPlugin(SpyderPluginWidget):
         term.close()
         self.tabwidget.removeTab(self.tabwidget.indexOf(term))
         self.terms.remove(term)
+        if self.tabwidget.count() == 0:
+            self.create_new_term()
 
     # ------ Public API (for tabs) ---------------------------
     def add_tab(self, widget):
@@ -199,3 +228,15 @@ class TerminalPlugin(SpyderPluginWidget):
         """
         term = self.terms.pop(index_from)
         self.terms.insert(index_to, term)
+
+    # def keyPressEvent(self, event):
+    #     """Reimplement Qt method"""
+    #     key = event.key()
+    #     ctrl = event.modifiers() & Qt.ControlModifier
+    #     shift = event.modifiers() & Qt.ShiftModifier
+    #     alt = event.modifiers() & Qt.AltModifier
+    #     text = to_text_string(event.text())
+    #     # if ctrl and alt:
+    #     #     print(Qt.Key_C)
+    #     #     print(key)
+    #     #     print(text)

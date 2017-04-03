@@ -34,9 +34,10 @@ function createTerminal() {
   }
   term = new Terminal({
     cursorBlink: true,
-    scrollback: 5000,
-    tabStopWidth: 8
+    scrollback: 10000,
+    tabStopWidth: 10
   });
+  // fullscreen();
   // term.fit();
   term.on('resize', function (size) {
     if (!pid) {
@@ -54,6 +55,7 @@ function createTerminal() {
 
   term.open(terminalContainer);
   term.fit();
+  term.toggleFullscreen(true);
 
   var initialGeometry = term.proposeGeometry(),
       cols = initialGeometry.cols,
