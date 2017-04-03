@@ -10,15 +10,14 @@ machine:
     # Environment variables used by astropy helpers
     TRAVIS_OS_NAME: "linux"
     CONDA_DEPENDENCIES_FLAGS: "--quiet"
-    CONDA_DEPENDENCIES: "pytest pytest-cov"
-    PIP_DEPENDENCIES: "coveralls pytest-qt pytest-xvfb"
+    CONDA_DEPENDENCIES: "pytest pytest-cov nodejs"
+    PIP_DEPENDENCIES: "coveralls coloredlogs pytest-qt pytest-xvfb"
 
 dependencies:
   pre:
     # We need to run a window manager to avoid focus problems when running our tests.
     # See https://github.com/TestFX/TestFX/issues/158#issuecomment-62421691
     - sudo apt-get install matchbox-window-manager
-    - sudo npm install bower
   override:
     # First convert PY_VERSIONS to an array and then select the python version based on the CIRCLE_NODE_INDEX
     - export PY_VERSIONS=($PY_VERSIONS) &&
@@ -27,9 +26,10 @@ dependencies:
       git clone git://github.com/astropy/ci-helpers.git > /dev/null &&
       source ci-helpers/travis/setup_conda_$TRAVIS_OS_NAME.sh &&
       export PATH="$HOME/miniconda/bin:$PATH" &&
+      npm install bower &&
       source activate test &&
       conda install -q ciocheck -c spyder-ide --no-update-deps &&
-      if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip install -q pyqt5 spyder tornado pexpect coloredlogs; else conda install -q spyder tornado pexpect coloredlogs; fi &&
+      if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip install -q pyqt5 spyder tornado pexpect; else conda install -q spyder tornado pexpect; fi &&
       python setup.py install > /dev/null;
     - DISPLAY=:99 /usr/bin/matchbox-window-manager:
         background: true
@@ -38,11 +38,11 @@ dependencies:
 test:
   override:
     # Style checks
-    - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && ciocheck spyder_notebook: # note the colon
+    - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && ciocheck spyder_terminal: # note the colon
         parallel: true
     # Tests
     - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && python runtests.py: # note the colon
         parallel: true
     # Coveralls
     - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && coveralls: # note the colon
-parallel: true
+        parallel: true
