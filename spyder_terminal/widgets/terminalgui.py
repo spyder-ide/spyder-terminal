@@ -31,8 +31,6 @@ class TerminalWidget(QFrame):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
         self.setLayout(layout)
-
-
         # self.shortcuts = self.create_shortcuts()
 
     # def create_shortcuts(self):
@@ -50,7 +48,7 @@ class TerminalWidget(QFrame):
 
 class TermView(WebView):
     """XTerm Wrapper"""
-    def __init__(self, parent, term_url='http://127.0.0.1:8000', font=None):
+    def __init__(self, parent, term_url='http://127.0.0.1:8070', font=None):
         WebView.__init__(self, parent)
         self.copy_action = create_action(self, _("Copy text"),
                                          icon=ima.icon('editcopy'),
