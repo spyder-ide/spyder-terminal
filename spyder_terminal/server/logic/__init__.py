@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 """
-logic module
-=========
+logic module.
 
+=========
 Provides:
     1. Creation and handling of system terminal emulators
     2. Execution of bash/cmd commands
@@ -21,5 +21,3 @@ import sys
 import logic.term_manager
 
 __version__ = '1.0.0'
-
-

@@ -1,7 +1,8 @@
 # -*- coding: iso-8859-15 -*-
 
 """
-routes
+routes.
+
 ======
 
 This module establishes and defines the Web Handlers and Websockets

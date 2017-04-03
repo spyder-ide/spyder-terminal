@@ -23,6 +23,7 @@ TERM_UP = 5000
 
 
 def check_pwd(termwidget):
+    """Checks if pwd command is executed."""
     if WEBENGINE:
         def callback(data):
             global html

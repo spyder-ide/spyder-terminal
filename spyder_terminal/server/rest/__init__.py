@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 """
-rest module
+rest module.
+
 =========
 
 Provides:
