@@ -19,6 +19,8 @@ from spyder.utils import icon_manager as ima
 from qtpy.QtWebEngineWidgets import QWebEnginePage
 from spyder.utils.qthelpers import create_action, add_actions
 
+from qtpy.QtWebEngineWidgets import WEBENGINE
+
 
 class TerminalWidget(QFrame):
     """Terminal widget."""
@@ -31,6 +33,11 @@ class TerminalWidget(QFrame):
         layout.setContentsMargins(0, 0, 0, 0)
         self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
         self.setLayout(layout)
+
+        if WEBENGINE:
+            self.body = self.view.page()
+        else:
+            self.body = self.view.page().mainFrame()
         # self.shortcuts = self.create_shortcuts()
 
     # def create_shortcuts(self):
