@@ -10,6 +10,7 @@
 import os
 import pytest
 import os.path
+import requests
 from qtpy.QtCore import Qt
 from qtpy.QtWebEngineWidgets import WEBENGINE
 
@@ -28,18 +29,18 @@ def check_pwd(termwidget):
         def callback(data):
             global html
             html = data
-        termwidget.body.toHtml(callback)
+        # termwidget.body.toHtml(callback)
         try:
             print(html)
             return LOCATION in html
         except NameError:
             return False
     else:
-        print(termwidget.body.toHtml())
+        # print(termwidget.body.toHtml())
         return LOCATION in termwidget.body.toHtml()
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def setup_terminal(qtbot):
     """Set up the Notebook plugin."""
     terminal = TerminalPlugin(None)
@@ -47,6 +48,8 @@ def setup_terminal(qtbot):
     terminal.create_new_term()
     terminal.show()
     return terminal
+    # print("Closing plugin....")
+    # terminal.closing_plugin()
 
 
 def test_new_terminal(qtbot):
@@ -55,6 +58,10 @@ def test_new_terminal(qtbot):
     terminal = setup_terminal(qtbot)
     term = terminal.get_current_term()
     qtbot.wait(TERM_UP)
+
+    status_code = requests.get('http://127.0.0.1:8070').status_code
+    # print(status_code)
+    assert status_code == 200
 
     # Move to LOCATION
     qtbot.keyClicks(term.view, 'cd {}'.format(LOCATION))
@@ -69,6 +76,6 @@ def test_new_terminal(qtbot):
     qtbot.keyPress(term.view, Qt.Key_Return)
 
     # Assert pwd is LOCATION
-    print(term.body.toHtml())
     qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
     assert len(terminal.terms) == 1
+    terminal.closing_plugin()
