@@ -52,10 +52,14 @@ def test_new_terminal(qtbot):
     # Setup widget
     terminal = setup_terminal(qtbot)
     term = terminal.get_current_term()
-    qtbot.wait(1000)
+    qtbot.wait(TERM_UP)
 
     # Move to LOCATION
     qtbot.keyClicks(term.view, 'cd {}'.format(LOCATION))
+    qtbot.keyPress(term.view, Qt.Key_Return)
+
+    # Clear
+    qtbot.keyClicks(term.view, 'clear')
     qtbot.keyPress(term.view, Qt.Key_Return)
 
     # Run pwd
