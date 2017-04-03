@@ -2,6 +2,4 @@ include CHANGELOG.md
 include CONTRIBUTORS.md
 include LICENSE.txt
 include README.rst
-include versioneer.py
-include spyder_terminal/_version.py
 recursive-include spyder_terminal/server/static/ *.html *.js *.json *.css *.eot *.tff *.woff *.woff2
