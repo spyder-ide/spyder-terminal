@@ -30,10 +30,12 @@ def check_pwd(termwidget):
             html = data
         termwidget.body.toHtml(callback)
         try:
+            print(html)
             return LOCATION in html
         except NameError:
             return False
     else:
+        print(termwidget.body.toHtml())
         return LOCATION in termwidget.body.toHtml()
 
 
