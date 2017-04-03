@@ -67,6 +67,6 @@ def test_new_terminal(qtbot):
     qtbot.keyPress(term.view, Qt.Key_Return)
 
     # Assert pwd is LOCATION
+    print(term.body.toHtml())
     qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
     assert len(terminal.terms) == 1
-
