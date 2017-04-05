@@ -20,7 +20,7 @@ from spyder_terminal.terminalplugin import TerminalPlugin
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 
-TERM_UP = 5000
+TERM_UP = 15000
 
 
 def check_pwd(termwidget):
