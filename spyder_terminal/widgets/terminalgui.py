@@ -9,14 +9,14 @@
 
 import sys
 
-from spyder.config.base import _
+from spyder.config.base import _, DEV
 from qtpy.QtCore import Qt, QUrl, Signal, Slot
 from spyder.config.gui import config_shortcut
 from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget, QShortcut)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
 from spyder.utils import icon_manager as ima
-from qtpy.QtWebEngineWidgets import QWebEnginePage
+from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
 
 from qtpy.QtWebEngineWidgets import WEBENGINE
@@ -80,6 +80,11 @@ class TermView(WebView):
         actions = [self.pageAction(QWebEnginePage.SelectAll),
                    self.copy_action, self.paste_action, None,
                    self.zoom_in_action, self.zoom_out_action]
+        if DEV and not WEBENGINE:
+            settings = self.page().settings()
+            settings.setAttribute(QWebEngineSettings.DeveloperExtrasEnabled,
+                                  True)
+            actions += [None, self.pageAction(QWebEnginePage.InspectElement)]
         add_actions(menu, actions)
         menu.popup(event.globalPos())
         event.accept()
