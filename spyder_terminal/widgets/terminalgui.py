@@ -26,12 +26,13 @@ from qtpy.QtWebEngineWidgets import WEBENGINE
 class TerminalWidget(QFrame):
     """Terminal widget."""
 
-    def __init__(self, parent, port, font=None):
+    def __init__(self, parent, port, path='~', font=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
         url = 'http://127.0.0.1:{0}'.format(port)
         self.view = TermView(self, term_url=url)
         self.font = font
+        self.initial_path = path
 
         layout = QVBoxLayout()
         layout.addWidget(self.view)
@@ -61,6 +62,7 @@ class TerminalWidget(QFrame):
             # This forces to display the black background
             print("\0", end='')
             self.set_font(self.font)
+            self.set_dir(self.initial_path)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
@@ -68,6 +70,10 @@ class TerminalWidget(QFrame):
             return self.body.runJavaScript("{}".format(script))
         else:
             return self.body.evaluateJavaScript("{}".format(script))
+
+    def set_dir(self, path):
+        """Set terminal initial current working directory."""
+        self.eval_javascript('setcwd("{0}")'.format(path))
 
     def set_font(self, font):
         """Set terminal font via CSS."""

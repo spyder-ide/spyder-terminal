@@ -35,6 +35,8 @@ from spyder_terminal.widgets.terminalgui import TerminalWidget
 from spyder.py3compat import is_text_string, to_text_string
 from spyder.utils.misc import select_port
 
+from spyder.py3compat import getcwd
+
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
 
@@ -185,7 +187,8 @@ class TerminalPlugin(SpyderPluginWidget):
     def create_new_term(self, name=None, give_focus=True):
         """Add a new terminal tab."""
         font = self.get_plugin_font()
-        term = TerminalWidget(self, self.port, font=font.family())
+        term = TerminalWidget(self, self.port, path=getcwd(),
+                              font=font.family())
         self.add_tab(term)
 
     def close_term(self, index=None, term=None):
