@@ -62,6 +62,16 @@ def test_terminal_font(qtbot):
     terminal.closing_plugin()
 
 
+def test_terminal_tab_title(qtbot):
+    """Test if terminal tab titles are numbered sequentially."""
+    terminal = setup_terminal(qtbot)
+    qtbot.wait(TERM_UP)
+    terminal.create_new_term()
+    num_1 = int(terminal.tabwidget.tabText(0)[-1])
+    num_2 = int(terminal.tabwidget.tabText(1)[-1])
+    assert num_2 == num_1 + 1
+
+
 def test_new_terminal(qtbot):
     """Test if a new terminal is added."""
     # Setup widget
