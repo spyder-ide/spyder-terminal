@@ -54,7 +54,8 @@ def test_terminal_font(qtbot):
     terminal = setup_terminal(qtbot)
     term = terminal.get_current_term()
     qtbot.wait(TERM_UP)
-    status_code = requests.get('http://127.0.0.1:8070').status_code
+    port = terminal.port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
     term.set_font('Ubuntu Mono')
     fonts = term.get_fonts()
@@ -80,7 +81,8 @@ def test_new_terminal(qtbot):
     qtbot.wait(TERM_UP)
 
     # Test if server is running
-    status_code = requests.get('http://127.0.0.1:8070').status_code
+    port = terminal.port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
 
     # Move to LOCATION

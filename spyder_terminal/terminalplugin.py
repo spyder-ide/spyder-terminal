@@ -54,8 +54,10 @@ class TerminalPlugin(SpyderPluginWidget):
         SpyderPluginWidget.__init__(self, parent)
         self.tab_widget = None
         self.menu_actions = None
+        self.port = select_port(default_port=8070)
         self.server = subprocess.Popen(
-            ['python', osp.join(LOCATION, 'server', 'main.py')],
+            ['python', osp.join(LOCATION, 'server', 'main.py'),
+             '--port', str(self.port)],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
         time.sleep(0.5)
@@ -183,7 +185,7 @@ class TerminalPlugin(SpyderPluginWidget):
     def create_new_term(self, name=None, give_focus=True):
         """Add a new terminal tab."""
         font = self.get_plugin_font()
-        term = TerminalWidget(self, font=font.family())
+        term = TerminalWidget(self, self.port, font=font.family())
         self.add_tab(term)
 
     def close_term(self, index=None, term=None):

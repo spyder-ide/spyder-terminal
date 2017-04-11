@@ -26,10 +26,11 @@ from qtpy.QtWebEngineWidgets import WEBENGINE
 class TerminalWidget(QFrame):
     """Terminal widget."""
 
-    def __init__(self, parent, font=None):
+    def __init__(self, parent, port, font=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
-        self.view = TermView(self)
+        url = 'http://127.0.0.1:{0}'.format(port)
+        self.view = TermView(self, term_url=url)
         self.font = font
 
         layout = QVBoxLayout()
