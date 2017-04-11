@@ -13,7 +13,6 @@ import sys
 
 from spyder.config.base import _, DEV
 from qtpy.QtCore import Qt, QUrl, Signal, Slot
-from spyder.config.gui import config_shortcut
 from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget, QShortcut)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
@@ -44,12 +43,21 @@ class TerminalWidget(QFrame):
         else:
             self.body = self.view.page().mainFrame()
 
+        self.font_setup = False
         self.view.page().loadFinished.connect(self.setup_term)
+        self.view.page().contentsChanged.connect(self.contents_modified)
+
+    def contents_modified(self):
+        """Adjust font size after terminal rendering."""
+        if not self.font_setup:
+            self.set_font(self.font)
+            self.font_setup = True
 
     @Slot(bool)
     def setup_term(self, finished):
         """Setup other terminal options after page has loaded."""
         if finished:
+            # This forces to display the black background
             print("\0", end='')
             self.set_font(self.font)
 
@@ -63,9 +71,7 @@ class TerminalWidget(QFrame):
     def set_font(self, font):
         """Set terminal font via CSS."""
         self.font = font
-        fonts = "'{0}', 'ubuntu-powerline', monospace".format(self.font)
-        set_font_js = "$('.terminal').css('font-family', \"{0}\")"
-        self.eval_javascript(set_font_js.format(fonts))
+        self.eval_javascript('fitFont("{0}")'.format(self.font))
 
     def get_fonts(self):
         """List terminal CSS fonts."""

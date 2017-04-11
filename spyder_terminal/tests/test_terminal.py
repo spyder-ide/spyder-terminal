@@ -53,6 +53,19 @@ def setup_terminal(qtbot):
     # terminal.closing_plugin()
 
 
+def test_terminal_font(qtbot):
+    """Test if terminal loads a custom font."""
+    terminal = setup_terminal(qtbot)
+    term = terminal.get_current_term()
+    qtbot.wait(TERM_UP)
+    status_code = requests.get('http://127.0.0.1:8070').status_code
+    assert status_code == 200
+    term.set_font('Ubuntu Mono')
+    fonts = term.get_fonts()
+    assert fonts == "'Ubuntu Mono', ubuntu-powerline, monospace"
+    terminal.closing_plugin()
+
+
 def test_new_terminal(qtbot):
     """Test if a new terminal is added."""
     # Setup widget
