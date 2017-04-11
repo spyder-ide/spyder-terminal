@@ -4,7 +4,8 @@ var term,
     socket,
     pid,
     charWidth,
-    charHeight;
+    charHeight,
+    path;
 
 var terminalContainer = document.getElementById('terminal-container');
 
@@ -98,6 +99,20 @@ function fitFont(font) {
     setFont(font);
 }
 
+function setcwd(cwd) {
+  console.log(cwd);
+  path = cwd;
+}
+
+function chdir(path) {
+  term.send('cd '+path+'\n');
+}
+
+function clearTerm()
+{
+  term.send('clear\n');
+}
+
 function closeTerm() {
   console.log("Closed via server");
   term.writeln("Pipe closed")
@@ -107,4 +122,7 @@ function runRealTerminal() {
   term.attach(socket);
   console.log("Am I Alive?");
   term._initialized = true;
+  term.writeln("Loading...");
+  chdir(path);
+  clearTerm();
 }
