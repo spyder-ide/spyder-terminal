@@ -68,6 +68,7 @@ class TerminalWidget(QFrame):
         self.eval_javascript(set_font_js.format(fonts))
 
     def get_fonts(self):
+        """List terminal CSS fonts."""
         return self.eval_javascript("$('.terminal').css('font-family')")
 
 
