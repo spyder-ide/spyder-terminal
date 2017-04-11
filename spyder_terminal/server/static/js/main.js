@@ -56,6 +56,7 @@ function createTerminal() {
   term.open(terminalContainer);
   term.fit();
   term.toggleFullscreen(true);
+  console.log($('.terminal').css('font-family'));
 
   var initialGeometry = term.proposeGeometry(),
       cols = initialGeometry.cols,
