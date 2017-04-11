@@ -53,11 +53,11 @@ h1 {
 }
 
 .xterm-viewport {
-    line-height: 16px;
+    line-height: 16px !important;
 }
 
 .xterm-rows {
-    line-height: 16px;
+    line-height: 16px !important;
 }
 /*
 .xterm-viewport {
