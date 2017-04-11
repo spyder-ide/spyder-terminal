@@ -50,14 +50,16 @@ h1 {
     height:100%;
     overflow-y: hidden;
     overflow-x: hidden;
+    font-size: 1em;
+    line-height: 1 !important;
 }
 
 .xterm-viewport {
-    line-height: 16px !important;
+    /*line-height: 16px !important;*/
 }
 
 .xterm-rows {
-    line-height: 16px !important;
+    /*line-height: 16px !important;*/
 }
 /*
 .xterm-viewport {
