@@ -11,6 +11,7 @@ import os
 import pytest
 import os.path
 import requests
+# from OpenGL import GL
 from qtpy.QtCore import Qt
 from qtpy.QtWebEngineWidgets import WEBENGINE
 
@@ -20,7 +21,7 @@ from spyder_terminal.terminalplugin import TerminalPlugin
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 
-TERM_UP = 15000
+TERM_UP = 10000
 
 
 def check_pwd(termwidget):
@@ -29,9 +30,9 @@ def check_pwd(termwidget):
         def callback(data):
             global html
             html = data
-        # termwidget.body.toHtml(callback)
+        termwidget.body.toHtml(callback)
         try:
-            print(html)
+            # print(html)
             return LOCATION in html
         except NameError:
             return False
