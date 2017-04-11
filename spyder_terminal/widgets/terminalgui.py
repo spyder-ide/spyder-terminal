@@ -72,6 +72,7 @@ class TerminalWidget(QFrame):
             return self.body.evaluateJavaScript("{}".format(script))
 
     def set_dir(self, path):
+        """Set terminal initial current working directory."""
         self.eval_javascript('setcwd("{0}")'.format(path))
 
     def set_font(self, font):
