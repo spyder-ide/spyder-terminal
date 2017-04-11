@@ -63,6 +63,7 @@ def test_terminal_font(qtbot):
 
 
 def test_terminal_tab_title(qtbot):
+    """Test if terminal tab titles are numbered sequentially."""
     terminal = setup_terminal(qtbot)
     qtbot.wait(TERM_UP)
     terminal.create_new_term()
