@@ -32,12 +32,10 @@ def check_pwd(termwidget):
             html = data
         termwidget.body.toHtml(callback)
         try:
-            # print(html)
             return LOCATION in html
         except NameError:
             return False
     else:
-        # print(termwidget.body.toHtml())
         return LOCATION in termwidget.body.toHtml()
 
 
@@ -49,8 +47,6 @@ def setup_terminal(qtbot):
     terminal.create_new_term()
     terminal.show()
     return terminal
-    # print("Closing plugin....")
-    # terminal.closing_plugin()
 
 
 def test_terminal_font(qtbot):
@@ -73,8 +69,8 @@ def test_new_terminal(qtbot):
     term = terminal.get_current_term()
     qtbot.wait(TERM_UP)
 
+    # Test if server is running
     status_code = requests.get('http://127.0.0.1:8070').status_code
-    # print(status_code)
     assert status_code == 200
 
     # Move to LOCATION

@@ -7,7 +7,10 @@
 # -----------------------------------------------------------------------------
 """Spyder Terminal Plugin."""
 
-from .terminalplugin import TerminalPlugin as PLUGIN_CLASS
+from qtpy import PYQT5
+
+if PYQT5:
+    from .terminalplugin import TerminalPlugin as PLUGIN_CLASS
 
 VERSION_INFO = (0, 1, 0, 'dev0')
 __version__ = '.'.join(map(str, VERSION_INFO))
