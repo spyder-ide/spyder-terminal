@@ -46,7 +46,7 @@ h1 {
     background-color: #000;
     color: #fafafa;
     padding: 0px;
-    font-family: 'Pragmata Pro Mono', 'ubuntu-powerline', monospace;
+    font-family: 'ubuntu-powerline', monospace;
     height:100%;
     overflow-y: hidden;
     overflow-x: hidden;

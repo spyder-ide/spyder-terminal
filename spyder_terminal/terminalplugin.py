@@ -109,7 +109,7 @@ class TerminalPlugin(SpyderPluginWidget):
         """Update font from Preferences."""
         font = self.get_plugin_font()
         for term in self.terms:
-            term.set_font(font)
+            term.set_font(font.family())
 
     # ------ SpyderPluginWidget API ------------------------------
     def get_plugin_title(self):
@@ -183,7 +183,7 @@ class TerminalPlugin(SpyderPluginWidget):
     def create_new_term(self, name=None, give_focus=True):
         """Add a new terminal tab."""
         font = self.get_plugin_font()
-        term = TerminalWidget(self, font=font)
+        term = TerminalWidget(self, font=font.family())
         self.add_tab(term)
 
     def close_term(self, index=None, term=None):

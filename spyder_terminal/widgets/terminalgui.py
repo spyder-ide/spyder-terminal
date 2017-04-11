@@ -7,6 +7,8 @@
 # -----------------------------------------------------------------------------
 """Terminal Widget."""
 
+from __future__ import print_function
+
 import sys
 
 from spyder.config.base import _, DEV
@@ -28,7 +30,8 @@ class TerminalWidget(QFrame):
     def __init__(self, parent, font=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
-        self.view = TermView(self, font=font)
+        self.view = TermView(self)
+        self.font = font
 
         layout = QVBoxLayout()
         layout.addWidget(self.view)
@@ -41,11 +44,37 @@ class TerminalWidget(QFrame):
         else:
             self.body = self.view.page().mainFrame()
 
+        self.view.page().loadFinished.connect(self.setup_term)
+
+    @Slot(bool)
+    def setup_term(self, finished):
+        """Setup other terminal options after page has loaded."""
+        if finished:
+            print("\0", end='')
+            self.set_font(self.font)
+
+    def eval_javascript(self, script):
+        """Evaluate Javascript instructions inside view."""
+        if WEBENGINE:
+            return self.body.runJavaScript("{}".format(script))
+        else:
+            return self.body.evaluateJavaScript("{}".format(script))
+
+    def set_font(self, font):
+        """Set terminal font via CSS."""
+        self.font = font
+        fonts = "'{0}', 'ubuntu-powerline', monospace".format(self.font)
+        set_font_js = "$('.terminal').css('font-family', \"{0}\")"
+        self.eval_javascript(set_font_js.format(fonts))
+
+    def get_fonts(self):
+        return self.eval_javascript("$('.terminal').css('font-family')")
+
 
 class TermView(WebView):
     """XTerm Wrapper."""
 
-    def __init__(self, parent, term_url='http://127.0.0.1:8070', font=None):
+    def __init__(self, parent, term_url='http://127.0.0.1:8070'):
         """Webview main constructor."""
         WebView.__init__(self, parent)
         self.copy_action = create_action(self, _("Copy text"),
