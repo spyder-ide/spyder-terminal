@@ -1,5 +1,6 @@
 """
-web module
+web module.
+
 =========
 
 Provides:

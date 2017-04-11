@@ -45,10 +45,12 @@ LOCATION = osp.realpath(osp.join(os.getcwd(),
 
 class TerminalPlugin(SpyderPluginWidget):
     """Terminal plugin."""
+
     CONF_SECTION = 'terminal'
     focus_changed = Signal()
 
     def __init__(self, parent):
+        """Widget constructor."""
         SpyderPluginWidget.__init__(self, parent)
         self.tab_widget = None
         self.menu_actions = None
@@ -98,61 +100,52 @@ class TerminalPlugin(SpyderPluginWidget):
                                    self, self.create_new_term)
         paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
-    # def setup_shortcuts(self):
-    #     set_shortcut('Terminal', 'Copy text from terminal', 'Ctrl+Alt+C')
-    #     set_shortcut('Terminal', 'Paste text into terminal', 'Ctrl+Alt+V')
-    #     set_shortcut('Terminal', 'Open new Terminal', 'Ctrl+Shift+T')
-
-    # def create_shortcuts(self):
-    #     open_new_term = config_shortcut(self.create_new_term,
-    #                                     context='Terminal',
-    #                                     name='Open new Terminal',
-    #                                     parent=self)
-    #     return [open_new_term]
-
     # ------ SpyderPluginMixin API --------------------------------
     def on_first_registration(self):
-        """Action to be performed on first plugin registration"""
+        """Action to be performed on first plugin registration."""
         self.main.tabify_plugins(self.main.extconsole, self)
 
     def update_font(self):
-        """Update font from Preferences"""
+        """Update font from Preferences."""
         font = self.get_plugin_font()
         for term in self.terms:
             term.set_font(font)
 
     # ------ SpyderPluginWidget API ------------------------------
     def get_plugin_title(self):
-        """Return widget title"""
+        """Return widget title."""
         title = _('System Terminal')
         return title
 
     def get_plugin_icon(self):
-        """Return widget icon"""
+        """Return widget icon."""
         return ima.icon('cmdprompt')
 
     def get_plugin_actions(self):
+        """Get plugin actions."""
         self.menu_actions = []
         return self.menu_actions
 
     def get_focus_widget(self):
         """
+        Set focus on current selected terminal.
+
         Return the widget to give focus to when
-        this plugin's dockwidget is raised on top-level
+        this plugin's dockwidget is raised on top-level.
         """
         term = self.tabwidget.currentWidget()
         if term is not None:
             return term.view
 
     def closing_plugin(self, cancelable=False):
-        """Perform actions before parent main window is closed"""
+        """Perform actions before parent main window is closed."""
         for term in self.terms:
             term.close()
         self.server.terminate()
         return True
 
     def refresh_plugin(self):
-        """Refresh tabwidget"""
+        """Refresh tabwidget."""
         term = None
         if self.tabwidget.count():
             term = self.tabwidget.currentWidget()
@@ -161,26 +154,25 @@ class TerminalPlugin(SpyderPluginWidget):
             term = None
 
     def register_plugin(self):
-        """Register plugin in Spyder's main window"""
-        # print("Am I being called?")
+        """Register plugin in Spyder's main window."""
         self.focus_changed.connect(self.main.plugin_focus_changed)
         self.main.add_dockwidget(self)
         self.create_new_term(give_focus=False)
 
     # ------ Public API (for terminals) -------------------------
     def get_terms(self):
-        """Return terminal list"""
+        """Return terminal list."""
         return [cl for cl in self.terms if isinstance(cl, TerminalWidget)]
 
     def get_focus_term(self):
-        """Return current terminal with focus, if any"""
+        """Return current terminal with focus, if any."""
         widget = QApplication.focusWidget()
         for term in self.get_terms():
             if widget is term:
                 return term
 
     def get_current_term(self):
-        """Return the currently selected terminal"""
+        """Return the currently selected terminal."""
         try:
             terminal = self.tabwidget.currentWidget()
         except AttributeError:
@@ -189,12 +181,13 @@ class TerminalPlugin(SpyderPluginWidget):
             return terminal
 
     def create_new_term(self, name=None, give_focus=True):
+        """Add a new terminal tab."""
         font = self.get_plugin_font()
-        # print(font.family())
         term = TerminalWidget(self, font=font)
         self.add_tab(term)
 
     def close_term(self, index=None, term=None):
+        """Close a terminal tab."""
         if not self.tabwidget.count():
             return
         if term is not None:
@@ -212,7 +205,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     # ------ Public API (for tabs) ---------------------------
     def add_tab(self, widget):
-        """Add tab"""
+        """Add tab."""
         self.terms.append(widget)
         index = self.tabwidget.addTab(widget, "Terminal")
         self.tabwidget.setCurrentIndex(index)
@@ -225,19 +218,9 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def move_tab(self, index_from, index_to):
         """
-        Move tab (tabs themselves have already been moved by the tabwidget)
+        Move tab (tabs themselves have already been moved by the tabwidget).
+
+        Allows to change order of tabs.
         """
         term = self.terms.pop(index_from)
         self.terms.insert(index_to, term)
-
-    # def keyPressEvent(self, event):
-    #     """Reimplement Qt method"""
-    #     key = event.key()
-    #     ctrl = event.modifiers() & Qt.ControlModifier
-    #     shift = event.modifiers() & Qt.ShiftModifier
-    #     alt = event.modifiers() & Qt.AltModifier
-    #     text = to_text_string(event.text())
-    #     # if ctrl and alt:
-    #     #     print(Qt.Key_C)
-    #     #     print(key)
-    #     #     print(text)

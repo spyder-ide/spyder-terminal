@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 """
-web module
+web module.
+
 =========
 
 Provides:
@@ -20,5 +21,3 @@ import sys
 import web.main_handler
 
 __version__ = '1.0.0'
-
-

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+"""Term manager."""
+
 from __future__ import unicode_literals
 
 import os
@@ -15,7 +17,10 @@ WINDOWS = 'nt'
 
 
 class TermReader(object):
+    """This class allows to read continously from a terminal stream."""
+
     def __init__(self, tty, socket):
+        """Terminal reader constructor."""
         self.tty = tty
         self.socket = socket
         self.p_callback = tornado.ioloop.PeriodicCallback(self.consume_lines,
@@ -24,6 +29,7 @@ class TermReader(object):
 
     @tornado.gen.coroutine
     def consume_lines(self):
+        """Consume lines from stream each 100ms."""
         try:
             timeout = 0
             if os.name == WINDOWS:
@@ -40,7 +46,9 @@ class TermReader(object):
 
 class TermManager(object):
     """Wrapper around pexpect to execute local commands."""
+
     def __init__(self):
+        """Main terminal handler constructor."""
         self.os = os.name
         if self.os == WINDOWS:
             self.cmd = 'cmd'
@@ -53,6 +61,7 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def create_term(self, rows, cols):
+        """Create a new virtual terminal."""
         pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
         tty = self.pty_fork(self.cmd)
         self.consoles[pid] = {'tty': tty, 'read': None}
@@ -61,6 +70,7 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def start_term(self, pid, socket):
+        """Start reading a virtual terminal."""
         term = self.consoles[pid]
         self.sockets[pid] = socket
         term['tty'].expect('')
@@ -68,6 +78,7 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def stop_term(self, pid):
+        """Stop and close terminal."""
         term = self.consoles[pid]
         term['tty'].close()
         del self.consoles[pid]
@@ -75,6 +86,7 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def execute(self, pid, cmd):
+        """Write characters to terminal."""
         term = self.consoles[pid]['tty']
         if self.os == WINDOWS:
             self.sockets[pid].notify(cmd)
@@ -85,6 +97,7 @@ class TermManager(object):
 
     @tornado.gen.coroutine
     def resize_term(self, pid, rows, cols):
+        """Resize terminal."""
         if self.os != WINDOWS:
             term = self.consoles[pid]['tty']
             term.setwinsize(rows, cols)

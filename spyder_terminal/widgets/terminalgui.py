@@ -24,7 +24,9 @@ from qtpy.QtWebEngineWidgets import WEBENGINE
 
 class TerminalWidget(QFrame):
     """Terminal widget."""
+
     def __init__(self, parent, font=None):
+        """Frame main constructor."""
         QWidget.__init__(self, parent)
         self.view = TermView(self, font=font)
 
@@ -38,24 +40,13 @@ class TerminalWidget(QFrame):
             self.body = self.view.page()
         else:
             self.body = self.view.page().mainFrame()
-        # self.shortcuts = self.create_shortcuts()
-
-    # def create_shortcuts(self):
-    #     copy = config_shortcut(self.copy, context='Terminal',
-    #                            name='Copy text from terminal', parent=self)
-    #     paste = config_shortcut(self.paste, context='Terminal',
-    #                             name='Paste text into terminal',
-    #                             parent=self)
-    #     return [copy, paste]
-
-    # def set_font(self, font):
-    #     print(font)
-    #     self.view.set_font(font)
 
 
 class TermView(WebView):
-    """XTerm Wrapper"""
+    """XTerm Wrapper."""
+
     def __init__(self, parent, term_url='http://127.0.0.1:8070', font=None):
+        """Webview main constructor."""
         WebView.__init__(self, parent)
         self.copy_action = create_action(self, _("Copy text"),
                                          icon=ima.icon('editcopy'),
@@ -76,12 +67,15 @@ class TermView(WebView):
         paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
     def copy(self):
+        """Copy unicode text from terminal."""
         self.triggerPageAction(QWebEnginePage.Copy)
 
     def paste(self):
+        """Paste unicode text into terminal."""
         self.triggerPageAction(QWebEnginePage.Paste)
 
     def contextMenuEvent(self, event):
+        """Override Qt method."""
         menu = QMenu(self)
         actions = [self.pageAction(QWebEnginePage.SelectAll),
                    self.copy_action, self.paste_action, None,
@@ -92,6 +86,7 @@ class TermView(WebView):
 
 
 def test():
+    """Plugin visual test."""
     from spyder.utils.qthelpers import qapplication
     app = qapplication(test_time=8)
     term = TerminalWidget(None)

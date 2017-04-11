@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+"""Main terminal server point of entry."""
+
 import os
 import routes
 import logging
@@ -20,6 +22,7 @@ if os.name == 'nt':
 
 
 def main():
+    """Create and setup a new tornado server."""
     logging.basicConfig(level=logging.DEBUG, format=LOG_FORMAT)
     settings = {"static_path": os.path.join(
         os.path.dirname(__file__), "static")}
