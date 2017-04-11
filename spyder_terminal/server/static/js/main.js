@@ -66,8 +66,8 @@ function createTerminal() {
 
   fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST'}).then(function (res) {
 
-    charWidth = Math.ceil(term.element.offsetWidth / cols);
-    charHeight = Math.ceil(term.element.offsetHeight / rows);
+    charWidth = Math.floor(term.element.offsetWidth / cols);
+    charHeight = Math.floor(term.element.offsetHeight / rows);
 
     res.text().then(function (pid) {
       term.fit()
