@@ -10,36 +10,16 @@ body {
    width: 100%;
 }
 
-body {
-    /*font-family: helvetica, sans-serif, arial;*/
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 1em;
-    color: #111;
-}
-
-
 
 h1 {
     text-align: center;
 }
 
 #terminal-container {
-    /*margin: 0 auto;*/
-    /*position: fixed;*/
-    /*top: 0;*/
-    /*bottom: 0;*/
-    /*left: 0;*/
-    /*right: 0;*/
-    /*width: auto;*/
-    /*height: 100%;*/
-    /*height:     auto;*/       /* These two lines were the key. */
     height:100vh;
-    /*min-height: 100%;*/
-    /*overflow:   hidden;*/ /* Do not use this, it crops in small browsers. */
     margin:     0px;
     padding:    0px;
     z-index: 255;
-    /*align-items: stretch;*/
 }
 
 #terminal-container .terminal {
@@ -54,23 +34,4 @@ h1 {
     line-height: 1 !important;
 }
 
-.xterm-viewport {
-    /*line-height: 16px !important;*/
-}
-
-.xterm-rows {
-    /*line-height: 16px !important;*/
-}
-/*
-.xterm-viewport {
-    overflow-y: hidden !important;
-    overflow-x: hidden !important;
-    height:100% !important;
-}*/
-
-/*@media screen and (-webkit-min-device-pixel-ratio:0) {*/
-    /*#terminal-container .terminal {*/
-        /*font-family: 'powerlinesymbolsmedium';*/
-    /*}*/
-/*}*/
 

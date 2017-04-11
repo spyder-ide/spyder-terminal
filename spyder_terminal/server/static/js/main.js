@@ -37,8 +37,7 @@ function createTerminal() {
     scrollback: 10000,
     tabStopWidth: 10
   });
-  // fullscreen();
-  // term.fit();
+
   term.on('resize', function (size) {
     if (!pid) {
       return;
@@ -66,8 +65,8 @@ function createTerminal() {
 
   fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST'}).then(function (res) {
 
-    charWidth = Math.floor(term.element.offsetWidth / cols);
-    charHeight = Math.floor(term.element.offsetHeight / rows);
+    charWidth = Math.ceil(term.element.offsetWidth / cols);
+    charHeight = Math.ceil(term.element.offsetHeight / rows);
 
     res.text().then(function (pid) {
       term.fit()
@@ -79,6 +78,24 @@ function createTerminal() {
       socket.onerror = closeTerm;
     });
   });
+}
+
+function setFont(font) {
+   fonts = "'ubuntu-powerline', monospace";
+   fonts = "'"+font+"', "+fonts;
+   $('.terminal').css('font-family', fonts);
+   term.fit();
+   var initialGeometry = term.proposeGeometry(),
+       cols = initialGeometry.cols,
+       rows = initialGeometry.rows;
+   console.log(cols);
+   console.log(rows);
+}
+
+function fitFont(font) {
+    setFont(font);
+    setFont('ubuntu-powerline');
+    setFont(font);
 }
 
 function closeTerm() {

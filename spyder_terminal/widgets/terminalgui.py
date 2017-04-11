@@ -7,11 +7,12 @@
 # -----------------------------------------------------------------------------
 """Terminal Widget."""
 
+from __future__ import print_function
+
 import sys
 
 from spyder.config.base import _, DEV
 from qtpy.QtCore import Qt, QUrl, Signal, Slot
-from spyder.config.gui import config_shortcut
 from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget, QShortcut)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
@@ -28,7 +29,8 @@ class TerminalWidget(QFrame):
     def __init__(self, parent, font=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
-        self.view = TermView(self, font=font)
+        self.view = TermView(self)
+        self.font = font
 
         layout = QVBoxLayout()
         layout.addWidget(self.view)
@@ -41,11 +43,45 @@ class TerminalWidget(QFrame):
         else:
             self.body = self.view.page().mainFrame()
 
+        self.font_setup = False
+        self.view.page().loadFinished.connect(self.setup_term)
+        self.view.page().contentsChanged.connect(self.contents_modified)
+
+    def contents_modified(self):
+        """Adjust font size after terminal rendering."""
+        if not self.font_setup:
+            self.set_font(self.font)
+            self.font_setup = True
+
+    @Slot(bool)
+    def setup_term(self, finished):
+        """Setup other terminal options after page has loaded."""
+        if finished:
+            # This forces to display the black background
+            print("\0", end='')
+            self.set_font(self.font)
+
+    def eval_javascript(self, script):
+        """Evaluate Javascript instructions inside view."""
+        if WEBENGINE:
+            return self.body.runJavaScript("{}".format(script))
+        else:
+            return self.body.evaluateJavaScript("{}".format(script))
+
+    def set_font(self, font):
+        """Set terminal font via CSS."""
+        self.font = font
+        self.eval_javascript('fitFont("{0}")'.format(self.font))
+
+    def get_fonts(self):
+        """List terminal CSS fonts."""
+        return self.eval_javascript("$('.terminal').css('font-family')")
+
 
 class TermView(WebView):
     """XTerm Wrapper."""
 
-    def __init__(self, parent, term_url='http://127.0.0.1:8070', font=None):
+    def __init__(self, parent, term_url='http://127.0.0.1:8070'):
         """Webview main constructor."""
         WebView.__init__(self, parent)
         self.copy_action = create_action(self, _("Copy text"),
