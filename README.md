@@ -3,6 +3,10 @@ Spyder Plugin for displaying a virtual terminal (OS independent) inside the main
 
 This plugin allows you to execute flawlessly any bash command inside spyder, even ncurses applications like ``nano`` or ``vi``.
 
+## Build status
+[![CircleCI](https://circleci.com/gh/spyder-ide/spyder-terminal.svg?style=svg)](https://circleci.com/gh/spyder-ide/spyder-terminal)
+[![Coverage Status](https://coveralls.io/repos/github/spyder-ide/spyder-terminal/badge.svg?branch=master)](https://coveralls.io/github/spyder-ide/spyder-terminal?branch=master)
+
 ## Installation
 To install this plugin, you can use either ``pip`` or ``conda`` package managers, as it follows:
 
@@ -17,7 +21,7 @@ conda install spyder-terminal
 ```
 
 ## Dependencies
-This project depends on [Spyder](https://github.com/spyder-ide/spyder), [Tornado](https://github.com/tornadoweb/tornado), [pexpect](pexpect.sourceforge.net/pexpect.html) and [Coloredlogs](https://github.com/xolox/python-coloredlogs). It also depends on [xterm.js](https://github.com/sourcelair/xterm.js/)
+This project depends on [Spyder](https://github.com/spyder-ide/spyder), [Tornado](https://github.com/tornadoweb/tornado), [pexpect](https://pexpect.sourceforge.net/pexpect.html) and [Coloredlogs](https://github.com/xolox/python-coloredlogs). It also depends on [xterm.js](https://github.com/sourcelair/xterm.js/)
 
 ## Changelog
 Visit our [CHANGELOG](CHANGELOG.md) file to know more about our new features and improvements.
