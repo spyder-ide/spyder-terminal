@@ -2,13 +2,15 @@
 
 """Main terminal server point of entry."""
 
+import argparse
+import logging
 import os
 import routes
-import logging
-import argparse
+
 import coloredlogs
 import tornado.web
 import tornado.ioloop
+
 from logic import term_manager
 
 

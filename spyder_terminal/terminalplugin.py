@@ -58,7 +58,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.menu_actions = None
         self.port = select_port(default_port=8070)
         self.server = subprocess.Popen(
-            ['python', osp.join(LOCATION, 'server', 'main.py'),
+            [sys.executable, osp.join(LOCATION, 'server', 'main.py'),
              '--port', str(self.port)],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE)
