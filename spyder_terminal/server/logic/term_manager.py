@@ -8,10 +8,11 @@ import os
 import time
 import pexpect
 import hashlib
+
+import pexpect.popen_spawn as pspawn
 import tornado.web
 import tornado.gen
 import tornado.ioloop
-import pexpect.popen_spawn as pspawn
 
 WINDOWS = 'nt'
 
