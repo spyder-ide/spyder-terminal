@@ -7,6 +7,9 @@ var term,
     charHeight,
     path;
 
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
 var terminalContainer = document.getElementById('terminal-container');
 
 function setTerminalSize () {
@@ -48,7 +51,7 @@ function createTerminal() {
         rows = size.rows,
         url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
 
-    fetch(url, {method: 'POST'});
+    fetch(url, {method: 'POST', headers: myHeaders});
   });
   protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
@@ -64,7 +67,7 @@ function createTerminal() {
   console.log(rows);
 
 
-  fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST'}).then(function (res) {
+  fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST', headers: myHeaders}).then(function (res) {
 
     charWidth = Math.ceil(term.element.offsetWidth / cols);
     charHeight = Math.ceil(term.element.offsetHeight / rows);
@@ -113,9 +116,14 @@ function clearTerm()
   term.send('clear\n');
 }
 
+function exec(cmd)
+{
+  term.send(''+cmd+'\n');
+}
+
 function closeTerm() {
   console.log("Closed via server");
-  term.writeln("Pipe closed")
+  term.writeln("Pipe closed");
 }
 
 function runRealTerminal() {
