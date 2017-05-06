@@ -77,6 +77,10 @@ class TerminalWidget(QFrame):
         """List terminal CSS fonts."""
         return self.eval_javascript("$('.terminal').css('font-family')")
 
+    def exec_cmd(self, cmd):
+        """Execute a command inside the terminal."""
+        self.eval_javascript('exec("{0}")'.format(cmd))
+
 
 class TermView(WebView):
     """XTerm Wrapper."""
