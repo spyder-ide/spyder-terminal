@@ -5,7 +5,8 @@ var term,
     pid,
     charWidth,
     charHeight,
-    path;
+    path,
+    curFont;
 
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -97,6 +98,7 @@ function setFont(font) {
 }
 
 function fitFont(font) {
+    curFont = font;
     setFont(font);
     setFont('ubuntu-powerline');
     setFont(font);
@@ -133,4 +135,5 @@ function runRealTerminal() {
   term.writeln("Loading...");
   chdir(path);
   clearTerm();
+  fitFont(curFont);
 }

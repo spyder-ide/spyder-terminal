@@ -21,7 +21,7 @@ from spyder_terminal.terminalplugin import TerminalPlugin
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 
-TERM_UP = 15000
+TERM_UP = 20000
 
 
 def check_pwd(termwidget):
@@ -86,16 +86,19 @@ def test_new_terminal(qtbot):
     assert status_code == 200
 
     # Move to LOCATION
-    qtbot.keyClicks(term.view, 'cd {}'.format(LOCATION))
-    qtbot.keyPress(term.view, Qt.Key_Return)
+    # qtbot.keyClicks(term.view, 'cd {}'.format(LOCATION))
+    # qtbot.keyPress(term.view, Qt.Key_Return)
+    term.exec_cmd('cd {}'.format(LOCATION))
 
     # Clear
-    qtbot.keyClicks(term.view, 'clear')
-    qtbot.keyPress(term.view, Qt.Key_Return)
+    # qtbot.keyClicks(term.view, 'clear')
+    # qtbot.keyPress(term.view, Qt.Key_Return)
+    term.exec_cmd('clear')
 
     # Run pwd
-    qtbot.keyClicks(term.view, 'pwd')
-    qtbot.keyPress(term.view, Qt.Key_Return)
+    # qtbot.keyClicks(term.view, 'pwd')
+    # qtbot.keyPress(term.view, Qt.Key_Return)
+    term.exec_cmd('pwd')
 
     # Assert pwd is LOCATION
     qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
