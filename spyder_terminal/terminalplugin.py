@@ -118,7 +118,7 @@ class TerminalPlugin(SpyderPluginWidget):
     # ------ SpyderPluginWidget API ------------------------------
     def get_plugin_title(self):
         """Return widget title."""
-        title = _('System Terminal')
+        title = _('Terminal')
         return title
 
     def get_plugin_icon(self):
