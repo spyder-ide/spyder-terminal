@@ -47,13 +47,6 @@ class TerminalWidget(QFrame):
 
         self.font_setup = False
         self.view.page().loadFinished.connect(self.setup_term)
-        self.view.page().contentsChanged.connect(self.contents_modified)
-
-    def contents_modified(self):
-        """Adjust font size after terminal rendering."""
-        if not self.font_setup:
-            self.set_font(self.font)
-            self.font_setup = True
 
     @Slot(bool)
     def setup_term(self, finished):
