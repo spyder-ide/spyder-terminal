@@ -251,16 +251,16 @@ class TerminalPlugin(SpyderPluginWidget):
             self.create_new_term()
 
     def set_project_path(self, path):
-        """Refresh current project path"""
+        """Refresh current project path."""
         self.project_path = path
         self.new_terminal_project.setEnabled(True)
 
     def set_current_opened_file(self, path):
-        """Get path of current opened file in editor"""
+        """Get path of current opened file in editor."""
         self.current_file_path = osp.dirname(path)
 
     def unset_project_path(self):
-        """Refresh current project path"""
+        """Refresh current project path."""
         self.project_path = None
         self.new_terminal_project.setEnabled(False)
 
