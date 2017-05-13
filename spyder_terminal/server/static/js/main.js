@@ -128,6 +128,14 @@ function closeTerm() {
   term.writeln("Pipe closed");
 }
 
+function scrollTerm(delta) {
+  var viewport = $('.xterm-viewport');
+  var curScrollPos = viewport.scrollTop();
+  var maxHeight = viewport.prop('scrollHeight') - viewport.innerHeight();
+  curScrollPos = Math.min(maxHeight, Math.max(0, curScrollPos - delta));
+  $('.xterm-viewport').animate({ scrollTop: curScrollPos }, 0);
+}
+
 function runRealTerminal() {
   term.attach(socket);
   console.log("Am I Alive?");

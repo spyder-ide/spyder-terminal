@@ -28,8 +28,6 @@ h1 {
     padding: 0px;
     font-family: 'ubuntu-powerline', monospace;
     height:100%;
-    overflow-y: hidden;
-    overflow-x: hidden;
     font-size: 1em;
     line-height: 1 !important;
 }

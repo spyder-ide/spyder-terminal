@@ -40,10 +40,11 @@ class TerminalWidget(QFrame):
         self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
         self.setLayout(layout)
 
-        if WEBENGINE:
-            self.body = self.view.page()
-        else:
-            self.body = self.view.page().mainFrame()
+        self.body = self.view.document
+        # if WEBENGINE:
+        #     self.body = self.view.page()
+        # else:
+        #     self.body = self.view.page().mainFrame()
 
         self.font_setup = False
         self.view.page().loadFinished.connect(self.setup_term)
@@ -59,10 +60,7 @@ class TerminalWidget(QFrame):
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
-        if WEBENGINE:
-            return self.body.runJavaScript("{}".format(script))
-        else:
-            return self.body.evaluateJavaScript("{}".format(script))
+        return self.view.eval_javascript(script)
 
     def set_dir(self, path):
         """Set terminal initial current working directory."""
@@ -88,6 +86,7 @@ class TermView(WebView):
     def __init__(self, parent, term_url='http://127.0.0.1:8070'):
         """Webview main constructor."""
         WebView.__init__(self, parent)
+        self.parent = parent
         self.copy_action = create_action(self, _("Copy text"),
                                          icon=ima.icon('editcopy'),
                                          triggered=self.copy,
@@ -105,6 +104,13 @@ class TermView(WebView):
         paste_shortcut = QShortcut(QKeySequence("Ctrl+Alt+V"),
                                    self, self.paste)
         paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
+
+        if WEBENGINE:
+            self.document = self.page()
+        else:
+            self.document = self.page().mainFrame()
+
+        self.initial_y_pos = 0
 
     def copy(self):
         """Copy unicode text from terminal."""
@@ -128,6 +134,17 @@ class TermView(WebView):
         add_actions(menu, actions)
         menu.popup(event.globalPos())
         event.accept()
+
+    def eval_javascript(self, script):
+        if WEBENGINE:
+            return self.document.runJavaScript("{}".format(script))
+        else:
+            return self.document.evaluateJavaScript("{}".format(script))
+
+    def wheelEvent(self, event):
+        delta = event.angleDelta().y()
+        self.eval_javascript('scrollTerm({0})'.format(delta))
+        # super(TermView, self).wheelEvent(event)
 
 
 def test():

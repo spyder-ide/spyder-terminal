@@ -21,7 +21,7 @@ from spyder_terminal.terminalplugin import TerminalPlugin
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 
-TERM_UP = 20000
+TERM_UP = 10000
 
 
 def check_pwd(termwidget):
@@ -71,6 +71,7 @@ def test_terminal_tab_title(qtbot):
     num_1 = int(terminal.tabwidget.tabText(0)[-1])
     num_2 = int(terminal.tabwidget.tabText(1)[-1])
     assert num_2 == num_1 + 1
+    terminal.closing_plugin()
 
 
 def test_new_terminal(qtbot):
