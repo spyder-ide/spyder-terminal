@@ -136,15 +136,16 @@ class TermView(WebView):
         event.accept()
 
     def eval_javascript(self, script):
+        """Evaluate Javascript instructions inside DOM."""
         if WEBENGINE:
             return self.document.runJavaScript("{}".format(script))
         else:
             return self.document.evaluateJavaScript("{}".format(script))
 
     def wheelEvent(self, event):
+        """Catch and process wheel scrolling events via Javascript."""
         delta = event.angleDelta().y()
         self.eval_javascript('scrollTerm({0})'.format(delta))
-        # super(TermView, self).wheelEvent(event)
 
 
 def test():
