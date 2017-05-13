@@ -3,6 +3,10 @@ Spyder Plugin for displaying a virtual terminal (OS independent) inside the main
 
 This plugin allows you to execute flawlessly any bash command inside spyder, even ncurses applications like ``nano`` or ``vi``.
 
+## Project info
+[![Project License](https://img.shields.io/pypi/l/spyder-terminal.svg)](./LICENSE.txt)
+[![pypi version](https://img.shields.io/pypi/v/spyder-terminal.svg)](https://pypi.python.org/pypi/spyder-terminal)
+
 ## Build status
 [![CircleCI](https://circleci.com/gh/spyder-ide/spyder-terminal.svg?style=svg)](https://circleci.com/gh/spyder-ide/spyder-terminal)
 [![Coverage Status](https://coveralls.io/repos/github/spyder-ide/spyder-terminal/badge.svg?branch=master)](https://coveralls.io/github/spyder-ide/spyder-terminal?branch=master)

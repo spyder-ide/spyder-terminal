@@ -45,7 +45,7 @@ setup(
     version=__version__,
     cmdclass=cmdclass,
     keywords=['Spyder', 'Plugin'],
-    url='https://github.com/spyder-ide/spyder-ide',
+    url='https://github.com/spyder-ide/spyder-terminal',
     license='MIT',
     author='Spyder Project Contributors',
     author_email='admin@spyder-ide.org',

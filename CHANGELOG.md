@@ -1,3 +1,29 @@
+## Version 0.1.1 (2017/05/12)
+
+### Issues Closed
+
+* [Issue 48](https://github.com/spyder-ide/spyder-terminal/issues/48) - Terminal content not re-scaling to plugin size
+* [Issue 47](https://github.com/spyder-ide/spyder-terminal/issues/47) - Move terminal webview to be inside a QFrame so that dock panes in Spyder are uniform
+* [Issue 46](https://github.com/spyder-ide/spyder-terminal/issues/46) - Rename plugin to "Terminal"
+* [Issue 45](https://github.com/spyder-ide/spyder-terminal/issues/45) - Plugin "Options menu" is empty
+* [Issue 44](https://github.com/spyder-ide/spyder-terminal/issues/44) - Make mouse wheel to work
+* [Issue 43](https://github.com/spyder-ide/spyder-terminal/issues/43) - Getting annoying Qt warnings
+
+In this release 6 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 54](https://github.com/spyder-ide/spyder-terminal/pull/54) - PR: Added more options for opening terminals at different locations
+* [PR 53](https://github.com/spyder-ide/spyder-terminal/pull/53) - PR: Fixed scroller issues
+* [PR 52](https://github.com/spyder-ide/spyder-terminal/pull/52) - PR: Update font size and geometry after terminal has finished loading
+* [PR 51](https://github.com/spyder-ide/spyder-terminal/pull/51) - PR: Update plugin name to Terminal
+* [PR 50](https://github.com/spyder-ide/spyder-terminal/pull/50) - PR: Added Content-Type header to all HTTP requests
+* [PR 49](https://github.com/spyder-ide/spyder-terminal/pull/49) - PR: Removed reference to contentsChanged signal
+* [PR 42](https://github.com/spyder-ide/spyder-terminal/pull/42) - PR: Use sys.executable to start the server
+
+In this release 7 pull requests were closed.
+
+
 ## Version 0.1 (2017/04/11)
 
 ### Issues Closed
