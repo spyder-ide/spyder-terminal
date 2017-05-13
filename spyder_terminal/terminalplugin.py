@@ -28,11 +28,11 @@ from spyder.utils import icon_manager as ima
 from spyder.utils.qthelpers import (create_action, create_toolbutton,
                                     add_actions)
 from spyder.widgets.tabs import Tabs
-from spyder.config.gui import set_shortcut, config_shortcut
+# from spyder.config.gui import set_shortcut, config_shortcut
 # from spyder.plugins import SpyderPluginWidget
 
 from spyder_terminal.widgets.terminalgui import TerminalWidget
-from spyder.py3compat import is_text_string, to_text_string
+# from spyder.py3compat import is_text_string, to_text_string
 from spyder.utils.misc import select_port
 
 from spyder.py3compat import getcwd
@@ -67,6 +67,10 @@ class TerminalPlugin(SpyderPluginWidget):
 
         self.terms = []
         self.untitled_num = 0
+
+        self.project_path = None
+        self.current_file_path = None
+
         self.initialize_plugin()
 
         layout = QVBoxLayout()
@@ -127,7 +131,42 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def get_plugin_actions(self):
         """Get plugin actions."""
-        self.menu_actions = []
+        new_terminal_menu = QMenu(_("Create new terminal"), self)
+        new_terminal_menu.setIcon(ima.icon('project_expanded'))
+        new_terminal_cwd = create_action(self,
+                                         _("Current workspace path"),
+                                         icon=ima.icon('cmdprompt'),
+                                         tip=_("Sets the pwd at "
+                                               "the current workspace "
+                                               "folder"),
+                                         triggered=self.create_new_term)
+
+        self.new_terminal_project = create_action(self,
+                                                  _("Current project folder"),
+                                                  icon=ima.icon('cmdprompt'),
+                                                  tip=_("Sets the pwd at "
+                                                        "the current project "
+                                                        "folder"),
+                                                  triggered=lambda:
+                                                  self.create_new_term(
+                                                      path=self.project_path))
+
+        if self.project_path is None:
+            self.new_terminal_project.setEnabled(False)
+
+        new_terminal_file = create_action(self,
+                                          _("Current opened file folder"),
+                                          icon=ima.icon('cmdprompt'),
+                                          tip=_("Sets the pwd at "
+                                                "the folder that contains "
+                                                "the current opened file"),
+                                          triggered=lambda:
+                                          self.create_new_term(
+                                              path=self.current_file_path))
+        add_actions(new_terminal_menu, (new_terminal_cwd,
+                                        self.new_terminal_project,
+                                        new_terminal_file))
+        self.menu_actions = [None, new_terminal_menu, None]
         return self.menu_actions
 
     def get_focus_widget(self):
@@ -161,6 +200,9 @@ class TerminalPlugin(SpyderPluginWidget):
         """Register plugin in Spyder's main window."""
         self.focus_changed.connect(self.main.plugin_focus_changed)
         self.main.add_dockwidget(self)
+        self.main.projects.sig_project_loaded.connect(self.set_project_path)
+        self.main.projects.sig_project_closed.connect(self.unset_project_path)
+        self.main.editor.open_file_update.connect(self.set_current_opened_file)
         self.create_new_term(give_focus=False)
 
     # ------ Public API (for terminals) -------------------------
@@ -184,10 +226,10 @@ class TerminalPlugin(SpyderPluginWidget):
         if terminal is not None:
             return terminal
 
-    def create_new_term(self, name=None, give_focus=True):
+    def create_new_term(self, name=None, give_focus=True, path=getcwd()):
         """Add a new terminal tab."""
         font = self.get_plugin_font()
-        term = TerminalWidget(self, self.port, path=getcwd(),
+        term = TerminalWidget(self, self.port, path=path,
                               font=font.family())
         self.add_tab(term)
 
@@ -207,6 +249,20 @@ class TerminalPlugin(SpyderPluginWidget):
         self.terms.remove(term)
         if self.tabwidget.count() == 0:
             self.create_new_term()
+
+    def set_project_path(self, path):
+        """Refresh current project path"""
+        self.project_path = path
+        self.new_terminal_project.setEnabled(True)
+
+    def set_current_opened_file(self, path):
+        """Get path of current opened file in editor"""
+        self.current_file_path = osp.dirname(path)
+
+    def unset_project_path(self):
+        """Refresh current project path"""
+        self.project_path = None
+        self.new_terminal_project.setEnabled(False)
 
     # ------ Public API (for tabs) ---------------------------
     def add_tab(self, widget):
