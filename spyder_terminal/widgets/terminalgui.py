@@ -41,12 +41,7 @@ class TerminalWidget(QFrame):
         self.setLayout(layout)
 
         self.body = self.view.document
-        # if WEBENGINE:
-        #     self.body = self.view.page()
-        # else:
-        #     self.body = self.view.page().mainFrame()
 
-        self.font_setup = False
         self.view.page().loadFinished.connect(self.setup_term)
 
     @Slot(bool)
