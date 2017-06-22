@@ -12,7 +12,7 @@ from __future__ import print_function
 import sys
 
 from spyder.config.base import _, DEV
-from qtpy.QtCore import Qt, QUrl, Signal, Slot
+from qtpy.QtCore import Qt, QUrl, Signal, Slot, QObject, QEvent
 from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget, QShortcut)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
@@ -106,6 +106,7 @@ class TermView(WebView):
             self.document = self.page().mainFrame()
 
         self.initial_y_pos = 0
+        self.setFocusPolicy(Qt.ClickFocus)
 
     def copy(self):
         """Copy unicode text from terminal."""
@@ -141,6 +142,30 @@ class TermView(WebView):
         """Catch and process wheel scrolling events via Javascript."""
         delta = event.angleDelta().y()
         self.eval_javascript('scrollTerm({0})'.format(delta))
+
+    def event(self, event):
+        """Grab all keyboard input."""
+        if event.type() == QEvent.ShortcutOverride:
+            key = event.key()
+            modifiers = event.modifiers()
+
+            if modifiers & Qt.ShiftModifier:
+                key += Qt.SHIFT
+            if modifiers & Qt.ControlModifier:
+                key += Qt.CTRL
+            if modifiers & Qt.AltModifier:
+                key += Qt.ALT
+            if modifiers & Qt.MetaModifier:
+                key += Qt.META
+
+            sequence = QKeySequence(key).toString(QKeySequence.PortableText)
+            if sequence == 'Ctrl+Alt+Shift+T':
+                event.ignore()
+                return False
+            event.accept()
+            return True
+
+        return WebView.event(self, event)
 
 
 def test():
