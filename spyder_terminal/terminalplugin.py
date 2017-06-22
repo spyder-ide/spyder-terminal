@@ -57,11 +57,18 @@ class TerminalPlugin(SpyderPluginWidget):
         self.tab_widget = None
         self.menu_actions = None
         self.port = select_port(default_port=8070)
+
+        stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
+        stderr_file = osp.join(getcwd(), 'spyder_terminal_err.log')
+        self.server_stdout = open(stdout_file, 'w')
+        self.server_stderr = open(stderr_file, 'w')
+
         self.server = subprocess.Popen(
             [sys.executable, osp.join(LOCATION, 'server', 'main.py'),
              '--port', str(self.port)],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE)
+            stdout=self.server_stdout,
+            stderr=self.server_stderr)
+
         time.sleep(0.5)
         self.main = parent
 
@@ -104,9 +111,9 @@ class TerminalPlugin(SpyderPluginWidget):
         layout.addWidget(self.tabwidget)
         self.setLayout(layout)
 
-        paste_shortcut = QShortcut(QKeySequence("Ctrl+Shift+T"),
-                                   self, self.create_new_term)
-        paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
+        new_term_shortcut = QShortcut(QKeySequence("Ctrl+Alt+Shift+T"),
+                                      self, self.create_new_term)
+        new_term_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
     # ------ SpyderPluginMixin API --------------------------------
     def on_first_registration(self):
@@ -185,6 +192,8 @@ class TerminalPlugin(SpyderPluginWidget):
         for term in self.terms:
             term.close()
         self.server.terminate()
+        self.server_stdout.close()
+        self.server_stderr.close()
         return True
 
     def refresh_plugin(self):

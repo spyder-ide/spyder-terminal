@@ -12,5 +12,5 @@ from qtpy import PYQT5
 if PYQT5:
     from .terminalplugin import TerminalPlugin as PLUGIN_CLASS
 
-VERSION_INFO = (0, 1, 1)
+VERSION_INFO = (0, 1, 2)
 __version__ = '.'.join(map(str, VERSION_INFO))
