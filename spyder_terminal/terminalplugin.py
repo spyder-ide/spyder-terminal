@@ -36,6 +36,7 @@ from spyder_terminal.widgets.terminalgui import TerminalWidget
 from spyder.utils.misc import select_port
 
 from spyder.py3compat import getcwd
+from spyder.config.base import DEV
 
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
@@ -58,10 +59,13 @@ class TerminalPlugin(SpyderPluginWidget):
         self.menu_actions = None
         self.port = select_port(default_port=8070)
 
-        stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
-        stderr_file = osp.join(getcwd(), 'spyder_terminal_err.log')
-        self.server_stdout = open(stdout_file, 'w')
-        self.server_stderr = open(stderr_file, 'w')
+        self.server_stdout = subprocess.PIPE
+        self.server_stderr = subprocess.PIPE
+        if DEV:
+            stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
+            stderr_file = osp.join(getcwd(), 'spyder_terminal_err.log')
+            self.server_stdout = open(stdout_file, 'w')
+            self.server_stderr = open(stderr_file, 'w')
 
         self.server = subprocess.Popen(
             [sys.executable, osp.join(LOCATION, 'server', 'main.py'),
@@ -192,8 +196,9 @@ class TerminalPlugin(SpyderPluginWidget):
         for term in self.terms:
             term.close()
         self.server.terminate()
-        self.server_stdout.close()
-        self.server_stderr.close()
+        if DEV:
+            self.server_stdout.close()
+            self.server_stderr.close()
         return True
 
     def refresh_plugin(self):
