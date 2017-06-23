@@ -128,7 +128,7 @@ class TerminalPlugin(SpyderPluginWidget):
         try:
             code = requests.get('http://127.0.0.1:{0}'.format(
                 self.port)).status_code
-        except Exception:
+        except:
             code = 500
 
         if self.server_retries == self.MAX_SERVER_CONTACT_RETRIES:

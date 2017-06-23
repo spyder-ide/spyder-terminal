@@ -3,3 +3,4 @@ pexpect
 tornado>=4.4.3
 logging
 coloredlogs
+requests
