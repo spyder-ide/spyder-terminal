@@ -53,7 +53,6 @@ class TerminalPlugin(SpyderPluginWidget):
     CONF_SECTION = 'terminal'
     focus_changed = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
-    sig_server_is_up = Signal()
 
     def __init__(self, parent):
         """Widget constructor."""
@@ -149,7 +148,6 @@ class TerminalPlugin(SpyderPluginWidget):
             QTimer.singleShot(250, self.__wait_server_to_start)
         elif code == 200:
             self.create_new_term(give_focus=False)
-            self.sig_server_is_up.emit()
 
     # ------ SpyderPluginMixin API --------------------------------
     def on_first_registration(self):
