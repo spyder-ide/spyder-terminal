@@ -74,6 +74,10 @@ class TerminalWidget(QFrame):
         """Execute a command inside the terminal."""
         self.eval_javascript('exec("{0}")'.format(cmd))
 
+    def is_alive(self):
+        """Check if xterm is ready"""
+        return self.eval_javascript('consoleReady()')
+
 
 class TermView(WebView):
     """XTerm Wrapper."""

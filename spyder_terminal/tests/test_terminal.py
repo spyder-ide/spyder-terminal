@@ -56,8 +56,10 @@ def setup_terminal(qtbot):
 def test_terminal_font(qtbot):
     """Test if terminal loads a custom font."""
     terminal = setup_terminal(qtbot)
-    term = terminal.get_current_term()
+    terminal.close_term()
     qtbot.wait(TERM_UP)
+
+    term = terminal.get_current_term()
     port = terminal.port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
@@ -70,6 +72,7 @@ def test_terminal_font(qtbot):
 def test_terminal_tab_title(qtbot):
     """Test if terminal tab titles are numbered sequentially."""
     terminal = setup_terminal(qtbot)
+    terminal.close_term()
     qtbot.wait(TERM_UP)
     terminal.create_new_term()
     num_1 = int(terminal.tabwidget.tabText(0)[-1])
@@ -82,8 +85,9 @@ def test_new_terminal(qtbot):
     """Test if a new terminal is added."""
     # Setup widget
     terminal = setup_terminal(qtbot)
-    term = terminal.get_current_term()
+    terminal.close_term()
     qtbot.wait(TERM_UP)
+    term = terminal.get_current_term()
 
     # Test if server is running
     port = terminal.port
@@ -107,7 +111,7 @@ def test_new_terminal(qtbot):
 
     # Assert pwd is LOCATION
     qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
-    assert len(terminal.terms) == 1
+
     terminal.closing_plugin()
 
 
