@@ -112,6 +112,7 @@ def test_new_terminal(qtbot):
 
 
 def test_output_redirection(qtbot):
+    """Test if stdout and stderr are redirected on DEV mode"""
     spyder_terminal.terminalplugin.DEV = True
     terminal = setup_terminal(qtbot)
 
