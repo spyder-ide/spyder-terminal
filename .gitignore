@@ -93,3 +93,6 @@ ENV/
 
 # Bower components
 spyder_terminal/server/static/components/*
+
+# Log files
+.log

@@ -7,16 +7,20 @@
 """Tests for the plugin."""
 
 # Test library imports
+
 import os
 import pytest
-import os.path
 import requests
+import os.path as osp
 # from OpenGL import GL
 from qtpy.QtCore import Qt
 from qtpy.QtWebEngineWidgets import WEBENGINE
 
 # Local imports
+import spyder_terminal.terminalplugin
 from spyder_terminal.terminalplugin import TerminalPlugin
+from spyder.py3compat import getcwd
+
 
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
@@ -104,4 +108,14 @@ def test_new_terminal(qtbot):
     # Assert pwd is LOCATION
     qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
     assert len(terminal.terms) == 1
+    terminal.closing_plugin()
+
+
+def test_output_redirection(qtbot):
+    spyder_terminal.terminalplugin.DEV = True
+    terminal = setup_terminal(qtbot)
+
+    stdout = osp.join(getcwd(), 'spyder_terminal_out.log')
+    stderr = osp.join(getcwd(), 'spyder_terminal_err.log')
+    assert osp.exists(stdout) and osp.exists(stderr)
     terminal.closing_plugin()
