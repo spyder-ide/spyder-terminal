@@ -10,13 +10,14 @@
 import os
 import sys
 import time
+import requests
 import subprocess
 import os.path as osp
 
 from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
                             QShortcut)
 
-from qtpy.QtCore import Qt, Signal
+from qtpy.QtCore import Qt, Signal, QTimer
 from qtpy.QtGui import QKeySequence
 
 from spyder.plugins import SpyderPluginWidget
@@ -51,21 +52,23 @@ class TerminalPlugin(SpyderPluginWidget):
 
     CONF_SECTION = 'terminal'
     focus_changed = Signal()
+    MAX_SERVER_CONTACT_RETRIES = 40
 
     def __init__(self, parent):
         """Widget constructor."""
         SpyderPluginWidget.__init__(self, parent)
         self.tab_widget = None
         self.menu_actions = None
+        self.server_retries = 0
         self.port = select_port(default_port=8070)
 
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
+        self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
+        self.stderr_file = osp.join(getcwd(), 'spyder_terminal_err.log')
         if DEV:
-            stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
-            stderr_file = osp.join(getcwd(), 'spyder_terminal_err.log')
-            self.server_stdout = open(stdout_file, 'w')
-            self.server_stderr = open(stderr_file, 'w')
+            self.server_stdout = open(self.stdout_file, 'w')
+            self.server_stderr = open(self.stderr_file, 'w')
 
         self.server = subprocess.Popen(
             [sys.executable, osp.join(LOCATION, 'server', 'main.py'),
@@ -73,7 +76,7 @@ class TerminalPlugin(SpyderPluginWidget):
             stdout=self.server_stdout,
             stderr=self.server_stderr)
 
-        time.sleep(0.5)
+
         self.main = parent
 
         self.terms = []
@@ -118,6 +121,34 @@ class TerminalPlugin(SpyderPluginWidget):
         new_term_shortcut = QShortcut(QKeySequence("Ctrl+Alt+Shift+T"),
                                       self, self.create_new_term)
         new_term_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
+
+        self.__wait_server_to_start()
+
+    # ------ Private API ------------------------------------------
+    def __wait_server_to_start(self):
+        try:
+            code = requests.get('http://127.0.0.1:{0}'.format(
+                self.port)).status_code
+        except Exception:
+            code = 500
+
+        if self.server_retries == self.MAX_SERVER_CONTACT_RETRIES:
+            QMessageBox.Critical(self, _('Spyder Terminal Error'),
+                                 _("Terminal server could not be located at "
+                                   '<a href="http://127.0.0.1:{0}">'
+                                   'http://127.0.0.1:{0}</a>,'
+                                   ' please restart Spyder on debugging mode '
+                                   "and open an issue with the contents of "
+                                   "<tt>{1}</tt> and <tt>{2}</tt> "
+                                   "files.".format(self.port,
+                                                   self.stdout_file,
+                                                   self.stderr_file)),
+                                 QMessageBox.Ok)
+        elif code != 200:
+            self.server_retries += 1
+            QTimer.singleShot(250, self.__wait_server_to_start)
+        elif code == 200:
+            self.create_new_term(give_focus=False)
 
     # ------ SpyderPluginMixin API --------------------------------
     def on_first_registration(self):
@@ -217,7 +248,6 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
-        self.create_new_term(give_focus=False)
 
     # ------ Public API (for terminals) -------------------------
     def get_terms(self):
