@@ -31,7 +31,7 @@ def get_description():
     return data
 
 
-REQUIREMENTS = ['spyder>=3', 'pexpect', 'tornado', 'coloredlogs']
+REQUIREMENTS = ['spyder>=3', 'pexpect', 'tornado', 'coloredlogs', 'requests']
 
 cmdclass = {
     'build_static': BuildStatic,
