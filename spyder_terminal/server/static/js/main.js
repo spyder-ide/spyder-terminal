@@ -128,6 +128,10 @@ function closeTerm() {
   term.writeln("Pipe closed");
 }
 
+function consoleReady() {
+  return term._initialized
+}
+
 function scrollTerm(delta) {
   var viewport = $('.xterm-viewport');
   var curScrollPos = viewport.scrollTop();
