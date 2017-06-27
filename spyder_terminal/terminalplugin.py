@@ -50,6 +50,7 @@ LOCATION = osp.realpath(osp.join(os.getcwd(),
 class TerminalPlugin(SpyderPluginWidget):
     """Terminal plugin."""
 
+    URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
     CONF_SECTION = 'terminal'
     focus_changed = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
@@ -139,9 +140,10 @@ class TerminalPlugin(SpyderPluginWidget):
                                    ' please restart Spyder on debugging mode '
                                    "and open an issue with the contents of "
                                    "<tt>{1}</tt> and <tt>{2}</tt> "
-                                   "files.".format(self.port,
-                                                   self.stdout_file,
-                                                   self.stderr_file)),
+                                   "files at {3}.".format(self.port,
+                                                          self.stdout_file,
+                                                          self.stderr_file,
+                                                          self.URL_ISSUES)),
                                  QMessageBox.Ok)
         elif code != 200:
             self.server_retries += 1
