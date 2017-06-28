@@ -154,7 +154,7 @@ class TerminalPlugin(SpyderPluginWidget):
     # ------ SpyderPluginMixin API --------------------------------
     def on_first_registration(self):
         """Action to be performed on first plugin registration."""
-        self.main.tabify_plugins(self.main.extconsole, self)
+        self.main.tabify_plugins(self.main.ipyconsole, self)
 
     def update_font(self):
         """Update font from Preferences."""
