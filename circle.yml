@@ -28,8 +28,11 @@ dependencies:
       export PATH="$HOME/miniconda/bin:$PATH" &&
       source activate test &&
       conda install -q ciocheck -c spyder-ide --no-update-deps &&
-      if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip install -q pyqt5 spyder tornado pexpect; else conda install -q spyder tornado pexpect; fi &&
-      python setup.py build_static &&
+      if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip install -q pyqt5 tornado pexpect; else conda install -q -y spyder && conda install tornado pexpect; fi &&
+      mkdir spyder-source && cd spyder-source &&
+      wget -q https://github.com/spyder-ide/spyder/archive/3.x.zip && unzip -q 3.x.zip &&
+      cd spyder-3.x && python setup.py install > /dev/null &&
+      cd ../../ && python setup.py build_static &&
       pip install .;
     - DISPLAY=:99 /usr/bin/matchbox-window-manager:
         background: true
