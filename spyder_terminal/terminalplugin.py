@@ -9,7 +9,6 @@
 
 import os
 import sys
-import time
 import requests
 import subprocess
 import os.path as osp
@@ -164,17 +163,11 @@ class TerminalPlugin(SpyderPluginWidget):
             term.set_font(font.family())
 
     def check_compatibility(self):
-        """
-        This method can be implemented to check compatibility of a plugin
-        for a given condition.
-
-        `message` should give information in case of non compatibility:
-        For example: 'This plugin does not work with Qt4'
-        """
+        """Check if current Qt backend version is greater or equal to 5."""
         message = ''
         valid = True
         if not PYQT5:
-            message = 'Spyder terminal does not work with Qt4'
+            message = 'Spyder-terminal does not work with Qt4'
             valid = False
         return valid, message
 
