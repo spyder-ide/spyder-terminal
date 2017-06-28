@@ -9,11 +9,11 @@
 
 import os
 import sys
-import time
 import requests
 import subprocess
 import os.path as osp
 
+from qtpy import PYQT5
 from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
                             QShortcut)
 
@@ -161,6 +161,15 @@ class TerminalPlugin(SpyderPluginWidget):
         font = self.get_plugin_font()
         for term in self.terms:
             term.set_font(font.family())
+
+    def check_compatibility(self):
+        """Check if current Qt backend version is greater or equal to 5."""
+        message = ''
+        valid = True
+        if not PYQT5:
+            message = 'Spyder-terminal does not work with Qt4'
+            valid = False
+        return valid, message
 
     # ------ SpyderPluginWidget API ------------------------------
     def get_plugin_title(self):
