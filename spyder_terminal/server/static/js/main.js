@@ -8,6 +8,7 @@ var term,
     path,
     curFont;
 
+var lineEnd = '\n';
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -110,17 +111,17 @@ function setcwd(cwd) {
 }
 
 function chdir(path) {
-  term.send('cd '+path+'\n');
+  term.send('cd '+path+lineEnd);
 }
 
 function clearTerm()
 {
-  term.send('clear\n');
+  term.send('clear' + lineEnd);
 }
 
 function exec(cmd)
 {
-  term.send(''+cmd+'\n');
+  term.send(''+cmd+lineEnd);
 }
 
 function closeTerm() {
@@ -142,10 +143,17 @@ function scrollTerm(delta) {
 
 function runRealTerminal() {
   term.attach(socket);
-  console.log("Am I Alive?");
   term._initialized = true;
+  lineEnd = term.browser.isMSWindows ? '\r\n' : '\n'
   term.writeln("Loading...");
-  chdir(path);
-  clearTerm();
-  fitFont(curFont);
+
+  var initialX = term.x;
+  var timer = setInterval(function() {
+    if(term.x != initialX) {
+      chdir(path);
+      clearTerm();
+      fitFont(curFont);
+      clearInterval(timer);
+    }
+  }, 200);
 }
