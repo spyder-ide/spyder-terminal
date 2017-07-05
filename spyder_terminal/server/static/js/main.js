@@ -58,7 +58,7 @@ function createTerminal() {
   protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
 
-  term.open(terminalContainer);
+  term.open(terminalContainer, true);
   term.fit();
   term.toggleFullscreen(true);
 
@@ -87,26 +87,23 @@ function createTerminal() {
 }
 
 function setFont(font) {
-   fonts = "'ubuntu-powerline', monospace";
+   fonts = "'Ubuntu Mono', monospace";
    fonts = "'"+font+"', "+fonts;
    $('.terminal').css('font-family', fonts);
    term.fit();
    var initialGeometry = term.proposeGeometry(),
        cols = initialGeometry.cols,
        rows = initialGeometry.rows;
-   console.log(cols);
-   console.log(rows);
 }
 
 function fitFont(font) {
     curFont = font;
     setFont(font);
-    setFont('ubuntu-powerline');
+    setFont('Ubuntu Mono');
     setFont(font);
 }
 
 function setcwd(cwd) {
-  console.log(cwd);
   path = cwd;
 }
 
@@ -144,7 +141,6 @@ function scrollTerm(delta) {
 function runRealTerminal() {
   term.attach(socket);
   term._initialized = true;
-  lineEnd = term.browser.isMSWindows ? '\r\n' : '\n'
   term.writeln("Loading...");
 
   var initialX = term.x;
