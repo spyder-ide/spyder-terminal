@@ -90,7 +90,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
         self.project_path = None
         self.current_file_path = None
-        self.current_cwd = None
+        self.current_cwd = getcwd()
 
         self.initialize_plugin()
 
