@@ -17,7 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "xterm.js": "^2.4.0",
+    "xterm.js": "^2.7.0",
     "fetch": "^2.0.3",
     "promise-polyfill": "^6.0.2",
     "jquery": "^3.2.1"

@@ -7,16 +7,20 @@
 """Tests for the plugin."""
 
 # Test library imports
+
 import os
 import pytest
-import os.path
 import requests
+import os.path as osp
 # from OpenGL import GL
 from qtpy.QtCore import Qt
 from qtpy.QtWebEngineWidgets import WEBENGINE
 
 # Local imports
+import spyder_terminal.terminalplugin
 from spyder_terminal.terminalplugin import TerminalPlugin
+from spyder.py3compat import getcwd
+
 
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
@@ -52,14 +56,15 @@ def setup_terminal(qtbot):
 def test_terminal_font(qtbot):
     """Test if terminal loads a custom font."""
     terminal = setup_terminal(qtbot)
-    term = terminal.get_current_term()
     qtbot.wait(TERM_UP)
+
+    term = terminal.get_current_term()
     port = terminal.port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
     term.set_font('Ubuntu Mono')
     fonts = term.get_fonts()
-    assert fonts == "'Ubuntu Mono', ubuntu-powerline, monospace"
+    assert fonts == "'Ubuntu Mono', 'Ubuntu Mono', monospace"
     terminal.closing_plugin()
 
 
@@ -78,8 +83,8 @@ def test_new_terminal(qtbot):
     """Test if a new terminal is added."""
     # Setup widget
     terminal = setup_terminal(qtbot)
-    term = terminal.get_current_term()
     qtbot.wait(TERM_UP)
+    term = terminal.get_current_term()
 
     # Test if server is running
     port = terminal.port
@@ -103,5 +108,16 @@ def test_new_terminal(qtbot):
 
     # Assert pwd is LOCATION
     qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
-    assert len(terminal.terms) == 1
+
+    terminal.closing_plugin()
+
+
+def test_output_redirection(qtbot):
+    """Test if stdout and stderr are redirected on DEV mode."""
+    spyder_terminal.terminalplugin.DEV = True
+    terminal = setup_terminal(qtbot)
+
+    stdout = osp.join(getcwd(), 'spyder_terminal_out.log')
+    stderr = osp.join(getcwd(), 'spyder_terminal_err.log')
+    assert osp.exists(stdout) and osp.exists(stderr)
     terminal.closing_plugin()

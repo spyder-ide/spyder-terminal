@@ -12,7 +12,7 @@ from __future__ import print_function
 import sys
 
 from spyder.config.base import _, DEV
-from qtpy.QtCore import Qt, QUrl, Signal, Slot
+from qtpy.QtCore import Qt, QUrl, Signal, Slot, QObject, QEvent
 from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget, QShortcut)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
@@ -74,6 +74,10 @@ class TerminalWidget(QFrame):
         """Execute a command inside the terminal."""
         self.eval_javascript('exec("{0}")'.format(cmd))
 
+    def is_alive(self):
+        """Check if xterm is ready."""
+        return self.eval_javascript('consoleReady()')
+
 
 class TermView(WebView):
     """XTerm Wrapper."""
@@ -85,27 +89,22 @@ class TermView(WebView):
         self.copy_action = create_action(self, _("Copy text"),
                                          icon=ima.icon('editcopy'),
                                          triggered=self.copy,
-                                         shortcut='Ctrl+Alt+C')
+                                         shortcut='Ctrl+Shift+C')
         self.paste_action = create_action(self, _("Paste text"),
                                           icon=ima.icon('editpaste'),
                                           triggered=self.paste,
-                                          shortcut='Ctrl+Alt+V')
+                                          shortcut='Ctrl+Shift+V')
         self.term_url = QUrl(term_url)
         self.load(self.term_url)
-        copy_shortcut = QShortcut(QKeySequence("Ctrl+Alt+C"),
-                                  self, self.copy)
-        copy_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
-
-        paste_shortcut = QShortcut(QKeySequence("Ctrl+Alt+V"),
-                                   self, self.paste)
-        paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
         if WEBENGINE:
             self.document = self.page()
+            self.document.profile().clearHttpCache()
         else:
             self.document = self.page().mainFrame()
 
         self.initial_y_pos = 0
+        self.setFocusPolicy(Qt.ClickFocus)
 
     def copy(self):
         """Copy unicode text from terminal."""
@@ -141,6 +140,35 @@ class TermView(WebView):
         """Catch and process wheel scrolling events via Javascript."""
         delta = event.angleDelta().y()
         self.eval_javascript('scrollTerm({0})'.format(delta))
+
+    def event(self, event):
+        """Grab all keyboard input."""
+        if event.type() == QEvent.ShortcutOverride:
+            key = event.key()
+            modifiers = event.modifiers()
+
+            if modifiers & Qt.ShiftModifier:
+                key += Qt.SHIFT
+            if modifiers & Qt.ControlModifier:
+                key += Qt.CTRL
+            if modifiers & Qt.AltModifier:
+                key += Qt.ALT
+            if modifiers & Qt.MetaModifier:
+                key += Qt.META
+
+            sequence = QKeySequence(key).toString(QKeySequence.PortableText)
+
+            if sequence == 'Ctrl+Alt+Shift+T':
+                event.ignore()
+                return False
+            elif sequence == 'Ctrl+Shift+C':
+                self.copy()
+            elif sequence == 'Ctrl+Shift+V':
+                self.paste()
+            event.accept()
+            return True
+
+        return WebView.event(self, event)
 
 
 def test():

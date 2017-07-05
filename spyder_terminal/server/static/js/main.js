@@ -8,6 +8,7 @@ var term,
     path,
     curFont;
 
+var lineEnd = '\n';
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -57,7 +58,7 @@ function createTerminal() {
   protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
 
-  term.open(terminalContainer);
+  term.open(terminalContainer, true);
   term.fit();
   term.toggleFullscreen(true);
 
@@ -86,46 +87,47 @@ function createTerminal() {
 }
 
 function setFont(font) {
-   fonts = "'ubuntu-powerline', monospace";
+   fonts = "'Ubuntu Mono', monospace";
    fonts = "'"+font+"', "+fonts;
    $('.terminal').css('font-family', fonts);
    term.fit();
    var initialGeometry = term.proposeGeometry(),
        cols = initialGeometry.cols,
        rows = initialGeometry.rows;
-   console.log(cols);
-   console.log(rows);
 }
 
 function fitFont(font) {
     curFont = font;
     setFont(font);
-    setFont('ubuntu-powerline');
+    setFont('Ubuntu Mono');
     setFont(font);
 }
 
 function setcwd(cwd) {
-  console.log(cwd);
   path = cwd;
 }
 
 function chdir(path) {
-  term.send('cd '+path+'\n');
+  term.send('cd '+path+lineEnd);
 }
 
 function clearTerm()
 {
-  term.send('clear\n');
+  term.send('clear' + lineEnd);
 }
 
 function exec(cmd)
 {
-  term.send(''+cmd+'\n');
+  term.send(''+cmd+lineEnd);
 }
 
 function closeTerm() {
   console.log("Closed via server");
   term.writeln("Pipe closed");
+}
+
+function consoleReady() {
+  return term._initialized
 }
 
 function scrollTerm(delta) {
@@ -138,10 +140,16 @@ function scrollTerm(delta) {
 
 function runRealTerminal() {
   term.attach(socket);
-  console.log("Am I Alive?");
   term._initialized = true;
   term.writeln("Loading...");
-  chdir(path);
-  clearTerm();
-  fitFont(curFont);
+
+  var initialX = term.x;
+  var timer = setInterval(function() {
+    if(term.x != initialX) {
+      chdir(path);
+      clearTerm();
+      fitFont(curFont);
+      clearInterval(timer);
+    }
+  }, 200);
 }
