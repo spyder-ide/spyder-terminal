@@ -61,7 +61,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.tab_widget = None
         self.menu_actions = None
         self.server_retries = 0
-        self.port = select_port(default_port=8070)
+        self.port = select_port(default_port=8071)
 
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
