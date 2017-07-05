@@ -331,6 +331,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     @Slot(str)
     def set_current_cwd(self, cwd):
+        """Update current working directory."""
         self.current_cwd = cwd
 
     # ------ Public API (for tabs) ---------------------------
