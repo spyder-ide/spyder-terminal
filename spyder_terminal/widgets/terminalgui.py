@@ -89,23 +89,17 @@ class TermView(WebView):
         self.copy_action = create_action(self, _("Copy text"),
                                          icon=ima.icon('editcopy'),
                                          triggered=self.copy,
-                                         shortcut='Ctrl+Alt+C')
+                                         shortcut='Ctrl+Shift+C')
         self.paste_action = create_action(self, _("Paste text"),
                                           icon=ima.icon('editpaste'),
                                           triggered=self.paste,
-                                          shortcut='Ctrl+Alt+V')
+                                          shortcut='Ctrl+Shift+V')
         self.term_url = QUrl(term_url)
         self.load(self.term_url)
-        copy_shortcut = QShortcut(QKeySequence("Ctrl+Alt+C"),
-                                  self, self.copy)
-        copy_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
-
-        paste_shortcut = QShortcut(QKeySequence("Ctrl+Alt+V"),
-                                   self, self.paste)
-        paste_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
         if WEBENGINE:
             self.document = self.page()
+            self.document.profile().clearHttpCache()
         else:
             self.document = self.page().mainFrame()
 
@@ -163,9 +157,14 @@ class TermView(WebView):
                 key += Qt.META
 
             sequence = QKeySequence(key).toString(QKeySequence.PortableText)
+
             if sequence == 'Ctrl+Alt+Shift+T':
                 event.ignore()
                 return False
+            elif sequence == 'Ctrl+Shift+C':
+                self.copy()
+            elif sequence == 'Ctrl+Shift+V':
+                self.paste()
             event.accept()
             return True
 
