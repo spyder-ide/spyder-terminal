@@ -293,6 +293,7 @@ class TerminalPlugin(SpyderPluginWidget):
         """Add a new terminal tab."""
         if path is None:
             path = self.current_cwd
+        path = path.replace('\\', '/')
         font = self.get_plugin_font()
         term = TerminalWidget(self, self.port, path=path,
                               font=font.family())
