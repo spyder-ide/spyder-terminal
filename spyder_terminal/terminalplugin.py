@@ -26,6 +26,7 @@ from spyder.plugins import SpyderPluginWidget
 
 from spyder.config.base import _
 from spyder.utils import icon_manager as ima
+from spyder.utils.programs import find_program
 from spyder.utils.qthelpers import (create_action, create_toolbutton,
                                     add_actions)
 from spyder.widgets.tabs import Tabs
@@ -41,6 +42,7 @@ from spyder.config.base import DEV
 
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
+WINDOWS = os.name == 'nt'
 
 # class TerminalConfigPage(PluginConfigPage):
 #     """Terminal plugin preferences."""
@@ -63,6 +65,10 @@ class TerminalPlugin(SpyderPluginWidget):
         self.server_retries = 0
         self.port = select_port(default_port=8071)
 
+        self.cmd = '/usr/bin/env bash'
+        if WINDOWS:
+            self.cmd = find_program('cmd.exe')
+
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
         self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
@@ -73,7 +79,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
         self.server = subprocess.Popen(
             [sys.executable, osp.join(LOCATION, 'server', 'main.py'),
-             '--port', str(self.port)],
+             '--port', str(self.port), '--shell', self.cmd],
             stdout=self.server_stdout,
             stderr=self.server_stderr)
 

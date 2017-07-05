@@ -11,9 +11,9 @@ import tornado.web
 import tornado.gen
 import tornado.ioloop
 
-WINDOWS = 'nt'
+WINDOWS = os.name == 'nt'
 
-if os.name == WINDOWS:
+if WINDOWS:
     import winpty as pty
 else:
     import pexpect as pty
@@ -35,7 +35,7 @@ class TermReader(object):
         """Consume lines from stream each 100ms."""
         try:
             timeout = 0
-            if os.name == WINDOWS:
+            if WINDOWS:
                 _in = self.tty.read(1000)
                 self.socket.notify(_in)
             else:
@@ -51,13 +51,9 @@ class TermReader(object):
 class TermManager(object):
     """Wrapper around pexpect to execute local commands."""
 
-    def __init__(self):
+    def __init__(self, cmd):
         """Main terminal handler constructor."""
-        self.os = os.name
-        if self.os == WINDOWS:
-            self.cmd = r'C:\windows\system32\cmd.exe'
-        else:
-            self.cmd = '/usr/bin/env bash'
+        self.cmd = cmd
         self.sockets = {}
         self.consoles = {}
 
@@ -65,7 +61,7 @@ class TermManager(object):
     def create_term(self, rows, cols):
         """Create a new virtual terminal."""
         pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
-        if self.os == WINDOWS:
+        if WINDOWS:
             tty = pty.PTY(cols, rows)
             tty.spawn(self.cmd)
         else:
@@ -79,7 +75,7 @@ class TermManager(object):
         """Start reading a virtual terminal."""
         term = self.consoles[pid]
         self.sockets[pid] = socket
-        if self.os != WINDOWS:
+        if not WINDOWS:
             term['tty'].expect('')
         term['read'] = TermReader(term['tty'], socket)
 
@@ -95,7 +91,7 @@ class TermManager(object):
     def execute(self, pid, cmd):
         """Write characters to terminal."""
         term = self.consoles[pid]['tty']
-        if self.os == WINDOWS:
+        if WINDOWS:
             term.write(cmd)
         else:
             term.send(cmd)
@@ -104,7 +100,7 @@ class TermManager(object):
     def resize_term(self, pid, rows, cols):
         """Resize terminal."""
         term = self.consoles[pid]['tty']
-        if self.os != WINDOWS:
+        if not WINDOWS:
             term.setwinsize(rows, cols)
         else:
             term.set_size(cols, rows)
