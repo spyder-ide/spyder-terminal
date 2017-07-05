@@ -64,7 +64,7 @@ def test_terminal_font(qtbot):
     assert status_code == 200
     term.set_font('Ubuntu Mono')
     fonts = term.get_fonts()
-    assert fonts == "'Ubuntu Mono', ubuntu-powerline, monospace"
+    assert fonts == "'Ubuntu Mono', 'Ubuntu Mono', monospace"
     terminal.closing_plugin()
 
 
