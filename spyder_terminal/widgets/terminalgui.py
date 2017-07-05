@@ -163,8 +163,6 @@ class TermView(WebView):
                 return False
             elif sequence == 'Ctrl+Shift+C':
                 self.copy()
-                # event.ignore()
-                # return False
             elif sequence == 'Ctrl+Shift+V':
                 self.paste()
             event.accept()
