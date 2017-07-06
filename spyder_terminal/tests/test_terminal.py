@@ -22,6 +22,7 @@ from spyder.py3compat import getcwd
 
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
+LOCATION_SLASH = LOCATION.replace('\\', '/')
 
 TERM_UP = 10000
 WINDOWS = os.name == 'nt'
@@ -91,17 +92,19 @@ def test_new_terminal(qtbot):
     # Setup widget
     terminal = setup_terminal(qtbot)
     qtbot.wait(TERM_UP)
-    term = terminal.get_current_term()
 
     # Test if server is running
     port = terminal.port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
 
+    terminal.create_new_term()
+    term = terminal.get_current_term()
+    qtbot.wait(1000)
     # Move to LOCATION
     # qtbot.keyClicks(term.view, 'cd {}'.format(LOCATION))
     # qtbot.keyPress(term.view, Qt.Key_Return)
-    term.exec_cmd('cd {}'.format(LOCATION))
+    term.exec_cmd('cd {}'.format(LOCATION_SLASH))
 
     # Clear
     # qtbot.keyClicks(term.view, 'clear')
