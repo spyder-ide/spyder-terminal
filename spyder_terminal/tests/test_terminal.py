@@ -32,7 +32,7 @@ if WINDOWS:
 
 PWD = 'pwd'
 if WINDOWS:
-    PWD = 'pwd'
+    PWD = 'cd'
 
 
 def check_pwd(termwidget):
