@@ -9,7 +9,7 @@ This plugin allows you to execute flawlessly any bash command inside spyder, eve
 
 ## Build status
 [![CircleCI](https://circleci.com/gh/spyder-ide/spyder-terminal.svg?style=svg)](https://circleci.com/gh/spyder-ide/spyder-terminal)
-[![Build status](https://ci.appveyor.com/api/projects/status/cowkuaebgeeq45v1?svg=true)](https://ci.appveyor.com/project/spyder-ide/spyder-terminal)
+[![Build status](https://ci.appveyor.com/api/projects/status/edsy2hkd3rwcfjrg?svg=true)](https://ci.appveyor.com/project/spyder-ide/spyder-terminal)
 [![Coverage Status](https://coveralls.io/repos/github/spyder-ide/spyder-terminal/badge.svg?branch=master)](https://coveralls.io/github/spyder-ide/spyder-terminal?branch=master)
 
 ## Installation
