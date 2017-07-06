@@ -9,6 +9,7 @@ var term,
     curFont;
 
 var lineEnd = '\n';
+var clearCmd = 'clear';
 var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -113,12 +114,12 @@ function chdir(path) {
 
 function clearTerm()
 {
-  term.send('clear' + lineEnd);
+  term.send(clearCmd + lineEnd);
 }
 
 function exec(cmd)
 {
-  term.send(''+cmd+lineEnd);
+  term.send('' + cmd + lineEnd);
 }
 
 function closeTerm() {
@@ -142,10 +143,13 @@ function runRealTerminal() {
   term.attach(socket);
   term._initialized = true;
   term.writeln("Loading...");
+  lineEnd = term.browser.isMSWindows ? '\r\n' : '\n';
+  clearCmd = term.browser.isMSWindows ? 'cls' : 'clear';
 
   var initialX = term.x;
   var timer = setInterval(function() {
     if(term.x != initialX) {
+      term.clear();
       chdir(path);
       clearTerm();
       fitFont(curFont);

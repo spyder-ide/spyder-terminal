@@ -17,7 +17,7 @@ from qtpy import PYQT5
 from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
                             QShortcut)
 
-from qtpy.QtCore import Qt, Signal, QTimer
+from qtpy.QtCore import Qt, Signal, QTimer, Slot
 from qtpy.QtGui import QKeySequence
 
 from spyder.plugins import SpyderPluginWidget
@@ -26,6 +26,7 @@ from spyder.plugins import SpyderPluginWidget
 
 from spyder.config.base import _
 from spyder.utils import icon_manager as ima
+from spyder.utils.programs import find_program
 from spyder.utils.qthelpers import (create_action, create_toolbutton,
                                     add_actions)
 from spyder.widgets.tabs import Tabs
@@ -41,6 +42,7 @@ from spyder.config.base import DEV
 
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
+WINDOWS = os.name == 'nt'
 
 # class TerminalConfigPage(PluginConfigPage):
 #     """Terminal plugin preferences."""
@@ -63,6 +65,10 @@ class TerminalPlugin(SpyderPluginWidget):
         self.server_retries = 0
         self.port = select_port(default_port=8071)
 
+        self.cmd = '/usr/bin/env bash'
+        if WINDOWS:
+            self.cmd = find_program('cmd.exe')
+
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
         self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
@@ -73,7 +79,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
         self.server = subprocess.Popen(
             [sys.executable, osp.join(LOCATION, 'server', 'main.py'),
-             '--port', str(self.port)],
+             '--port', str(self.port), '--shell', self.cmd],
             stdout=self.server_stdout,
             stderr=self.server_stderr)
 
@@ -84,6 +90,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
         self.project_path = None
         self.current_file_path = None
+        self.current_cwd = getcwd()
 
         self.initialize_plugin()
 
@@ -140,10 +147,10 @@ class TerminalPlugin(SpyderPluginWidget):
                                    ' please restart Spyder on debugging mode '
                                    "and open an issue with the contents of "
                                    "<tt>{1}</tt> and <tt>{2}</tt> "
-                                   "files at {3}.".format(self.port,
-                                                          self.stdout_file,
-                                                          self.stderr_file,
-                                                          self.URL_ISSUES)),
+                                   "files at {3}.").format(self.port,
+                                                           self.stdout_file,
+                                                           self.stderr_file,
+                                                           self.URL_ISSUES),
                                  QMessageBox.Ok)
         elif code != 200:
             self.server_retries += 1
@@ -255,6 +262,8 @@ class TerminalPlugin(SpyderPluginWidget):
         """Register plugin in Spyder's main window."""
         self.focus_changed.connect(self.main.plugin_focus_changed)
         self.main.add_dockwidget(self)
+        self.main.workingdirectory.set_explorer_cwd.connect(
+            self.set_current_cwd)
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
@@ -280,8 +289,11 @@ class TerminalPlugin(SpyderPluginWidget):
         if terminal is not None:
             return terminal
 
-    def create_new_term(self, name=None, give_focus=True, path=getcwd()):
+    def create_new_term(self, name=None, give_focus=True, path=None):
         """Add a new terminal tab."""
+        if path is None:
+            path = self.current_cwd
+        path = path.replace('\\', '/')
         font = self.get_plugin_font()
         term = TerminalWidget(self, self.port, path=path,
                               font=font.family())
@@ -317,6 +329,11 @@ class TerminalPlugin(SpyderPluginWidget):
         """Refresh current project path."""
         self.project_path = None
         self.new_terminal_project.setEnabled(False)
+
+    @Slot(str)
+    def set_current_cwd(self, cwd):
+        """Update current working directory."""
+        self.current_cwd = cwd
 
     # ------ Public API (for tabs) ---------------------------
     def add_tab(self, widget):

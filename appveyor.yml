@@ -1,0 +1,69 @@
+# https://ci.appveyor.com/project/spyder-ide/spyder-terminal
+
+environment:
+
+  global:
+    PYTHON: "C:\\conda"
+    MINICONDA_VERSION: "latest"
+    CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\ci-helpers\\appveyor\\windows_sdk.cmd"
+    PIP_DEPENDENCIES_FLAGS: "-q"
+    CONDA_DEPENDENCIES_FLAGS: "--quiet"
+    CONDA_DEPENDENCIES: >
+      spyder pytest pytest-cov
+    PIP_DEPENDENCIES: "pytest-qt pytest-timeout flaky coloredlogs pytest-xvfb"
+    APPVEYOR_RDP_PASSWORD: "dcca4c4863E30d56c2e0dda6327370b3#"
+
+  matrix:
+    - PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "32"
+      ARCH: "x86"
+      platform: "x86"
+    - PYTHON_VERSION: "3.5"
+      PYTHON_ARCH: "32"
+      ARCH: "x86"
+      platform: "x86"
+    - PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "64"
+      ARCH: "amd64"
+      platform: "x64"
+    - PYTHON_VERSION: "3.5"
+      PYTHON_ARCH: "64"
+      ARCH: "amd64"
+      platform: "x64"
+
+platform:
+  -x64
+
+install:
+  # If there is a newer build queued for the same PR, cancel this one.
+  # The AppVeyor 'rollout builds' option is supposed to serve the same
+  # purpose but it is problematic because it tends to cancel builds pushed
+  # directly to master instead of just PR builds (or the converse).
+  # credits: JuliaLang developers.
+  - ps: if ($env:APPVEYOR_PULL_REQUEST_NUMBER -and $env:APPVEYOR_BUILD_NUMBER -ne ((Invoke-RestMethod `
+      https://ci.appveyor.com/api/projects/$env:APPVEYOR_ACCOUNT_NAME/$env:APPVEYOR_PROJECT_SLUG/history?recordsNumber=50).builds | `
+      Where-Object pullRequestId -eq $env:APPVEYOR_PULL_REQUEST_NUMBER)[0].buildNumber) { `
+        throw "There are newer queued builds for this pull request, failing early." }
+  - "git clone git://github.com/astropy/ci-helpers.git"
+  - "powershell ci-helpers/appveyor/install-miniconda.ps1"
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "activate test"
+  - "conda install -q -y pywinpty -c spyder-ide"
+  - "conda remove -q -y spyder"
+  - "cd .."
+  - "git clone git://github.com/spyder-ide/spyder.git"
+  - "cd spyder"
+  - "git checkout 3.x"
+  - "python setup.py install > NUL"
+  - "cd .."
+  - "cd spyder-terminal"
+  - "npm install -g bower"
+  - "python setup.py build_static"
+
+build: false
+
+test_script:
+  - "%CMD_IN_ENV% python runtests.py || %CMD_IN_ENV% python runtests.py || %CMD_IN_ENV% python runtests.py"
+
+# on_finish:
+#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
