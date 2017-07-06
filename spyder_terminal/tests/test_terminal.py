@@ -12,8 +12,6 @@ import os
 import pytest
 import requests
 import os.path as osp
-# from OpenGL import GL
-from qtpy.QtCore import Qt
 from qtpy.QtWebEngineWidgets import WEBENGINE
 
 # Local imports
@@ -26,6 +24,15 @@ LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 
 TERM_UP = 10000
+WINDOWS = os.name == 'nt'
+
+CLEAR = 'clear'
+if WINDOWS:
+    CLEAR = 'cls'
+
+PWD = 'pwd'
+if WINDOWS:
+    PWD = 'pwd'
 
 
 def check_pwd(termwidget):
@@ -99,12 +106,12 @@ def test_new_terminal(qtbot):
     # Clear
     # qtbot.keyClicks(term.view, 'clear')
     # qtbot.keyPress(term.view, Qt.Key_Return)
-    term.exec_cmd('clear')
+    term.exec_cmd(CLEAR)
 
     # Run pwd
     # qtbot.keyClicks(term.view, 'pwd')
     # qtbot.keyPress(term.view, Qt.Key_Return)
-    term.exec_cmd('pwd')
+    term.exec_cmd(PWD)
 
     # Assert pwd is LOCATION
     qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
