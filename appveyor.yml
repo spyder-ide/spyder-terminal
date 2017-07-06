@@ -48,7 +48,7 @@ install:
   - "powershell ci-helpers/appveyor/install-miniconda.ps1"
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "activate test"
-  - "conda install -q -y pywinpty coveralls flaky -c conda-forge"
+  - "conda install -q -y pywinpty -c spyder-ide"
   - "conda remove -q -y spyder"
   - "cd .."
   - "git clone git://github.com/spyder-ide/spyder.git"
