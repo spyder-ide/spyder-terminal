@@ -226,9 +226,9 @@ class TerminalPlugin(SpyderPluginWidget):
                                           self.create_new_term(
                                               path=self.current_file_path))
 
-        rename_tab_action = create_action(self, _("Rename terminal"),
-                                       icon=ima.icon('rename'),
-                                       triggered=self.tab_name_editor)
+        rename_tab_action = create_action(self,
+                                          _("Rename terminal"),
+                                          triggered=self.tab_name_editor)
 
         self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
                              new_terminal_file, MENU_SEPARATOR,
