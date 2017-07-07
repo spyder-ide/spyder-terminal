@@ -27,8 +27,9 @@ from spyder.plugins import SpyderPluginWidget
 from spyder.config.base import _
 from spyder.utils import icon_manager as ima
 from spyder.utils.programs import find_program
-from spyder.utils.qthelpers import (create_action, create_toolbutton,
-                                    add_actions)
+from spyder.utils.qthelpers import (add_actions, create_action,
+                                    create_toolbutton,
+                                    MENU_SEPARATOR)
 from spyder.widgets.tabs import Tabs
 # from spyder.config.gui import set_shortcut, config_shortcut
 # from spyder.plugins import SpyderPluginWidget
@@ -225,8 +226,13 @@ class TerminalPlugin(SpyderPluginWidget):
                                           self.create_new_term(
                                               path=self.current_file_path))
 
+        rename_tab_action = create_action(self, _("Rename terminal"),
+                                       icon=ima.icon('rename'),
+                                       triggered=self.tab_name_editor)
+
         self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
-                             new_terminal_file]
+                             new_terminal_file, MENU_SEPARATOR,
+                             rename_tab_action]
         return self.menu_actions
 
     def get_focus_widget(self):
@@ -358,3 +364,8 @@ class TerminalPlugin(SpyderPluginWidget):
         """
         term = self.terms.pop(index_from)
         self.terms.insert(index_to, term)
+
+    def tab_name_editor(self):
+        """Trigger the tab name editor."""
+        index = self.tabwidget.currentIndex()
+        self.tabwidget.tabBar().tab_name_editor.edit_tab(index)
