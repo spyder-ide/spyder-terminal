@@ -13,7 +13,7 @@ import requests
 import subprocess
 import os.path as osp
 
-from qtpy import PYQT5
+from qtpy import PYQT4, PYSIDE
 from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
                             QShortcut)
 
@@ -37,7 +37,7 @@ from spyder_terminal.widgets.terminalgui import TerminalWidget
 # from spyder.py3compat import is_text_string, to_text_string
 from spyder.utils.misc import select_port
 
-from spyder.py3compat import getcwd
+from spyder.py3compat import PY2, getcwd
 from spyder.config.base import DEV
 
 LOCATION = osp.realpath(osp.join(os.getcwd(),
@@ -173,8 +173,11 @@ class TerminalPlugin(SpyderPluginWidget):
         """Check if current Qt backend version is greater or equal to 5."""
         message = ''
         valid = True
-        if not PYQT5:
-            message = 'Spyder-terminal does not work with Qt4'
+        if PYQT4 or PYSIDE:
+            message = 'This plugin does not work with Qt 4'
+            valid = False
+        elif WINDOWS and PY2:
+            message = 'This plugin does not work with Python 2 on Windows'
             valid = False
         return valid, message
 
