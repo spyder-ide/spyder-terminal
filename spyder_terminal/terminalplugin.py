@@ -27,8 +27,9 @@ from spyder.plugins import SpyderPluginWidget
 from spyder.config.base import _
 from spyder.utils import icon_manager as ima
 from spyder.utils.programs import find_program
-from spyder.utils.qthelpers import (create_action, create_toolbutton,
-                                    add_actions)
+from spyder.utils.qthelpers import (add_actions, create_action,
+                                    create_toolbutton,
+                                    MENU_SEPARATOR)
 from spyder.widgets.tabs import Tabs
 # from spyder.config.gui import set_shortcut, config_shortcut
 # from spyder.plugins import SpyderPluginWidget
@@ -110,7 +111,8 @@ class TerminalPlugin(SpyderPluginWidget):
         # self.shortcuts = self.create_shortcuts()
         corner_widgets = {Qt.TopRightCorner: [new_term_btn, menu_btn]}
         self.tabwidget = Tabs(self, menu=self.menu, actions=self.menu_actions,
-                              corner_widgets=corner_widgets)
+                              corner_widgets=corner_widgets, rename_tabs=True)
+
         if hasattr(self.tabwidget, 'setDocumentMode') \
            and not sys.platform == 'darwin':
             # Don't set document mode to true on OSX because it generates
@@ -174,10 +176,10 @@ class TerminalPlugin(SpyderPluginWidget):
         message = ''
         valid = True
         if PYQT4 or PYSIDE:
-            message = 'This plugin does not work with Qt 4'
+            message = _('This plugin does not work with Qt 4')
             valid = False
         elif WINDOWS and PY2:
-            message = 'This plugin does not work with Python 2 on Windows'
+            message = _('This plugin does not work with Python 2 on Windows')
             valid = False
         return valid, message
 
@@ -193,43 +195,49 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def get_plugin_actions(self):
         """Get plugin actions."""
-        new_terminal_menu = QMenu(_("Create new terminal"), self)
-        new_terminal_menu.setIcon(ima.icon('project_expanded'))
         new_terminal_cwd = create_action(self,
-                                         _("Current workspace path"),
-                                         icon=ima.icon('cmdprompt'),
+                                         _("New terminal in current "
+                                           "working directory"),
                                          tip=_("Sets the pwd at "
-                                               "the current workspace "
-                                               "folder"),
+                                               "the current working "
+                                               "directory"),
                                          triggered=self.create_new_term)
 
         self.new_terminal_project = create_action(self,
-                                                  _("Current project folder"),
-                                                  icon=ima.icon('cmdprompt'),
+                                                  _("New terminal in current "
+                                                    "project"),
                                                   tip=_("Sets the pwd at "
                                                         "the current project "
-                                                        "folder"),
+                                                        "directory"),
                                                   triggered=lambda:
                                                   self.create_new_term(
                                                       path=self.project_path))
 
-        if self.project_path is None:
-            self.new_terminal_project.setEnabled(False)
-
         new_terminal_file = create_action(self,
-                                          _("Current opened file folder"),
-                                          icon=ima.icon('cmdprompt'),
+                                          _("New terminal in current Editor "
+                                            "file"),
                                           tip=_("Sets the pwd at "
-                                                "the folder that contains "
+                                                "the directory that contains "
                                                 "the current opened file"),
                                           triggered=lambda:
                                           self.create_new_term(
                                               path=self.current_file_path))
-        add_actions(new_terminal_menu, (new_terminal_cwd,
-                                        self.new_terminal_project,
-                                        new_terminal_file))
-        self.menu_actions = [None, new_terminal_menu, None]
+
+        rename_tab_action = create_action(self,
+                                          _("Rename terminal"),
+                                          triggered=self.tab_name_editor)
+
+        self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
+                             new_terminal_file, MENU_SEPARATOR,
+                             rename_tab_action]
+        self.setup_menu_actions()
+
         return self.menu_actions
+
+    def setup_menu_actions(self):
+        """Setup and update the Options menu actions."""
+        if self.project_path is None:
+            self.new_terminal_project.setEnabled(False)
 
     def get_focus_widget(self):
         """
@@ -270,6 +278,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
+        self.menu.aboutToShow.connect(self.setup_menu_actions)
 
     # ------ Public API (for terminals) -------------------------
     def get_terms(self):
@@ -360,3 +369,8 @@ class TerminalPlugin(SpyderPluginWidget):
         """
         term = self.terms.pop(index_from)
         self.terms.insert(index_to, term)
+
+    def tab_name_editor(self):
+        """Trigger the tab name editor."""
+        index = self.tabwidget.currentIndex()
+        self.tabwidget.tabBar().tab_name_editor.edit_tab(index)
