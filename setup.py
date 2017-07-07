@@ -13,9 +13,10 @@ import os
 # Third party imports
 from setuptools import find_packages, setup
 
-from setupbase import (DevelopWithBuildStatic,
-                       SdistWithBuildStatic,
-                       BuildStatic)
+from setupbase import (BuildStatic,
+                       CleanComponents,
+                       SdistWithBuildStatic)
+
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -44,8 +45,8 @@ REQUIREMENTS = ['spyder>=3.2.0.dev0', 'pexpect', 'tornado',
 
 cmdclass = {
     'build_static': BuildStatic,
-    # 'develop': DevelopWithBuildStatic,
-    'sdist': SdistWithBuildStatic
+    'sdist': SdistWithBuildStatic,
+    'clean_components': CleanComponents
 }
 
 

@@ -10,8 +10,9 @@ See: https://github.com/jupyter/notebook/blob/master/setupbase.py
 
 import os
 import os.path as osp
-import sys
 import pipes
+import shutil
+import sys
 
 from distutils import log
 from distutils.core import Command
@@ -41,18 +42,6 @@ def run(cmd, *args, **kwargs):
     return check_call(cmd, *args, **kwargs)
 
 
-class DevelopWithBuildStatic(develop):
-    def install_for_development(self):
-        self.run_command('build_static')
-        return develop.install_for_development(self)
-
-
-class SdistWithBuildStatic(sdist):
-    def make_distribution(self):
-        self.run_command('build_static')
-        return sdist.make_distribution(self)
-
-
 class BuildStatic(Command):
     user_options = []
 
@@ -66,3 +55,29 @@ class BuildStatic(Command):
         if not osp.isdir(COMPONENTS):
             log.info("running [bower install]")
             run(['bower', 'install', '--allow-root'], cwd=repo_root)
+
+
+class DevelopWithBuildStatic(develop):
+    def install_for_development(self):
+        self.run_command('build_static')
+        return develop.install_for_development(self)
+
+
+class SdistWithBuildStatic(sdist):
+    def make_distribution(self):
+        self.run_command('build_static')
+        return sdist.make_distribution(self)
+
+
+class CleanComponents(Command):
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        log.info("Removing server components")
+        shutil.rmtree(COMPONENTS)
