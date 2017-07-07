@@ -9,6 +9,7 @@ See: https://github.com/jupyter/notebook/blob/master/setupbase.py
 """
 
 import os
+import os.path as osp
 import sys
 import pipes
 
@@ -23,6 +24,11 @@ if sys.platform == 'win32':
 else:
     def list2cmdline(cmd_list):
         return ' '.join(map(pipes.quote, cmd_list))
+
+
+HERE = os.path.abspath(os.path.dirname(__file__))
+COMPONENTS = osp.join(HERE, 'spyder_terminal', 'server', 'static',
+                      'components')
 
 
 repo_root = os.path.dirname(os.path.abspath(__file__))
@@ -57,5 +63,6 @@ class BuildStatic(Command):
         pass
 
     def run(self):
-        log.info("running [bower install]")
-        run(['bower', 'install', '--allow-root'], cwd=repo_root)
+        if not osp.isdir(COMPONENTS):
+            log.info("running [bower install]")
+            run(['bower', 'install', '--allow-root'], cwd=repo_root)
