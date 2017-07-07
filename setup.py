@@ -10,6 +10,7 @@
 # Standard library imports
 import ast
 import os
+import sys
 
 # Third party imports
 from setuptools import find_packages, setup
@@ -45,7 +46,7 @@ def get_description():
 REQUIREMENTS = ['spyder>=3.2.0.dev0', 'pexpect', 'tornado',
                 'coloredlogs', 'requests']
 
-if os.name == 'nt':
+if os.name == 'nt' or any([arg.startswith('win') for arg in sys.argv]):
     REQUIREMENTS.append('pywinpty')
 
 
