@@ -17,11 +17,19 @@ from setupbase import (DevelopWithBuildStatic,
                        SdistWithBuildStatic,
                        BuildStatic)
 
-# Loca imports
-from spyder_terminal import __version__
-
-
 HERE = os.path.abspath(os.path.dirname(__file__))
+
+
+def get_version():
+    """Get version from source file"""
+    import codecs
+    with codecs.open("spyder_terminal/__init__.py", encoding="utf-8") as f:
+        lines = f.read().splitlines()
+        for l in lines:
+            if "__version__" in l:
+                version = l.split("=")[1].strip()
+                version = version.replace("'", '').replace('"', '')
+                return version
 
 
 def get_description():
@@ -43,7 +51,7 @@ cmdclass = {
 
 setup(
     name='spyder_terminal',
-    version=__version__,
+    version=get_version(),
     cmdclass=cmdclass,
     keywords=['Spyder', 'Plugin'],
     url='https://github.com/spyder-ide/spyder-terminal',
