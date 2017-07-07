@@ -8,6 +8,7 @@
 """Setup script for spyder_terminal."""
 
 # Standard library imports
+import ast
 import os
 
 # Third party imports
@@ -21,16 +22,17 @@ from setupbase import (BuildStatic,
 HERE = os.path.abspath(os.path.dirname(__file__))
 
 
-def get_version():
-    """Get version from source file"""
-    import codecs
-    with codecs.open("spyder_terminal/__init__.py", encoding="utf-8") as f:
-        lines = f.read().splitlines()
-        for l in lines:
-            if "__version__" in l:
-                version = l.split("=")[1].strip()
-                version = version.replace("'", '').replace('"', '')
-                return version
+def get_version(module='spyder_terminal'):
+    """Get version."""
+    with open(os.path.join(HERE, module, '__init__.py'), 'r') as f:
+        data = f.read()
+    lines = data.split('\n')
+    for line in lines:
+        if line.startswith('VERSION_INFO'):
+            version_tuple = ast.literal_eval(line.split('=')[-1].strip())
+            version = '.'.join(map(str, version_tuple))
+            break
+    return version
 
 
 def get_description():
