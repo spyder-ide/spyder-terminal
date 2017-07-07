@@ -213,9 +213,6 @@ class TerminalPlugin(SpyderPluginWidget):
                                                   self.create_new_term(
                                                       path=self.project_path))
 
-        if self.project_path is None:
-            self.new_terminal_project.setEnabled(False)
-
         new_terminal_file = create_action(self,
                                           _("New terminal in current Editor "
                                             "file"),
@@ -233,7 +230,14 @@ class TerminalPlugin(SpyderPluginWidget):
         self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
                              new_terminal_file, MENU_SEPARATOR,
                              rename_tab_action]
+        self.setup_menu_actions()
+
         return self.menu_actions
+
+    def setup_menu_actions(self):
+        """Setup and update the Options menu actions."""
+        if self.project_path is None:
+            self.new_terminal_project.setEnabled(False)
 
     def get_focus_widget(self):
         """
@@ -274,6 +278,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
+        self.menu.aboutToShow.connect(self.setup_menu_actions)
 
     # ------ Public API (for terminals) -------------------------
     def get_terms(self):
