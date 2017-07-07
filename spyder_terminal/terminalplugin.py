@@ -111,6 +111,7 @@ class TerminalPlugin(SpyderPluginWidget):
         corner_widgets = {Qt.TopRightCorner: [new_term_btn, menu_btn]}
         self.tabwidget = Tabs(self, menu=self.menu, actions=self.menu_actions,
                               corner_widgets=corner_widgets)
+
         if hasattr(self.tabwidget, 'setDocumentMode') \
            and not sys.platform == 'darwin':
             # Don't set document mode to true on OSX because it generates
@@ -193,22 +194,20 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def get_plugin_actions(self):
         """Get plugin actions."""
-        new_terminal_menu = QMenu(_("Create new terminal"), self)
-        new_terminal_menu.setIcon(ima.icon('project_expanded'))
         new_terminal_cwd = create_action(self,
-                                         _("Current workspace path"),
-                                         icon=ima.icon('cmdprompt'),
+                                         _("New terminal in current "
+                                           "working directory"),
                                          tip=_("Sets the pwd at "
-                                               "the current workspace "
-                                               "folder"),
+                                               "the current workind "
+                                               "directory"),
                                          triggered=self.create_new_term)
 
         self.new_terminal_project = create_action(self,
-                                                  _("Current project folder"),
-                                                  icon=ima.icon('cmdprompt'),
+                                                  _("New terminal in current "
+                                                    "project"),
                                                   tip=_("Sets the pwd at "
                                                         "the current project "
-                                                        "folder"),
+                                                        "directory"),
                                                   triggered=lambda:
                                                   self.create_new_term(
                                                       path=self.project_path))
@@ -217,18 +216,17 @@ class TerminalPlugin(SpyderPluginWidget):
             self.new_terminal_project.setEnabled(False)
 
         new_terminal_file = create_action(self,
-                                          _("Current opened file folder"),
-                                          icon=ima.icon('cmdprompt'),
+                                          _("New terminal in current Editor "
+                                            "file"),
                                           tip=_("Sets the pwd at "
-                                                "the folder that contains "
+                                                "the directory that contains "
                                                 "the current opened file"),
                                           triggered=lambda:
                                           self.create_new_term(
                                               path=self.current_file_path))
-        add_actions(new_terminal_menu, (new_terminal_cwd,
-                                        self.new_terminal_project,
-                                        new_terminal_file))
-        self.menu_actions = [None, new_terminal_menu, None]
+
+        self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
+                             new_terminal_file]
         return self.menu_actions
 
     def get_focus_widget(self):
