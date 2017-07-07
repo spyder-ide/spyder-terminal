@@ -110,7 +110,7 @@ class TerminalPlugin(SpyderPluginWidget):
         # self.shortcuts = self.create_shortcuts()
         corner_widgets = {Qt.TopRightCorner: [new_term_btn, menu_btn]}
         self.tabwidget = Tabs(self, menu=self.menu, actions=self.menu_actions,
-                              corner_widgets=corner_widgets)
+                              corner_widgets=corner_widgets, rename_tabs=True)
 
         if hasattr(self.tabwidget, 'setDocumentMode') \
            and not sys.platform == 'darwin':
