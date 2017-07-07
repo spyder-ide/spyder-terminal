@@ -8,6 +8,8 @@ To release a new version of spyder-terminal:
 
 * git add and git commit
 
+* python setup.py clean_components
+
 * python setup.py sdist upload
 
 * python setup.py bdist_wheel upload
