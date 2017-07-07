@@ -198,7 +198,7 @@ class TerminalPlugin(SpyderPluginWidget):
                                          _("New terminal in current "
                                            "working directory"),
                                          tip=_("Sets the pwd at "
-                                               "the current workind "
+                                               "the current working "
                                                "directory"),
                                          triggered=self.create_new_term)
 
