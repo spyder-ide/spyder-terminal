@@ -12,7 +12,11 @@ To release a new version of spyder-terminal:
 
 * python setup.py sdist upload
 
-* python setup.py bdist_wheel upload
+* python3 setup.py bdist_wheel --plat-name win_amd64 upload
+
+* python3 setup.py bdist_wheel --plat-name win32 upload
+
+* python setup.py bdist_wheel --universal upload
 
 * git tag -a vX.X.X -m 'comment'
 
