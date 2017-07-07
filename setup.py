@@ -43,6 +43,10 @@ def get_description():
 REQUIREMENTS = ['spyder>=3.2.0.dev0', 'pexpect', 'tornado',
                 'coloredlogs', 'requests']
 
+if os.name == 'nt':
+    REQUIREMENTS.append('pywinpty')
+
+
 cmdclass = {
     'build_static': BuildStatic,
     'sdist': SdistWithBuildStatic,
