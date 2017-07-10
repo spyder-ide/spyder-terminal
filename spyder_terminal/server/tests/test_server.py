@@ -100,23 +100,25 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
     @testing.gen_test
     def test_terminal_communication(self):
         """Test terminal creation."""
-        data = {'rows': '25', 'cols': '80'}
+        data = {'rows': '25', 'cols': '100'}
         response = yield self.http_client.fetch(
             self.get_url('/api/terminals'),
             method="POST",
             body=urlencode(data)
         )
-        pid = response.body
+        pid = response.body.decode('utf-8')
         sock = yield self._mk_connection(pid)
         msg = yield sock.read_message()
-        test_msg = 'Ham, eggs and spam'
+        print(msg)
+        test_msg = 'pwd'
         sock.write_message(' ' + test_msg)
         msg = ''
         while test_msg not in msg:
             msg = yield sock.read_message()
-        self.assertTrue('Ham, eggs and spam' in msg)
+            print(msg)
+        self.assertTrue(test_msg in msg)
 
-    @pytest.mark.skipif(os.name == 'nt', reason="It doesn't work on Windows")
+    # @pytest.mark.skipif(os.name == 'nt', reason="It doesn't work on Windows")
     @testing.gen_test
     def test_terminal_closing(self):
         """Test terminal destruction."""
@@ -126,7 +128,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             method="POST",
             body=urlencode(data)
         )
-        pid = response.body
+        pid = response.body.decode('utf-8')
         sock = yield self._mk_connection(pid)
         _ = yield sock.read_message()
         yield self.close(sock)
