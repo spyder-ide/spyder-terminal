@@ -36,11 +36,11 @@ if os.name == 'nt':
     clr = 'cls'
 
 
-def create_app(shell):
+def create_app(shell, close_future=None):
     """Create and return a tornado Web Application instance."""
     settings = {"static_path": os.path.join(
         os.path.dirname(__file__), "static")}
-    application = tornado.web.Application(routes.ROUTES,
+    application = tornado.web.Application(routes.gen_routes(close_future),
                                           debug=True,
                                           serve_traceback=True,
                                           autoreload=True, **settings)

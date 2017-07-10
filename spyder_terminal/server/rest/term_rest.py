@@ -9,10 +9,6 @@ import tornado.escape
 class MainHandler(tornado.web.RequestHandler):
     """Handles creation of new terminals."""
 
-    def initialize(self, db=None):
-        """Stump initialization function."""
-        self.db = db
-
     @tornado.gen.coroutine
     def get(self):
         """GET verb."""
@@ -29,10 +25,6 @@ class MainHandler(tornado.web.RequestHandler):
 
 class ResizeHandler(tornado.web.RequestHandler):
     """Handles resizing of terminals."""
-
-    def initialize(self, db=None):
-        """Stump initialization function."""
-        self.db = db
 
     @tornado.gen.coroutine
     def get(self):
