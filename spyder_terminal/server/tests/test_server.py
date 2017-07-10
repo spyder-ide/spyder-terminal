@@ -16,6 +16,7 @@ if PY3:
 else:
     from urllib import urlencode
 
+import pytest
 from flaky import flaky
 from tornado import testing, websocket, gen
 from tornado.concurrent import Future
