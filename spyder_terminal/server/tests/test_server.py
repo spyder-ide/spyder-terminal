@@ -147,7 +147,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             body=urlencode(data)
         )
 
-        pid = response.body
+        pid = response.body.decode('utf-8')
         sock = yield self._mk_connection(pid)
         _ = yield sock.read_message()
 
