@@ -26,6 +26,8 @@ parser.add_argument('--shell',
 
 LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(name) -30s %(funcName) '
               '-35s %(lineno) -5d: %(message)s')
+
+logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 LOGGER = logging.getLogger(__name__)
 coloredlogs.install(level='info')
 
@@ -34,19 +36,24 @@ if os.name == 'nt':
     clr = 'cls'
 
 
-def main(port, shell):
-    """Create and setup a new tornado server."""
-    logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
+def create_app(shell):
+    """Create and return a tornado Web Application instance."""
     settings = {"static_path": os.path.join(
         os.path.dirname(__file__), "static")}
     application = tornado.web.Application(routes.ROUTES,
                                           debug=True,
                                           serve_traceback=True,
                                           autoreload=True, **settings)
-    LOGGER.info("Server is now at: 127.0.0.1:{}".format(port))
-    LOGGER.info('Shell: {0}'.format(shell))
     application.term_manager = term_manager.TermManager(shell)
     application.logger = LOGGER
+    return application
+
+
+def main(port, shell):
+    """Create and setup a new tornado server."""
+    LOGGER.info("Server is now at: 127.0.0.1:{}".format(port))
+    LOGGER.info('Shell: {0}'.format(shell))
+    application = create_app(shell)
     ioloop = tornado.ioloop.IOLoop.instance()
     application.listen(port, address='127.0.0.1')
     try:
