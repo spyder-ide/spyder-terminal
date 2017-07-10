@@ -16,6 +16,7 @@ if PY3:
 else:
     from urllib import urlencode
 
+from flaky import flaky
 from tornado import testing, websocket, gen
 from tornado.concurrent import Future
 from spyder.utils.programs import find_program
@@ -94,6 +95,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         )
         self.assertEqual(response.code, 200)
 
+    @flaky(max_runs=3)
     @testing.gen_test
     def test_terminal_communication(self):
         """Test terminal creation."""
@@ -113,6 +115,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             msg = yield sock.read_message()
         self.assertTrue('Ham, eggs and spam' in msg)
 
+    @pytest.mark.skipif(os.name == 'nt', reason="It doesn't work on Windows")
     @testing.gen_test
     def test_terminal_closing(self):
         """Test terminal destruction."""
