@@ -137,6 +137,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         except AttributeError:
             pass
 
+    @flaky(max_runs=3)
     @testing.gen_test
     def test_terminal_resize(self):
         """Test terminal resizing."""
@@ -159,16 +160,16 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         )
 
         sock.write_message('cd {0}{1}'.format(LOCATION_SLASH, LINE_END))
-        msg = ''
-        while LOCATION not in msg:
-            msg = yield sock.read_message()
+        # msg = ''
+        # while LOCATION not in msg:
+        #     msg = yield sock.read_message()
 
-        python_exec = 'python print_size.py'
+        python_exec = 'python print_size.py' + LINE_END
         sock.write_message(python_exec)
-        msg = ''
-        while '.py' not in msg:
-            msg = yield sock.read_message()
-        sock.write_message(LINE_END)
+        # msg = ''
+        # while '.py' not in msg:
+        #     msg = yield sock.read_message()
+        # sock.write_message(LINE_END)
 
         expected_size = '(73, 23)'
         msg = ''
