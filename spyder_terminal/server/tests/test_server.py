@@ -39,6 +39,7 @@ if WINDOWS:
 
 class TerminalServerTests(testing.AsyncHTTPTestCase):
     """Main server tests."""
+
     def get_app(self):
         """Return HTTP/WS server."""
         self.close_future = Future()
