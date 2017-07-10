@@ -7,8 +7,14 @@ Note: This uses tornado.testing unittest style tests
 
 import os
 import sys
-import urllib
 import os.path as osp
+
+PY3 = sys.version_info[0] == 3
+
+if PY3:
+    from urllib.parse import urlencode
+else:
+    from urllib import urlencode
 
 from tornado import testing, websocket, gen
 from tornado.concurrent import Future
