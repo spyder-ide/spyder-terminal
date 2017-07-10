@@ -89,7 +89,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         response = yield self.http_client.fetch(
             self.get_url('/api/terminals'),
             method="POST",
-            body=urllib.urlencode(data)
+            body=urlencode(data)
         )
         self.assertEqual(response.code, 200)
 
@@ -100,7 +100,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         response = yield self.http_client.fetch(
             self.get_url('/api/terminals'),
             method="POST",
-            body=urllib.urlencode(data)
+            body=urlencode(data)
         )
         pid = response.body
         sock = yield self._mk_connection(pid)
@@ -119,7 +119,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         response = yield self.http_client.fetch(
             self.get_url('/api/terminals'),
             method="POST",
-            body=urllib.urlencode(data)
+            body=urlencode(data)
         )
         pid = response.body
         sock = yield self._mk_connection(pid)
@@ -137,7 +137,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         response = yield self.http_client.fetch(
             self.get_url('/api/terminals'),
             method="POST",
-            body=urllib.urlencode(data)
+            body=urlencode(data)
         )
 
         pid = response.body
@@ -148,7 +148,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         response = yield self.http_client.fetch(
             self.get_url('/api/terminals/{0}/size'.format(pid)),
             method="POST",
-            body=urllib.urlencode(data)
+            body=urlencode(data)
         )
 
         sock.write_message('cd {0}{1}'.format(LOCATION_SLASH, LINE_END))
