@@ -65,5 +65,5 @@ build: false
 test_script:
   - "%CMD_IN_ENV% python runtests.py || %CMD_IN_ENV% python runtests.py || %CMD_IN_ENV% python runtests.py"
 
-# on_finish:
-#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
