@@ -10,11 +10,6 @@ class MainHandler(tornado.web.RequestHandler):
     """Handles creation of new terminals."""
 
     @tornado.gen.coroutine
-    def get(self):
-        """GET verb."""
-        self.status_code(403)
-
-    @tornado.gen.coroutine
     def post(self):
         """POST verb: Create a new terminal."""
         rows = int(self.get_argument('rows', None, 23))
@@ -25,11 +20,6 @@ class MainHandler(tornado.web.RequestHandler):
 
 class ResizeHandler(tornado.web.RequestHandler):
     """Handles resizing of terminals."""
-
-    @tornado.gen.coroutine
-    def get(self):
-        """GET verb: Forbidden."""
-        self.status_code(403)
 
     @tornado.gen.coroutine
     def post(self, pid):
