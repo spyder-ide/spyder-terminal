@@ -9,7 +9,11 @@ import tornado.websocket
 class MainSocket(tornado.websocket.WebSocketHandler):
     """Handles long polling communication between xterm.js and server."""
 
-    def open(self, pid, *args, **kwargs):
+    def initialize(self, close_future=None):
+        """Base class initialization."""
+        self.close_future = close_future
+
+    def open(self, pid):
         """Open a Websocket associated to a console."""
         print("WebSocket opened")
         print(pid)
@@ -22,6 +26,8 @@ class MainSocket(tornado.websocket.WebSocketHandler):
         print('TTY Off!')
         print("WebSocket closed")
         self.application.term_manager.stop_term(self.pid)
+        if self.close_future is not None:
+            self.close_future.set_result(("Done!"))
 
     def on_message(self, message):
         """Execute a command on console."""
