@@ -47,7 +47,7 @@ REQUIREMENTS = ['spyder>=3.2.0.dev0', 'pexpect', 'tornado',
                 'coloredlogs', 'requests']
 
 if os.name == 'nt' or any([arg.startswith('win') for arg in sys.argv]):
-    REQUIREMENTS.append('pywinpty')
+    REQUIREMENTS.append('pywinpty>=0.1.2')
 
 
 cmdclass = {
