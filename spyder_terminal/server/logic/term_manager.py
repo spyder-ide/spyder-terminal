@@ -36,8 +36,11 @@ class TermReader(object):
         try:
             timeout = 0
             if WINDOWS:
-                _in = self.tty.read(1000)
-                self.socket.notify(_in)
+                if self.tty.isalive():
+                    _in = self.tty.read(1000)
+                    self.socket.notify(_in)
+                else:
+                    self.socket.close()
             else:
                 if self.tty.isalive():
                     _in = self.tty.read_nonblocking(timeout=timeout, size=1000)
