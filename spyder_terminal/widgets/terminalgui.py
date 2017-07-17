@@ -29,7 +29,7 @@ class TerminalWidget(QFrame):
     def __init__(self, parent, port, path='~', font=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
-        url = 'http://127.0.0.1:{0}'.format(port)
+        url = 'http://127.0.0.1:{0}?path={1}'.format(port, path)
         self.view = TermView(self, term_url=url)
         self.font = font
         self.initial_path = path

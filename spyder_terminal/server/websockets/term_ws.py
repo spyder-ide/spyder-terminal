@@ -15,16 +15,15 @@ class MainSocket(tornado.websocket.WebSocketHandler):
 
     def open(self, pid):
         """Open a Websocket associated to a console."""
-        print("WebSocket opened")
-        print(pid)
+        self.application.logger.info("WebSocket opened: {0}".format(pid))
         self.pid = pid
         self.application.term_manager.start_term(pid, self)
-        print("TTY On!")
+        self.application.logger.info("TTY On!")
 
     def on_close(self):
         """Close console communication."""
-        print('TTY Off!')
-        print("WebSocket closed")
+        self.application.logger.info('TTY Off!')
+        self.application.logger.info("WebSocket closed: {0}".format(self.pid))
         self.application.term_manager.stop_term(self.pid)
         if self.close_future is not None:
             self.close_future.set_result(("Done!"))

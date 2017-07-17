@@ -31,8 +31,6 @@ window.onresize = function(event) {
 }
 
 
-createTerminal();
-
 function createTerminal() {
   console.log("Creating term...");
   // Clean terminal
@@ -70,7 +68,11 @@ function createTerminal() {
   console.log(rows);
 
 
-  fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {method: 'POST', headers: myHeaders}).then(function (res) {
+  fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {
+        method: 'POST',
+        headers: myHeaders,
+        credentials: 'include'
+       }).then(function (res) {
 
     charWidth = Math.ceil(term.element.offsetWidth / cols);
     charHeight = Math.ceil(term.element.offsetHeight / rows);
@@ -142,18 +144,12 @@ function scrollTerm(delta) {
 function runRealTerminal() {
   term.attach(socket);
   term._initialized = true;
-  term.writeln("Loading...");
+  // term.writeln("Loading...");
   lineEnd = term.browser.isMSWindows ? '\r\n' : '\n';
   clearCmd = term.browser.isMSWindows ? 'cls' : 'clear';
-
-  var initialX = term.x;
-  var timer = setInterval(function() {
-    if(term.x != initialX) {
-      term.clear();
-      chdir(path);
-      clearTerm();
-      fitFont(curFont);
-      clearInterval(timer);
-    }
-  }, 200);
+  fitFont(curFont);
 }
+
+$(document).ready(function() {
+    createTerminal();
+});

@@ -4,6 +4,7 @@
 
 import tornado.web
 import tornado.escape
+from os import getcwd
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -16,6 +17,8 @@ class MainHandler(tornado.web.RequestHandler):
     @tornado.gen.coroutine
     def get(self):
         """Get static index.html page."""
+        cwd = self.get_argument('path', getcwd())
+        self.set_cookie('cwd', cwd)
         self.render('../static/index.html')
 
     @tornado.gen.coroutine

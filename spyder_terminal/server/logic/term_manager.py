@@ -61,14 +61,14 @@ class TermManager(object):
         self.consoles = {}
 
     @tornado.gen.coroutine
-    def create_term(self, rows, cols):
+    def create_term(self, rows, cols, cwd=None):
         """Create a new virtual terminal."""
         pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
         if WINDOWS:
             tty = pty.PTY(cols, rows)
-            tty.spawn(self.cmd)
+            tty.spawn(self.cmd, cwd=cwd)
         else:
-            tty = pty.spawnu(self.cmd)
+            tty = pty.spawnu(self.cmd, cwd=cwd)
             tty.setwinsize(rows, cols)
         self.consoles[pid] = {'tty': tty, 'read': None}
         raise tornado.gen.Return(pid)
