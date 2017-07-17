@@ -144,9 +144,18 @@ function scrollTerm(delta) {
 function runRealTerminal() {
   term.attach(socket);
   term._initialized = true;
-  // term.writeln("Loading...");
+
   lineEnd = term.browser.isMSWindows ? '\r\n' : '\n';
   clearCmd = term.browser.isMSWindows ? 'cls' : 'clear';
+  fitFont(curFont);
+  var initialX = term.x;
+  var timer = setInterval(function() {
+    if(term.x != initialX) {
+      term.clear();
+      fitFont(curFont);
+      clearInterval(timer);
+    }
+  }, 200);
   fitFont(curFont);
 }
 
