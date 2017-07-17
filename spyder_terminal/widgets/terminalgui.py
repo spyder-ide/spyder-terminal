@@ -50,8 +50,9 @@ class TerminalWidget(QFrame):
         if finished:
             # This forces to display the black background
             print("\0", end='')
-            self.set_font(self.font)
             self.set_dir(self.initial_path)
+            self.eval_javascript('createTerminal()')
+            self.set_font(self.font)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""

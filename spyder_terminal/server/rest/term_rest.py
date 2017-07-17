@@ -14,7 +14,8 @@ class MainHandler(tornado.web.RequestHandler):
         """POST verb: Create a new terminal."""
         rows = int(self.get_argument('rows', None, 23))
         cols = int(self.get_argument('cols', None, 73))
-        pid = yield self.application.term_manager.create_term(rows, cols)
+        cwd = self.get_argument('path', None, None)
+        pid = yield self.application.term_manager.create_term(rows, cols, cwd)
         self.write(pid)
 
 
