@@ -31,8 +31,6 @@ window.onresize = function(event) {
 }
 
 
-// createTerminal();
-
 function createTerminal() {
   console.log("Creating term...");
   // Clean terminal
@@ -70,7 +68,11 @@ function createTerminal() {
   console.log(rows);
 
 
-  fetch('/api/terminals?cols=' + cols + '&rows=' + rows + '&path=' + path, {method: 'POST', headers: myHeaders}).then(function (res) {
+  fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {
+        method: 'POST',
+        headers: myHeaders,
+        credentials: 'include'
+       }).then(function (res) {
 
     charWidth = Math.ceil(term.element.offsetWidth / cols);
     charHeight = Math.ceil(term.element.offsetHeight / rows);
@@ -158,3 +160,7 @@ function runRealTerminal() {
     // }
   // }, 200);
 }
+
+$(document).ready(function() {
+    createTerminal();
+});

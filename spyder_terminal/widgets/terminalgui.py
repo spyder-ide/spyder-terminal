@@ -29,7 +29,7 @@ class TerminalWidget(QFrame):
     def __init__(self, parent, port, path='~', font=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
-        url = 'http://127.0.0.1:{0}'.format(port)
+        url = 'http://127.0.0.1:{0}?path={1}'.format(port, path)
         self.view = TermView(self, term_url=url)
         self.font = font
         self.initial_path = path
@@ -50,9 +50,8 @@ class TerminalWidget(QFrame):
         if finished:
             # This forces to display the black background
             print("\0", end='')
-            self.set_dir(self.initial_path)
-            self.eval_javascript('createTerminal()')
             self.set_font(self.font)
+            self.set_dir(self.initial_path)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""

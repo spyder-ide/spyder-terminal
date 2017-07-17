@@ -14,10 +14,10 @@ environment:
     APPVEYOR_RDP_PASSWORD: "dcca4c4863E30d56c2e0dda6327370b3#"
 
   matrix:
-    - PYTHON_VERSION: "3.6"
-      PYTHON_ARCH: "32"
-      ARCH: "x86"
-      platform: "x86"
+    # - PYTHON_VERSION: "3.6"
+    #   PYTHON_ARCH: "32"
+    #   ARCH: "x86"
+    #   platform: "x86"
     - PYTHON_VERSION: "3.5"
       PYTHON_ARCH: "32"
       ARCH: "x86"
@@ -26,10 +26,10 @@ environment:
       PYTHON_ARCH: "64"
       ARCH: "amd64"
       platform: "x64"
-    - PYTHON_VERSION: "3.5"
-      PYTHON_ARCH: "64"
-      ARCH: "amd64"
-      platform: "x64"
+    # - PYTHON_VERSION: "3.5"
+    #   PYTHON_ARCH: "64"
+    #   ARCH: "amd64"
+    #   platform: "x64"
 
 platform:
   -x64

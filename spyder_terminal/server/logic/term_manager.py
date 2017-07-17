@@ -65,8 +65,8 @@ class TermManager(object):
         """Create a new virtual terminal."""
         pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
         if WINDOWS:
-            tty = pty.PTY(cols, rows, cwd=cwd)
-            tty.spawn(self.cmd)
+            tty = pty.PTY(cols, rows)
+            tty.spawn(self.cmd, cwd=cwd)
         else:
             tty = pty.spawnu(self.cmd, cwd=cwd)
             tty.setwinsize(rows, cols)
