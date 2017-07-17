@@ -151,7 +151,7 @@ function runRealTerminal() {
   var initialX = term.x;
   var timer = setInterval(function() {
     if(term.x != initialX) {
-      term.clear();
+      // term.clear();
       fitFont(curFont);
       clearInterval(timer);
     }
