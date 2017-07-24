@@ -1,4 +1,4 @@
-spyder>=3.2.0.dev0
+spyder>=3.2.0
 pexpect
 tornado>=4.4.3
 logging

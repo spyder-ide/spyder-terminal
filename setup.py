@@ -43,11 +43,11 @@ def get_description():
     return data
 
 
-REQUIREMENTS = ['spyder>=3.2.0.dev0', 'pexpect', 'tornado',
+REQUIREMENTS = ['spyder>=3.2.0', 'pexpect', 'tornado',
                 'coloredlogs', 'requests']
 
 if os.name == 'nt' or any([arg.startswith('win') for arg in sys.argv]):
-    REQUIREMENTS.append('pywinpty>=0.1.2')
+    REQUIREMENTS.append('pywinpty>=0.1.3')
 
 
 cmdclass = {

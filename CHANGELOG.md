@@ -1,3 +1,42 @@
+## Version 0.2 (2017/07/24)
+
+### Issues Closed
+
+* [Issue 90](https://github.com/spyder-ide/spyder-terminal/issues/90) - Windows: Close websocket when a console is closed manually
+* [Issue 85](https://github.com/spyder-ide/spyder-terminal/issues/85) - Update package dependencies on Windows
+* [Issue 84](https://github.com/spyder-ide/spyder-terminal/issues/84) - Release 0.2
+* [Issue 83](https://github.com/spyder-ide/spyder-terminal/issues/83) - Enable AppVeyor CI for Windows testing
+* [Issue 79](https://github.com/spyder-ide/spyder-terminal/issues/79) - Bold font may not be activated on new terminals
+* [Issue 77](https://github.com/spyder-ide/spyder-terminal/issues/77) - Execute initial commands only if prompt is available
+* [Issue 76](https://github.com/spyder-ide/spyder-terminal/issues/76) - Copy and Paste shortcuts are disabled
+* [Issue 72](https://github.com/spyder-ide/spyder-terminal/issues/72) - clear command does not work
+* [Issue 71](https://github.com/spyder-ide/spyder-terminal/issues/71) - Tabify terminal next to the IPython console
+* [Issue 70](https://github.com/spyder-ide/spyder-terminal/issues/70) - Use check_compatibility for PyQt4
+* [Issue 69](https://github.com/spyder-ide/spyder-terminal/issues/69) - Make 0.2 to depend on Spyder 3.2
+* [Issue 64](https://github.com/spyder-ide/spyder-terminal/issues/64) - Add server tests
+* [Issue 22](https://github.com/spyder-ide/spyder-terminal/issues/22) - Incorporate Windows version using pywinpty
+
+In this release 13 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 94](https://github.com/spyder-ide/spyder-terminal/pull/94) - PR: Restore previous font rescaling behaviour
+* [PR 93](https://github.com/spyder-ide/spyder-terminal/pull/93) - PR: Simplify initialization routine
+* [PR 91](https://github.com/spyder-ide/spyder-terminal/pull/91) - PR: Close websocket if process was stopped on Windows
+* [PR 89](https://github.com/spyder-ide/spyder-terminal/pull/89) - PR: Don't raise plugin when a new terminal is created
+* [PR 88](https://github.com/spyder-ide/spyder-terminal/pull/88) - PR: Add server tests
+* [PR 87](https://github.com/spyder-ide/spyder-terminal/pull/87) - PR: Simplify new terminal actions
+* [PR 86](https://github.com/spyder-ide/spyder-terminal/pull/86) - PR: Several installation fixes
+* [PR 82](https://github.com/spyder-ide/spyder-terminal/pull/82) - PR: Copy and Paste shortcuts update
+* [PR 80](https://github.com/spyder-ide/spyder-terminal/pull/80) - PR: Bold fonts are enabled by default
+* [PR 78](https://github.com/spyder-ide/spyder-terminal/pull/78) - Emit initialization commands only if prompt is ready
+* [PR 75](https://github.com/spyder-ide/spyder-terminal/pull/75) - PR: Version 0.2 depends on Spyder 3.2
+* [PR 74](https://github.com/spyder-ide/spyder-terminal/pull/74) - PR: Tabify terminal next to the IPython Console
+* [PR 73](https://github.com/spyder-ide/spyder-terminal/pull/73) - PR: Add plugin check_compatibility
+* [PR 58](https://github.com/spyder-ide/spyder-terminal/pull/58) - PR: Extend spyder-terminal to Windows
+
+In this release 14 pull requests were closed.
+
 ## Version 0.1.2 (2017/06/27)
 
 ### Issues Closed
