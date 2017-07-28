@@ -163,6 +163,7 @@ def test_close_terminal_manually(qtbot):
 
     term.exec_cmd(EXIT)
 
-    qtbot.waitUntil(lambda: check_num_tabs(term, initial_num), timeout=TERM_UP)
+    qtbot.waitUntil(lambda: check_num_tabs(terminal, initial_num),
+                    timeout=TERM_UP)
     final_num = len(terminal.get_terms())
     assert final_num == initial_num - 1
