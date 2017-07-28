@@ -66,9 +66,9 @@ def setup_terminal(qtbot):
 def test_terminal_font(qtbot):
     """Test if terminal loads a custom font."""
     terminal = setup_terminal(qtbot)
-    blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
-    blocker.wait()
-    qtbot.wait(2000)
+    # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    # blocker.wait()
+    qtbot.wait(TERM_UP)
 
     term = terminal.get_current_term()
     port = terminal.port
@@ -83,9 +83,9 @@ def test_terminal_font(qtbot):
 def test_terminal_tab_title(qtbot):
     """Test if terminal tab titles are numbered sequentially."""
     terminal = setup_terminal(qtbot)
-    blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
-    blocker.wait()
-    qtbot.wait(2000)
+    # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    # blocker.wait()
+    qtbot.wait(TERM_UP)
     terminal.create_new_term()
     terminal.create_new_term()
     num_1 = int(terminal.tabwidget.tabText(1)[-1])
@@ -98,9 +98,9 @@ def test_new_terminal(qtbot):
     """Test if a new terminal is added."""
     # Setup widget
     terminal = setup_terminal(qtbot)
-    blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
-    blocker.wait()
-    qtbot.wait(2000)
+    # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    # blocker.wait()
+    qtbot.wait(TERM_UP)
 
     # Test if server is running
     port = terminal.port
@@ -147,9 +147,9 @@ def test_close_terminal_manually(qtbot):
     # Setup widget
     terminal = setup_terminal(qtbot)
 
-    blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
-    blocker.wait()
-    qtbot.wait(2000)
+    # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    # blocker.wait()
+    qtbot.wait(TERM_UP)
 
     terminal.create_new_term()
     initial_num = len(terminal.get_terms())
