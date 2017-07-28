@@ -37,7 +37,6 @@ if WINDOWS:
     PWD = 'cd'
 
 
-
 def check_pwd(termwidget):
     """Check if pwd command is executed."""
     if WEBENGINE:
@@ -51,6 +50,12 @@ def check_pwd(termwidget):
             return False
     else:
         return LOCATION in termwidget.body.toHtml()
+
+
+def check_num_tabs(terminal, ref_value):
+    """Check if total number of terminal tabs has changed."""
+    value = len(terminal.get_terms())
+    return value != ref_value
 
 
 @pytest.fixture(scope="module")
@@ -154,10 +159,10 @@ def test_close_terminal_manually(qtbot):
     terminal.create_new_term()
     initial_num = len(terminal.get_terms())
     term = terminal.get_current_term()
-    qtbot.wait(3000)
+    qtbot.wait(1000)
 
     term.exec_cmd(EXIT)
-    qtbot.wait(3000)
 
+    qtbot.waitUntil(lambda: check_num_tabs(term, initial_num), timeout=TERM_UP)
     final_num = len(terminal.get_terms())
     assert final_num == initial_num - 1
