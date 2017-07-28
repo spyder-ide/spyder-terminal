@@ -154,10 +154,10 @@ def test_close_terminal_manually(qtbot):
     terminal.create_new_term()
     initial_num = len(terminal.get_terms())
     term = terminal.get_current_term()
-    qtbot.wait(1000)
+    qtbot.wait(3000)
 
     term.exec_cmd(EXIT)
-    qtbot.wait(1000)
+    qtbot.wait(3000)
 
     final_num = len(terminal.get_terms())
     assert final_num == initial_num - 1
