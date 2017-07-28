@@ -152,7 +152,7 @@ def test_close_terminal_manually(qtbot):
     qtbot.wait(1000)
 
     term.exec_cmd(EXIT)
-    qtbot.wait(1000)
+    qtbot.wait(5000)
 
     final_num = terminal.tabwidget.count()
     assert final_num == initial_num - 1
