@@ -8,6 +8,7 @@ var term,
     path,
     curFont;
 
+var alive = true;
 var lineEnd = '\n';
 var clearCmd = 'clear';
 var myHeaders = new Headers();
@@ -125,6 +126,7 @@ function exec(cmd)
 }
 
 function closeTerm() {
+  alive = false;
   console.log("Closed via server");
   term.writeln("Pipe closed");
 }
@@ -139,6 +141,10 @@ function scrollTerm(delta) {
   var maxHeight = viewport.prop('scrollHeight') - viewport.innerHeight();
   curScrollPos = Math.min(maxHeight, Math.max(0, curScrollPos - delta));
   $('.xterm-viewport').animate({ scrollTop: curScrollPos }, 0);
+}
+
+function isAlive() {
+   return alive;
 }
 
 function runRealTerminal() {

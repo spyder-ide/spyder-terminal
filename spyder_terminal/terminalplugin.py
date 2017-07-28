@@ -56,6 +56,7 @@ class TerminalPlugin(SpyderPluginWidget):
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
     CONF_SECTION = 'terminal'
     focus_changed = Signal()
+    server_is_ready = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
 
     def __init__(self, parent):
@@ -142,7 +143,7 @@ class TerminalPlugin(SpyderPluginWidget):
             code = 500
 
         if self.server_retries == self.MAX_SERVER_CONTACT_RETRIES:
-            QMessageBox.Critical(self, _('Spyder Terminal Error'),
+            QMessageBox.critical(self, _('Spyder Terminal Error'),
                                  _("Terminal server could not be located at "
                                    '<a href="http://127.0.0.1:{0}">'
                                    'http://127.0.0.1:{0}</a>,'
@@ -158,6 +159,7 @@ class TerminalPlugin(SpyderPluginWidget):
             self.server_retries += 1
             QTimer.singleShot(250, self.__wait_server_to_start)
         elif code == 200:
+            self.server_is_ready.emit()
             self.create_new_term(give_focus=False)
 
     # ------ SpyderPluginMixin API --------------------------------
@@ -310,6 +312,7 @@ class TerminalPlugin(SpyderPluginWidget):
         term = TerminalWidget(self, self.port, path=path,
                               font=font.family())
         self.add_tab(term)
+        term.terminal_closed.connect(lambda: self.close_term(term=term))
 
     def close_term(self, index=None, term=None):
         """Close a terminal tab."""
