@@ -27,6 +27,7 @@ LOCATION_SLASH = LOCATION.replace('\\', '/')
 TERM_UP = 10000
 WINDOWS = os.name == 'nt'
 
+EXIT = 'exit'
 CLEAR = 'clear'
 if WINDOWS:
     CLEAR = 'cls'
@@ -34,6 +35,7 @@ if WINDOWS:
 PWD = 'pwd'
 if WINDOWS:
     PWD = 'cd'
+
 
 
 def check_pwd(termwidget):
@@ -81,8 +83,9 @@ def test_terminal_tab_title(qtbot):
     terminal = setup_terminal(qtbot)
     qtbot.wait(TERM_UP)
     terminal.create_new_term()
-    num_1 = int(terminal.tabwidget.tabText(0)[-1])
-    num_2 = int(terminal.tabwidget.tabText(1)[-1])
+    terminal.create_new_term()
+    num_1 = int(terminal.tabwidget.tabText(1)[-1])
+    num_2 = int(terminal.tabwidget.tabText(2)[-1])
     assert num_2 == num_1 + 1
     terminal.closing_plugin()
 
@@ -131,3 +134,25 @@ def test_output_redirection(qtbot):
     stderr = osp.join(getcwd(), 'spyder_terminal_err.log')
     assert osp.exists(stdout) and osp.exists(stderr)
     terminal.closing_plugin()
+
+
+def test_close_terminal_manually(qtbot):
+    # Setup widget
+    terminal = setup_terminal(qtbot)
+    qtbot.wait(TERM_UP)
+
+    # Test if server is running
+    port = terminal.port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
+    assert status_code == 200
+
+    terminal.create_new_term()
+    initial_num = terminal.tabwidget.count()
+    term = terminal.get_current_term()
+    qtbot.wait(1000)
+
+    term.exec_cmd(EXIT)
+    qtbot.wait(1000)
+
+    final_num = terminal.tabwidget.count()
+    assert final_num == initial_num - 1
