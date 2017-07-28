@@ -12,8 +12,8 @@ from __future__ import print_function
 import sys
 
 from spyder.config.base import _, DEV
-from qtpy.QtCore import Qt, QUrl, Signal, Slot, QObject, QEvent
-from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget, QShortcut)
+from qtpy.QtCore import Qt, QUrl, Slot, QEvent, QTimer, Signal
+from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
 from spyder.utils import icon_manager as ima
@@ -25,6 +25,7 @@ from qtpy.QtWebEngineWidgets import WEBENGINE
 
 class TerminalWidget(QFrame):
     """Terminal widget."""
+    terminal_closed = Signal()
 
     def __init__(self, parent, port, path='~', font=None):
         """Frame main constructor."""
@@ -43,6 +44,7 @@ class TerminalWidget(QFrame):
         self.body = self.view.document
 
         self.view.page().loadFinished.connect(self.setup_term)
+        QTimer.singleShot(250, self.is_alive)
 
     @Slot(bool)
     def setup_term(self, finished):
@@ -75,8 +77,12 @@ class TerminalWidget(QFrame):
         self.eval_javascript('exec("{0}")'.format(cmd))
 
     def is_alive(self):
-        """Check if xterm is ready."""
-        return self.eval_javascript('consoleReady()')
+        """Check if terminal process is alive."""
+        alive = self.eval_javascript('isAlive()')
+        if not alive:
+            self.terminal_closed.emit()
+        else:
+            QTimer.singleShot(250, self.is_alive)
 
 
 class TermView(WebView):

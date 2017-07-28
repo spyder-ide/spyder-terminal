@@ -142,7 +142,7 @@ class TerminalPlugin(SpyderPluginWidget):
             code = 500
 
         if self.server_retries == self.MAX_SERVER_CONTACT_RETRIES:
-            QMessageBox.Critical(self, _('Spyder Terminal Error'),
+            QMessageBox.critical(self, _('Spyder Terminal Error'),
                                  _("Terminal server could not be located at "
                                    '<a href="http://127.0.0.1:{0}">'
                                    'http://127.0.0.1:{0}</a>,'
@@ -310,6 +310,7 @@ class TerminalPlugin(SpyderPluginWidget):
         term = TerminalWidget(self, self.port, path=path,
                               font=font.family())
         self.add_tab(term)
+        term.terminal_closed.connect(lambda: self.close_term(term=term))
 
     def close_term(self, index=None, term=None):
         """Close a terminal tab."""
