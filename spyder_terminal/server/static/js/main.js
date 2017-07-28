@@ -144,7 +144,7 @@ function scrollTerm(delta) {
 }
 
 function isAlive() {
-   return alive
+   return alive;
 }
 
 function runRealTerminal() {

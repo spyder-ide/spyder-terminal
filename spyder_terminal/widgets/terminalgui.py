@@ -25,7 +25,9 @@ from qtpy.QtWebEngineWidgets import WEBENGINE
 
 class TerminalWidget(QFrame):
     """Terminal widget."""
+
     terminal_closed = Signal()
+    terminal_ready = Signal()
 
     def __init__(self, parent, port, path='~', font=None):
         """Frame main constructor."""
@@ -44,7 +46,7 @@ class TerminalWidget(QFrame):
         self.body = self.view.document
 
         self.view.page().loadFinished.connect(self.setup_term)
-        QTimer.singleShot(250, self.is_alive)
+        QTimer.singleShot(250, self.__alive_loopback)
 
     @Slot(bool)
     def setup_term(self, finished):
@@ -76,13 +78,17 @@ class TerminalWidget(QFrame):
         """Execute a command inside the terminal."""
         self.eval_javascript('exec("{0}")'.format(cmd))
 
-    def is_alive(self):
-        """Check if terminal process is alive."""
-        alive = self.eval_javascript('isAlive()')
+    def __alive_loopback(self):
+        alive = self.is_alive()
         if not alive:
             self.terminal_closed.emit()
         else:
-            QTimer.singleShot(250, self.is_alive)
+            QTimer.singleShot(250, self.__alive_loopback)
+
+    def is_alive(self):
+        """Check if terminal process is alive."""
+        alive = self.eval_javascript('isAlive()')
+        return alive
 
 
 class TermView(WebView):

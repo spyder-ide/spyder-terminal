@@ -56,6 +56,7 @@ class TerminalPlugin(SpyderPluginWidget):
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
     CONF_SECTION = 'terminal'
     focus_changed = Signal()
+    server_is_ready = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
 
     def __init__(self, parent):
@@ -158,6 +159,7 @@ class TerminalPlugin(SpyderPluginWidget):
             self.server_retries += 1
             QTimer.singleShot(250, self.__wait_server_to_start)
         elif code == 200:
+            self.server_is_ready.emit()
             self.create_new_term(give_focus=False)
 
     # ------ SpyderPluginMixin API --------------------------------

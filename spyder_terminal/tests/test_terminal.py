@@ -66,7 +66,9 @@ def setup_terminal(qtbot):
 def test_terminal_font(qtbot):
     """Test if terminal loads a custom font."""
     terminal = setup_terminal(qtbot)
-    qtbot.wait(TERM_UP)
+    blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    blocker.wait()
+    qtbot.wait(2000)
 
     term = terminal.get_current_term()
     port = terminal.port
@@ -81,7 +83,9 @@ def test_terminal_font(qtbot):
 def test_terminal_tab_title(qtbot):
     """Test if terminal tab titles are numbered sequentially."""
     terminal = setup_terminal(qtbot)
-    qtbot.wait(TERM_UP)
+    blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    blocker.wait()
+    qtbot.wait(2000)
     terminal.create_new_term()
     terminal.create_new_term()
     num_1 = int(terminal.tabwidget.tabText(1)[-1])
@@ -94,7 +98,9 @@ def test_new_terminal(qtbot):
     """Test if a new terminal is added."""
     # Setup widget
     terminal = setup_terminal(qtbot)
-    qtbot.wait(TERM_UP)
+    blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    blocker.wait()
+    qtbot.wait(2000)
 
     # Test if server is running
     port = terminal.port
@@ -137,22 +143,21 @@ def test_output_redirection(qtbot):
 
 
 def test_close_terminal_manually(qtbot):
+    """Test if terminal tab is closed after process was finished manually."""
     # Setup widget
     terminal = setup_terminal(qtbot)
-    qtbot.wait(TERM_UP)
 
-    # Test if server is running
-    port = terminal.port
-    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
-    assert status_code == 200
+    blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    blocker.wait()
+    qtbot.wait(2000)
 
     terminal.create_new_term()
-    initial_num = terminal.tabwidget.count()
+    initial_num = len(terminal.get_terms())
     term = terminal.get_current_term()
     qtbot.wait(1000)
 
     term.exec_cmd(EXIT)
-    qtbot.wait(5000)
+    qtbot.wait(1000)
 
-    final_num = terminal.tabwidget.count()
+    final_num = len(terminal.get_terms())
     assert final_num == initial_num - 1
