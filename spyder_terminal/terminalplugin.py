@@ -353,6 +353,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.current_cwd = cwd
 
     def server_is_ready(self):
+        """Return server status."""
         return self.server_ready
 
     # ------ Public API (for tabs) ---------------------------
