@@ -56,7 +56,7 @@ class TerminalPlugin(SpyderPluginWidget):
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
     CONF_SECTION = 'terminal'
     focus_changed = Signal()
-    server_is_ready = Signal()
+    sig_server_is_ready = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
 
     def __init__(self, parent):
@@ -65,6 +65,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.tab_widget = None
         self.menu_actions = None
         self.server_retries = 0
+        self.server_ready = False
         self.port = select_port(default_port=8071)
 
         self.cmd = '/usr/bin/env bash'
@@ -159,7 +160,8 @@ class TerminalPlugin(SpyderPluginWidget):
             self.server_retries += 1
             QTimer.singleShot(250, self.__wait_server_to_start)
         elif code == 200:
-            self.server_is_ready.emit()
+            self.sig_server_is_ready.emit()
+            self.server_ready = True
             self.create_new_term(give_focus=False)
 
     # ------ SpyderPluginMixin API --------------------------------
@@ -349,6 +351,9 @@ class TerminalPlugin(SpyderPluginWidget):
     def set_current_cwd(self, cwd):
         """Update current working directory."""
         self.current_cwd = cwd
+
+    def server_is_ready(self):
+        return self.server_ready
 
     # ------ Public API (for tabs) ---------------------------
     def add_tab(self, widget):
