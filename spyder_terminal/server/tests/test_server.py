@@ -114,8 +114,9 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         sock.write_message(' ' + test_msg)
         msg = ''
         while test_msg not in msg:
-            msg = yield sock.read_message()
+            msg += yield sock.read_message()
             print(msg)
+            msg = ''.join(msg.rstrip())
         self.assertTrue(test_msg in msg)
 
     # @pytest.mark.skipif(os.name == 'nt', reason="It doesn't work on Windows")
