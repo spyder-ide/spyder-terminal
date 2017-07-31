@@ -73,7 +73,8 @@ def test_terminal_font(qtbot):
     terminal = setup_terminal(qtbot)
     # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
     # blocker.wait()
-    qtbot.wait(TERM_UP)
+    qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot.wait(1000)
 
     term = terminal.get_current_term()
     port = terminal.port
@@ -90,7 +91,8 @@ def test_terminal_tab_title(qtbot):
     terminal = setup_terminal(qtbot)
     # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
     # blocker.wait()
-    qtbot.wait(TERM_UP)
+    qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot.wait(1000)
     terminal.create_new_term()
     terminal.create_new_term()
     num_1 = int(terminal.tabwidget.tabText(1)[-1])
@@ -105,7 +107,8 @@ def test_new_terminal(qtbot):
     terminal = setup_terminal(qtbot)
     # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
     # blocker.wait()
-    qtbot.wait(TERM_UP)
+    qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot.wait(1000)
 
     # Test if server is running
     port = terminal.port
@@ -129,6 +132,7 @@ def test_new_terminal(qtbot):
     # qtbot.keyClicks(term.view, 'pwd')
     # qtbot.keyPress(term.view, Qt.Key_Return)
     term.exec_cmd(PWD)
+    qtbot.wait(1000)
 
     # Assert pwd is LOCATION
     qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
@@ -154,7 +158,8 @@ def test_close_terminal_manually(qtbot):
 
     # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
     # blocker.wait()
-    qtbot.wait(TERM_UP)
+    qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot.wait(1000)
 
     terminal.create_new_term()
     initial_num = len(terminal.get_terms())

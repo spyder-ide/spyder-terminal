@@ -46,7 +46,8 @@ class TerminalWidget(QFrame):
         self.body = self.view.document
 
         self.view.page().loadFinished.connect(self.setup_term)
-        QTimer.singleShot(250, self.__alive_loopback)
+        if not WEBENGINE:
+            QTimer.singleShot(250, self.__alive_loopback)
 
     @Slot(bool)
     def setup_term(self, finished):
