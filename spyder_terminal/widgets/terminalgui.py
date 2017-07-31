@@ -27,18 +27,23 @@ if WEBENGINE:
 
 
 class ChannelHandler(QObject):
+    """QWebChannel handler for JS calls."""
+
     sig_ready = Signal()
     sig_closed = Signal()
 
     def __init__(self, parent):
+        """Handler main constructor."""
         QObject.__init__(self, parent)
 
     @Slot()
     def ready(self):
+        """Invoke signal when terminal prompt is ready."""
         self.sig_ready.emit()
 
     @Slot()
     def close(self):
+        """Invoke signal when terminal process was closed externally."""
         self.sig_closed.emit()
 
 
