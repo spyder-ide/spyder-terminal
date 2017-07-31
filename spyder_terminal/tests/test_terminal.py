@@ -18,7 +18,6 @@ from qtpy.QtWebEngineWidgets import WEBENGINE
 import spyder_terminal.terminalplugin
 from spyder_terminal.terminalplugin import TerminalPlugin
 from spyder.py3compat import getcwd
-from OpenGL import GL
 
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
