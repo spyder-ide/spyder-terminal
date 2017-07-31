@@ -12,7 +12,8 @@ from __future__ import print_function
 import sys
 
 from spyder.config.base import _, DEV
-from qtpy.QtCore import Qt, QUrl, Slot, QEvent, QTimer, Signal
+from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
+                         QObject)
 from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
@@ -21,6 +22,24 @@ from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
 
 from qtpy.QtWebEngineWidgets import WEBENGINE
+if WEBENGINE:
+    from PyQt5.QtWebChannel import QWebChannel
+
+
+class ChannelHandler(QObject):
+    sig_ready = Signal()
+    sig_closed = Signal()
+
+    def __init__(self, parent):
+        QObject.__init__(self, parent)
+
+    @Slot()
+    def ready(self):
+        self.sig_ready.emit()
+
+    @Slot()
+    def close(self):
+        self.sig_closed.emit()
 
 
 class TerminalWidget(QFrame):
@@ -33,7 +52,10 @@ class TerminalWidget(QFrame):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
         url = 'http://127.0.0.1:{0}?path={1}'.format(port, path)
-        self.view = TermView(self, term_url=url)
+        self.handler = ChannelHandler(self)
+        self.handler.sig_ready.connect(lambda: self.terminal_ready.emit())
+        self.handler.sig_closed.connect(lambda: self.terminal_closed.emit())
+        self.view = TermView(self, term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
 
@@ -73,7 +95,7 @@ class TerminalWidget(QFrame):
 
     def get_fonts(self):
         """List terminal CSS fonts."""
-        return self.eval_javascript("$('.terminal').css('font-family')")
+        return self.eval_javascript("getFonts()")
 
     def exec_cmd(self, cmd):
         """Execute a command inside the terminal."""
@@ -95,7 +117,8 @@ class TerminalWidget(QFrame):
 class TermView(WebView):
     """XTerm Wrapper."""
 
-    def __init__(self, parent, term_url='http://127.0.0.1:8070'):
+    def __init__(self, parent, term_url='http://127.0.0.1:8070',
+                 handler=None):
         """Webview main constructor."""
         WebView.__init__(self, parent)
         self.parent = parent
@@ -107,6 +130,10 @@ class TermView(WebView):
                                           icon=ima.icon('editpaste'),
                                           triggered=self.paste,
                                           shortcut='Ctrl+Shift+V')
+        if WEBENGINE:
+            self.channel = QWebChannel(self.page())
+            self.page().setWebChannel(self.channel)
+            self.channel.registerObject('handler', handler)
         self.term_url = QUrl(term_url)
         self.load(self.term_url)
 
