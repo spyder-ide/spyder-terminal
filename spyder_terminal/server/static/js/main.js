@@ -8,6 +8,8 @@ var term,
     path,
     curFont;
 
+var promptEvent = new Event('promptReady');
+var closeEvent = new Event('terminalClose');
 var alive = true;
 var lineEnd = '\n';
 var clearCmd = 'clear';
@@ -90,15 +92,21 @@ function createTerminal() {
   });
 }
 
-function setFont(font) {
-   fonts = "'Ubuntu Mono', monospace";
-   fonts = "'"+font+"', "+fonts;
-   $('.terminal').css('font-family', fonts);
-   term.fit();
-   var initialGeometry = term.proposeGeometry(),
-       cols = initialGeometry.cols,
-       rows = initialGeometry.rows;
+function getFonts() {
+  return $('.terminal').css('font-family');
 }
+
+function setFont(font) {
+    fonts = "'Ubuntu Mono', monospace";
+    fonts = "'"+font+"', "+fonts;
+    $('.terminal').css('font-family', fonts);
+
+    term.fit();
+    var initialGeometry = term.proposeGeometry(),
+        cols = initialGeometry.cols,
+        rows = initialGeometry.rows;
+}
+
 
 function fitFont(font) {
     curFont = font;
@@ -127,6 +135,7 @@ function exec(cmd)
 
 function closeTerm() {
   alive = false;
+  window.dispatchEvent(closeEvent);
   console.log("Closed via server");
   term.writeln("Pipe closed");
 }
@@ -157,8 +166,8 @@ function runRealTerminal() {
   var initialX = term.x;
   var timer = setInterval(function() {
     if(term.x != initialX) {
-      // term.clear();
       fitFont(curFont);
+      window.dispatchEvent(promptEvent);
       clearInterval(timer);
     }
   }, 200);
@@ -167,4 +176,13 @@ function runRealTerminal() {
 
 $(document).ready(function() {
     createTerminal();
+    new QWebChannel(qt.webChannelTransport, function (channel) {
+        window.handler = channel.objects.handler;
+        window.addEventListener('promptReady', function(e) {
+           window.handler.ready();
+        }, false);
+        window.addEventListener('terminalClose', function(e) {
+           window.handler.close();
+        }, false);
+    });
 });

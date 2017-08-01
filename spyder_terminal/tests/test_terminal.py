@@ -19,7 +19,6 @@ import spyder_terminal.terminalplugin
 from spyder_terminal.terminalplugin import TerminalPlugin
 from spyder.py3compat import getcwd
 
-
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 LOCATION_SLASH = LOCATION.replace('\\', '/')
@@ -52,6 +51,23 @@ def check_pwd(termwidget):
         return LOCATION in termwidget.body.toHtml()
 
 
+def check_fonts(term, expected):
+    """Check if terminal fonts were updated."""
+    if WEBENGINE:
+        def callback(data):
+            global term_fonts
+            term_fonts = data
+        term.body.runJavaScript("getFonts()", callback)
+        try:
+            return term_fonts == expected
+        except NameError:
+            return False
+    else:
+        fonts = term.get_fonts()
+        fonts = fonts.replace("'", '"')
+        return fonts == expected
+
+
 def check_num_tabs(terminal, ref_value):
     """Check if total number of terminal tabs has changed."""
     value = len(terminal.get_terms())
@@ -81,8 +97,8 @@ def test_terminal_font(qtbot):
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
     term.set_font('Ubuntu Mono')
-    fonts = term.get_fonts()
-    assert fonts == "'Ubuntu Mono', 'Ubuntu Mono', monospace"
+    expected = '"Ubuntu Mono", "Ubuntu Mono", monospace'
+    qtbot.waitUntil(lambda: check_fonts(term, expected), timeout=TERM_UP)
     terminal.closing_plugin()
 
 
