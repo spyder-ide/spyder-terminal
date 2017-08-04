@@ -56,3 +56,7 @@ test:
     # Coveralls
     - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && coveralls: # note the colon
         parallel: true
+
+notify:
+  webhooks:
+    - url: https://coveralls.io/webhook?repo_token=botdGLk6Cu4ZwAYkl3WVyt3AdJwdfpRhO
