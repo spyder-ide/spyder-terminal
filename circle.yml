@@ -12,6 +12,7 @@ machine:
     CONDA_DEPENDENCIES_FLAGS: "--quiet"
     CONDA_DEPENDENCIES: "pytest pytest-cov"
     PIP_DEPENDENCIES: "coveralls coloredlogs pytest-qt pytest-xvfb flaky"
+    COVERALLS_PARALLEL: true
 
 dependencies:
   pre:
@@ -38,6 +39,10 @@ dependencies:
     - DISPLAY=:99 /usr/bin/matchbox-window-manager:
         background: true
     - sleep 5
+
+notify:
+  webhooks:
+    - url: https://coveralls.io/webhook?repo_token=botdGLk6Cu4ZwAYkl3WVyt3AdJwdfpRhO
 
 test:
   override:
