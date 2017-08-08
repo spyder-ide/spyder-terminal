@@ -28,6 +28,6 @@ class ResizeHandler(tornado.web.RequestHandler):
     @tornado.gen.coroutine
     def post(self, pid):
         """POST verb: Resize a terminal."""
-        rows = int(self.get_argument('rows', None, 23))
-        cols = int(self.get_argument('cols', None, 73))
+        rows = int(self.get_argument('rows', default=23))
+        cols = int(self.get_argument('cols', default=73))
         self.application.term_manager.resize_term(pid, rows, cols)
