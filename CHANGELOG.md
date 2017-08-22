@@ -1,3 +1,25 @@
+## Version 0.2.1 (2017/08/22)
+
+### Issues Closed
+
+* [Issue 107](https://github.com/spyder-ide/spyder-terminal/issues/107) - Release 0.2.1
+* [Issue 102](https://github.com/spyder-ide/spyder-terminal/issues/102) - Adapt close functionallity on Qt WebEngine
+* [Issue 101](https://github.com/spyder-ide/spyder-terminal/issues/101) - Error on a slow start
+* [Issue 99](https://github.com/spyder-ide/spyder-terminal/issues/99) - Prevent tests to get stuck on AppVeyor
+* [Issue 96](https://github.com/spyder-ide/spyder-terminal/issues/96) - TypeError: 'Icon' object is not callable
+* [Issue 95](https://github.com/spyder-ide/spyder-terminal/issues/95) - Close automatically a Terminal tab if it was closed from the process itself
+
+In this release 6 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 106](https://github.com/spyder-ide/spyder-terminal/pull/106) - PR: Replace default values for resize arguments
+* [PR 103](https://github.com/spyder-ide/spyder-terminal/pull/103) - PR: QWebChannel implementation and tests
+* [PR 100](https://github.com/spyder-ide/spyder-terminal/pull/100) - PR: Reduce test execution times
+* [PR 98](https://github.com/spyder-ide/spyder-terminal/pull/98) - PR: Close terminal tab if process was closed
+
+In this release 4 pull requests were closed.
+
 ## Version 0.2 (2017/07/24)
 
 ### Issues Closed
