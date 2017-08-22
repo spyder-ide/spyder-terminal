@@ -1,0 +1,136 @@
+#terminal-container .terminal {
+    background-color: #272822;
+    color: #f1ebeb;
+}
+
+.terminal .xterm-viewport {
+    background-color: #272822;
+}
+
+.terminal .xterm-color-0 {
+    color: #48483e;
+}
+
+.terminal .xterm-bg-color-0 {
+    background-color: #48483e;
+}
+
+.terminal .xterm-color-1 {
+    color: #dc2566;
+}
+
+.terminal .xterm-bg-color-1 {
+    background-color: #dc2566;
+}
+
+.terminal .xterm-color-2 {
+    color: #8fc029;
+}
+
+.terminal .xterm-bg-color-2 {
+    background-color: #8fc029;
+}
+
+.terminal .xterm-color-3 {
+    color: #d4c96e;
+}
+
+.terminal .xterm-bg-color-3 {
+    background-color: #d4c96e;
+}
+
+.terminal .xterm-color-4 {
+    color: #55bcce;
+}
+
+.terminal .xterm-bg-color-4 {
+    background-color: #55bcce;
+}
+
+.terminal .xterm-color-5 {
+    color: #9358fe;
+}
+
+.terminal .xterm-bg-color-5 {
+    background-color: #9358fe;
+}
+
+.terminal .xterm-color-6 {
+    color: #56b7a5;
+}
+
+.terminal .xterm-bg-color-6 {
+    background-color: #56b7a5;
+}
+
+.terminal .xterm-color-7 {
+    color: #acada1;
+}
+
+.terminal .xterm-bg-color-7 {
+    background-color: #acada1;
+}
+
+.terminal .xterm-color-8 {
+    color: #76715e;
+}
+
+.terminal .xterm-bg-color-8 {
+    background-color: #76715e;
+}
+
+.terminal .xterm-color-9 {
+    color: #fa2772;
+}
+
+.terminal .xterm-bg-color-9 {
+    background-color: #fa2772;
+}
+
+.terminal .xterm-color-10 {
+    color: #a7e22e;
+}
+
+.terminal .xterm-bg-color-10 {
+    background-color: #a7e22e;
+}
+
+.terminal .xterm-color-11 {
+    color: #e7db75;
+}
+
+.terminal .xterm-bg-color-11 {
+    background-color: #e7db75;
+}
+
+.terminal .xterm-color-12 {
+    color: #66d9ee;
+}
+
+.terminal .xterm-bg-color-12 {
+    background-color: #66d9ee;
+}
+
+.terminal .xterm-color-13 {
+    color: #ae82ff;
+}
+
+.terminal .xterm-bg-color-13 {
+    background-color: #ae82ff;
+}
+
+.terminal .xterm-color-14 {
+    color: #66efd5;
+}
+
+.terminal .xterm-bg-color-14 {
+    background-color: #66efd5;
+}
+
+.terminal .xterm-color-15 {
+    color: #cfd0c2;
+}
+
+.terminal .xterm-bg-color-15 {
+    background-color: #cfd0c2;
+}

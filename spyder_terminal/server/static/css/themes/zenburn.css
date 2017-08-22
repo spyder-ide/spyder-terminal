@@ -1,0 +1,149 @@
+#terminal-container .terminal {
+    background-color: #3F3F3F;
+    color: #DCDCCC;
+}
+
+.terminal .xterm-viewport {
+    background-color: #3F3F3F;
+}
+
+.terminal .xterm-color-0 {
+    color: #3F3F3F;
+}
+
+.terminal .xterm-bg-color-0 {
+    background-color: #3F3F3F;
+}
+
+.terminal .xterm-color-1 {
+    color: #705050;
+}
+
+.terminal .xterm-bg-color-1 {
+    background-color: #705050;
+}
+
+.terminal .xterm-color-2 {
+    color: #60B48A;
+}
+
+.terminal .xterm-bg-color-2 {
+    background-color: #60B48A;
+}
+
+.terminal .xterm-color-3 {
+    color: #DFAF8F;
+}
+
+.terminal .xterm-bg-color-3 {
+    background-color: #DFAF8F;
+}
+
+.terminal .xterm-color-4 {
+    color: #506070;
+}
+
+.terminal .xterm-bg-color-4 {
+    background-color: #506070;
+}
+
+.terminal .xterm-color-5 {
+    color: #DC8CC3;
+}
+
+.terminal .xterm-bg-color-5 {
+    background-color: #DC8CC3;
+}
+
+.terminal .xterm-color-6 {
+    color: #8CD0D3;
+}
+
+.terminal .xterm-bg-color-6 {
+    background-color: #8CD0D3;
+}
+
+.terminal .xterm-color-7 {
+    color: #DCDCCC;
+}
+
+.terminal .xterm-bg-color-7 {
+    background-color: #DCDCCC;
+}
+
+.terminal .xterm-color-8 {
+    color: #709080;
+}
+
+.terminal .xterm-bg-color-8 {
+    background-color: #709080;
+}
+
+.terminal .xterm-color-9 {
+    color: #DCA3A3;
+}
+
+.terminal .xterm-bg-color-9 {
+    background-color: #DCA3A3;
+}
+
+.terminal .xterm-color-10 {
+    color: #C3BF9F;
+}
+
+.terminal .xterm-bg-color-10 {
+    background-color: #C3BF9F;
+}
+
+.terminal .xterm-color-11 {
+    color: #F0DFAF;
+}
+
+.terminal .xterm-bg-color-11 {
+    background-color: #F0DFAF;
+}
+
+.terminal .xterm-color-12 {
+    color: #94BFF3;
+}
+
+.terminal .xterm-bg-color-12 {
+    background-color: #94BFF3;
+}
+
+.terminal .xterm-color-13 {
+    color: #EC93D3;
+}
+
+.terminal .xterm-bg-color-13 {
+    background-color: #EC93D3;
+}
+
+.terminal .xterm-color-14 {
+    color: #93E0E3;
+}
+
+.terminal .xterm-bg-color-14 {
+    background-color: #93E0E3;
+}
+
+.terminal .xterm-color-15 {
+    color: #DCDCCC;
+}
+
+.terminal .xterm-bg-color-15 {
+    background-color: #DCDCCC;
+}
+
+.terminal:not(.focus) .terminal-cursor {
+    outline: 1px solid #BFBFBF;
+}
+
+.terminal.xterm-cursor-style-block.focus:not(.xterm-cursor-blink-on) .terminal-cursor {
+    background-color: #BFBFBF;
+}
+
+.terminal.focus.xterm-cursor-style-bar:not(.xterm-cursor-blink-on) .terminal-cursor::before,
+.terminal.focus.xterm-cursor-style-underline:not(.xterm-cursor-blink-on) .terminal-cursor::before {
+    background-color: #BFBFBF;
+}
