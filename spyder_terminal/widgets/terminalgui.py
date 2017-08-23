@@ -101,6 +101,7 @@ class TerminalWidget(QFrame):
         self.eval_javascript('fitFont("{0}")'.format(self.font))
 
     def set_color_scheme(self, color_scheme):
+        """Set terminal color scheme."""
         self.color_scheme = color_scheme
         self.eval_javascript('setColors("{0}")'.format(color_scheme))
 
