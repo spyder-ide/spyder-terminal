@@ -1,6 +1,6 @@
 #terminal-container .terminal {
     background-color: #272822;
-    color: #f1ebeb;
+    color: #f8f8f2;
 }
 
 .terminal .xterm-viewport {
@@ -64,11 +64,11 @@
 }
 
 .terminal .xterm-color-7 {
-    color: #acada1;
+    color: #f8f8f2;
 }
 
 .terminal .xterm-bg-color-7 {
-    background-color: #acada1;
+    background-color: #f8f8f2;
 }
 
 .terminal .xterm-color-8 {
@@ -128,9 +128,27 @@
 }
 
 .terminal .xterm-color-15 {
-    color: #cfd0c2;
+    color: #f9f8f5;
 }
 
 .terminal .xterm-bg-color-15 {
-    background-color: #cfd0c2;
+    background-color: #f9f8f5;
+}
+
+.terminal:not(.focus) .terminal-cursor {
+    outline: 1px solid #f8f8f2;
+}
+
+.terminal.xterm-cursor-style-block.focus:not(.xterm-cursor-blink-on) .terminal-cursor {
+    background-color: #f8f8f2;
+}
+
+.terminal.focus.xterm-cursor-style-bar:not(.xterm-cursor-blink-on) .terminal-cursor::before,
+.terminal.focus.xterm-cursor-style-underline:not(.xterm-cursor-blink-on) .terminal-cursor::before {
+    background-color: #f8f8f2;
+}
+
+.terminal .xterm-selection div {
+    position: absolute;
+    background-color: #f8f8f2;
 }

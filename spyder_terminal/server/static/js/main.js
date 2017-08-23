@@ -107,6 +107,15 @@ function setFont(font) {
         rows = initialGeometry.rows;
 }
 
+function setColors(scheme) {
+  $('<link>')
+  .appendTo('head')
+  .attr({
+      type: 'text/css',
+      rel: 'stylesheet',
+      href: 'static/css/themes/' + scheme + '.css'
+  });
+}
 
 function fitFont(font) {
     curFont = font;
