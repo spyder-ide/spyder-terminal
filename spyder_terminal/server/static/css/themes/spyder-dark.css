@@ -1,66 +1,66 @@
 #terminal-container .terminal {
-    background-color: #ffffff;
-    color: #000000;
-}
-
-.terminal .xterm-viewport {
-    background-color: #ffffff;
-}
-
-.terminal .xterm-color-0 {
+    background-color: #131926;
     color: #ffffff;
 }
 
+.terminal .xterm-viewport {
+    background-color: #131926;
+}
+
+.terminal .xterm-color-0 {
+    color: #7f7f7f;
+}
+
 .terminal .xterm-bg-color-0 {
-    background-color: #000000;
+    background-color: #7f7f7f;
 }
 
 .terminal .xterm-color-1 {
-    color: #8a0000;
+    color: #c80000;
 }
 
 .terminal .xterm-bg-color-1 {
-    background-color: #8a0000;
+    background-color: #c80000;
 }
 
 .terminal .xterm-color-2 {
-    color: #008a00;
+    color: #11a642;
 }
 
 .terminal .xterm-bg-color-2 {
-    background-color: #008a00;
+    background-color: #11a642;
 }
 
 .terminal .xterm-color-3 {
-    color: #8a4000;
+    color: #c5bb29;
 }
 
 .terminal .xterm-bg-color-3 {
-    background-color: #8a4000;
+    background-color: #c5bb29;
 }
 
 .terminal .xterm-color-4 {
-    color: #00008a;
+    color: #558eff;
 }
 
 .terminal .xterm-bg-color-4 {
-    background-color: #00008a;
+    background-color: #558eff;
 }
 
 .terminal .xterm-color-5 {
-    color: #5a005a;
+    color: #aa00aa;
 }
 
 .terminal .xterm-bg-color-5 {
-    background-color: #5a005a;
+    background-color: #aa00aa;
 }
 
 .terminal .xterm-color-6 {
-    color: #105151;
+    color: #20b3a7;
 }
 
 .terminal .xterm-bg-color-6 {
-    background-color: #105151;
+    background-color: #20b3a7;
 }
 
 .terminal .xterm-color-7 {
@@ -68,63 +68,63 @@
 }
 
 .terminal .xterm-bg-color-7 {
-    background-color: #000000;
+    background-color: #ffffff;
 }
 
 .terminal .xterm-color-8 {
-    color: #555555;
+    color: #4b4b4b;
 }
 
 .terminal .xterm-bg-color-8 {
-    background-color: #555555;
+    background-color: #4b4b4b;
 }
 
 .terminal .xterm-color-9 {
-    color: #dd0000;
+    color: #ef0000;
 }
 
 .terminal .xterm-bg-color-9 {
-    background-color: #dd0000;
+    background-color: #ef0000;
 }
 
 .terminal .xterm-color-10 {
-    color: #00aa00;
+    color: #13c24b;
 }
 
 .terminal .xterm-bg-color-10 {
-    background-color: #00aa00;
+    background-color: #13c24b;
 }
 
 .terminal .xterm-color-11 {
-    color: #ff7700;
+    color: #e6e13f;
 }
 
 .terminal .xterm-bg-color-11 {
-    background-color: #ff7700;
+    background-color: #e6e13f;
 }
 
 .terminal .xterm-color-12 {
-    color: #0000ff;
+    color: #4395ff;
 }
 
 .terminal .xterm-bg-color-12 {
-    background-color: #0000ff;
+    background-color: #4395ff;
 }
 
 .terminal .xterm-color-13 {
-    color: #900090;
+    color: #da00da;
 }
 
 .terminal .xterm-bg-color-13 {
-    background-color: #900090;
+    background-color: #da00da;
 }
 
 .terminal .xterm-color-14 {
-    color: #20a7a7;
+    color: #23cbbd;
 }
 
 .terminal .xterm-bg-color-14 {
-    background-color: #20a7a7;
+    background-color: #23cbbd;
 }
 
 .terminal .xterm-color-15 {
@@ -132,23 +132,23 @@
 }
 
 .terminal .xterm-bg-color-15 {
-    background-color: #000000;
+    background-color: #ffffff;
 }
 
 .terminal:not(.focus) .terminal-cursor {
-    outline: 1px solid #777777;
+    outline: 1px solid #ffffff;
 }
 
 .terminal.xterm-cursor-style-block.focus:not(.xterm-cursor-blink-on) .terminal-cursor {
-    background-color: #777777;
+    background-color: #ffffff;
 }
 
 .terminal.focus.xterm-cursor-style-bar:not(.xterm-cursor-blink-on) .terminal-cursor::before,
 .terminal.focus.xterm-cursor-style-underline:not(.xterm-cursor-blink-on) .terminal-cursor::before {
-    background-color: #777777;
+    background-color: #ffffff;
 }
 
 .terminal .xterm-selection div {
     position: absolute;
-    background-color: #777777;
+    background-color: #ffffff;
 }
