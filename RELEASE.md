@@ -2,6 +2,8 @@ To release a new version of spyder-terminal:
 
 * git fetch upstream && git merge upstream/master
 
+* git clean -xfdi
+
 * Update CHANGELOG.md with loghub
 
 * Update VERSION_INFO in `__init__.py` (set release version, remove 'dev0')
