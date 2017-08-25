@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+# -----------------------------------------------------------------------------
+# Copyright (c) Spyder Project Contributors
+# Copyright (c) 2015-, Jupyter Development Team.
+# Copyright (c) 2008-2015, IPython Development Team.
+#
+# Distributed under the terms of the Modified BSD License.
+#
+# -----------------------------------------------------------------------------
 
 """
 General setup rules to download external JS dependencies
@@ -64,8 +73,15 @@ class DevelopWithBuildStatic(develop):
 
 
 class SdistWithBuildStatic(sdist):
-    def make_distribution(self):
+    def run(self):
         self.run_command('build_static')
+        sdist.run(self)
+
+    def make_distribution(self):
+        if not osp.isdir(COMPONENTS):
+            print("\nWARNING: Server components are missing!! We can't "
+                  "proceed further!\n")
+            sys.exit(1)
         return sdist.make_distribution(self)
 
 
@@ -80,4 +96,4 @@ class CleanComponents(Command):
 
     def run(self):
         log.info("Removing server components")
-        shutil.rmtree(COMPONENTS)
+        shutil.rmtree(COMPONENTS, ignore_errors=True)
