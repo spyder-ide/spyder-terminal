@@ -15,9 +15,7 @@ import sys
 # Third party imports
 from setuptools import find_packages, setup
 
-from setupbase import (BuildStatic,
-                       CleanComponents,
-                       SdistWithBuildStatic)
+from setupbase import BuildStatic, CleanComponents, SdistWithBuildStatic
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
