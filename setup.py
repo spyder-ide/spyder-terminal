@@ -58,7 +58,7 @@ cmdclass = {
 
 
 setup(
-    name='spyder_terminal',
+    name='spyder-terminal',
     version=get_version(),
     cmdclass=cmdclass,
     keywords=['Spyder', 'Plugin'],
