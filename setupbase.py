@@ -89,4 +89,4 @@ class CleanComponents(Command):
 
     def run(self):
         log.info("Removing server components")
-        shutil.rmtree(COMPONENTS)
+        shutil.rmtree(COMPONENTS, ignore_errors=True)
