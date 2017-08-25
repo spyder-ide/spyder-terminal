@@ -1,3 +1,13 @@
+## Version 0.2.2 (2017/08/25)
+
+
+### Pull Requests Merged
+
+* [PR 111](https://github.com/spyder-ide/spyder-terminal/pull/111) - PR: Prevent tarballs and wheels to be built without server components
+
+In this release 1 pull request was closed.
+
+
 ## Version 0.2.1 (2017/08/22)
 
 ### Issues Closed
