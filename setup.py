@@ -10,15 +10,14 @@
 # Standard library imports
 import ast
 import os
+import os.path as osp
 import sys
 
 # Third party imports
 from setuptools import find_packages, setup
 
-from setupbase import BuildStatic, CleanComponents, SdistWithBuildStatic
-
-
-HERE = os.path.abspath(os.path.dirname(__file__))
+from setupbase import (BuildStatic, CleanComponents, COMPONENTS, HERE,
+                       SdistWithBuildStatic)
 
 
 def get_version(module='spyder_terminal'):
@@ -44,6 +43,16 @@ def get_description():
 REQUIREMENTS = ['spyder>=3.2.0', 'pexpect', 'tornado',
                 'coloredlogs', 'requests']
 
+
+# Verify that COMPONENTS exist before trying to build the wheel
+if any([arg == 'bdist_wheel' for arg in sys.argv]):
+    if not osp.isdir(COMPONENTS):
+        print("\nWARNING: Server components are missing!! Please run "
+              "'python setup.py sdist' first.\n")
+        sys.exit(1)
+
+
+# Add pywinpty to our Windows dependencies when building wheels
 if os.name == 'nt' or any([arg.startswith('win') for arg in sys.argv]):
     REQUIREMENTS.append('pywinpty>=0.1.3')
 
