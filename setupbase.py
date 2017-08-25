@@ -73,8 +73,15 @@ class DevelopWithBuildStatic(develop):
 
 
 class SdistWithBuildStatic(sdist):
-    def make_distribution(self):
+    def run(self):
         self.run_command('build_static')
+        sdist.run(self)
+
+    def make_distribution(self):
+        if not osp.isdir(COMPONENTS):
+            print("\nWARNING: Server components are missing!! We can't "
+                  "proceed further!\n")
+            sys.exit(1)
         return sdist.make_distribution(self)
 
 
