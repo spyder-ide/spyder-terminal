@@ -44,7 +44,7 @@ REQUIREMENTS = ['spyder>=3.2.0', 'pexpect', 'tornado',
                 'coloredlogs', 'requests']
 
 
-# Verify that COMPONENTS exist before trying to build the wheel
+# Verify that COMPONENTS exist before trying to build wheels
 if any([arg == 'bdist_wheel' for arg in sys.argv]):
     if not osp.isdir(COMPONENTS):
         print("\nWARNING: Server components are missing!! Please run "
@@ -54,7 +54,7 @@ if any([arg == 'bdist_wheel' for arg in sys.argv]):
 
 # Add pywinpty to our Windows dependencies when building wheels
 if os.name == 'nt' or any([arg.startswith('win') for arg in sys.argv]):
-    REQUIREMENTS.append('pywinpty>=0.1.3')
+    REQUIREMENTS.append('pywinpty>=0.2.1')
 
 
 cmdclass = {
