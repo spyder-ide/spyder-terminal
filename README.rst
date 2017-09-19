@@ -67,7 +67,7 @@ This project depends on
 
 1. `Spyder <https://github.com/spyder-ide/spyder>`_
 2. `Tornado <https://github.com/tornadoweb/tornado>`_
-3. `Pexpect <https://pexpect.sourceforge.net/pexpect.html>`_
+3. `Pexpect <https://github.com/pexpect/pexpect>`_
 4. `Coloredlogs <https://github.com/xolox/python-coloredlogs>`_
 5. `xterm.js <https://github.com/sourcelair/xterm.js>`_
 
