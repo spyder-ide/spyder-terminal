@@ -144,7 +144,10 @@ class TermView(WebView):
 
         if WEBENGINE:
             self.document = self.page()
-            self.document.profile().clearHttpCache()
+            try:
+                self.document.profile().clearHttpCache()
+            except AttributeError:
+                pass
         else:
             self.document = self.page().mainFrame()
 
