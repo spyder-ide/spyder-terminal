@@ -1,3 +1,18 @@
+## Version 0.2.3 (2017/10/11)
+
+### Issues Closed
+
+* [Issue 114](https://github.com/spyder-ide/spyder-terminal/issues/114) - AttributeError: 'QWebEngineProfile' object has no attribute 'clearHttpCache'
+
+In this release 1 issue was closed.
+
+### Pull Requests Merged
+
+* [PR 117](https://github.com/spyder-ide/spyder-terminal/pull/117) - PR: Do not clean WebEngine cache when using WebKit
+
+In this release 1 pull request was closed.
+
+
 ## Version 0.2.2 (2017/08/25)
 
 
