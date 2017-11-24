@@ -33,12 +33,43 @@ Build status
 .. |pypi version| image:: https://img.shields.io/pypi/v/spyder-terminal.svg
    :target: https://pypi.python.org/pypi/spyder-terminal
    :alt: Latest PyPI version
-.. |gitter| image:: https://badges.gitter.im/spyder-ide/spyder-terminal.svg
-   :target: https://gitter.im/spyder-ide/spyder-terminal
-   :alt: Join the chat at https://gitter.im/spyder-ide/spyder-terminal
 .. |coverage| image:: https://coveralls.io/repos/github/spyder-ide/spyder-terminal/badge.svg
    :target: https://coveralls.io/github/spyder-ide/spyder-terminal?branch=master
    :alt: Code Coverage
+   :alt: Code Coverage
+.. |gitter| image:: https://badges.gitter.im/spyder-ide/spyder-terminal.svg
+   :target: https://gitter.im/spyder-ide/spyder-terminal
+   :alt: Join the chat at https://gitter.im/spyder-ide/spyder-terminal
+.. |backers| image:: https://opencollective.com/spyder/backers/badge.svg?color=blue
+   :target: #backers
+   :alt: OpenCollective Backers
+.. |sponsors| image:: https://opencollective.com/spyder/sponsors/badge.svg?color=blue
+   :target: #sponsors
+   :alt: OpenCollective Sponsors
+
+
+Important Announcement: Spyder is unfunded!
+-------------------------------------------
+
+Since mid November/2017, `Anaconda, Inc`_ has
+stopped funding Spyder development, after doing it for the past 18
+months. Because of that, development will focus from now on maintaining
+Spyder 3 at a much slower pace than before.
+
+If you want to contribute to maintain Spyder, please consider donating at
+
+https://opencollective.com/spyder
+
+We appreciate all the help you can provide us and can't thank you enough for
+supporting the work of Spyder devs and Spyder development.
+
+If you want to know more about this, please read this
+`page`_.
+
+
+.. _Anaconda, Inc: https://www.anaconda.com/
+.. _page: https://github.com/spyder-ide/spyder/wiki/Anaconda-stopped-funding-Spyder
+
 
 
 Installation
@@ -123,4 +154,21 @@ Overview
 
 .. |windows-gif| image:: https://github.com/spyder-ide/spyder-terminal/blob/master/doc/windows.gif?raw=true
    :alt: Windows animated gif
+
+~~~~~~~
+
+Support us with a monthly donation and help us continue our activities.
+
+.. image:: https://opencollective.com/spyder/backers.svg
+   :target: https://opencollective.com/spyder#support
+   :alt: Backers
+
+Sponsors
+~~~~~~~~
+
+Become a sponsor to get your logo on our README on Github.
+
+.. image:: https://opencollective.com/spyder/sponsors.svg
+   :target: https://opencollective.com/spyder#support
+   :alt: Sponsors
 
