@@ -36,7 +36,6 @@ Build status
 .. |coverage| image:: https://coveralls.io/repos/github/spyder-ide/spyder-terminal/badge.svg
    :target: https://coveralls.io/github/spyder-ide/spyder-terminal?branch=master
    :alt: Code Coverage
-   :alt: Code Coverage
 .. |gitter| image:: https://badges.gitter.im/spyder-ide/spyder-terminal.svg
    :target: https://gitter.im/spyder-ide/spyder-terminal
    :alt: Join the chat at https://gitter.im/spyder-ide/spyder-terminal
