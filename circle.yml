@@ -12,6 +12,7 @@ machine:
     CONDA_DEPENDENCIES_FLAGS: "--quiet"
     CONDA_DEPENDENCIES: "pytest pytest-cov"
     PIP_DEPENDENCIES: "coveralls coloredlogs pytest-qt pytest-xvfb flaky"
+    COVERALLS_PARALLEL: true
 
 dependencies:
   pre:
@@ -30,6 +31,10 @@ dependencies:
       conda install -q ciocheck -c spyder-ide --no-update-deps &&
       if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip install -q spyder pyqt5==5.8.0 tornado pexpect; else conda install -q -y spyder && conda install tornado pexpect; fi &&
       if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip uninstall -q -y spyder; else conda remove -q -y spyder; fi &&
+      pip uninstall -q -y coveralls &&
+      mkdir coveralls-source && cd coveralls-source &&
+      wget -q https://github.com/coveralls-clients/coveralls-python/archive/master.zip && unzip -q master.zip &&
+      cd coveralls-python-master && python setup.py install > /dev/null && cd ../../ &&
       mkdir spyder-source && cd spyder-source &&
       wget -q https://github.com/spyder-ide/spyder/archive/3.x.zip && unzip -q 3.x.zip &&
       cd spyder-3.x && python setup.py install > /dev/null &&
@@ -38,6 +43,7 @@ dependencies:
     - DISPLAY=:99 /usr/bin/matchbox-window-manager:
         background: true
     - sleep 5
+
 
 test:
   override:
@@ -50,3 +56,7 @@ test:
     # Coveralls
     - export PATH="$HOME/miniconda/bin:$PATH" && source activate test && coveralls: # note the colon
         parallel: true
+
+notify:
+  webhooks:
+    - url: https://coveralls.io/webhook?repo_token=botdGLk6Cu4ZwAYkl3WVyt3AdJwdfpRhO
