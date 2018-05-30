@@ -3,15 +3,14 @@
 machine:
   environment:
     # Python versions to tests (Maximum of 4 different versions)
-    # The last container is used to test with pyqt5 wheels
-    PY_VERSIONS: "2.7 3.6 3.5"
+    PY_VERSIONS: "2.7 3.5 3.6"
     # For Coveralls
     COVERALLS_REPO_TOKEN: botdGLk6Cu4ZwAYkl3WVyt3AdJwdfpRhO
     # Environment variables used by astropy helpers
     TRAVIS_OS_NAME: "linux"
     CONDA_DEPENDENCIES_FLAGS: "--quiet"
-    CONDA_DEPENDENCIES: "pytest pytest-cov"
-    PIP_DEPENDENCIES: "coveralls coloredlogs pytest-qt pytest-xvfb flaky"
+    CONDA_DEPENDENCIES: "pytest pytest-cov flaky coveralls"
+    PIP_DEPENDENCIES: "pytest-qt pytest-xvfb"
 
 dependencies:
   pre:
@@ -24,16 +23,12 @@ dependencies:
       export TRAVIS_PYTHON_VERSION=${PY_VERSIONS[$CIRCLE_NODE_INDEX]} &&
       echo -e "PYTHON = $TRAVIS_PYTHON_VERSION \n============" &&
       git clone git://github.com/astropy/ci-helpers.git > /dev/null &&
-      source ci-helpers/travis/setup_conda_$TRAVIS_OS_NAME.sh &&
+      source ci-helpers/travis/setup_conda_$TRAVIS_OS_NAME.sh > /dev/null &&
       export PATH="$HOME/miniconda/bin:$PATH" &&
       source activate test &&
       conda install -q ciocheck -c spyder-ide --no-update-deps &&
-      if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip install -q spyder pyqt5==5.8.0 tornado pexpect; else conda install -q -y spyder && conda install tornado pexpect; fi &&
-      if [ "$CIRCLE_NODE_INDEX" = "2" ]; then pip uninstall -q -y spyder; else conda remove -q -y spyder; fi &&
-      mkdir spyder-source && cd spyder-source &&
-      wget -q https://github.com/spyder-ide/spyder/archive/3.x.zip && unzip -q 3.x.zip &&
-      cd spyder-3.x && python setup.py install > /dev/null &&
-      cd ../../ && python setup.py build_static &&
+      conda install -q pyqt=5.6* spyder tornado pexpect coloredlogs &&
+      python setup.py build_static &&
       pip install .;
     - DISPLAY=:99 /usr/bin/matchbox-window-manager:
         background: true
