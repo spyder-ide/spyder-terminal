@@ -9,27 +9,19 @@ environment:
     PIP_DEPENDENCIES_FLAGS: "-q"
     CONDA_DEPENDENCIES_FLAGS: "--quiet"
     CONDA_DEPENDENCIES: >
-      spyder pytest pytest-cov
-    PIP_DEPENDENCIES: "pytest-qt pytest-timeout flaky coloredlogs pytest-xvfb"
+      spyder pytest pytest-cov flaky tornado pexpect coloredlogs pywinpty
+    PIP_DEPENDENCIES: "pytest-qt"
     APPVEYOR_RDP_PASSWORD: "dcca4c4863E30d56c2e0dda6327370b3#"
 
   matrix:
-    # - PYTHON_VERSION: "3.6"
-    #   PYTHON_ARCH: "32"
-    #   ARCH: "x86"
-    #   platform: "x86"
     - PYTHON_VERSION: "3.5"
-      PYTHON_ARCH: "32"
-      ARCH: "x86"
-      platform: "x86"
+      PYTHON_ARCH: "64"
+      ARCH: "amd64"
+      platform: "x64"
     - PYTHON_VERSION: "3.6"
       PYTHON_ARCH: "64"
       ARCH: "amd64"
       platform: "x64"
-    # - PYTHON_VERSION: "3.5"
-    #   PYTHON_ARCH: "64"
-    #   ARCH: "amd64"
-    #   platform: "x64"
 
 platform:
   -x64
@@ -48,15 +40,6 @@ install:
   - "powershell ci-helpers/appveyor/install-miniconda.ps1"
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   - "activate test"
-  - "conda install -q -y pywinpty -c spyder-ide"
-  - "conda remove -q -y spyder"
-  - "cd .."
-  - "git clone git://github.com/spyder-ide/spyder.git"
-  - "cd spyder"
-  - "git checkout 3.x"
-  - "python setup.py install > NUL"
-  - "cd .."
-  - "cd spyder-terminal"
   - "npm install -g bower"
   - "python setup.py build_static"
 

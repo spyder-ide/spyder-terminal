@@ -117,6 +117,7 @@ def test_terminal_tab_title(qtbot):
     terminal.closing_plugin()
 
 
+@pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
 def test_new_terminal(qtbot):
     """Test if a new terminal is added."""
     # Setup widget
