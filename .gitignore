@@ -95,4 +95,7 @@ ENV/
 spyder_terminal/server/static/components/*
 
 # Log files
-.log
+*.log
+
+# Git file
+*.orig
