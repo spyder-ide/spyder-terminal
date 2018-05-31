@@ -189,7 +189,7 @@ class TerminalPlugin(SpyderPluginWidget):
                 del winpty
             except:
                 message = _('Unfortunately, the library that <b>spyder-termina'
-                            'l</b> uses to create terminals is failing to'
+                            'l</b> uses to create terminals is failing to '
                             'work in your system. Therefore, this plugin will '
                             'be deactivated.<br><br> This usually happens on '
                             'Windows 7 systems. If that\'s the case, please '
