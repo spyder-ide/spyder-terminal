@@ -81,7 +81,7 @@ class TerminalPlugin(SpyderPluginWidget):
             self.server_stderr = open(self.stderr_file, 'w')
 
         self.server = subprocess.Popen(
-            [sys.executable, osp.join(LOCATION, 'server', 'main.py'),
+            [sys.executable, '-m', 'spyder_terminal.server',
              '--port', str(self.port), '--shell', self.cmd],
             stdout=self.server_stdout,
             stderr=self.server_stderr)
