@@ -97,13 +97,11 @@ This project depends on
 
 1. `Spyder <https://github.com/spyder-ide/spyder>`_
 2. `Tornado <https://github.com/tornadoweb/tornado>`_
-3. `Pexpect <https://github.com/pexpect/pexpect>`_
+3. `Pexpect <https://github.com/pexpect/pexpect>`_ (*nix Systems)
+4. `pywinpty <https://github.com/spyder-ide/pywinpty>`_ (Windows Systems)
 4. `Coloredlogs <https://github.com/xolox/python-coloredlogs>`_
 5. `xterm.js <https://github.com/sourcelair/xterm.js>`_
 
-We provide Windows support thanks to the
-`Pywinpty <https://github.com/spyder-ide/pywinpty>`_ Python bindings for
-the awesome `Winpty <https://github.com/rprichard/winpty>`_ library.
 
 Changelog
 ---------
@@ -170,4 +168,3 @@ Become a sponsor to get your logo on our README on Github.
 .. image:: https://opencollective.com/spyder/sponsors.svg
    :target: https://opencollective.com/spyder#support
    :alt: Sponsors
-
