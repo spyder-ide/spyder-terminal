@@ -45,6 +45,7 @@ install:
   - "powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command \"iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))\""
   - "SET PATH=%PATH%;%ALLUSERSPROFILE%\\chocolatey\\bin"
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  - "choco install yarn"
   - "activate test"
   - "python setup.py build_static"
 
