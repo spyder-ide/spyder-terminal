@@ -180,7 +180,8 @@ class TerminalPlugin(SpyderPluginWidget):
         message = ''
         valid = True
         if PYQT4 or PYSIDE:
-            message = _('This plugin does not work with Qt 4')
+            message = _('spyder-terminal doesn\'t work with Qt 4. Therefore, '
+                        'this plugin will be deactivated.')
             valid = False
         if WINDOWS:
             try:
