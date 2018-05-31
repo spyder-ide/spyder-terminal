@@ -17,6 +17,11 @@ dependencies:
     # We need to run a window manager to avoid focus problems when running our tests.
     # See https://github.com/TestFX/TestFX/issues/158#issuecomment-62421691
     - sudo apt-get install matchbox-window-manager
+    - curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+    - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+    - echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    - sudo apt-get upgrade
+    - sudo apt-get install -y nodejs yarn
   override:
     # First convert PY_VERSIONS to an array and then select the python version based on the CIRCLE_NODE_INDEX
     - export PY_VERSIONS=($PY_VERSIONS) &&
