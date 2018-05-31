@@ -182,9 +182,6 @@ class TerminalPlugin(SpyderPluginWidget):
         if PYQT4 or PYSIDE:
             message = _('This plugin does not work with Qt 4')
             valid = False
-        elif WINDOWS and PY2:
-            message = _('This plugin does not work with Python 2 on Windows')
-            valid = False
         return valid, message
 
     # ------ SpyderPluginWidget API ------------------------------
