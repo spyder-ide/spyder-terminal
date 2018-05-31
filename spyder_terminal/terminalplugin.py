@@ -187,9 +187,12 @@ class TerminalPlugin(SpyderPluginWidget):
                 import winpty
                 del winpty
             except:
-                message = _('We found some problems while importing pywinpty. '
-                            'Please see https://github.com/spyder-ide/pywinpty'
-                            '/issues/59 for more information.')
+                message = _('Unfortunately, the library that spyder-terminal '
+                            'uses to create terminals is failing to work in '
+                            'your system. Therefore, this plugin will be '
+                            'deactivated.<br><br> This usually happens on '
+                            'Windows 7 systems. If that\'s the case, please '
+                            'consider updating to a newer Windows version.')
                 valid = False
         return valid, message
 
