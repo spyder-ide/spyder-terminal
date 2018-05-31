@@ -62,8 +62,8 @@ class BuildStatic(Command):
 
     def run(self):
         if not osp.isdir(COMPONENTS):
-            log.info("running [bower install]")
-            run(['bower', 'install', '--allow-root'], cwd=repo_root)
+            log.info("running [yarn install]")
+            run(['yarn', 'install'], cwd=repo_root)
 
 
 class DevelopWithBuildStatic(develop):

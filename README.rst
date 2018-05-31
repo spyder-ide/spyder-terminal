@@ -135,7 +135,7 @@ the following bash script:
 Development and contribution
 ----------------------------
 
-To start contributing to this project, you must have installed the ``bower``
+To start contributing to this project, you must have installed the ``yarn``
 package manager, then you can execute ``python setup.py install`` to test
 your changes on Spyder. We follow PEP8 and PEP257 style guidelines.
 

@@ -1,0 +1,18 @@
+{
+  "name": "spyder-terminal",
+  "version": "0.2.4",
+  "description": "Spyder Qt System Console",
+  "main": "spyder_terminal/server/static/index.js",
+  "repository": "https://github.com/spyder-ide/spyder-terminal",
+  "author": "Edgar Andrés Margffoy Tuay <andfoy@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fetch": "github/fetch#^2.0.3",
+    "jquery": "jquery/jquery-dist#^3.2.1",
+    "promise-polyfill": "taylorhakes/promise-polyfill#^6.0.2",
+    "xterm.js": "sourcelair/xterm.js#^2.7.0"
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
+  }
+}

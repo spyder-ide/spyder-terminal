@@ -42,9 +42,11 @@ install:
         throw "There are newer queued builds for this pull request, failing early." }
   - "git clone git://github.com/astropy/ci-helpers.git"
   - "powershell ci-helpers/appveyor/install-miniconda.ps1"
+  # - "powershell -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command \"iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))\""
+  # - "SET PATH=%PATH%;%ALLUSERSPROFILE%\\chocolatey\\bin"
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+  # - "choco install yarn"
   - "activate test"
-  - "npm install -g bower"
   - "python setup.py build_static"
 
 build: false
