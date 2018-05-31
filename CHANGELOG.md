@@ -1,3 +1,25 @@
+## Version 0.2.4 (2018/05/31)
+
+### Issues Closed
+
+* [Issue 140](https://github.com/spyder-ide/spyder-terminal/issues/140) - Release 0.2.4
+* [Issue 136](https://github.com/spyder-ide/spyder-terminal/issues/136) - Remove requirement on pexpect for Windows ([PR 139](https://github.com/spyder-ide/spyder-terminal/pull/139))
+* [Issue 132](https://github.com/spyder-ide/spyder-terminal/issues/132) - Add import check for pywinpty ([PR 135](https://github.com/spyder-ide/spyder-terminal/pull/135))
+* [Issue 131](https://github.com/spyder-ide/spyder-terminal/issues/131) - Remove compatibility check for Windows and Python 2 ([PR 133](https://github.com/spyder-ide/spyder-terminal/pull/133))
+* [Issue 130](https://github.com/spyder-ide/spyder-terminal/issues/130) - Black screen in Spyder-terminal when I launch Spyer ([PR 135](https://github.com/spyder-ide/spyder-terminal/pull/135))
+
+In this release 5 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 139](https://github.com/spyder-ide/spyder-terminal/pull/139) - PR: Remove pexpect from windows requirements ([136](https://github.com/spyder-ide/spyder-terminal/issues/136))
+* [PR 135](https://github.com/spyder-ide/spyder-terminal/pull/135) - PR: Add winpty import verification before starting plugin ([132](https://github.com/spyder-ide/spyder-terminal/issues/132), [130](https://github.com/spyder-ide/spyder-terminal/issues/130))
+* [PR 134](https://github.com/spyder-ide/spyder-terminal/pull/134) - PR: Fix running tests in CI infrastructure
+* [PR 133](https://github.com/spyder-ide/spyder-terminal/pull/133) - PR: Remove Windows/Py2.7 restriction ([131](https://github.com/spyder-ide/spyder-terminal/issues/131))
+
+In this release 4 pull requests were closed.
+
+
 ## Version 0.2.3 (2017/10/11)
 
 ### Issues Closed
