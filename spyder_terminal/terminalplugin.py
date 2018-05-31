@@ -182,6 +182,15 @@ class TerminalPlugin(SpyderPluginWidget):
         if PYQT4 or PYSIDE:
             message = _('This plugin does not work with Qt 4')
             valid = False
+        if WINDOWS:
+            try:
+                import winpty
+                del winpty
+            except:
+                message = _('We found some problems while importing pywinpty. '
+                            'Please see https://github.com/spyder-ide/pywinpty'
+                            '/issues/59 for more information.')
+                valid = False
         return valid, message
 
     # ------ SpyderPluginWidget API ------------------------------
