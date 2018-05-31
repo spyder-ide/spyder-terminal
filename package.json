@@ -1,0 +1,21 @@
+{
+  "name": "spyder-terminal",
+  "version": "0.2.4",
+  "description": "Spyder Qt System Console",
+  "main": "spyder_terminal/server/static/index.js",
+  "repository": "https://github.com/spyder-ide/spyder-terminal",
+  "author": "Edgar Andrés Margffoy Tuay <andfoy@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@bower_components/fetch": "github/fetch#^2.0.3",
+    "@bower_components/jquery": "jquery/jquery-dist#^3.2.1",
+    "@bower_components/promise-polyfill": "taylorhakes/promise-polyfill#^6.0.2",
+    "@bower_components/xterm.js": "sourcelair/xterm.js#^2.7.0"
+  },
+  "engines": {
+    "yarn": ">= 1.0.0"
+  },
+  "scripts": {
+    "postinstall": "node -e \"try { require('fs').symlinkSync(require('path').resolve('node_modules/@bower_components'), 'spyder_terminal/server/static/components', 'junction') } catch (e) { }\""
+  }
+}
