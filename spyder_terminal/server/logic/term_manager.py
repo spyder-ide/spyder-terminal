@@ -75,7 +75,6 @@ class TermManager(TermManagerBase):
         pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
         pty = self.new_terminal(cwd=cwd, height=rows, width=cols)
         pty.resize_to_smallest(rows, cols)
-        # self.start_reading(pty)
         self.consoles[pid] = pty
         return pid
 

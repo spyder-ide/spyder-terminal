@@ -36,7 +36,7 @@ WINDOWS = os.name == 'nt'
 
 if WINDOWS:
     LINE_END = '\r\n'
-    SHELL = 'cmd' # find_program('cmd.exe')
+    SHELL = 'cmd'
 
 
 class TerminalServerTests(testing.AsyncHTTPTestCase):

@@ -70,7 +70,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
         self.cmd = 'bash'
         if WINDOWS:
-            self.cmd = 'cmd'  # find_program('cmd.exe')
+            self.cmd = 'cmd'
 
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
