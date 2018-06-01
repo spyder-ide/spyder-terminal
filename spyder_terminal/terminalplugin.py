@@ -68,9 +68,9 @@ class TerminalPlugin(SpyderPluginWidget):
         self.server_ready = False
         self.port = select_port(default_port=8071)
 
-        self.cmd = '/usr/bin/env bash'
+        self.cmd = 'bash'
         if WINDOWS:
-            self.cmd = find_program('cmd.exe')
+            self.cmd = 'cmd'
 
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
@@ -81,7 +81,7 @@ class TerminalPlugin(SpyderPluginWidget):
             self.server_stderr = open(self.stderr_file, 'w')
 
         self.server = subprocess.Popen(
-            [sys.executable, osp.join(LOCATION, 'server', 'main.py'),
+            [sys.executable, '-m', 'spyder_terminal.server',
              '--port', str(self.port), '--shell', self.cmd],
             stdout=self.server_stdout,
             stderr=self.server_stderr)

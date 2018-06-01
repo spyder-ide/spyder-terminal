@@ -24,19 +24,19 @@ from spyder.utils.programs import find_program
 
 sys.path.append(osp.realpath(osp.dirname(__file__) + "/.."))
 
-from main import create_app
+from spyder_terminal.server.common import create_app
 
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 LOCATION_SLASH = LOCATION.replace('\\', '/')
 
 LINE_END = '\n'
-SHELL = '/usr/bin/env bash'
+SHELL = 'bash'
 WINDOWS = os.name == 'nt'
 
 if WINDOWS:
     LINE_END = '\r\n'
-    SHELL = find_program('cmd.exe')
+    SHELL = 'cmd'
 
 
 class TerminalServerTests(testing.AsyncHTTPTestCase):
@@ -119,6 +119,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             msg = ''.join(msg.rstrip())
         self.assertTrue(test_msg in msg)
 
+
     # @pytest.mark.skipif(os.name == 'nt', reason="It doesn't work on Windows")
     @testing.gen_test
     def test_terminal_closing(self):
@@ -139,6 +140,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             pass
 
     @flaky(max_runs=3)
+    @pytest.mark.timeout(10)
     @testing.gen_test
     def test_terminal_resize(self):
         """Test terminal resizing."""
@@ -167,6 +169,12 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
 
         expected_size = '(73, 23)'
         msg = ''
+        fail_retry = 50
+        tries = 0
         while expected_size not in msg:
+            if tries == fail_retry:
+                break
             msg = yield sock.read_message()
+            tries += 1
         self.assertIn(expected_size, msg)
+        yield self.close(sock)

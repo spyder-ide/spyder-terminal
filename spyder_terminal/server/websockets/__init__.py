@@ -15,6 +15,4 @@ Copyright (c) 2016, Edgar A. Margffoy.
 MIT, see LICENSE for more details.
 """
 
-import websockets.term_ws
-
-__version__ = '1.0.0'
+from . import term_ws

@@ -2,8 +2,11 @@
 
 """Websocket handling class."""
 
+import logging
 import tornado.escape
 import tornado.websocket
+
+LOGGER = logging.getLogger(__name__)
 
 
 class MainSocket(tornado.websocket.WebSocketHandler):
@@ -15,16 +18,16 @@ class MainSocket(tornado.websocket.WebSocketHandler):
 
     def open(self, pid):
         """Open a Websocket associated to a console."""
-        self.application.logger.info("WebSocket opened: {0}".format(pid))
+        LOGGER.info("WebSocket opened: {0}".format(pid))
         self.pid = pid
         self.application.term_manager.start_term(pid, self)
-        self.application.logger.info("TTY On!")
+        LOGGER.info("TTY On!")
 
     def on_close(self):
         """Close console communication."""
-        self.application.logger.info('TTY Off!')
-        self.application.logger.info("WebSocket closed: {0}".format(self.pid))
-        self.application.term_manager.stop_term(self.pid)
+        LOGGER.info('TTY Off!')
+        LOGGER.info("WebSocket closed: {0}".format(self.pid))
+        self.application.term_manager.client_disconnected(self.pid, self)
         if self.close_future is not None:
             self.close_future.set_result(("Done!"))
 
@@ -32,6 +35,10 @@ class MainSocket(tornado.websocket.WebSocketHandler):
         """Execute a command on console."""
         self.application.term_manager.execute(self.pid, message)
 
-    def notify(self, message):
-        """Write stdout/err to client."""
-        self.write_message(message)
+    def on_pty_read(self, text):
+        """Read data from pty; send to frontend."""
+        self.write_message(text)
+
+    def on_pty_died(self):
+        """Close websocket if terminal was closed externally."""
+        self.close()

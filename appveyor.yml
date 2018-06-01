@@ -9,8 +9,8 @@ environment:
     PIP_DEPENDENCIES_FLAGS: "-q"
     CONDA_DEPENDENCIES_FLAGS: "--quiet"
     CONDA_DEPENDENCIES: >
-      spyder pytest pytest-cov flaky tornado coloredlogs pywinpty
-    PIP_DEPENDENCIES: "pytest-qt"
+      spyder pytest pytest-cov flaky tornado coloredlogs
+    PIP_DEPENDENCIES: "pytest-qt pytest-timeout"
     APPVEYOR_RDP_PASSWORD: "dcca4c4863E30d56c2e0dda6327370b3#"
 
   matrix:
@@ -47,12 +47,16 @@ install:
   - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
   # - "choco install yarn"
   - "activate test"
+  - "conda install terminado pywinpty==0.5.1"
   - "python setup.py build_static"
 
 build: false
 
 test_script:
   - "%CMD_IN_ENV% python runtests.py || %CMD_IN_ENV% python runtests.py || %CMD_IN_ENV% python runtests.py"
+
+# init:
+#   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 # on_finish:
 #   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

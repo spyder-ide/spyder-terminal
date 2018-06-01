@@ -2,9 +2,12 @@
 
 """Main HTTP routes request handlers."""
 
+import logging
 import tornado.web
 import tornado.escape
 from os import getcwd
+
+LOGGER = logging.getLogger(__name__)
 
 
 class MainHandler(tornado.web.RequestHandler):
@@ -16,8 +19,8 @@ class MainHandler(tornado.web.RequestHandler):
         rows = int(self.get_argument('rows', default=23))
         cols = int(self.get_argument('cols', default=73))
         cwd = self.get_cookie('cwd', default=getcwd())
-        self.application.logger.info('CWD: {0}'.format(cwd))
-        self.application.logger.info('Size: ({0}, {1})'.format(cols, rows))
+        LOGGER.info('CWD: {0}'.format(cwd))
+        LOGGER.info('Size: ({0}, {1})'.format(cols, rows))
         pid = yield self.application.term_manager.create_term(rows, cols, cwd)
         self.write(pid)
 

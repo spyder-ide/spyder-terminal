@@ -5,13 +5,12 @@
 import argparse
 import logging
 import os
-import routes
 
 import coloredlogs
 import tornado.web
 import tornado.ioloop
 
-from logic import term_manager
+from spyder_terminal.server.common import create_app
 
 
 parser = argparse.ArgumentParser(
@@ -21,7 +20,7 @@ parser.add_argument('--port',
                     default=8070,
                     help="TCP port to be listened on")
 parser.add_argument('--shell',
-                    default='/usr/bin/env bash',
+                    default='bash',
                     help="name/path to the terminal process to execute")
 
 LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(name) -30s %(funcName) '
@@ -34,19 +33,6 @@ coloredlogs.install(level='info')
 clr = 'clear'
 if os.name == 'nt':
     clr = 'cls'
-
-
-def create_app(shell, close_future=None):
-    """Create and return a tornado Web Application instance."""
-    settings = {"static_path": os.path.join(
-        os.path.dirname(__file__), "static")}
-    application = tornado.web.Application(routes.gen_routes(close_future),
-                                          debug=True,
-                                          serve_traceback=True,
-                                          autoreload=True, **settings)
-    application.term_manager = term_manager.TermManager(shell)
-    application.logger = LOGGER
-    return application
 
 
 def main(port, shell):
@@ -62,6 +48,7 @@ def main(port, shell):
         pass
     finally:
         LOGGER.info("Closing server...\n")
+        application.term_manager.shutdown()
         tornado.ioloop.IOLoop.instance().stop()
 
 
