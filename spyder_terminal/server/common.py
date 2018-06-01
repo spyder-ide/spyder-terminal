@@ -11,7 +11,7 @@ def create_app(shell, close_future=None):
     """Create and return a tornado Web Application instance."""
     settings = {"static_path": os.path.join(
         os.path.dirname(__file__), "static")}
-    application = tornado.web.Application(routes.gen_routes(close_future),
+    application = tornado.web.Application(routes.ROUTES,
                                           debug=True,
                                           serve_traceback=True,
                                           autoreload=True, **settings)
