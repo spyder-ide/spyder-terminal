@@ -65,7 +65,7 @@ class TermManager(TermManagerBase):
                 self.pty_read(term.ptyproc.fd)
                 return
             term.killpg(signal.SIGHUP)
-        except OSError:
+        except Exception:
             pass
         del self.consoles[pid]
 
