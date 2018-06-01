@@ -26,7 +26,7 @@ class MainSocket(tornado.websocket.WebSocketHandler):
         """Close console communication."""
         LOGGER.info('TTY Off!')
         LOGGER.info("WebSocket closed: {0}".format(self.pid))
-        self.application.term_manager.stop_term(self.pid)
+        self.application.term_manager.client_disconnected(self.pid, self)
         if self.close_future is not None:
             self.close_future.set_result(("Done!"))
 
@@ -34,6 +34,9 @@ class MainSocket(tornado.websocket.WebSocketHandler):
         """Execute a command on console."""
         self.application.term_manager.execute(self.pid, message)
 
-    def notify(self, message):
-        """Write stdout/err to client."""
-        self.write_message(message)
+    def on_pty_read(self, text):
+        """Read data from pty; send to frontend."""
+        self.write_message(text)
+
+    def on_pty_died(self):
+        self.close()

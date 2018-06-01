@@ -4,7 +4,7 @@
 import tornado
 import os.path
 import spyder_terminal.server.routes as routes
-import spyder_terminal.server.logic.term_manager as term_manager
+from spyder_terminal.server.logic.term_manager import TermManager
 
 
 def create_app(shell, close_future=None):
@@ -15,5 +15,5 @@ def create_app(shell, close_future=None):
                                           debug=True,
                                           serve_traceback=True,
                                           autoreload=True, **settings)
-    application.term_manager = term_manager.TermManager(shell)
+    application.term_manager = TermManager([shell])
     return application

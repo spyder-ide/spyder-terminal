@@ -20,7 +20,7 @@ parser.add_argument('--port',
                     default=8070,
                     help="TCP port to be listened on")
 parser.add_argument('--shell',
-                    default='/usr/bin/env bash',
+                    default='bash',
                     help="name/path to the terminal process to execute")
 
 LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(name) -30s %(funcName) '
