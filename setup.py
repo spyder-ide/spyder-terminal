@@ -40,7 +40,7 @@ def get_description():
     return data
 
 
-REQUIREMENTS = ['spyder>=3.2.0', 'tornado',
+REQUIREMENTS = ['spyder>=3.2.0', 'tornado', 'terminado',
                 'coloredlogs', 'requests']
 
 
@@ -52,11 +52,11 @@ if any([arg == 'bdist_wheel' for arg in sys.argv]):
         sys.exit(1)
 
 
-# Add pywinpty to our Windows dependencies when building wheels
-if os.name == 'nt' or any([arg.startswith('win') for arg in sys.argv]):
-    REQUIREMENTS.append('pywinpty>=0.2.1')
-else:
-    REQUIREMENTS.append('pexpect')
+# # Add pywinpty to our Windows dependencies when building wheels
+# if os.name == 'nt' or any([arg.startswith('win') for arg in sys.argv]):
+#     REQUIREMENTS.append('pywinpty>=0.2.1')
+# else:
+#     REQUIREMENTS.append('pexpect')
 
 cmdclass = {
     'build_static': BuildStatic,
