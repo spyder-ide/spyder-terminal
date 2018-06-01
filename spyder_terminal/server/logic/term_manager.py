@@ -59,11 +59,14 @@ class TermManager(TermManagerBase):
         self.log.info("Websocket closed, sending SIGHUP to terminal.")
         term = self.consoles[pid]
         term.clients.remove(socket)
-        if WINDOWS:
-            term.kill()
-            self.pty_read(term.ptyproc.fd)
-            return
-        term.killpg(signal.SIGHUP)
+        try:
+            if WINDOWS:
+                term.kill()
+                self.pty_read(term.ptyproc.fd)
+                return
+            term.killpg(signal.SIGHUP)
+        except OSError:
+            pass
         del self.consoles[pid]
 
     @tornado.gen.coroutine

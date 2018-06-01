@@ -40,4 +40,5 @@ class MainSocket(tornado.websocket.WebSocketHandler):
         self.write_message(text)
 
     def on_pty_died(self):
+        """Close websocket if terminal was closed externally."""
         self.close()
