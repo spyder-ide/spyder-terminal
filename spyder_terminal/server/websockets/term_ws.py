@@ -8,6 +8,7 @@ import tornado.websocket
 
 LOGGER = logging.getLogger(__name__)
 
+
 class MainSocket(tornado.websocket.WebSocketHandler):
     """Handles long polling communication between xterm.js and server."""
 

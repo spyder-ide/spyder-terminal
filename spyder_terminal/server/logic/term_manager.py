@@ -17,6 +17,8 @@ WINDOWS = os.name == 'nt'
 
 
 class PtyReader(PtyWithClients):
+    """Wrapper around PtyWithClients."""
+
     def resize_to_smallest(self, rows, cols):
         """Set the terminal size to that of the smallest client dimensions.
 
@@ -69,6 +71,7 @@ class TermManager(TermManagerBase):
         """Create a new virtual terminal."""
         pid = hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[0:6]
         pty = self.new_terminal(cwd=cwd, height=rows, width=cols)
+        pty.resize_to_smallest(rows, cols)
         # self.start_reading(pty)
         self.consoles[pid] = pty
         return pid

@@ -9,6 +9,7 @@ from os import getcwd
 
 LOGGER = logging.getLogger(__name__)
 
+
 class MainHandler(tornado.web.RequestHandler):
     """Handles creation of new terminals."""
 
