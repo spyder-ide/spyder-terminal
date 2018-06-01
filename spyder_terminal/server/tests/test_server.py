@@ -140,7 +140,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             pass
 
     @flaky(max_runs=3)
-    @pytest.mark.timeout(60)
+    @pytest.mark.timeout(10)
     @testing.gen_test
     def test_terminal_resize(self):
         """Test terminal resizing."""
