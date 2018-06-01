@@ -167,6 +167,11 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
 
         expected_size = '(73, 23)'
         msg = ''
+        fail_retry = 50
+        tries = 0
         while expected_size not in msg:
+            if tries == fail_retry:
+                break
             msg = yield sock.read_message()
+            tries += 1
         self.assertIn(expected_size, msg)
