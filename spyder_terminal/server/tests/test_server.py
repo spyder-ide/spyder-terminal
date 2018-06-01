@@ -24,7 +24,7 @@ from spyder.utils.programs import find_program
 
 sys.path.append(osp.realpath(osp.dirname(__file__) + "/.."))
 
-from server.common import create_app
+from spyder_terminal.server.common import create_app
 
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
