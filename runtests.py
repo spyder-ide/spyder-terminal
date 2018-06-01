@@ -18,7 +18,8 @@ def main():
     """
     errno = pytest.main(['-x', 'spyder_terminal', '-v',
                          '-rw', '--durations=10',
-                         '--cov=spyder_terminal', '--cov-report=term-missing'])
+                         '--cov=spyder_terminal', '--cov-report=term-missing',
+                         '--timeout=20'])
 
     # sys.exit doesn't work here because some things could be running
     # in the background (e.g. closing the main window) when this point
