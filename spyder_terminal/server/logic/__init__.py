@@ -16,8 +16,5 @@ with the code
 Copyright (c) 2016, Edgar A. Margffoy.
 MIT, see LICENSE for more details.
 """
-import os
-import sys
-import logic.term_manager
 
-__version__ = '1.0.0'
+from . import term_manager

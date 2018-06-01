@@ -16,8 +16,9 @@ with the code
 Copyright (c) 2016, Edgar A. Margffoy.
 MIT, see LICENSE for more details.
 """
-import os
-import sys
-import rest.term_rest
-
-__version__ = '1.0.0'
+# import os
+# import sys
+from . import term_rest
+term_rest
+#
+# __version__ = '1.0.0'

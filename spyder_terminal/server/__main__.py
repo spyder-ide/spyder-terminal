@@ -5,13 +5,12 @@
 import argparse
 import logging
 import os
-import routes
 
 import coloredlogs
 import tornado.web
 import tornado.ioloop
 
-from logic import term_manager
+from spyder_terminal.server.common import create_app
 
 
 parser = argparse.ArgumentParser(
@@ -34,19 +33,6 @@ coloredlogs.install(level='info')
 clr = 'clear'
 if os.name == 'nt':
     clr = 'cls'
-
-
-def create_app(shell, close_future=None):
-    """Create and return a tornado Web Application instance."""
-    settings = {"static_path": os.path.join(
-        os.path.dirname(__file__), "static")}
-    application = tornado.web.Application(routes.gen_routes(close_future),
-                                          debug=True,
-                                          serve_traceback=True,
-                                          autoreload=True, **settings)
-    application.term_manager = term_manager.TermManager(shell)
-    application.logger = LOGGER
-    return application
 
 
 def main(port, shell):

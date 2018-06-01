@@ -6,6 +6,7 @@ from __future__ import unicode_literals
 
 import os
 import time
+import logging
 import hashlib
 import tornado.web
 import tornado.gen
@@ -18,6 +19,7 @@ if WINDOWS:
 else:
     import pexpect as pty
 
+LOGGER = logging.getLogger(__name__)
 
 class TermReader(object):
     """This class allows to read continously from a terminal stream."""
