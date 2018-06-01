@@ -48,6 +48,7 @@ def main(port, shell):
         pass
     finally:
         LOGGER.info("Closing server...\n")
+        application.term_manager.shutdown()
         tornado.ioloop.IOLoop.instance().stop()
 
 

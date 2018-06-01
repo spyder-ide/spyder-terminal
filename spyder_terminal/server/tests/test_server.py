@@ -31,12 +31,12 @@ LOCATION = os.path.realpath(os.path.join(os.getcwd(),
 LOCATION_SLASH = LOCATION.replace('\\', '/')
 
 LINE_END = '\n'
-SHELL = '/usr/bin/env bash'
+SHELL = 'bash'
 WINDOWS = os.name == 'nt'
 
 if WINDOWS:
     LINE_END = '\r\n'
-    SHELL = find_program('cmd.exe')
+    SHELL = 'cmd' # find_program('cmd.exe')
 
 
 class TerminalServerTests(testing.AsyncHTTPTestCase):
