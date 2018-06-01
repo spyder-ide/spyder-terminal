@@ -119,6 +119,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             msg = ''.join(msg.rstrip())
         self.assertTrue(test_msg in msg)
 
+
     # @pytest.mark.skipif(os.name == 'nt', reason="It doesn't work on Windows")
     @testing.gen_test
     def test_terminal_closing(self):
@@ -139,6 +140,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             pass
 
     @flaky(max_runs=3)
+    @pytest.mark.timeout(60)
     @testing.gen_test
     def test_terminal_resize(self):
         """Test terminal resizing."""
@@ -175,3 +177,4 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             msg = yield sock.read_message()
             tries += 1
         self.assertIn(expected_size, msg)
+        yield self.close(sock)
