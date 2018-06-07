@@ -1,25 +1,8 @@
 Spyder-Terminal
 ===============
 
-Spyder Plugin for displaying a virtual terminal (OS independent) inside the
-main Spyder window. Currently it supports both Unix-like and Windows operating
-systems.
-
-This plugin allows you to execute flawlessly any bash command inside Spyder,
-even ncurses applications like ``nano`` or ``vi``, or Windows console
-applications such as ``powershell``.
-
-Project information
--------------------
-
-|license| |pypi version| |gitter|
-
-
-Build status
-------------
-
-|circleci status| |appveyor status| |coverage|
-
+|license| |pypi status| |pypi version| |conda version|
+|circleci status| |appveyor status| |coverage| |backers| |gitter|
 
 .. |appveyor status| image:: https://img.shields.io/appveyor/ci/spyder-ide/spyder-terminal/master.svg
    :target: https://ci.appveyor.com/project/spyder-ide/spyder-terminal
@@ -29,13 +12,19 @@ Build status
    :alt: Circle-CI build status
 .. |license| image:: https://img.shields.io/pypi/l/spyder-terminal.svg
    :target: LICENSE.txt
-   :alt: License
+   :alt: License (MIT)
+.. |pypi status| image:: https://img.shields.io/pypi/status/spyder-terminal.svg
+   :target: https://github.com/spyder-ide/spyder-terminal
+   :alt: PyPI development status
 .. |pypi version| image:: https://img.shields.io/pypi/v/spyder-terminal.svg
-   :target: https://pypi.python.org/pypi/spyder-terminal
+   :target: https://pypi.org/project/spyder-terminal
    :alt: Latest PyPI version
+.. |conda version| image:: https://img.shields.io/conda/vn/conda-forge/spyder-terminal.svg
+   :target: https://anaconda.org/conda-forge/spyder-terminal
+   :alt: Latest Conda-Forge version
 .. |coverage| image:: https://coveralls.io/repos/github/spyder-ide/spyder-terminal/badge.svg
    :target: https://coveralls.io/github/spyder-ide/spyder-terminal?branch=master
-   :alt: Code Coverage
+   :alt: Coveralls Code Coverage
 .. |gitter| image:: https://badges.gitter.im/spyder-ide/spyder-terminal.svg
    :target: https://gitter.im/spyder-ide/spyder-terminal
    :alt: Join the chat at https://gitter.im/spyder-ide/spyder-terminal
@@ -45,6 +34,14 @@ Build status
 .. |sponsors| image:: https://opencollective.com/spyder/sponsors/badge.svg?color=blue
    :target: #sponsors
    :alt: OpenCollective Sponsors
+
+Spyder Plugin for displaying a virtual terminal (OS independent) inside the
+main Spyder window. Currently it supports both Unix-like and Windows operating
+systems.
+
+This plugin allows you to execute flawlessly any bash command inside Spyder,
+even ncurses applications like ``nano`` or ``vi``, or Windows console
+applications such as ``powershell``.
 
 
 Plugin development paused until Spyder 4 release
