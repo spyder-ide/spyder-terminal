@@ -37,13 +37,12 @@ Spyder-Terminal
 
 *Copyright © 2017–2018 Spyder Project Contributors*
 
-Spyder plugin for displaying an OS independent virtual terminal inside the main
-Spyder window. Currently supports both Unix-like and Windows operating systems.
+|linux-gif|
 
-Spyder-Terminal allows you to easily execute any ``bash`` command inside
-Spyder, even ``ncurses`` programs like ``nano`` or ``vi``;
-or, on Windows, console applications such as ``powershell``.
+.. |linux-gif| image:: https://github.com/spyder-ide/spyder-terminal/blob/master/doc/example.gif?raw=true
+   :alt: Animated GIF of Spyder-Terminal on Linux
 
+----
 
 Plugin development paused until Spyder 4 release
 ------------------------------------------------
@@ -74,6 +73,23 @@ Thanks for all you do to make the Spyder project thrive! `More details`_
 .. _OpenCollective: https://opencollective.com/spyder
 .. _More details: https://github.com/spyder-ide/spyder/wiki/Current-Funding-and-Development-Status
 
+----
+
+Overview
+--------
+
+Spyder plugin for displaying an OS independent virtual terminal inside the main
+Spyder window. Currently supports both Unix-like and Windows operating systems.
+
+Spyder-Terminal allows you to easily execute any ``bash`` command inside
+Spyder, even ``ncurses`` programs like ``nano`` or ``vi``;
+or, on Windows, console applications such as ``powershell``.
+
+|windows-gif|
+
+.. |windows-gif| image:: https://github.com/spyder-ide/spyder-terminal/blob/master/doc/windows.gif?raw=true
+   :alt: Animated GIF of Spyder-Terminal on Windows
+
 
 Installation
 ------------
@@ -99,12 +115,12 @@ Dependencies
 
 This project depends on
 
-1. `Spyder <https://github.com/spyder-ide/spyder>`_
-2. `Tornado <https://github.com/tornadoweb/tornado>`_
-3. `Pexpect <https://github.com/pexpect/pexpect>`_ (*nix Systems)
-4. `pywinpty <https://github.com/spyder-ide/pywinpty>`_ (Windows Systems)
-4. `Coloredlogs <https://github.com/xolox/python-coloredlogs>`_
-5. `xterm.js <https://github.com/sourcelair/xterm.js>`_
+* `Spyder <https://github.com/spyder-ide/spyder>`_
+* `Tornado <https://github.com/tornadoweb/tornado>`_
+* `Pexpect <https://github.com/pexpect/pexpect>`_ (*nix Systems)
+* `pywinpty <https://github.com/spyder-ide/pywinpty>`_ (Windows Systems)
+* `Coloredlogs <https://github.com/xolox/python-coloredlogs>`_
+* `xterm.js <https://github.com/sourcelair/xterm.js>`_
 
 
 Changelog
@@ -143,18 +159,6 @@ To start contributing to this project, you must have installed the ``yarn``
 package manager, then you can execute ``python setup.py install`` to test
 your changes on Spyder. We follow PEP8 and PEP257 style guidelines.
 
-Overview
---------
-
-|linux-gif|
-
-|windows-gif|
-
-.. |linux-gif| image:: https://github.com/spyder-ide/spyder-terminal/blob/master/doc/example.gif?raw=true
-   :alt: Linux animated gif
-
-.. |windows-gif| image:: https://github.com/spyder-ide/spyder-terminal/blob/master/doc/windows.gif?raw=true
-   :alt: Windows animated gif
 
 ~~~~~~~
 
