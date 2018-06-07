@@ -35,13 +35,14 @@ Spyder-Terminal
    :target: #sponsors
    :alt: OpenCollective Sponsors
 
-Spyder Plugin for displaying a virtual terminal (OS independent) inside the
-main Spyder window. Currently it supports both Unix-like and Windows operating
-systems.
+*Copyright © 2017–2018 Spyder Project Contributors*
 
-This plugin allows you to execute flawlessly any bash command inside Spyder,
-even ncurses applications like ``nano`` or ``vi``, or Windows console
-applications such as ``powershell``.
+Spyder plugin for displaying an OS independent virtual terminal inside the main
+Spyder window. Currently supports both Unix-like and Windows operating systems.
+
+Spyder-Terminal allows you to easily execute any ``bash`` command inside
+Spyder, even ``ncurses`` programs like ``nano`` or ``vi``;
+or, on Windows, console applications such as ``powershell``.
 
 
 Plugin development paused until Spyder 4 release
