@@ -1,4 +1,4 @@
-spyder-terminal
+Spyder-Terminal
 ===============
 
 Spyder Plugin for displaying a virtual terminal (OS independent) inside the
@@ -47,28 +47,34 @@ Build status
    :alt: OpenCollective Sponsors
 
 
-Important Announcement: Spyder is unfunded!
--------------------------------------------
+Plugin development paused until Spyder 4 release
+------------------------------------------------
 
-Since mid November/2017, `Anaconda, Inc`_ has
-stopped funding Spyder development, after doing it for the past 18
-months. Because of that, development will focus from now on maintaining
-Spyder 3 at a much slower pace than before.
+Currently, work on official Spyder plugins is paused to focus our limited
+resources on the development and release of Spyder 4, the next generation
+of the Scientific Python Development Environment.  Thanks to your continuing
+support, we are on track for the final release of Spyder 4 in early 2019
+with many highly anticipated features, including exposing a new public API for
+external plugins, to make them easier to develop and more powerful.
+Once that happens, active plugin development will resume, to add new features
+and fix outstanding bugs. However, organizations or the community are welcome
+to offer funding to continue development sooner; if so, please `contact us`_!
 
-If you want to contribute to maintain Spyder, please consider donating at
+Spyder development is made possible by contributions from our global user
+community, along with organizations like `NumFOCUS`_ and `Quansight`_.
+There are numerous `ways you can help`_, many of which don't require any
+programming. If you'd like to make a `donation`_  to help fund further
+improvements, we're on `OpenCollective`_.
 
-https://opencollective.com/spyder
+Thanks for all you do to make the Spyder project thrive! `More details`_
 
-We appreciate all the help you can provide us and can't thank you enough for
-supporting the work of Spyder devs and Spyder development.
-
-If you want to know more about this, please read this
-`page`_.
-
-
-.. _Anaconda, Inc: https://www.anaconda.com/
-.. _page: https://github.com/spyder-ide/spyder/wiki/Anaconda-stopped-funding-Spyder
-
+.. _contact us: mailto:ccordoba12@gmail.com
+.. _NumFOCUS: https://www.numfocus.org
+.. _Quansight: https://www.quansight.com
+.. _ways you can help: https://github.com/spyder-ide/spyder/wiki/Contributing-to-Spyder
+.. _donation: https://opencollective.com/spyder/donate
+.. _OpenCollective: https://opencollective.com/spyder
+.. _More details: https://github.com/spyder-ide/spyder/wiki/Current-Funding-and-Development-Status
 
 
 Installation
