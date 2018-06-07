@@ -53,7 +53,7 @@ class TerminalWidget(QFrame):
     terminal_closed = Signal()
     terminal_ready = Signal()
 
-    def __init__(self, parent, port, path='~', font=None):
+    def __init__(self, parent, port, path='~', font=None, color_scheme=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
         url = 'http://127.0.0.1:{0}?path={1}'.format(port, path)
@@ -63,6 +63,7 @@ class TerminalWidget(QFrame):
         self.view = TermView(self, term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
+        self.color_scheme = color_scheme
 
         layout = QVBoxLayout()
         layout.addWidget(self.view)
@@ -83,6 +84,7 @@ class TerminalWidget(QFrame):
             # This forces to display the black background
             print("\0", end='')
             self.set_font(self.font)
+            self.set_color_scheme(self.color_scheme)
             self.set_dir(self.initial_path)
 
     def eval_javascript(self, script):
@@ -97,6 +99,11 @@ class TerminalWidget(QFrame):
         """Set terminal font via CSS."""
         self.font = font
         self.eval_javascript('fitFont("{0}")'.format(self.font))
+
+    def set_color_scheme(self, color_scheme):
+        """Set terminal color scheme."""
+        self.color_scheme = color_scheme
+        self.eval_javascript('setColors("{0}")'.format(color_scheme))
 
     def get_fonts(self):
         """List terminal CSS fonts."""

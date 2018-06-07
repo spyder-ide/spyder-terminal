@@ -1,0 +1,154 @@
+#terminal-container .terminal {
+    background-color: #fdf6e3;
+    color: #586e75;
+}
+
+.terminal .xterm-viewport {
+    background-color: #fdf6e3;
+}
+
+.terminal .xterm-color-0 {
+    color: #fdf6e3;
+}
+
+.terminal .xterm-bg-color-0 {
+    background-color: #002b36;
+}
+
+.terminal .xterm-color-1 {
+    color: #dc322f;
+}
+
+.terminal .xterm-bg-color-1 {
+    background-color: #dc322f;
+}
+
+.terminal .xterm-color-2 {
+    color: #859900;
+}
+
+.terminal .xterm-bg-color-2 {
+    background-color: #859900;
+}
+
+.terminal .xterm-color-3 {
+    color: #b58900;
+}
+
+.terminal .xterm-bg-color-3 {
+    background-color: #b58900;
+}
+
+.terminal .xterm-color-4 {
+    color: #268bd2;
+}
+
+.terminal .xterm-bg-color-4 {
+    background-color: #268bd2;
+}
+
+.terminal .xterm-color-5 {
+    color: #6c71c4;
+}
+
+.terminal .xterm-bg-color-5 {
+    background-color: #6c71c4;
+}
+
+.terminal .xterm-color-6 {
+    color: #2aa198;
+}
+
+.terminal .xterm-bg-color-6 {
+    background-color: #2aa198;
+}
+
+.terminal .xterm-color-7 {
+    color: #93a1a1;
+}
+
+.terminal .xterm-bg-color-7 {
+    background-color: #93a1a1;
+}
+
+.terminal .xterm-color-8 {
+    color: #657b83;
+}
+
+.terminal .xterm-bg-color-8 {
+    background-color: #657b83;
+}
+
+.terminal .xterm-color-9 {
+    color: #dc322f;
+}
+
+.terminal .xterm-bg-color-9 {
+    background-color: #dc322f;
+}
+
+.terminal .xterm-color-10 {
+    color: #859900;
+}
+
+.terminal .xterm-bg-color-10 {
+    background-color: #859900;
+}
+
+.terminal .xterm-color-11 {
+    color: #b58900;
+}
+
+.terminal .xterm-bg-color-11 {
+    background-color: #b58900;
+}
+
+.terminal .xterm-color-12 {
+    color: #268bd2;
+}
+
+.terminal .xterm-bg-color-12 {
+    background-color: #268bd2;
+}
+
+.terminal .xterm-color-13 {
+    color: #6c71c4;
+}
+
+.terminal .xterm-bg-color-13 {
+    background-color: #6c71c4;
+}
+
+.terminal .xterm-color-14 {
+    color: #2aa198;
+}
+
+.terminal .xterm-bg-color-14 {
+    background-color: #2aa198;
+}
+
+.terminal .xterm-color-15 {
+    color: #fdf6e3;
+}
+
+.terminal .xterm-bg-color-15 {
+    background-color: #586e75;
+}
+
+.terminal:not(.focus) .terminal-cursor {
+    outline: 1px solid #586e75;
+}
+
+.terminal.xterm-cursor-style-block.focus:not(.xterm-cursor-blink-on) .terminal-cursor {
+    background-color: #586e75;
+}
+
+.terminal.focus.xterm-cursor-style-bar:not(.xterm-cursor-blink-on) .terminal-cursor::before,
+.terminal.focus.xterm-cursor-style-underline:not(.xterm-cursor-blink-on) .terminal-cursor::before {
+    background-color: #586e75;
+}
+
+.terminal .xterm-selection div {
+    position: absolute;
+    background-color: #586e75;
+}
