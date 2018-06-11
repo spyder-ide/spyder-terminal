@@ -176,3 +176,27 @@ Become a sponsor to get your logo on our README on Github.
 .. image:: https://opencollective.com/spyder/sponsors.svg
    :target: https://opencollective.com/spyder#support
    :alt: Sponsors
+
+
+More information
+----------------
+
+`Main Website <https://www.spyder-ide.org/>`_
+
+`Download Spyder (with Anaconda) <https://www.anaconda.com/download/>`_
+
+`Spyder Github <https://github.com/spyder-ide/spyder>`_
+
+`Troubleshooting Guide and FAQ <https://github.com/spyder-ide/spyder/wiki/Troubleshooting-Guide-and-FAQ>`_
+
+`Development Wiki <https://github.com/spyder-ide/spyder/wiki/Dev:-Index>`_
+
+`Gitter Chatroom <https://gitter.im/spyder-ide/public>`_
+
+`Google Group <https://groups.google.com/group/spyderlib>`_
+
+`@Spyder_IDE on Twitter <https://twitter.com/spyder_ide>`_
+
+`@SpyderIDE on Facebook <https://www.facebook.com/SpyderIDE/>`_
+
+`Support Spyder on OpenCollective <https://opencollective.com/spyder/>`_
