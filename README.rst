@@ -4,7 +4,7 @@ Spyder-Terminal
 |license| |pypi status| |pypi version| |conda version|
 |circleci status| |appveyor status| |coverage| |backers| |gitter|
 
-.. |appveyor status| image:: https://img.shields.io/appveyor/ci/spyder-ide/spyder-terminal/master.svg
+.. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/github/spyder-ide/spyder-terminal?branch=master&svg=true
    :target: https://ci.appveyor.com/project/spyder-ide/spyder-terminal
    :alt: Appveyor build status
 .. |circleci status| image:: https://img.shields.io/circleci/project/github/spyder-ide/spyder-terminal/master.svg
