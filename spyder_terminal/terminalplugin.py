@@ -94,6 +94,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.project_path = None
         self.current_file_path = None
         self.current_cwd = getcwd()
+        self.options_menu = QMenu(self)
 
         self.initialize_plugin()
 
@@ -104,15 +105,15 @@ class TerminalPlugin(SpyderPluginWidget):
                                          triggered=self.create_new_term)
         menu_btn = create_toolbutton(self, icon=ima.icon('tooloptions'),
                                      tip=_('Options'))
-        self.menu = QMenu(self)
-        menu_btn.setMenu(self.menu)
+        menu_btn.setMenu(self.options_menu)
         menu_btn.setPopupMode(menu_btn.InstantPopup)
-        add_actions(self.menu, self.menu_actions)
+        add_actions(self.options_menu, self.menu_actions)
         # if self.get_option('first_time', True):
         # self.setup_shortcuts()
         # self.shortcuts = self.create_shortcuts()
         corner_widgets = {Qt.TopRightCorner: [new_term_btn, menu_btn]}
-        self.tabwidget = Tabs(self, menu=self.menu, actions=self.menu_actions,
+        self.tabwidget = Tabs(self, menu=self.options_menu,
+                              actions=self.menu_actions,
                               corner_widgets=corner_widgets, rename_tabs=True)
 
         if hasattr(self.tabwidget, 'setDocumentMode') \
@@ -292,7 +293,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
-        self.menu.aboutToShow.connect(self.setup_menu_actions)
+        self.options_menu.aboutToShow.connect(self.setup_menu_actions)
 
     # ------ Public API (for terminals) -------------------------
     def get_terms(self):
