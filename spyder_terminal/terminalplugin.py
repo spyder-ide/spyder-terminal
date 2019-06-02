@@ -20,7 +20,7 @@ from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
 from qtpy.QtCore import Qt, Signal, QTimer, Slot
 from qtpy.QtGui import QKeySequence
 
-from spyder.plugins import SpyderPluginWidget
+from spyder.api.plugins import SpyderPluginWidget
 
 # from spyder.preferences import PluginConfigPage
 
