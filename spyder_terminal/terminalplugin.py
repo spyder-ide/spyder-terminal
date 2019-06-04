@@ -20,8 +20,6 @@ from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
 from qtpy.QtCore import Qt, Signal, QTimer, Slot
 from qtpy.QtGui import QKeySequence
 
-from spyder.api.plugins import SpyderPluginWidget
-
 # from spyder.preferences import PluginConfigPage
 
 from spyder.config.base import _
@@ -32,8 +30,13 @@ from spyder.utils.qthelpers import (add_actions, create_action,
                                     MENU_SEPARATOR)
 from spyder.widgets.tabs import Tabs
 # from spyder.config.gui import set_shortcut, config_shortcut
-# from spyder.plugins import SpyderPluginWidget
-
+try:
+   # Spyder 4
+   from spyder.api.plugins import SpyderPluginWidget
+except ImportError:
+   # Spyder 3
+   from spyder.plugins import SpyderPluginWidget
+    
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 # from spyder.py3compat import is_text_string, to_text_string
 from spyder.utils.misc import select_port
