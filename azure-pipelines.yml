@@ -1,36 +1,147 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+# https://dev.azure.com/spyder-ide/spyder-terminal/
 
-trigger:
-- master
+jobs:
 
-pool:
-  vmImage: 'ubuntu-latest'
-strategy:
-  matrix:
-    Python27:
-      python.version: '2.7'
-    Python35:
-      python.version: '3.5'
-    Python36:
-      python.version: '3.6'
-    Python37:
-      python.version: '3.7'
+################################################################################
+# macOS
+################################################################################
+- job: 'macOS'
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
+  pool:
+    vmImage: 'macOS-10.13'
 
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
+  timeoutInMinutes: 100
 
-- script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
+  variables:
+    USE_CONDA: "yes"
+    CI: True
+    AZURE: True
+    SPYDER_DEV: True
+
+  # Run the pipeline with multiple Python versions
+  strategy:
+    matrix:
+      Python27:
+        python.version: '2.7'
+      Python36:
+        python.version: '3.6'
+      Python37:
+        python.version: '3.7'
+    maxParallel: 4
+
+  steps:
+    # Set the UsePythonVersion task to reference the matrix variable for its Python version
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+      architecture: 'x64'
+
+  - script: sudo install -d -m 0777 /usr/local/miniconda/envs/
+    displayName: Fix Conda permissions
+
+    # Conda setup environment.
+    # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/conda-environment?view=vsts
+  - task: CondaEnvironment@0
+    inputs:
+      environmentName: 'test'
+      packageSpecs: 'python=$(python.version)'
+
+    # Install dependencies
+  - script: |
+      ./continuous_integration/azure/install.sh
+    displayName: 'Install dependencies'
+    continueOnError: false
+
+    # Show Conda Build Env
+  - script: |
+      conda list
+    displayName: 'Show build environment'
+    continueOnError: true
+
+    # Run Tests
+  - script: |
+      ./continuous_integration/azure/runtests.sh || ./continuous_integration/azure/runtests.sh || ./continuous_integration/azure/runtests.sh || ./continuous_integration/azure/runtests.sh
+    displayName: 'Run tests'
+    continueOnError: false
+
+    # Publish test results to the Azure DevOps server
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: 'result.xml'
+      testRunTitle: 'macOS - Python $(python.version)'
+      condition: succeededOrFailed()
+
+################################################################################
+# Windows
+################################################################################
+- job: 'Windows'
+
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  timeoutInMinutes: 100
+
+  variables:
+    CI: True
+    AZURE: True
+    PYTHON: "C:\\Miniconda"
+    PYWINPTY_BLOCK: 0
+    SPYDER_DEV: True
+    CODECOV_TOKEN: "273c981b-7851-4895-a4bb-07377c67791e"
+
+  # Run the pipeline with multiple Python versions
+  strategy:
+    matrix:
+      Python36:
+        python.version: '3.6'
+        use.conda: "yes"
+      Python37:
+        python.version: '3.7'
+        use.conda: "yes"
+    maxParallel: 4
+
+  steps:
+    # Set the UsePythonVersion task to reference the matrix variable for its Python version
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '$(python.version)'
+      architecture: 'x64'
+
+    # Conda setup environment.
+    # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/conda-environment?view=vsts
+  - task: CondaEnvironment@0
+    inputs:
+      environmentName: 'test'
+      packageSpecs: 'python=$(python.version)'
+      updateConda: false
+
+    # Install dependencies
+  - script: |
+      continuous_integration\azure\install.bat
+    displayName: 'Install dependencies'
+    continueOnError: false
+    # Show Conda Build Env
+  - script: |
+      conda list
+    displayName: 'Show build environment'
+    continueOnError: true
+    # Setup Build
+  - script: |
+      python setup.py build_static
+    displayName: 'Setup build'
+    continueOnError: false
+    # Run tests
+  - script: |
+      python runtests.py
+    displayName: 'Run tests'
+    continueOnError: false
+  - script: |
+      continuous_integration\azure\runcodecov.bat
+    displayName: 'Run code coverage'
+    continueOnError: false
+    # Publish test results to the Azure DevOps server
+  - task: PublishTestResults@2
+    inputs:
+      testResultsFiles: 'result.xml'
+      testRunTitle: 'Windows - Python $(python.version)'
+      condition: succeededOrFailed()

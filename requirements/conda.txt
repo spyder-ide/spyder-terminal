@@ -1,0 +1,6 @@
+spyder>=3.3.0
+pexpect
+tornado
+coloredlogs
+requests
+terminado
