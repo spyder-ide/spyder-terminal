@@ -1,0 +1,6 @@
+spyder>=3.3.0
+pywinpty==0.5.1
+tornado
+coloredlogs
+requests
+terminado

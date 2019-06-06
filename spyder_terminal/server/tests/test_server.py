@@ -119,7 +119,6 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             msg = ''.join(msg.rstrip())
         self.assertTrue(test_msg in msg)
 
-
     # @pytest.mark.skipif(os.name == 'nt', reason="It doesn't work on Windows")
     @testing.gen_test
     def test_terminal_closing(self):
@@ -138,6 +137,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             sock.write_message(' This shall not work')
         except AttributeError:
             pass
+        yield self.close(sock)
 
     @flaky(max_runs=3)
     @pytest.mark.timeout(10)

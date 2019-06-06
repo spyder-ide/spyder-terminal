@@ -74,7 +74,7 @@ def check_num_tabs(terminal, ref_value):
     return value != ref_value
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture
 def setup_terminal(qtbot):
     """Set up the Notebook plugin."""
     terminal = TerminalPlugin(None)
@@ -84,9 +84,9 @@ def setup_terminal(qtbot):
     return terminal
 
 
-def test_terminal_font(qtbot):
+def test_terminal_font(setup_terminal, qtbot):
     """Test if terminal loads a custom font."""
-    terminal = setup_terminal(qtbot)
+    terminal = setup_terminal
     # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
     # blocker.wait()
     qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
@@ -102,9 +102,9 @@ def test_terminal_font(qtbot):
     terminal.closing_plugin()
 
 
-def test_terminal_tab_title(qtbot):
+def test_terminal_tab_title(setup_terminal, qtbot):
     """Test if terminal tab titles are numbered sequentially."""
-    terminal = setup_terminal(qtbot)
+    terminal = setup_terminal
     # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
     # blocker.wait()
     qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
@@ -118,10 +118,10 @@ def test_terminal_tab_title(qtbot):
 
 
 @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
-def test_new_terminal(qtbot):
+def test_new_terminal(setup_terminal, qtbot):
     """Test if a new terminal is added."""
     # Setup widget
-    terminal = setup_terminal(qtbot)
+    terminal = setup_terminal
     # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
     # blocker.wait()
     qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
@@ -157,10 +157,10 @@ def test_new_terminal(qtbot):
     terminal.closing_plugin()
 
 
-def test_output_redirection(qtbot):
+def test_output_redirection(setup_terminal, qtbot):
     """Test if stdout and stderr are redirected on DEV mode."""
     spyder_terminal.terminalplugin.DEV = True
-    terminal = setup_terminal(qtbot)
+    terminal = setup_terminal
 
     stdout = osp.join(getcwd(), 'spyder_terminal_out.log')
     stderr = osp.join(getcwd(), 'spyder_terminal_err.log')
@@ -168,10 +168,11 @@ def test_output_redirection(qtbot):
     terminal.closing_plugin()
 
 
-def test_close_terminal_manually(qtbot):
+@pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
+def test_close_terminal_manually(setup_terminal, qtbot):
     """Test if terminal tab is closed after process was finished manually."""
     # Setup widget
-    terminal = setup_terminal(qtbot)
+    terminal = setup_terminal
 
     # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
     # blocker.wait()
