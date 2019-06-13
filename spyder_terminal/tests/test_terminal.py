@@ -12,6 +12,7 @@ import os
 import pytest
 import requests
 import os.path as osp
+from pytestqt.plugin import QtBot
 from qtpy.QtWebEngineWidgets import WEBENGINE
 
 # Local imports
@@ -74,23 +75,36 @@ def check_num_tabs(terminal, ref_value):
     return value != ref_value
 
 
-@pytest.fixture
-def setup_terminal(qtbot):
+@pytest.fixture(scope="module")
+def qtbot_module(qapp, request):
+    """Module fixture for qtbot."""
+    result = QtBot(request)
+    return result
+
+
+@pytest.fixture(scope='module')
+def setup_terminal(qtbot_module, request):
     """Set up the Notebook plugin."""
     terminal = TerminalPlugin(None)
-    qtbot.addWidget(terminal)
+    qtbot_module.addWidget(terminal)
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(5000)
     terminal.create_new_term()
     terminal.show()
+
+    def teardown():
+        terminal.closing_plugin()
+
+    request.addfinalizer(teardown)
     return terminal
 
 
-def test_terminal_font(setup_terminal, qtbot):
+def test_terminal_font(setup_terminal, qtbot_module):
     """Test if terminal loads a custom font."""
     terminal = setup_terminal
-    # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
-    # blocker.wait()
-    qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
-    qtbot.wait(1000)
+
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
 
     term = terminal.get_current_term()
     port = terminal.port
@@ -98,34 +112,35 @@ def test_terminal_font(setup_terminal, qtbot):
     assert status_code == 200
     term.set_font('Ubuntu Mono')
     expected = '"Ubuntu Mono", "Ubuntu Mono", monospace'
-    qtbot.waitUntil(lambda: check_fonts(term, expected), timeout=TERM_UP)
-    terminal.closing_plugin()
+    qtbot_module.waitUntil(lambda: check_fonts(term, expected),
+                           timeout=TERM_UP)
+    # terminal.closing_plugin()
 
 
-def test_terminal_tab_title(setup_terminal, qtbot):
+def test_terminal_tab_title(setup_terminal, qtbot_module):
     """Test if terminal tab titles are numbered sequentially."""
     terminal = setup_terminal
-    # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
-    # blocker.wait()
-    qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
-    qtbot.wait(1000)
+
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
     terminal.create_new_term()
     terminal.create_new_term()
     num_1 = int(terminal.tabwidget.tabText(1)[-1])
     num_2 = int(terminal.tabwidget.tabText(2)[-1])
     assert num_2 == num_1 + 1
-    terminal.closing_plugin()
+    # terminal.closing_plugin()
 
 
 @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
-def test_new_terminal(setup_terminal, qtbot):
+def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
     terminal = setup_terminal
-    # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    # blocker = qtbot_module.waitSignal(terminal.server_is_ready, 
+    #                                   timeout=TERM_UP)
     # blocker.wait()
-    qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
-    qtbot.wait(1000)
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
 
     # Test if server is running
     port = terminal.port
@@ -134,59 +149,59 @@ def test_new_terminal(setup_terminal, qtbot):
 
     terminal.create_new_term()
     term = terminal.get_current_term()
-    qtbot.wait(1000)
+    qtbot_module.wait(1000)
     # Move to LOCATION
-    # qtbot.keyClicks(term.view, 'cd {}'.format(LOCATION))
-    # qtbot.keyPress(term.view, Qt.Key_Return)
+    # qtbot_module.keyClicks(term.view, 'cd {}'.format(LOCATION))
+    # qtbot_module.keyPress(term.view, Qt.Key_Return)
     term.exec_cmd('cd {}'.format(LOCATION_SLASH))
 
     # Clear
-    # qtbot.keyClicks(term.view, 'clear')
-    # qtbot.keyPress(term.view, Qt.Key_Return)
+    # qtbot_module.keyClicks(term.view, 'clear')
+    # qtbot_module.keyPress(term.view, Qt.Key_Return)
     term.exec_cmd(CLEAR)
 
     # Run pwd
-    # qtbot.keyClicks(term.view, 'pwd')
-    # qtbot.keyPress(term.view, Qt.Key_Return)
+    # qtbot_module.keyClicks(term.view, 'pwd')
+    # qtbot_module.keyPress(term.view, Qt.Key_Return)
     term.exec_cmd(PWD)
-    qtbot.wait(1000)
+    qtbot_module.wait(1000)
 
     # Assert pwd is LOCATION
-    qtbot.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
+    qtbot_module.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
 
-    terminal.closing_plugin()
+    # terminal.closing_plugin()
 
 
-def test_output_redirection(setup_terminal, qtbot):
+def test_output_redirection(setup_terminal, qtbot_module):
     """Test if stdout and stderr are redirected on DEV mode."""
     spyder_terminal.terminalplugin.DEV = True
-    terminal = setup_terminal
 
     stdout = osp.join(getcwd(), 'spyder_terminal_out.log')
     stderr = osp.join(getcwd(), 'spyder_terminal_err.log')
     assert osp.exists(stdout) and osp.exists(stderr)
-    terminal.closing_plugin()
+    # terminal.closing_plugin()
 
 
 @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
-def test_close_terminal_manually(setup_terminal, qtbot):
+def test_close_terminal_manually(setup_terminal, qtbot_module):
     """Test if terminal tab is closed after process was finished manually."""
     # Setup widget
     terminal = setup_terminal
 
-    # blocker = qtbot.waitSignal(terminal.server_is_ready, timeout=TERM_UP)
+    # blocker = qtbot_module.waitSignal(terminal.server_is_ready,
+    #                                   timeout=TERM_UP)
     # blocker.wait()
-    qtbot.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
-    qtbot.wait(1000)
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
 
     terminal.create_new_term()
     initial_num = len(terminal.get_terms())
     term = terminal.get_current_term()
-    qtbot.wait(1000)
+    qtbot_module.wait(1000)
 
     term.exec_cmd(EXIT)
 
-    qtbot.waitUntil(lambda: check_num_tabs(terminal, initial_num),
-                    timeout=TERM_UP)
+    qtbot_module.waitUntil(lambda: check_num_tabs(terminal, initial_num),
+                           timeout=TERM_UP)
     final_num = len(terminal.get_terms())
     assert final_num == initial_num - 1
