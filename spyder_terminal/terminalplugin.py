@@ -99,11 +99,19 @@ class TerminalPlugin(SpyderPluginWidget):
         self.current_cwd = getcwd()
         self.options_menu = QMenu(self)
 
-        self.initialize_plugin()
+        try:
+            # Spyder 3
+            self.initialize_plugin()
+        except AttributeError:
+            # Spyder 4
+            pass
+        
+        # Initialize actions
+        self.get_plugin_actions()
 
         layout = QVBoxLayout()
         new_term_btn = create_toolbutton(self,
-                                         icon=ima.icon('project_expanded'),
+                                         icon=ima.icon('expand'),
                                          tip=_('Open a new terminal'),
                                          triggered=self.create_new_term)
         menu_btn = create_toolbutton(self, icon=ima.icon('tooloptions'),
@@ -324,9 +332,10 @@ class TerminalPlugin(SpyderPluginWidget):
         if path is None:
             path = self.current_cwd
         path = path.replace('\\', '/')
-        font = self.get_plugin_font()
-        term = TerminalWidget(self, self.port, path=path,
-                              font=font.family())
+        # TODO: Check the font
+        # font = self.get_plugin_font()
+        term = TerminalWidget(self, self.port, path=path)
+                              # font=font.family())
         self.add_tab(term)
         term.terminal_closed.connect(lambda: self.close_term(term=term))
 
