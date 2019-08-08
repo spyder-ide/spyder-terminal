@@ -105,9 +105,6 @@ class TerminalPlugin(SpyderPluginWidget):
         except AttributeError:
             # Spyder 4
             pass
-        
-        # Initialize actions
-        self.get_plugin_actions()
 
         layout = QVBoxLayout()
         new_term_btn = create_toolbutton(self,
@@ -118,7 +115,7 @@ class TerminalPlugin(SpyderPluginWidget):
                                      tip=_('Options'))
         menu_btn.setMenu(self.options_menu)
         menu_btn.setPopupMode(menu_btn.InstantPopup)
-        add_actions(self.options_menu, self.menu_actions)
+        
         # if self.get_option('first_time', True):
         # self.setup_shortcuts()
         # self.shortcuts = self.create_shortcuts()
@@ -253,6 +250,11 @@ class TerminalPlugin(SpyderPluginWidget):
                                           _("Rename terminal"),
                                           triggered=self.tab_name_editor)
 
+        add_actions(self.options_menu, [new_terminal_cwd,
+                                        self.new_terminal_project,
+                                        new_terminal_file,
+                                        rename_tab_action])
+
         self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
                              new_terminal_file, MENU_SEPARATOR,
                              rename_tab_action]
@@ -298,7 +300,7 @@ class TerminalPlugin(SpyderPluginWidget):
     def register_plugin(self):
         """Register plugin in Spyder's main window."""
         self.focus_changed.connect(self.main.plugin_focus_changed)
-        self.main.add_dockwidget(self)
+        self.add_dockwidget()
         self.main.workingdirectory.set_explorer_cwd.connect(
             self.set_current_cwd)
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
@@ -332,10 +334,8 @@ class TerminalPlugin(SpyderPluginWidget):
         if path is None:
             path = self.current_cwd
         path = path.replace('\\', '/')
-        # TODO: Check the font
-        # font = self.get_plugin_font()
-        term = TerminalWidget(self, self.port, path=path)
-                              # font=font.family())
+        font = self.get_font()
+        term = TerminalWidget(self, self.port, path=path, font=font.family())
         self.add_tab(term)
         term.terminal_closed.connect(lambda: self.close_term(term=term))
 
