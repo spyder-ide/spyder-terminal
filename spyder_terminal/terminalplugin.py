@@ -387,7 +387,7 @@ class TerminalPlugin(SpyderPluginWidget):
         index = self.tabwidget.addTab(widget, "Terminal {0}".format(num_term))
         self.tabwidget.setCurrentIndex(index)
         self.tabwidget.setTabToolTip(index, "Terminal {0}".format(num_term))
-        if self.dockwidget and not self.ismaximized:
+        if self.dockwidget and not self._ismaximized:
             self.dockwidget.setVisible(True)
         self.activateWindow()
         widget.view.setFocus()

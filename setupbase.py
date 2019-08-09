@@ -64,6 +64,7 @@ class BuildStatic(Command):
         if not osp.isdir(COMPONENTS):
             log.info("running [yarn install]")
             run(['yarn', 'install'], cwd=repo_root)
+            run(['yarn', 'build'], cwd=repo_root)
 
 
 class DevelopWithBuildStatic(develop):

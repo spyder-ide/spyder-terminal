@@ -28,7 +28,7 @@ LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(name) -30s %(funcName) '
 
 logging.basicConfig(level=logging.INFO, format=LOG_FORMAT)
 LOGGER = logging.getLogger(__name__)
-coloredlogs.install(level='info')
+# coloredlogs.install(level='info')
 
 clr = 'clear'
 if os.name == 'nt':
