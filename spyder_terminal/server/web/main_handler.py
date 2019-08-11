@@ -19,7 +19,7 @@ class MainHandler(tornado.web.RequestHandler):
         """Get static index.html page."""
         cwd = self.get_argument('path', getcwd())
         self.set_cookie('cwd', cwd)
-        self.render('../static/index.html')
+        self.render('../static/build/index.html')
 
     @tornado.gen.coroutine
     def post(self):
