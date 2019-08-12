@@ -1,19 +1,24 @@
 import { Terminal } from 'xterm';
 import { AttachAddon } from 'xterm-addon-attach';
-import { FitAddon } from 'xterm-addon-fit';
+import * as fit from 'xterm/lib/addons/fit/fit';
+import * as fullscreen from 'xterm/lib/addons/fullscreen/fullscreen';
 import { SearchAddon, ISearchOptions } from 'xterm-addon-search';
 import { WebLinksAddon } from 'xterm-addon-web-links';
 import { WebglAddon } from 'xterm-addon-webgl';
 
 let term;
-let fitAddon;
 let searchAddon;
 let protocol;
 let socketURL;
 let socket;
 let pid;
+let curFont;
+
+let myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
 const terminalContainer = document.getElementById('terminal-container');
+const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
 
 function createTerminal(){
   // Clean terminal
@@ -21,7 +26,8 @@ function createTerminal(){
       terminalContainer.removeChild(terminalContainer.children[0]);
   }
 
-  const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+  Terminal.applyAddon(fit);
+  Terminal.applyAddon(fullscreen);
 
   term = new Terminal({
       cursorBlink: true,
@@ -33,8 +39,6 @@ function createTerminal(){
   term.loadAddon(new WebLinksAddon());
   searchAddon = new SearchAddon();
   term.loadAddon(searchAddon);
-  fitAddon = new FitAddon();
-  term.loadAddon(fitAddon);
   
   term.on('resize', (size) => {
       if (!pid) {
@@ -52,23 +56,21 @@ function createTerminal(){
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
   
   term.open(terminalContainer);
-  fitAddon.fit();
+  term.fit();
   term.focus();
-  term.toggleFullscreen(true);
+  // term.toggleFullscreen();
 
   let initialGeometry = term.proposeGeometry();
   let cols = initialGeometry.cols;
   let rows = initialGeometry.rows;
-  console.log(cols);
-  console.log(rows);
 
   fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {
     method: 'POST',
     headers: myHeaders,
     credentials: 'include'
   }).then(function (res) {
-    charWidth = Math.ceil(term.element.offsetWidth / cols);
-    charHeight = Math.ceil(term.element.offsetHeight / rows);
+    let charWidth = Math.ceil(term.element.offsetWidth / cols);
+    let charHeight = Math.ceil(term.element.offsetHeight / rows);
     res.text().then(function (pid) {
     term.fit()
     window.pid = pid;
@@ -82,18 +84,17 @@ function createTerminal(){
 }
 
 function getFonts() {
-  return document.getElementById('.terminal').css('font-family');
+  return term.getOption('fontFamily');
 }
 
 function setFont(font) {
-  fonts = "'Ubuntu Mono', monospace";
-  fonts = "'"+font+"', "+fonts;
-  document.getElementById('.terminal').css('font-family', fonts);
-
-  term.fit();
-  let initialGeometry = term.proposeGeometry();
-  let cols = initialGeometry.cols;
-  let rows = initialGeometry.rows;
+    let fonts = "'Ubuntu Mono', monospace";
+    fonts = "'"+font+"', "+fonts;
+    term.setOption('fontFamily', fonts)
+    term.fit();
+    let initialGeometry = term.proposeGeometry();
+    let cols = initialGeometry.cols;
+    let rows = initialGeometry.rows;
 }
 
 function fitFont(font) {
@@ -104,7 +105,7 @@ function fitFont(font) {
 }
 
 function setcwd(cwd) {
-  path = cwd;
+  let path = cwd;
 }
 
 function chdir(path) {
@@ -122,7 +123,7 @@ function exec(cmd)
 }
 
 function closeTerm() {
-  alive = false;
+  let alive = false;
   window.dispatchEvent(closeEvent);
   console.log("Closed via server");
   term.writeln("Pipe closed");
@@ -133,9 +134,9 @@ function consoleReady() {
 }
 
 function scrollTerm(delta) {
-  var viewport = document.getElementById('.xterm-viewport');
-  var curScrollPos = viewport.scrollTop();
-  var maxHeight = viewport.prop('scrollHeight') - viewport.innerHeight();
+  let viewport = document.getElementById('.xterm-viewport');
+  let curScrollPos = viewport.scrollTop();
+  let maxHeight = viewport.prop('scrollHeight') - viewport.innerHeight();
   curScrollPos = Math.min(maxHeight, Math.max(0, curScrollPos - delta));
   document.getElementById('.xterm-viewport').animate({ scrollTop: curScrollPos }, 0);
 }
@@ -148,8 +149,8 @@ function runRealTerminal() {
   term.loadAddon(new AttachAddon(socket));
   term._initialized = true;
 
-  lineEnd = term.browser.isMSWindows ? '\r\n' : '\n';
-  clearCmd = term.browser.isMSWindows ? 'cls' : 'clear';
+  let lineEnd = isWindows ? '\r\n' : '\n';
+  let clearCmd = isWindows ? 'cls' : 'clear';
   fitFont(curFont);
   let initialX = term.x;
   let timer = setInterval( () => {
@@ -162,7 +163,7 @@ function runRealTerminal() {
   fitFont(curFont);
 }
 
-document.ready( () => {
+$(document).ready( () => {
   createTerminal();
   new QWebChannel(qt.webChannelTransport, function (channel) {
       window.handler = channel.objects.handler;
