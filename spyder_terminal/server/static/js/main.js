@@ -1,13 +1,13 @@
 import { Terminal } from 'xterm';
 import { AttachAddon } from 'xterm-addon-attach';
-import * as fit from 'xterm/lib/addons/fit/fit';
-import * as fullscreen from 'xterm/lib/addons/fullscreen/fullscreen';
+import { FitAddon } from 'xterm-addon-fit';
 import { SearchAddon, ISearchOptions } from 'xterm-addon-search';
 import { WebLinksAddon } from 'xterm-addon-web-links';
 import { WebglAddon } from 'xterm-addon-webgl';
 
 let term;
 let searchAddon;
+let fitAddon;
 let protocol;
 let socketURL;
 let socket;
@@ -26,9 +26,6 @@ function createTerminal(){
       terminalContainer.removeChild(terminalContainer.children[0]);
   }
 
-  Terminal.applyAddon(fit);
-  Terminal.applyAddon(fullscreen);
-
   term = new Terminal({
       cursorBlink: true,
       scrollback: 10000,
@@ -39,12 +36,14 @@ function createTerminal(){
   term.loadAddon(new WebLinksAddon());
   searchAddon = new SearchAddon();
   term.loadAddon(searchAddon);
+  fitAddon = new FitAddon();
+  term.loadAddon(fitAddon);
   
   term.on('resize', (size) => {
       if (!pid) {
           return;
       }
-      term.fit();
+      // fitAddon.fit();
       let cols = size.cols;
       let rows = size.rows;
       let url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
@@ -56,13 +55,12 @@ function createTerminal(){
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
   
   term.open(terminalContainer);
-  term.fit();
+  // fitAddon.fit();
   term.focus();
-  // term.toggleFullscreen();
 
-  let initialGeometry = term.proposeGeometry();
-  let cols = initialGeometry.cols;
-  let rows = initialGeometry.rows;
+  let initialGeometry = term.proposeGeometry;
+  let cols = term.cols;
+  let rows = term.rows;
 
   fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {
     method: 'POST',
@@ -72,7 +70,7 @@ function createTerminal(){
     let charWidth = Math.ceil(term.element.offsetWidth / cols);
     let charHeight = Math.ceil(term.element.offsetHeight / rows);
     res.text().then(function (pid) {
-    term.fit()
+    // fitAddon.fit();
     window.pid = pid;
     socketURL += pid;
     socket = new WebSocket(socketURL);
@@ -91,10 +89,10 @@ function setFont(font) {
     let fonts = "'Ubuntu Mono', monospace";
     fonts = "'"+font+"', "+fonts;
     term.setOption('fontFamily', fonts)
-    term.fit();
-    let initialGeometry = term.proposeGeometry();
-    let cols = initialGeometry.cols;
-    let rows = initialGeometry.rows;
+    // fitAddon.fit();
+    let initialGeometry = term.proposeGeometry;
+    let cols = term.cols;
+    let rows = term.rows;
 }
 
 function fitFont(font) {
