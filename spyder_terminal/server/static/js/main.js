@@ -19,6 +19,8 @@ myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
 const terminalContainer = document.getElementById('terminal-container');
 const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
+const lineEnd = isWindows ? '\r\n$ ' : '\n$ ';
+const clearCmd = isWindows ? 'cls' : 'clear';
 
 function createTerminal(){
   // Clean terminal
@@ -44,9 +46,9 @@ function createTerminal(){
           return;
       }
       fitAddon.fit();
-      let cols = size.cols;
-      let rows = size.rows;
-      let url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
+      const cols = size.cols;
+      const rows = size.rows;
+      const url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
 
       fetch(url, {method: 'POST', headers: myHeaders});
   });
@@ -58,7 +60,6 @@ function createTerminal(){
   fitAddon.fit();
   term.focus();
 
-  let initialGeometry = term.proposeGeometry;
   let cols = term.cols;
   let rows = term.rows;
 
@@ -66,17 +67,17 @@ function createTerminal(){
     method: 'POST',
     headers: myHeaders,
     credentials: 'include'
-  }).then(function (res) {
+  }).then((res) => {
     let charWidth = Math.ceil(term.element.offsetWidth / cols);
     let charHeight = Math.ceil(term.element.offsetHeight / rows);
-    res.text().then(function (pid) {
-    fitAddon.fit();
-    window.pid = pid;
-    socketURL += pid;
-    socket = new WebSocket(socketURL);
-    socket.onopen = runRealTerminal;
-    socket.onclose = closeTerm;
-    socket.onerror = closeTerm;
+    res.text().then((pid) => {
+      fitAddon.fit();
+      window.pid = pid;
+      socketURL += pid;
+      socket = new WebSocket(socketURL);
+      socket.onopen = runRealTerminal;
+      socket.onclose = closeTerm;
+      socket.onerror = closeTerm;
     });
   });
 }
@@ -90,7 +91,6 @@ function setFont(font) {
     fonts = "'"+font+"', "+fonts;
     term.setOption('fontFamily', fonts)
     fitAddon.fit();
-    let initialGeometry = term.proposeGeometry;
     let cols = term.cols;
     let rows = term.rows;
 }
@@ -107,17 +107,18 @@ function setcwd(cwd) {
 }
 
 function chdir(path) {
-  term.send('cd '+path+lineEnd);
+  term.writeln('cd '+path);
+  term.prompt();
 }
 
-function clearTerm()
-{
-  term.send(clearCmd + lineEnd);
+function clearTerm(){
+  term.write(clearCmd);
+  term.prompt();
 }
 
-function exec(cmd)
-{
-  term.send('' + cmd + lineEnd);
+function exec(cmd){
+  term.write('' + cmd);
+  term.prompt();
 }
 
 function closeTerm() {
@@ -146,9 +147,6 @@ function isAlive() {
 function runRealTerminal() {
   term.loadAddon(new AttachAddon(socket));
   term._initialized = true;
-
-  let lineEnd = isWindows ? '\r\n' : '\n';
-  let clearCmd = isWindows ? 'cls' : 'clear';
   fitFont(curFont);
   let initialX = term.x;
   let timer = setInterval( () => {
@@ -159,6 +157,11 @@ function runRealTerminal() {
     }
   }, 200);
   fitFont(curFont);
+}
+
+function addDomListener(element, type, handler){
+  element.addEventListener(type, handler);
+  term._core.register({dispose: () => element.removeEventListener(type, handler)});
 }
 
 $(document).ready( () => {
@@ -173,3 +176,19 @@ $(document).ready( () => {
       }, false);
   });
 });
+
+const term_functions = {
+  fitFont: fitFont,
+  getFonts: getFonts,
+  setFont: setFont,
+  setcwd: setcwd,
+  chdir: chdir,
+  clearTerm: clearTerm,
+  exec: exec,
+  closeTerm: closeTerm,
+  consoleReady: consoleReady,
+  scrollTerm: scrollTerm,
+  isAlive: isAlive
+};
+
+export default term_functions;

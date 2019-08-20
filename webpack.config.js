@@ -5,7 +5,9 @@ module.exports = {
   entry: path.join(__dirname, 'spyder_terminal', 'server', 'static', 'js', 'main.js'), 
   output: {    
     path: path.join(__dirname, 'spyder_terminal', 'server', 'static', 'build'),
-    filename: 'main.bundle.js'
+    filename: 'main.bundle.js',
+    libraryTarget: 'var',
+    library: 'spyder_terminal'
   },
   mode: 'development',
   resolve: {
