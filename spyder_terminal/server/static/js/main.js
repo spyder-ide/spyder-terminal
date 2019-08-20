@@ -43,7 +43,7 @@ function createTerminal(){
       if (!pid) {
           return;
       }
-      // fitAddon.fit();
+      fitAddon.fit();
       let cols = size.cols;
       let rows = size.rows;
       let url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
@@ -55,7 +55,7 @@ function createTerminal(){
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
   
   term.open(terminalContainer);
-  // fitAddon.fit();
+  fitAddon.fit();
   term.focus();
 
   let initialGeometry = term.proposeGeometry;
@@ -70,7 +70,7 @@ function createTerminal(){
     let charWidth = Math.ceil(term.element.offsetWidth / cols);
     let charHeight = Math.ceil(term.element.offsetHeight / rows);
     res.text().then(function (pid) {
-    // fitAddon.fit();
+    fitAddon.fit();
     window.pid = pid;
     socketURL += pid;
     socket = new WebSocket(socketURL);
@@ -89,7 +89,7 @@ function setFont(font) {
     let fonts = "'Ubuntu Mono', monospace";
     fonts = "'"+font+"', "+fonts;
     term.setOption('fontFamily', fonts)
-    // fitAddon.fit();
+    fitAddon.fit();
     let initialGeometry = term.proposeGeometry;
     let cols = term.cols;
     let rows = term.rows;
