@@ -19,7 +19,7 @@ myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
 const terminalContainer = document.getElementById('terminal-container');
 const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platform) >= 0;
-const lineEnd = isWindows ? '\r\n$ ' : '\n$ ';
+const lineEnd = isWindows ? '\r\n' : '\n';
 const clearCmd = isWindows ? 'cls' : 'clear';
 
 function createTerminal(){
@@ -107,18 +107,15 @@ function setcwd(cwd) {
 }
 
 function chdir(path) {
-  term.writeln('cd '+path);
-  term.prompt();
+  socket.send('cd '+path + lineEnd);
 }
 
 function clearTerm(){
-  term.write(clearCmd);
-  term.prompt();
+  socket.send(clearCmd + lineEnd);
 }
 
 function exec(cmd){
-  term.write('' + cmd);
-  term.prompt();
+  socket.send('' + cmd + lineEnd);
 }
 
 function closeTerm() {

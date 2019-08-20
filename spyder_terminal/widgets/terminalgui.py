@@ -25,6 +25,7 @@ from qtpy.QtWebEngineWidgets import WEBENGINE
 if WEBENGINE:
     from PyQt5.QtWebChannel import QWebChannel
 
+PREFIX = 'spyder_terminal.default.'
 
 class ChannelHandler(QObject):
     """QWebChannel handler for JS calls."""
@@ -91,12 +92,12 @@ class TerminalWidget(QFrame):
 
     def set_dir(self, path):
         """Set terminal initial current working directory."""
-        self.eval_javascript('setcwd("{0}")'.format(path))
+        self.eval_javascript(PREFIX + 'setcwd("{0}")'.format(path))
 
     def set_font(self, font):
         """Set terminal font via CSS."""
         self.font = font
-        self.eval_javascript('fitFont("{0}")'.format(self.font))
+        self.eval_javascript('PREFIX + fitFont("{0}")'.format(self.font))
 
     def get_fonts(self):
         """List terminal CSS fonts."""
@@ -104,7 +105,7 @@ class TerminalWidget(QFrame):
 
     def exec_cmd(self, cmd):
         """Execute a command inside the terminal."""
-        self.eval_javascript('exec("{0}")'.format(cmd))
+        self.eval_javascript('PREFIX + exec("{0}")'.format(cmd))
 
     def __alive_loopback(self):
         alive = self.is_alive()
@@ -115,7 +116,7 @@ class TerminalWidget(QFrame):
 
     def is_alive(self):
         """Check if terminal process is alive."""
-        alive = self.eval_javascript('isAlive()')
+        alive = self.eval_javascript('PREFIX + isAlive()')
         return alive
 
 
