@@ -36,6 +36,8 @@ PWD = 'pwd'
 if WINDOWS:
     PWD = 'cd'
 
+PREFIX = 'spyder_terminal.default.'
+
 
 def check_pwd(termwidget):
     """Check if pwd command is executed."""
@@ -58,7 +60,7 @@ def check_fonts(term, expected):
         def callback(data):
             global term_fonts
             term_fonts = data
-        term.body.runJavaScript("getFonts()", callback)
+        term.body.runJavaScript(PREFIX + "getFonts()", callback)
         try:
             return term_fonts == expected
         except NameError:
@@ -111,7 +113,7 @@ def test_terminal_font(setup_terminal, qtbot_module):
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
     term.set_font('Ubuntu Mono')
-    expected = '"Ubuntu Mono", "Ubuntu Mono", monospace'
+    expected = '\'Ubuntu Mono\', monospace'
     qtbot_module.waitUntil(lambda: check_fonts(term, expected),
                            timeout=TERM_UP)
     # terminal.closing_plugin()

@@ -13,6 +13,7 @@ let socketURL;
 let socket;
 let pid;
 let curFont;
+let alive;
 
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -60,6 +61,8 @@ function createTerminal(){
   fitAddon.fit();
   term.focus();
 
+  window.term = term
+
   let cols = term.cols;
   let rows = term.rows;
 
@@ -87,12 +90,10 @@ function getFonts() {
 }
 
 function setFont(font) {
-    let fonts = "'Ubuntu Mono', monospace";
+    let fonts = "monospace";
     fonts = "'"+font+"', "+fonts;
     term.setOption('fontFamily', fonts)
     fitAddon.fit();
-    let cols = term.cols;
-    let rows = term.rows;
 }
 
 function fitFont(font) {
@@ -119,7 +120,7 @@ function exec(cmd){
 }
 
 function closeTerm() {
-  let alive = false;
+  alive = false;
   window.dispatchEvent(closeEvent);
   console.log("Closed via server");
   term.writeln("Pipe closed");
@@ -144,6 +145,7 @@ function isAlive() {
 function runRealTerminal() {
   term.loadAddon(new AttachAddon(socket));
   term._initialized = true;
+  curFont = 'Ubuntu Mono';
   fitFont(curFont);
   let initialX = term.x;
   let timer = setInterval( () => {
@@ -154,6 +156,7 @@ function runRealTerminal() {
     }
   }, 200);
   fitFont(curFont);
+  alive = true;
 }
 
 function addDomListener(element, type, handler){

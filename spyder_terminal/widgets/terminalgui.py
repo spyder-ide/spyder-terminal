@@ -97,7 +97,7 @@ class TerminalWidget(QFrame):
     def set_font(self, font):
         """Set terminal font via CSS."""
         self.font = font
-        self.eval_javascript('PREFIX + fitFont("{0}")'.format(self.font))
+        self.eval_javascript(PREFIX + 'fitFont("{0}")'.format(self.font))
 
     def get_fonts(self):
         """List terminal CSS fonts."""
@@ -105,7 +105,7 @@ class TerminalWidget(QFrame):
 
     def exec_cmd(self, cmd):
         """Execute a command inside the terminal."""
-        self.eval_javascript('PREFIX + exec("{0}")'.format(cmd))
+        self.eval_javascript(PREFIX + 'exec("{0}")'.format(cmd))
 
     def __alive_loopback(self):
         alive = self.is_alive()
@@ -116,7 +116,7 @@ class TerminalWidget(QFrame):
 
     def is_alive(self):
         """Check if terminal process is alive."""
-        alive = self.eval_javascript('PREFIX + isAlive()')
+        alive = self.eval_javascript(PREFIX + 'isAlive()')
         return alive
 
 
