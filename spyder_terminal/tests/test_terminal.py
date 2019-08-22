@@ -45,7 +45,7 @@ def check_pwd(termwidget):
         def callback(data):
             global html
             html = data
-        termwidget.body.toHtml(callback)
+        termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
         try:
             return LOCATION in html
         except NameError:
@@ -169,6 +169,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
     qtbot_module.wait(1000)
 
     # Assert pwd is LOCATION
+    term.resize(900, 700)
     qtbot_module.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
 
     # terminal.closing_plugin()

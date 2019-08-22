@@ -85,6 +85,21 @@ function createTerminal(){
   });
 }
 
+window.onresize = (event) => {
+  fitAddon.fit();
+}
+
+// function setTerminalSize () {
+//   var cols = parseInt(colsElement.value, 10),
+//       rows = parseInt(rowsElement.value, 10),
+//       width = (cols * charWidth).toString() + 'px',
+//       height = (rows * charHeight).toString() + 'px';
+
+//   terminalContainer.style.width = width;
+//   terminalContainer.style.height = height;
+//   term.resize(cols, rows);
+// }
+
 function getFonts() {
   return term.getOption('fontFamily');
 }
@@ -105,6 +120,16 @@ function fitFont(font) {
 
 function setcwd(cwd) {
   let path = cwd;
+}
+
+function getTerminalLines(){
+  let text = '';
+  for(let row = 0; row < term.rows; row++){
+    let actLine = term.buffer.getLine(row);
+    let length = actLine._line.length;
+    text += actLine.translateToString(false, 0, length) + '';
+  }
+  return text;
 }
 
 function chdir(path) {
@@ -188,7 +213,9 @@ const term_functions = {
   closeTerm: closeTerm,
   consoleReady: consoleReady,
   scrollTerm: scrollTerm,
-  isAlive: isAlive
+  isAlive: isAlive,
+  getTerminalLines: getTerminalLines,
+  // setTerminalSize: setTerminalSize,
 };
 
 export default term_functions;

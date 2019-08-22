@@ -405,3 +405,17 @@ class TerminalPlugin(SpyderPluginWidget):
         """Trigger the tab name editor."""
         index = self.tabwidget.currentIndex()
         self.tabwidget.tabBar().tab_name_editor.edit_tab(index)
+
+
+def test():
+    """Plugin visual test."""
+    from spyder.utils.qthelpers import qapplication
+    app = qapplication(test_time=8)
+    term = TerminalPlugin(None)
+    term.resize(900, 700)
+    term.show()
+    sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    test()
