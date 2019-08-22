@@ -1,3 +1,4 @@
 {
-  "spyder_terminal/tests/test_terminal.py::test_output_redirection": true
+  "spyder_terminal/tests/test_terminal.py::test_close_terminal_manually": true,
+  "spyder_terminal/tests/test_terminal.py::test_new_terminal": true
 }

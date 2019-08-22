@@ -15,6 +15,8 @@ import os.path as osp
 from pytestqt.plugin import QtBot
 from qtpy.QtWebEngineWidgets import WEBENGINE
 
+os.environ['SPYDER_DEV']='True'
+
 # Local imports
 import spyder_terminal.terminalplugin
 from spyder_terminal.terminalplugin import TerminalPlugin
