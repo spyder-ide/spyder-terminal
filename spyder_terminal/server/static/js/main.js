@@ -23,6 +23,10 @@ const isWindows = ['Windows', 'Win16', 'Win32', 'WinCE'].indexOf(navigator.platf
 const lineEnd = isWindows ? '\r\n' : '\n';
 const clearCmd = isWindows ? 'cls' : 'clear';
 
+const closeEvent = new Event('terminalClose');
+const promptEvent = new Event('promptReady');
+
+
 function createTerminal(){
   // Clean terminal
   while (terminalContainer.children.length) {

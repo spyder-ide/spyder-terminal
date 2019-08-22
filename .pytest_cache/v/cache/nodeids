@@ -1,13 +1,3 @@
 [
-  "spyder_terminal/server/tests/test_server.py::TerminalServerTests::test_create_terminal",
-  "spyder_terminal/server/tests/test_server.py::TerminalServerTests::test_main_get",
-  "spyder_terminal/server/tests/test_server.py::TerminalServerTests::test_main_post",
-  "spyder_terminal/server/tests/test_server.py::TerminalServerTests::test_terminal_closing",
-  "spyder_terminal/server/tests/test_server.py::TerminalServerTests::test_terminal_communication",
-  "spyder_terminal/server/tests/test_server.py::TerminalServerTests::test_terminal_resize",
-  "spyder_terminal/tests/test_terminal.py::test_terminal_font",
-  "spyder_terminal/tests/test_terminal.py::test_terminal_tab_title",
-  "spyder_terminal/tests/test_terminal.py::test_new_terminal",
-  "spyder_terminal/tests/test_terminal.py::test_output_redirection",
   "spyder_terminal/tests/test_terminal.py::test_close_terminal_manually"
 ]
