@@ -14,6 +14,8 @@ import requests
 import os.path as osp
 from pytestqt.plugin import QtBot
 from qtpy.QtWebEngineWidgets import WEBENGINE
+from flaky import flaky
+import platform
 
 os.environ['SPYDER_DEV']='True'
 
@@ -118,7 +120,7 @@ def test_terminal_font(setup_terminal, qtbot_module):
     expected = '\'Ubuntu Mono\', monospace'
     qtbot_module.waitUntil(lambda: check_fonts(term, expected),
                            timeout=TERM_UP)
-    # terminal.closing_plugin()
+    #terminal.closing_plugin()
 
 
 def test_terminal_tab_title(setup_terminal, qtbot_module):
@@ -135,6 +137,7 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
     # terminal.closing_plugin()
 
 
+@flaky(max_runs=3)
 @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
@@ -167,6 +170,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
     # Run pwd
     # qtbot_module.keyClicks(term.view, 'pwd')
     # qtbot_module.keyPress(term.view, Qt.Key_Return)
+    qtbot_module.wait(3000)
     term.exec_cmd(PWD)
     qtbot_module.wait(1000)
 
@@ -187,6 +191,8 @@ def test_output_redirection(setup_terminal, qtbot_module):
     # terminal.closing_plugin()
 
 
+@flaky(max_runs=3)
+@pytest.mark.first
 @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
 def test_close_terminal_manually(setup_terminal, qtbot_module):
     """Test if terminal tab is closed after process was finished manually."""
@@ -202,7 +208,7 @@ def test_close_terminal_manually(setup_terminal, qtbot_module):
     terminal.create_new_term()
     initial_num = len(terminal.get_terms())
     term = terminal.get_current_term()
-    qtbot_module.wait(1000)
+    qtbot_module.wait(3000)
 
     term.exec_cmd(EXIT)
 

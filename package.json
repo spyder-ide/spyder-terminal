@@ -25,7 +25,7 @@
     "yarn": ">= 1.0.0"
   },
   "scripts": {
-    "webpack": "webpack",
+    "webpack": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --open"
   },
   "devDependencies": {
