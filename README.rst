@@ -44,37 +44,6 @@ Spyder-Terminal
 
 ----
 
-Plugin development paused until Spyder 4 release
-------------------------------------------------
-
-Currently, work on official Spyder plugins is paused to focus our limited
-resources on the development and release of Spyder 4, the next generation
-of the Scientific Python Development Environment.  Thanks to your continuing
-support, we are on track for the final release of Spyder 4 in early 2019
-with many highly anticipated features, including exposing a new public API for
-external plugins, to make them easier to develop and more powerful.
-Once that happens, active plugin development will resume, to add new features
-and fix outstanding bugs. However, organizations or the community are welcome
-to offer funding to continue development sooner; if so, please `contact us`_!
-
-Spyder development is made possible by contributions from our global user
-community, along with organizations like `NumFOCUS`_ and `Quansight`_.
-There are numerous `ways you can help`_, many of which don't require any
-programming. If you'd like to make a `donation`_  to help fund further
-improvements, we're on `OpenCollective`_.
-
-Thanks for all you do to make the Spyder project thrive! `More details`_
-
-.. _contact us: mailto:ccordoba12@gmail.com
-.. _NumFOCUS: https://www.numfocus.org
-.. _Quansight: https://www.quansight.com
-.. _ways you can help: https://github.com/spyder-ide/spyder/wiki/Contributing-to-Spyder
-.. _donation: https://opencollective.com/spyder/donate
-.. _OpenCollective: https://opencollective.com/spyder
-.. _More details: https://github.com/spyder-ide/spyder/wiki/Current-Funding-and-Development-Status
-
-----
-
 Overview
 --------
 
@@ -151,6 +120,29 @@ the following bash script:
     # powershell: %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe
 
     python main.py --port <PORT> --shell <Path to the terminal backend to execute>
+
+Build from source code
+-------------------------
+
+Install all the dependencies given in our `requirements file <https://github.com/spyder-ide/spyder-terminal/tree/master/requirements>`_
+depending on your OS, a distribution of `node <https://nodejs.org/>`_ and
+`yarn <https://yarnpkg.com/lang/en/>`_. Then, use the following bash script 
+to build the plugin from source code.
+
+::
+    python setup.py build_static
+
+
+Run tests
+---------
+
+In order to run our test suite, install the `dependencies <https://github.com/spyder-ide/spyder-terminal/blob/master/requirements/tests.txt>`_ for
+tests and make sure spyder-terminal is already installed. Then, use pytest
+to run the server and client tests for the terminal.
+
+::
+    pytest .
+
 
 Development and contribution
 ----------------------------
