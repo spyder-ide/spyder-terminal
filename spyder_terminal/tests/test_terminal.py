@@ -15,9 +15,8 @@ import os.path as osp
 from pytestqt.plugin import QtBot
 from qtpy.QtWebEngineWidgets import WEBENGINE
 from flaky import flaky
-import platform
 
-os.environ['SPYDER_DEV']='True'
+os.environ['SPYDER_DEV'] = 'True'
 
 # Local imports
 import spyder_terminal.terminalplugin

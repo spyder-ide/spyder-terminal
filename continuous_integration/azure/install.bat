@@ -28,7 +28,7 @@ if %USE_CONDA% == yes (
   )
 
   :: Install nodejs
-  pip install nodejs
+  conda install -q -y -c conda-forge nodejs
   if errorlevel 1 exit 1
 )
 

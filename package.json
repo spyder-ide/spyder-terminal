@@ -18,7 +18,6 @@
     "xterm-addon-fit": "0.1.0-beta2",
     "xterm-addon-search": "^0.1.0",
     "xterm-addon-web-links": "^0.1.0",
-    "xterm-addon-webgl": "^0.1.0",
     "xterm.js": "sourcelair/xterm.js#^3.14.5"
   },
   "engines": {

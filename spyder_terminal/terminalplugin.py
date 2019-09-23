@@ -180,7 +180,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def update_font(self):
         """Update font from Preferences."""
-        font = self.get_plugin_font()
+        font = self.get_font()
         for term in self.terms:
             term.set_font(font.family())
 

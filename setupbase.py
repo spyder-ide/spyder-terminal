@@ -68,8 +68,8 @@ class BuildStatic(Command):
             run(['npm', 'i', '-D', 'webpack'], cwd=repo_root)
             run(['npm', 'i', 'webpack-cli', 'html-webpack-plugin', 'xterm',
                  'xterm-addon-attach', 'xterm-addon-search',
-                 'xterm-addon-web-links', 'xterm-addon-webgl',
-                 'xterm-addon-fit@0.1.0-beta2'], cwd=repo_root)
+                 'xterm-addon-web-links', 'xterm-addon-fit@0.1.0-beta2'],
+                cwd=repo_root)
             log.info('running webpack')
             run(['npm', 'run', 'webpack'], cwd=repo_root)
 
