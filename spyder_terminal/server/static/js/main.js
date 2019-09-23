@@ -46,7 +46,7 @@ function createTerminal(){
   fitAddon = new FitAddon();
   term.loadAddon(fitAddon);
   
-  term.on('resize', (size) => {
+  term.onResize((size) => {
       if (!pid) {
           return;
       }
@@ -77,7 +77,8 @@ function createTerminal(){
   }).then((res) => {
     let charWidth = Math.ceil(term.element.offsetWidth / cols);
     let charHeight = Math.ceil(term.element.offsetHeight / rows);
-    res.text().then((pid) => {
+    res.text().then((pidf) => {
+      pid = pidf;
       fitAddon.fit();
       window.pid = pid;
       socketURL += pid;
@@ -92,17 +93,6 @@ function createTerminal(){
 window.onresize = (event) => {
   fitAddon.fit();
 }
-
-// function setTerminalSize () {
-//   var cols = parseInt(colsElement.value, 10),
-//       rows = parseInt(rowsElement.value, 10),
-//       width = (cols * charWidth).toString() + 'px',
-//       height = (rows * charHeight).toString() + 'px';
-
-//   terminalContainer.style.width = width;
-//   terminalContainer.style.height = height;
-//   term.resize(cols, rows);
-// }
 
 function getFonts() {
   return term.getOption('fontFamily');
