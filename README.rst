@@ -78,6 +78,11 @@ Using conda:
 
     conda install spyder-terminal -c spyder-ide
 
+Please be sure of installing a node and yarn version:
+
+::
+    conda install -c conda-forge yarn
+    conda install -c conda-forge nodejs
 
 Dependencies
 ------------

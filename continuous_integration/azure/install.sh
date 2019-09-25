@@ -13,4 +13,7 @@ fi
 # Install nodejs
 conda install -q -y -c conda-forge nodejs 
 
+# Install yarn
+conda install -q -y -c conda-forge yarn
+
 pip install -q codecov

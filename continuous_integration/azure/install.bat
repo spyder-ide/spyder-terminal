@@ -12,6 +12,9 @@ if %USE_CONDA% == yes (
 
   conda install -q -y -c conda-forge nodejs 
   if errorlevel 1 exit 1
+
+  conda install -q -y -c conda-forge yarn
+  if errorlevel 1 exit 1
 ) else (
   pip install -r requirements/conda_win.txt
   if errorlevel 1 exit 1
@@ -29,6 +32,10 @@ if %USE_CONDA% == yes (
 
   :: Install nodejs
   conda install -q -y -c conda-forge nodejs
+  if errorlevel 1 exit 1
+
+  :: Install yarn
+  conda install -q -y -c conda-forge yarn
   if errorlevel 1 exit 1
 )
 
