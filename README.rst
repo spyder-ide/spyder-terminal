@@ -81,8 +81,7 @@ Using conda:
 Please be sure of installing a node and yarn version:
 
 ::
-    conda install -c conda-forge yarn
-    conda install -c conda-forge nodejs
+    conda install -c conda-forge nodejs yarn
 
 Dependencies
 ------------
