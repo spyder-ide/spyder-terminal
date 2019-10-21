@@ -14,6 +14,9 @@ import requests
 import os.path as osp
 from pytestqt.plugin import QtBot
 from qtpy.QtWebEngineWidgets import WEBENGINE
+from flaky import flaky
+
+os.environ['SPYDER_DEV'] = 'True'
 
 # Local imports
 import spyder_terminal.terminalplugin
@@ -36,6 +39,8 @@ PWD = 'pwd'
 if WINDOWS:
     PWD = 'cd'
 
+PREFIX = 'spyder_terminal.default.'
+
 
 def check_pwd(termwidget):
     """Check if pwd command is executed."""
@@ -43,7 +48,7 @@ def check_pwd(termwidget):
         def callback(data):
             global html
             html = data
-        termwidget.body.toHtml(callback)
+        termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
         try:
             return LOCATION in html
         except NameError:
@@ -58,7 +63,7 @@ def check_fonts(term, expected):
         def callback(data):
             global term_fonts
             term_fonts = data
-        term.body.runJavaScript("getFonts()", callback)
+        term.body.runJavaScript(PREFIX + "getFonts()", callback)
         try:
             return term_fonts == expected
         except NameError:
@@ -111,10 +116,10 @@ def test_terminal_font(setup_terminal, qtbot_module):
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
     term.set_font('Ubuntu Mono')
-    expected = '"Ubuntu Mono", "Ubuntu Mono", monospace'
+    expected = '\'Ubuntu Mono\', monospace'
     qtbot_module.waitUntil(lambda: check_fonts(term, expected),
                            timeout=TERM_UP)
-    # terminal.closing_plugin()
+    #terminal.closing_plugin()
 
 
 def test_terminal_tab_title(setup_terminal, qtbot_module):
@@ -131,6 +136,7 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
     # terminal.closing_plugin()
 
 
+@flaky(max_runs=3)
 @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
@@ -163,10 +169,12 @@ def test_new_terminal(setup_terminal, qtbot_module):
     # Run pwd
     # qtbot_module.keyClicks(term.view, 'pwd')
     # qtbot_module.keyPress(term.view, Qt.Key_Return)
+    qtbot_module.wait(3000)
     term.exec_cmd(PWD)
     qtbot_module.wait(1000)
 
     # Assert pwd is LOCATION
+    term.resize(900, 700)
     qtbot_module.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
 
     # terminal.closing_plugin()
@@ -182,6 +190,8 @@ def test_output_redirection(setup_terminal, qtbot_module):
     # terminal.closing_plugin()
 
 
+@flaky(max_runs=3)
+@pytest.mark.first
 @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
 def test_close_terminal_manually(setup_terminal, qtbot_module):
     """Test if terminal tab is closed after process was finished manually."""
@@ -197,7 +207,7 @@ def test_close_terminal_manually(setup_terminal, qtbot_module):
     terminal.create_new_term()
     initial_num = len(terminal.get_terms())
     term = terminal.get_current_term()
-    qtbot_module.wait(1000)
+    qtbot_module.wait(3000)
 
     term.exec_cmd(EXIT)
 

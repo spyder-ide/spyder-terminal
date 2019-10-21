@@ -99,18 +99,23 @@ class TerminalPlugin(SpyderPluginWidget):
         self.current_cwd = getcwd()
         self.options_menu = QMenu(self)
 
-        self.initialize_plugin()
+        try:
+            # Spyder 3
+            self.initialize_plugin()
+        except AttributeError:
+            # Spyder 4
+            pass
 
         layout = QVBoxLayout()
         new_term_btn = create_toolbutton(self,
-                                         icon=ima.icon('project_expanded'),
+                                         icon=ima.icon('expand'),
                                          tip=_('Open a new terminal'),
                                          triggered=self.create_new_term)
         menu_btn = create_toolbutton(self, icon=ima.icon('tooloptions'),
                                      tip=_('Options'))
         menu_btn.setMenu(self.options_menu)
         menu_btn.setPopupMode(menu_btn.InstantPopup)
-        add_actions(self.options_menu, self.menu_actions)
+        
         # if self.get_option('first_time', True):
         # self.setup_shortcuts()
         # self.shortcuts = self.create_shortcuts()
@@ -175,7 +180,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def update_font(self):
         """Update font from Preferences."""
-        font = self.get_plugin_font()
+        font = self.get_font()
         for term in self.terms:
             term.set_font(font.family())
 
@@ -245,6 +250,11 @@ class TerminalPlugin(SpyderPluginWidget):
                                           _("Rename terminal"),
                                           triggered=self.tab_name_editor)
 
+        add_actions(self.options_menu, [new_terminal_cwd,
+                                        self.new_terminal_project,
+                                        new_terminal_file,
+                                        rename_tab_action])
+
         self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
                              new_terminal_file, MENU_SEPARATOR,
                              rename_tab_action]
@@ -290,7 +300,7 @@ class TerminalPlugin(SpyderPluginWidget):
     def register_plugin(self):
         """Register plugin in Spyder's main window."""
         self.focus_changed.connect(self.main.plugin_focus_changed)
-        self.main.add_dockwidget(self)
+        self.add_dockwidget()
         self.main.workingdirectory.set_explorer_cwd.connect(
             self.set_current_cwd)
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
@@ -324,9 +334,8 @@ class TerminalPlugin(SpyderPluginWidget):
         if path is None:
             path = self.current_cwd
         path = path.replace('\\', '/')
-        font = self.get_plugin_font()
-        term = TerminalWidget(self, self.port, path=path,
-                              font=font.family())
+        font = self.get_font()
+        term = TerminalWidget(self, self.port, path=path, font=font.family())
         self.add_tab(term)
         term.terminal_closed.connect(lambda: self.close_term(term=term))
 
@@ -378,7 +387,7 @@ class TerminalPlugin(SpyderPluginWidget):
         index = self.tabwidget.addTab(widget, "Terminal {0}".format(num_term))
         self.tabwidget.setCurrentIndex(index)
         self.tabwidget.setTabToolTip(index, "Terminal {0}".format(num_term))
-        if self.dockwidget and not self.ismaximized:
+        if self.dockwidget and not self._ismaximized:
             self.dockwidget.setVisible(True)
         self.activateWindow()
         widget.view.setFocus()
@@ -396,3 +405,17 @@ class TerminalPlugin(SpyderPluginWidget):
         """Trigger the tab name editor."""
         index = self.tabwidget.currentIndex()
         self.tabwidget.tabBar().tab_name_editor.edit_tab(index)
+
+
+def test():
+    """Plugin visual test."""
+    from spyder.utils.qthelpers import qapplication
+    app = qapplication(test_time=8)
+    term = TerminalPlugin(None)
+    term.resize(900, 700)
+    term.show()
+    sys.exit(app.exec_())
+
+
+if __name__ == "__main__":
+    test()

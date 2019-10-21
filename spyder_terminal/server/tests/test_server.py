@@ -118,8 +118,8 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
             print(msg)
             msg = ''.join(msg.rstrip())
         self.assertTrue(test_msg in msg)
+        yield self.close(sock)
 
-    # @pytest.mark.skipif(os.name == 'nt', reason="It doesn't work on Windows")
     @testing.gen_test
     def test_terminal_closing(self):
         """Test terminal destruction."""

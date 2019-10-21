@@ -64,6 +64,14 @@ class BuildStatic(Command):
         if not osp.isdir(COMPONENTS):
             log.info("running [yarn install]")
             run(['yarn', 'install'], cwd=repo_root)
+            log.info("installing webpack")
+            run(['npm', 'i', '-D', 'webpack'], cwd=repo_root)
+            run(['npm', 'i', 'webpack-cli', 'html-webpack-plugin', 'xterm',
+                 'xterm-addon-attach', 'xterm-addon-search',
+                 'xterm-addon-web-links', 'xterm-addon-fit@0.1.0-beta2'],
+                cwd=repo_root)
+            log.info('running webpack')
+            run(['npm', 'run', 'webpack'], cwd=repo_root)
 
 
 class DevelopWithBuildStatic(develop):

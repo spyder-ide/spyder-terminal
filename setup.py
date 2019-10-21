@@ -40,7 +40,7 @@ def get_description():
     return data
 
 
-REQUIREMENTS = ['spyder>=3.2.0', 'tornado', 'terminado',
+REQUIREMENTS = ['spyder>=4.0.0b5', 'tornado', 'terminado',
                 'coloredlogs', 'requests']
 
 
