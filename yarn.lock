@@ -4946,7 +4946,7 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-cli@^3.3.7:
+webpack-cli@^3.3.9:
   version "3.3.9"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.9.tgz#79c27e71f94b7fe324d594ab64a8e396b9daa91a"
   integrity sha512-xwnSxWl8nZtBl/AFJCOn9pG7s5CYUYdZxmmukv+fAHLcBIHM36dImfpQg3WfShZXeArkWlf6QRw24Klcsv8a5A==
@@ -5029,7 +5029,7 @@ webpack-sources@^1.4.0, webpack-sources@^1.4.1:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.39.2:
+webpack@^4.41.2:
   version "4.41.2"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.41.2.tgz#c34ec76daa3a8468c9b61a50336d8e3303dce74e"
   integrity sha512-Zhw69edTGfbz9/8JJoyRQ/pq8FYUoY0diOXqW0T6yhgdhCv6wr0hra5DwwWexNRns2Z2+gsnrNcbe9hbGBgk/A==
@@ -5132,34 +5132,34 @@ xtend@^4.0.0, xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-xterm-addon-attach@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-attach/-/xterm-addon-attach-0.1.0.tgz#e0daa8188e9bb830def9ccad015fc62bc07e3abe"
-  integrity sha512-vImYAP+AVoW/gnr4CIESrOr2MplzNxnrPX4YEkdk0EEkBOg3Pwnndu1xy7HnY0XZsfGRz7rfn71sAXfJDGLvUQ==
+xterm-addon-attach@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-attach/-/xterm-addon-attach-0.3.0.tgz#bd037c2eb496c02760d1ef647b179732500ebe49"
+  integrity sha512-uX1fFtnmhreb9jmUtwfDzAIRD8yL5bWw3yJWkPSHQB85o+Ug3i0sQci7X9xTdZfnY4IDh//u1QR58EvtDTrCAA==
 
-xterm-addon-fit@0.1.0-beta2:
-  version "0.1.0-beta2"
-  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.1.0-beta2.tgz#eace8f821262cfd3c376510787e45322d202b05c"
-  integrity sha512-6WO0gE4QEcW3hOkYugKYlcMyxlEbKnFjXaouYfAOfWuJ1nhpqHy3YA62tGVWsT577rdyxz/MVyU7wsQjxbzKbg==
+xterm-addon-fit@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.3.0.tgz#341710741027de9d648a9f84415a01ddfdbbe715"
+  integrity sha512-kvkiqHVrnMXgyCH9Xn0BOBJ7XaWC/4BgpSWQy3SueqximgW630t/QOankgqkvk11iTOCwWdAY9DTyQBXUMN3lw==
 
-xterm-addon-search@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.1.0.tgz#83e1a21b5a99a9adcde969cb19a561c576a8181a"
-  integrity sha512-jqedtYgTHSz4FSf4JLimH7dxWoPamI9msScRO9B7oUsrbaKFsieAhRw5ZibdD7Swf8/G8DEC6ArmujxNSRNKXQ==
+xterm-addon-search@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.3.0.tgz#fc6843bebab1873eff0c89e31f7b74bb3c4d8947"
+  integrity sha512-ZvRmkNBSz2dT00w0qJ3Hd5cwYoOfkVZpHou7Xxy1kO34wQglU/8Ec4DNTvU27sS9BUzEg8kUcTTru0DxhJXrTA==
 
-xterm-addon-web-links@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/xterm-addon-web-links/-/xterm-addon-web-links-0.1.0.tgz#413e4cf6b04d7a084a9e0e9cbc2d3c5a8cde10f8"
-  integrity sha512-n8/CzSw3sk0BQKDWeMzWaKjLoOomtQ+0EryAlG06k2OZJUnAgykOIwRlAe1gRXYKfriyAlL4wuC5lTYCNrpM5w==
+xterm-addon-web-links@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/xterm-addon-web-links/-/xterm-addon-web-links-0.2.1.tgz#6d1f2ce613e09870badf17615e7a1170a31542b2"
+  integrity sha512-2KnHtiq0IG7hfwv3jw2/jQeH1RBk2d5CH4zvgwQe00rLofSJqSfgnJ7gwowxxpGHrpbPr6Lv4AmH/joaNw2+HQ==
 
 xterm.js@sourcelair/xterm.js#^3.14.5:
   version "3.14.5"
   resolved "https://codeload.github.com/sourcelair/xterm.js/tar.gz/b2bb848dfe49923c03eff35736a5e4411f1ee2b6"
 
-xterm@^3.14.5:
-  version "3.14.5"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-3.14.5.tgz#c9d14e48be6873aa46fb429f22f2165557fd2dea"
-  integrity sha512-DVmQ8jlEtL+WbBKUZuMxHMBgK/yeIZwkXB81bH+MGaKKnJGYwA+770hzhXPfwEIokK9On9YIFPRleVp/5G7z9g==
+xterm@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.2.0.tgz#b9980b2ae18c64ed31bcc95eace3bcecffebbbd9"
+  integrity sha512-oNfLqt+LmghLPOt5UcskP5Km1fXpTBHsTZ99nxJKY2N0MNFXBKIVXUcNNhHCa74JGZFMGhLT58A/UN3HcPXSfg==
 
 "y18n@^3.2.1 || ^4.0.0", y18n@^4.0.0:
   version "4.0.0"
