@@ -1,7 +1,7 @@
 import { Terminal } from 'xterm';
 import { AttachAddon } from 'xterm-addon-attach';
 import { FitAddon } from 'xterm-addon-fit';
-import { SearchAddon, ISearchOptions } from 'xterm-addon-search';
+import { SearchAddon } from 'xterm-addon-search';
 import { WebLinksAddon } from 'xterm-addon-web-links';
 
 let term;
@@ -93,6 +93,20 @@ window.onresize = (event) => {
   fitAddon.fit();
 }
 
+function searchNext(regex) {
+  if(searchAddon.findNext(regex)){
+    return term.getSelectionPosition();
+  }
+  return -1;
+}
+
+function searchPrevious(regex) {
+  if(searchAddon.findPrevious(regex)){
+    return term.getSelectionPosition();
+  }
+  return -1;
+}
+
 function getFonts() {
   return term.getOption('fontFamily');
 }
@@ -100,7 +114,7 @@ function getFonts() {
 function setFont(font) {
     let fonts = "monospace";
     fonts = "'"+font+"', "+fonts;
-    term.setOption('fontFamily', fonts)
+    term.setOption('fontFamily', fonts);
     fitAddon.fit();
 }
 
@@ -126,7 +140,7 @@ function getTerminalLines(){
 }
 
 function chdir(path) {
-  socket.send('cd '+path + lineEnd);
+  socket.send('cd '+ path + lineEnd);
 }
 
 function clearTerm(){
@@ -208,7 +222,8 @@ const term_functions = {
   scrollTerm: scrollTerm,
   isAlive: isAlive,
   getTerminalLines: getTerminalLines,
-  // setTerminalSize: setTerminalSize,
+  searchNext: searchNext,
+  searchPrevious: searchPrevious,
 };
 
 export default term_functions;
