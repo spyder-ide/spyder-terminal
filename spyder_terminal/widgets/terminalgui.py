@@ -74,18 +74,16 @@ class TerminalWidget(QFrame):
 
         self.body = self.view.document
 
-        self.handler.sig_ready.connect(lambda: self.setup_term(True))
+        self.handler.sig_ready.connect(self.setup_term)
         if not WEBENGINE:
             QTimer.singleShot(250, self.__alive_loopback)
 
-    @Slot(bool)
-    def setup_term(self, finished):
+    def setup_term(self):
         """Setup other terminal options after page has loaded."""
-        if finished:
-            # This forces to display the black background
-            print("\0", end='')
-            self.set_font(self.font)
-            self.set_dir(self.initial_path)
+        # This forces to display the black background
+        print("\0", end='')
+        self.set_font(self.font)
+        self.set_dir(self.initial_path)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
