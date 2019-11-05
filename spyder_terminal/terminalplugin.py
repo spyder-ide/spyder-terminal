@@ -58,6 +58,15 @@ class TerminalPlugin(SpyderPluginWidget):
 
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
     CONF_SECTION = 'terminal'
+    # TODO: Create the config widget class
+    CONFIGWIDGET_CLASS = None
+    CONF_DEFAULTS = [
+                     ('terminal',
+                      {
+                       'bell_style': 'sound',
+                       'cursor_style': 'bar',
+                      }),
+                    ]
     focus_changed = Signal()
     sig_server_is_ready = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
