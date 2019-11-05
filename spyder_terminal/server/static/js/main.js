@@ -179,16 +179,14 @@ function runRealTerminal() {
   term._initialized = true;
   curFont = 'Ubuntu Mono';
   fitFont(curFont);
-  let initialX = term.x;
+  alive = true;
   let timer = setInterval( () => {
-    if(term.x != initialX) {
+    if(term !== undefined) {
       fitFont(curFont);
       window.dispatchEvent(promptEvent);
       clearInterval(timer);
     }
   }, 200);
-  fitFont(curFont);
-  alive = true;
 }
 
 function addDomListener(element, type, handler){
@@ -199,13 +197,13 @@ function addDomListener(element, type, handler){
 $(document).ready( () => {
   createTerminal();
   new QWebChannel(qt.webChannelTransport, function (channel) {
-      window.handler = channel.objects.handler;
-      window.addEventListener('promptReady', function(e) {
-          window.handler.ready();
-      }, false);
-      window.addEventListener('terminalClose', function(e) {
-          window.handler.close();
-      }, false);
+    window.handler = channel.objects.handler;
+    window.addEventListener('promptReady', function(e) {
+      window.handler.ready();
+    }, false);
+    window.addEventListener('terminalClose', function(e) {
+      window.handler.close();
+    }, false);
   });
 });
 

@@ -27,6 +27,7 @@ if WEBENGINE:
 
 PREFIX = 'spyder_terminal.default.'
 
+
 class ChannelHandler(QObject):
     """QWebChannel handler for JS calls."""
 
@@ -73,18 +74,16 @@ class TerminalWidget(QFrame):
 
         self.body = self.view.document
 
-        self.view.page().loadFinished.connect(self.setup_term)
+        self.handler.sig_ready.connect(self.setup_term)
         if not WEBENGINE:
             QTimer.singleShot(250, self.__alive_loopback)
 
-    @Slot(bool)
-    def setup_term(self, finished):
+    def setup_term(self):
         """Setup other terminal options after page has loaded."""
-        if finished:
-            # This forces to display the black background
-            print("\0", end='')
-            self.set_font(self.font)
-            self.set_dir(self.initial_path)
+        # This forces to display the black background
+        print("\0", end='')
+        self.set_font(self.font)
+        self.set_dir(self.initial_path)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
@@ -92,20 +91,28 @@ class TerminalWidget(QFrame):
 
     def set_dir(self, path):
         """Set terminal initial current working directory."""
-        self.eval_javascript(PREFIX + 'setcwd("{0}")'.format(path))
+        self.eval_javascript('setcwd("{0}")'.format(path))
 
     def set_font(self, font):
         """Set terminal font via CSS."""
         self.font = font
-        self.eval_javascript(PREFIX + 'fitFont("{0}")'.format(self.font))
+        self.eval_javascript('fitFont("{0}")'.format(self.font))
 
     def get_fonts(self):
         """List terminal CSS fonts."""
-        return self.eval_javascript("getFonts()")
+        return self.eval_javascript('getFonts()')
+
+    def search_next(self, regex):
+        """Search in the terminal for the given regex."""
+        return self.eval_javascript('searchNext("{}")'.format(regex))
+
+    def search_previous(self, regex):
+        """Search in the terminal for the given regex."""
+        return self.eval_javascript('searchPrevious("{}")'.format(regex))
 
     def exec_cmd(self, cmd):
         """Execute a command inside the terminal."""
-        self.eval_javascript(PREFIX + 'exec("{0}")'.format(cmd))
+        self.eval_javascript('exec("{0}")'.format(cmd))
 
     def __alive_loopback(self):
         alive = self.is_alive()
@@ -116,7 +123,7 @@ class TerminalWidget(QFrame):
 
     def is_alive(self):
         """Check if terminal process is alive."""
-        alive = self.eval_javascript(PREFIX + 'isAlive()')
+        alive = self.eval_javascript('isAlive()')
         return alive
 
 
@@ -179,11 +186,19 @@ class TermView(WebView):
         event.accept()
 
     def eval_javascript(self, script):
-        """Evaluate Javascript instructions inside DOM."""
+        """
+        Evaluate Javascript instructions inside DOM with the expected prefix.
+        """
+        script = PREFIX + script
         if WEBENGINE:
-            return self.document.runJavaScript("{}".format(script))
+            self.document.runJavaScript("{}".format(script),
+                                        self.return_js_value)
         else:
-            return self.document.evaluateJavaScript("{}".format(script))
+            self.document.evaluateJavaScript("{}".format(script))
+
+    def return_js_value(self, value):
+        """Return the value of the function evaluated in Javascript."""
+        return value
 
     def wheelEvent(self, event):
         """Catch and process wheel scrolling events via Javascript."""
