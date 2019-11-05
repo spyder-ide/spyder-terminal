@@ -191,12 +191,13 @@ class TermView(WebView):
         """
         script = PREFIX + script
         if WEBENGINE:
-            self.document.runJavaScript("{}".format(script), self.return_value)
+            self.document.runJavaScript("{}".format(script),
+                                        self.return_js_value)
         else:
             self.document.evaluateJavaScript("{}".format(script))
 
-    def return_value(self, value):
-        """Returns the value of the function evaluated in javascript."""
+    def return_js_value(self, value):
+        """Return the value of the function evaluated in Javascript."""
         return value
 
     def wheelEvent(self, event):
