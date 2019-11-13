@@ -38,6 +38,7 @@ except ImportError:
    from spyder.plugins import SpyderPluginWidget
     
 from spyder_terminal.widgets.terminalgui import TerminalWidget
+from spyder_terminal.confpage import TerminalConfigPage
 # from spyder.py3compat import is_text_string, to_text_string
 from spyder.utils.misc import select_port
 
@@ -58,12 +59,11 @@ class TerminalPlugin(SpyderPluginWidget):
 
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
     CONF_SECTION = 'terminal'
-    # TODO: Create the config widget class
-    CONFIGWIDGET_CLASS = None
+    CONFIGWIDGET_CLASS = TerminalConfigPage
     CONF_DEFAULTS = [
                      ('terminal',
                       {
-                       'bell_style': 'sound',
+                       'sound': True,
                        'cursor_style': 'bar',
                       }),
                     ]
@@ -223,7 +223,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def get_plugin_icon(self):
         """Return widget icon."""
-        return ima.icon('cmdprompt')
+        return ima.icon('copywop')
 
     def get_plugin_actions(self):
         """Get plugin actions."""

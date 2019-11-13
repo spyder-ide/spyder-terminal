@@ -126,6 +126,20 @@ class TerminalWidget(QFrame):
         alive = self.eval_javascript('isAlive()')
         return alive
 
+    def set_option(self, option_name, option):
+        """Set a configuration option in the terminal."""
+        self.eval_javascript('setOption("{}", "{}")'.format(option_name,
+                                                            option))
+
+    def apply_settings(self, options):
+        """Apply custom settings given an option dictionary."""
+        # Bell style option
+        bell_style = 'sound' if options['sound'] else 'none'
+        self.set_option('bellStyle', bell_style)
+        # Cursor option
+        cursor = options['cursor']
+        self.set_option('cursorStyle', cursor)
+
 
 class TermView(WebView):
     """XTerm Wrapper."""
