@@ -20,13 +20,11 @@ class TerminalConfigPage(PluginConfigPage):
         options_layout = QGridLayout()
 
         # Custom bar option
-        cursor_options = [_("block"), _("underline"), _("bar")]
-        cursor_choices = list(zip(cursor_options,
-                                  [c.lower() for c in cursor_options]))
+        cursor_choices = [(_("Block"), 0), (_("Underline"), 1), (_("Bar"), 2)]
         self.cursor_combo = self.create_combobox(_("Type of cursor:"),
                                                  cursor_choices,
                                                  'cursor_type',
-                                                 default='bar')
+                                                 default=2)
         self.cursor_combo.combobox.setMinimumContentsLength(15)
         options_layout.addWidget(self.cursor_combo)
 

@@ -39,7 +39,7 @@ except ImportError:
 
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 from spyder_terminal.confpage import TerminalConfigPage
-# from spyder.py3compat import is_text_string, to_text_string
+from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION
 from spyder.utils.misc import select_port
 
 from spyder.py3compat import PY2, getcwd
@@ -49,10 +49,6 @@ LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
 WINDOWS = os.name == 'nt'
 
-# class TerminalConfigPage(PluginConfigPage):
-#     """Terminal plugin preferences."""
-#     pass
-
 
 class TerminalPlugin(SpyderPluginWidget):
     """Terminal plugin."""
@@ -60,13 +56,8 @@ class TerminalPlugin(SpyderPluginWidget):
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
     CONF_SECTION = 'terminal'
     CONFIGWIDGET_CLASS = TerminalConfigPage
-    CONF_DEFAULTS = [
-                     ('terminal',
-                      {
-                       'sound': True,
-                       'cursor_style': 'bar',
-                      }),
-                    ]
+    CONF_DEFAULTS = CONF_DEFAULTS
+    # CONF_VERSION = CONF_VERSION
     focus_changed = Signal()
     sig_server_is_ready = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
