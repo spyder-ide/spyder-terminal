@@ -40,6 +40,7 @@ except ImportError:
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 from spyder_terminal.confpage import TerminalConfigPage
 from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION
+from spyder.utils.programs import find_program
 from spyder.utils.misc import select_port
 
 from spyder.py3compat import PY2, getcwd
@@ -71,9 +72,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.server_ready = False
         self.port = select_port(default_port=8071)
 
-        self.cmd = 'bash'
-        if WINDOWS:
-            self.cmd = 'cmd'
+        self.cmd = find_program(self.get_option('shell'))
 
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
