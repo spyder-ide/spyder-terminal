@@ -41,7 +41,7 @@ from spyder_terminal.widgets.terminalgui import TerminalWidget
 from spyder_terminal.confpage import TerminalConfigPage
 # from spyder.py3compat import is_text_string, to_text_string
 from spyder.utils.misc import select_port
-
+from spyder.utils.programs import find_program
 from spyder.py3compat import PY2, getcwd
 from spyder.config.base import DEV
 
@@ -65,6 +65,7 @@ class TerminalPlugin(SpyderPluginWidget):
                       {
                        'sound': True,
                        'cursor_style': 'bar',
+                       'shell': 'cmd' if WINDOWS else 'bash'
                       }),
                     ]
     focus_changed = Signal()
@@ -79,11 +80,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.server_retries = 0
         self.server_ready = False
         self.port = select_port(default_port=8071)
-
-        self.cmd = 'bash'
-        if WINDOWS:
-            self.cmd = 'cmd'
-
+        self.cmd = find_program(self.get_option('shell'))
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
         self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
