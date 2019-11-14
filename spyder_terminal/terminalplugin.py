@@ -36,7 +36,7 @@ try:
 except ImportError:
    # Spyder 3
    from spyder.plugins import SpyderPluginWidget
-    
+
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 from spyder_terminal.confpage import TerminalConfigPage
 # from spyder.py3compat import is_text_string, to_text_string
@@ -316,6 +316,14 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
         self.options_menu.aboutToShow.connect(self.setup_menu_actions)
+
+    def apply_plugin_settings(self, options):
+        """Apply the config settings."""
+        term_options = {}
+        for option in options:
+            term_options[option] = self.get_option(option)
+        for term in self.get_terms():
+            term.apply_settings(term_options)
 
     # ------ Public API (for terminals) -------------------------
     def get_terms(self):

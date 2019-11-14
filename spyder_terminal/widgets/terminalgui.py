@@ -134,11 +134,13 @@ class TerminalWidget(QFrame):
     def apply_settings(self, options):
         """Apply custom settings given an option dictionary."""
         # Bell style option
-        bell_style = 'sound' if options['sound'] else 'none'
-        self.set_option('bellStyle', bell_style)
+        if 'sound' in options:
+            bell_style = 'sound' if options['sound'] else 'none'
+            self.set_option('bellStyle', bell_style)
         # Cursor option
-        cursor = options['cursor']
-        self.set_option('cursorStyle', cursor)
+        if 'cursor_type' in options:
+            cursor = options['cursor_type']
+            self.set_option('cursorStyle', cursor)
 
 
 class TermView(WebView):

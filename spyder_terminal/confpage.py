@@ -11,7 +11,6 @@ from qtpy.QtWidgets import (QVBoxLayout, QGroupBox, QGridLayout, QSpacerItem)
 # Local imports
 from spyder.api.preferences import PluginConfigPage
 from spyder.config.base import _
-from spyder_terminal.terminalplugin import TerminalPlugin
 
 
 class TerminalConfigPage(PluginConfigPage):
@@ -28,8 +27,8 @@ class TerminalConfigPage(PluginConfigPage):
                                                  cursor_choices,
                                                  'cursor_type',
                                                  default='bar')
-        options_layout.addWidget(self.cursor_combo.label, 0, 0)
-        options_layout.addWidget(self.cursor_combo.combobox, 0, 1)
+        self.cursor_combo.combobox.setMinimumContentsLength(15)
+        options_layout.addWidget(self.cursor_combo)
 
         # Custom sound option
         self.sound_cb = self.create_checkbox(
@@ -44,16 +43,3 @@ class TerminalConfigPage(PluginConfigPage):
         layout.addStretch(1)
 
         self.setLayout(layout)
-
-    def apply_plugin_settings(self):
-        """Apply the config settings."""
-        cursor_style = self.cursor_combo.currentText()
-        term_options = {'sound': self.sound_cb.isChecked(),
-                        'cursor_style': cursor_style
-                        }
-        for plugin in self.main.thirdparty_plugins:
-            if isinstance(plugin, TerminalPlugin):
-                for term in plugin.get_terms():
-                    term.apply_settings(term_options)
-                for option in term_options:
-                    self.set_option(option, term_options[option])
