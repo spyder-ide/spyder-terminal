@@ -65,7 +65,7 @@ class TerminalWidget(QFrame):
         self.view = TermView(self, term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
-
+        self.parent = parent
         layout = QVBoxLayout()
         layout.addWidget(self.view)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -84,6 +84,11 @@ class TerminalWidget(QFrame):
         print("\0", end='')
         self.set_font(self.font)
         self.set_dir(self.initial_path)
+        options = self.parent.CONF.options('terminal')
+        dict_options = {}
+        for option in options:
+            dict_options[option] = self.parent.get_option(option)
+        self.apply_settings(dict_options)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
@@ -139,8 +144,9 @@ class TerminalWidget(QFrame):
             self.set_option('bellStyle', bell_style)
         # Cursor option
         if 'cursor_type' in options:
-            cursor = options['cursor_type']
-            self.set_option('cursorStyle', cursor)
+            cursor_id = options['cursor_type']
+            cursor_choices = {0: "block", 1: "underline", 2: "bar"}
+            self.set_option('cursorStyle', cursor_choices[cursor_id])
 
 
 class TermView(WebView):

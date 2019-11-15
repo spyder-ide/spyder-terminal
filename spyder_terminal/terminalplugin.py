@@ -29,6 +29,8 @@ from spyder.utils.qthelpers import (add_actions, create_action,
                                     create_toolbutton,
                                     MENU_SEPARATOR)
 from spyder.widgets.tabs import Tabs
+from spyder.config.manager import CONF
+
 # from spyder.config.gui import set_shortcut, config_shortcut
 try:
    # Spyder 4
@@ -73,7 +75,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.port = select_port(default_port=8071)
 
         self.cmd = find_program(self.get_option('shell'))
-
+        self.CONF = CONF
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
         self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
@@ -81,7 +83,6 @@ class TerminalPlugin(SpyderPluginWidget):
         if DEV:
             self.server_stdout = open(self.stdout_file, 'w')
             self.server_stderr = open(self.stderr_file, 'w')
-
         self.server = subprocess.Popen(
             [sys.executable, '-m', 'spyder_terminal.server',
              '--port', str(self.port), '--shell', self.cmd],

@@ -5,7 +5,7 @@ WINDOWS = os.name == 'nt'
 CONF_DEFAULTS = [('terminal',
                  {
                   'sound': True,
-                  'cursor_style': 'bar',
+                  'cursor_type': 0,
                   'shell': 'cmd' if WINDOWS else 'bash'
                   }),
                  ]

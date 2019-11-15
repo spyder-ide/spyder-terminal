@@ -35,12 +35,14 @@ class TerminalConfigPage(PluginConfigPage):
             self.shells = UNIX_SHELLS
 
         valid_shells = []
-        for i, shell in enumerate(self.shells):
+        for shell in self.shells:
             if find_program(shell) is not None:
-                valid_shells.append((shell, i))
+                valid_shells.append(shell)
+        valid_shells = zip(valid_shells, valid_shells)
+        default_option = 'cmd' if WINDOWS else 'bash'
         shell_combo = self.create_combobox(_("Select the shell interpreter:"),
-                                           valid_shells, 'shell',
-                                           restart=True, default=0)
+                                           valid_shells, 'shell', restart=True,
+                                           default=default_option)
         shell_combo.combobox.setMinimumContentsLength(15)
         shell_layout.addWidget(shell_combo)
         shell_widget.setLayout(shell_layout)
@@ -53,8 +55,7 @@ class TerminalConfigPage(PluginConfigPage):
         cursor_choices = [(_("Block"), 0), (_("Underline"), 1), (_("Bar"), 2)]
         self.cursor_combo = self.create_combobox(_("Type of cursor:"),
                                                  cursor_choices,
-                                                 'cursor_type',
-                                                 default=2)
+                                                 'cursor_type')
         self.cursor_combo.combobox.setMinimumContentsLength(15)
         options_layout.addWidget(self.cursor_combo)
 
