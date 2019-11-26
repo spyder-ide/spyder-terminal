@@ -189,6 +189,16 @@ function runRealTerminal() {
   }, 200);
 }
 
+function setColors(scheme) {
+  $('<link>')
+  .appendTo('head')
+  .attr({
+      type: 'text/css',
+      rel: 'stylesheet',
+      href: 'static/css/themes/' + scheme + '.css'
+  });
+}
+
 function addDomListener(element, type, handler){
   element.addEventListener(type, handler);
   term._core.register({dispose: () => element.removeEventListener(type, handler)});

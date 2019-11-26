@@ -18,6 +18,7 @@ from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
 from spyder.utils import icon_manager as ima
+from spyder.config.manager import CONF
 from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
 
