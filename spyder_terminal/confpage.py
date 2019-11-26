@@ -12,13 +12,14 @@ from qtpy.QtWidgets import (QVBoxLayout, QGroupBox, QGridLayout, QButtonGroup,
 
 # Local imports
 from spyder.api.preferences import PluginConfigPage
-from spyder.config.base import _
+from spyder.config.base import get_translation
 from spyder.utils.programs import find_program
 
 WINDOWS = os.name == 'nt'
 UNIX_SHELLS = ['bash', 'sh', 'ksh', 'zsh', 'csh', 'pwsh', 'rbash', 'dash',
                'screen', 'tmux', 'tcsh', 'fish']
 WINDOWS_SHELLS = ['cmd', 'powershell']
+_ = get_translation('spyder_terminal')
 
 
 class TerminalConfigPage(PluginConfigPage):

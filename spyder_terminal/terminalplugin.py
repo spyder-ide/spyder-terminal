@@ -22,7 +22,7 @@ from qtpy.QtGui import QKeySequence
 
 # from spyder.preferences import PluginConfigPage
 
-from spyder.config.base import _
+from spyder.config.base import get_translation
 from spyder.utils import icon_manager as ima
 from spyder.utils.programs import find_program
 from spyder.utils.qthelpers import (add_actions, create_action,
@@ -51,6 +51,7 @@ from spyder.config.base import DEV
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
 WINDOWS = os.name == 'nt'
+_ = get_translation('spyder_terminal')
 
 
 class TerminalPlugin(SpyderPluginWidget):

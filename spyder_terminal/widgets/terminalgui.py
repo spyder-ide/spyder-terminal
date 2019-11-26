@@ -11,7 +11,8 @@ from __future__ import print_function
 
 import sys
 
-from spyder.config.base import _, DEV
+from spyder.config.base import DEV
+from spyder.config.base import get_translation
 from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
 from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
@@ -26,6 +27,7 @@ if WEBENGINE:
     from PyQt5.QtWebChannel import QWebChannel
 
 PREFIX = 'spyder_terminal.default.'
+_ = get_translation('spyder_terminal')
 
 
 class ChannelHandler(QObject):
