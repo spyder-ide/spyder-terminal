@@ -171,7 +171,11 @@ function scrollTerm(delta) {
 }
 
 function isAlive() {
-   return alive;
+  return alive;
+}
+
+function setOption(option_name, option) {
+  term.setOption(option_name, option)
 }
 
 function runRealTerminal() {
@@ -222,6 +226,7 @@ const term_functions = {
   getTerminalLines: getTerminalLines,
   searchNext: searchNext,
   searchPrevious: searchPrevious,
+  setOption: setOption,
 };
 
 export default term_functions;
