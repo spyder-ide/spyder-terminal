@@ -23,6 +23,7 @@ from qtpy.QtGui import QKeySequence
 # from spyder.preferences import PluginConfigPage
 
 from spyder.config.base import _
+from spyder.config.manager import CONF
 from spyder.utils import icon_manager as ima
 from spyder.utils.programs import find_program
 from spyder.utils.qthelpers import (add_actions, create_action,
@@ -141,6 +142,9 @@ class TerminalPlugin(SpyderPluginWidget):
         new_term_shortcut = QShortcut(QKeySequence("Ctrl+Alt+Shift+T"),
                                       self, self.create_new_term)
         new_term_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
+
+        self.color_scheme = CONF.get('appearance', 'ui_theme')
+        self.theme = CONF.get('appearance', 'selected')
 
         self.__wait_server_to_start()
 
@@ -335,7 +339,8 @@ class TerminalPlugin(SpyderPluginWidget):
             path = self.current_cwd
         path = path.replace('\\', '/')
         font = self.get_font()
-        term = TerminalWidget(self, self.port, path=path, font=font.family())
+        term = TerminalWidget(self, self.port, path=path, font=font.family(),
+                              theme=self.theme, color_scheme=self.color_scheme)
         self.add_tab(term)
         term.terminal_closed.connect(lambda: self.close_term(term=term))
 

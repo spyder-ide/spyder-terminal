@@ -11,14 +11,15 @@ from __future__ import print_function
 
 import sys
 
+from spyder_terminal.widgets.style.themes import ANSI_COLORS
 from spyder.config.base import _, DEV
+from spyder.config.manager import CONF
 from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
 from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
 from qtpy.QtGui import QKeySequence
 from spyder.widgets.browser import WebView
 from spyder.utils import icon_manager as ima
-from spyder.config.manager import CONF
 from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
 
@@ -56,7 +57,8 @@ class TerminalWidget(QFrame):
     terminal_closed = Signal()
     terminal_ready = Signal()
 
-    def __init__(self, parent, port, path='~', font=None):
+    def __init__(self, parent, port, path='~', font=None, theme=None,
+                 color_scheme=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
         url = 'http://127.0.0.1:{0}?path={1}'.format(port, path)
@@ -66,6 +68,8 @@ class TerminalWidget(QFrame):
         self.view = TermView(self, term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
+        self.theme = theme
+        self.color_scheme = color_scheme
 
         layout = QVBoxLayout()
         layout.addWidget(self.view)
@@ -85,6 +89,7 @@ class TerminalWidget(QFrame):
         print("\0", end='')
         self.set_font(self.font)
         self.set_dir(self.initial_path)
+        self.set_theme(self.theme, self.color_scheme)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
@@ -98,6 +103,27 @@ class TerminalWidget(QFrame):
         """Set terminal font via CSS."""
         self.font = font
         self.eval_javascript('fitFont("{0}")'.format(self.font))
+
+    def set_theme(self, theme, color_scheme):
+        """Set theme for the terminal."""
+        supported_themes = ANSI_COLORS.keys()
+        new_theme = {}
+        if theme not in supported_themes:
+            theme = 'spyder' if color_scheme == 'Light' else 'spyder/dark'
+
+        new_theme['background'] = CONF.get('preferences',
+                                           '{}/background'.format(theme))
+        new_theme['foreground'] = CONF.get('preferences',
+                                           '{}/currentline'.format(theme))
+        new_theme['cursor'] = CONF.get('preferences',
+                                       '{}/normal'.format(theme))[0]
+        new_theme['cursorAccent'] = CONF.get('preferences',
+                                             '{}/ctrlclick'.format(theme))
+        new_theme['selection'] = CONF.get('preferences',
+                                          '{}/occurrence'.format(theme))
+        theme_colors = ANSI_COLORS[theme]
+        for color in theme_colors:
+            new_theme[color] = theme_colors[color]
 
     def get_fonts(self):
         """List terminal CSS fonts."""
