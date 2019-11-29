@@ -1,0 +1,3 @@
+files:
+  - source: /spyder_terminal/locale
+    translation: /spyder_terminal/locale/%locale_with_underscore%/LC_MESSAGES/
