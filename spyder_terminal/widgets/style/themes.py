@@ -115,7 +115,7 @@ ANSI_COLORS = {
         'brightWhite': '#ffffff'
     },
     'spyder/dark': {
-        'black': '#7f7f7f',
+        'black': '#19232D',
         'red': '#c80000',
         'green': '#11a642',
         'yellow': '#c5bb29',
@@ -205,7 +205,7 @@ ANSI_COLORS = {
         'brightWhite': '#cfbfad'
     },
     'minimal': {
-        'black': '#161B1D',
+        'black': '#ffffff',
         'red': '#D22D72',
         'green': '#568C3B',
         'yellow': '#8A8A0F',
@@ -241,7 +241,7 @@ ANSI_COLORS = {
         'brightWhite': '#ffffff'
     },
     'notepad++': {
-        'black': '#1D1F21',
+        'black': '#ffffff',
         'red': '#CC342B',
         'green': '#198844',
         'yellow': '#FBA922',
@@ -313,7 +313,7 @@ ANSI_COLORS = {
         'brightWhite': '#ffffff'
     },
     'retta': {
-        'black': '#282a2e',
+        'black': '#000000',
         'red': '#A54242',
         'green': '#8C9440',
         'yellow': '#de935f',
@@ -331,7 +331,7 @@ ANSI_COLORS = {
         'brightWhite': '#c5c8c6'
     },
     'roboticket': {
-        'black': '#353535',
+        'black': '#f5f5f5',
         'red': '#E64569',
         'green': '#89D287',
         'yellow': '#DAB752',
@@ -349,7 +349,7 @@ ANSI_COLORS = {
         'brightWhite': '#DEDEDE'
     },
     'sublime-monokai/extended': {
-        'black': '#48483e',
+        'black': '#222222',
         'red': '#dc2566',
         'green': '#8fc029',
         'yellow': '#d4c96e',
@@ -367,7 +367,7 @@ ANSI_COLORS = {
         'brightWhite': '#f9f8f5'
     },
     'vibrant-ink': {
-        'black': '#000000',
+        'black': '#191919',
         'red': '#d00e18',
         'green': '#138034',
         'yellow': '#ffcb3e',

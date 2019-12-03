@@ -133,6 +133,8 @@ class TerminalWidget(QFrame):
             new_theme[color] = theme_colors[color]
 
         self.eval_javascript('setOption("{}", {})'.format('theme', new_theme))
+        self.set_option('fontSize', CONF.get('appearance', 'font/size'))
+        self.set_option('fontFamily', CONF.get('appearance', 'font/family'))
         return new_theme
 
     def get_fonts(self):
