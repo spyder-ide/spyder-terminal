@@ -21,12 +21,15 @@ from spyder.widgets.browser import WebView
 from spyder.utils import icon_manager as ima
 from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
+from spyder_terminal.config import CONF_SECTION
 
 from qtpy.QtWebEngineWidgets import WEBENGINE
 if WEBENGINE:
     from PyQt5.QtWebChannel import QWebChannel
 
 PREFIX = 'spyder_terminal.default.'
+
+# For translations
 _ = get_translation('spyder_terminal')
 
 
@@ -86,7 +89,7 @@ class TerminalWidget(QFrame):
         print("\0", end='')
         self.set_font(self.font)
         self.set_dir(self.initial_path)
-        options = self.parent.CONF.options('terminal')
+        options = self.parent.CONF.options(CONF_SECTION)
         dict_options = {}
         for option in options:
             dict_options[option] = self.parent.get_option(option)

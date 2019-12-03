@@ -15,20 +15,22 @@ from spyder.api.preferences import PluginConfigPage
 from spyder.config.base import get_translation
 from spyder.utils.programs import find_program
 
+# Constants
 WINDOWS = os.name == 'nt'
 UNIX_SHELLS = ['bash', 'sh', 'ksh', 'zsh', 'csh', 'pwsh', 'rbash', 'dash',
                'screen', 'tmux', 'tcsh', 'fish']
 WINDOWS_SHELLS = ['cmd', 'powershell']
+
+# For translations
 _ = get_translation('spyder_terminal')
 
 
 class TerminalConfigPage(PluginConfigPage):
     def setup_page(self):
         """Create configuration page."""
-        terminal_widget = QWidget
         options_layout = QGridLayout()
         # Custom shell options
-        shell_widget = QGroupBox(_("Terminal shell"))
+        shell_group = QGroupBox(_("Terminal shell"))
         shell_layout = QVBoxLayout()
         if WINDOWS:
             self.shells = WINDOWS_SHELLS
@@ -46,12 +48,12 @@ class TerminalConfigPage(PluginConfigPage):
                                            default=default_option)
         shell_combo.combobox.setMinimumContentsLength(15)
         shell_layout.addWidget(shell_combo)
-        shell_widget.setLayout(shell_layout)
+        shell_group.setLayout(shell_layout)
         shell_layout.addStretch(1)
-        options_layout.addWidget(shell_widget)
+        options_layout.addWidget(shell_group)
 
         # Style preferences
-        terminal_widget = QGroupBox(_("Terminal style preferences"))
+        terminal_group = QGroupBox(_("Terminal style preferences"))
         # Custom bar option
         cursor_choices = [(_("Block"), 0), (_("Underline"), 1), (_("Bar"), 2)]
         self.cursor_combo = self.create_combobox(_("Type of cursor:"),
@@ -66,11 +68,11 @@ class TerminalConfigPage(PluginConfigPage):
             tip=_("Enable bell sound on terminal"))
         options_layout.addWidget(self.sound_cb)
 
-        terminal_widget.setLayout(options_layout)
+        terminal_group.setLayout(options_layout)
 
         layout = QVBoxLayout()
-        layout.addWidget(shell_widget)
-        layout.addWidget(terminal_widget)
+        layout.addWidget(shell_group)
+        layout.addWidget(terminal_group)
         layout.addStretch(1)
 
         self.setLayout(layout)
