@@ -4,11 +4,11 @@ Spyder-Terminal
 Project status
 --------------
 
-|license| |pypi status| |pypi version| |conda version| |crowdin| |backers| |gitter|
+|license| |pypi status| |pypi version| |conda version| |backers| |gitter|
 
 Build status
 ------------
-|circleci status| |appveyor status| |coverage|
+|circleci status| |appveyor status| |coverage| |crowdin|
 
 .. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/github/spyder-ide/spyder-terminal?branch=master&svg=true
    :target: https://ci.appveyor.com/project/spyder-ide/spyder-terminal
