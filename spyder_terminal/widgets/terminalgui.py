@@ -9,23 +9,27 @@
 
 from __future__ import print_function
 
+# Standard library imports
 import sys
 
-from spyder.config.base import DEV
-from spyder.config.base import get_translation
+# Third-party imports
 from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
-from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
 from qtpy.QtGui import QKeySequence
-from spyder.widgets.browser import WebView
+from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
+                                     WEBENGINE)
+from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget
+from spyder.config.base import DEV
+from spyder.config.base import get_translation
 from spyder.utils import icon_manager as ima
-from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
+from spyder.widgets.browser import WebView
+
+# Local imports
 from spyder_terminal.config import CONF_SECTION
 
-from qtpy.QtWebEngineWidgets import WEBENGINE
 if WEBENGINE:
-    from PyQt5.QtWebChannel import QWebChannel
+    from qtpy.QtWebChannel import QWebChannel
 
 PREFIX = 'spyder_terminal.default.'
 
