@@ -3,14 +3,15 @@
 # Copyright © Spyder Project Contributors
 # Licensed under the terms of the MIT License
 # (see spyder/__init__.py for details)
+
 """Spyder terminal configuration page."""
 
-# Third party imports
+# Standard library imports
 import os
+
+# Third party imports
 from qtpy.QtWidgets import (QVBoxLayout, QGroupBox, QGridLayout, QButtonGroup,
                             QRadioButton, QWidget)
-
-# Local imports
 from spyder.api.preferences import PluginConfigPage
 from spyder.config.base import get_translation
 from spyder.utils.programs import find_program
