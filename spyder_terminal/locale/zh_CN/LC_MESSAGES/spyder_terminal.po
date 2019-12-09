@@ -1,0 +1,98 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: spyder-terminal\n"
+"POT-Creation-Date: 2019-12-07 19:12-0500\n"
+"PO-Revision-Date: 2019-12-09 00:22\n"
+"Last-Translator: Gonzalo Peña-Castellanos (goanpeca)\n"
+"Language-Team: Chinese Simplified\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: spyder-terminal\n"
+"X-Crowdin-Language: zh-CN\n"
+"X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
+"Language: zh_CN\n"
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:112
+msgid "Open a new terminal"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:115
+msgid "Options"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:156
+msgid "Spyder Terminal Error"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:157
+msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:192
+msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:200
+msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:212
+msgid "Terminal"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:222
+msgid "New terminal in current working directory"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:224
+msgid "Sets the pwd at the current working directory"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:230
+msgid "New terminal in current project"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:232
+msgid "Sets the pwd at the current project directory"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:240
+msgid "New terminal in current Editor file"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:242
+msgid "Sets the pwd at the directory that contains the current opened file"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:250
+msgid "Rename terminal"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/widgets/terminalgui.py:138
+msgid "Copy text"
+msgstr ""
+
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/widgets/terminalgui.py:142
+msgid "Paste text"
+msgstr ""
+
