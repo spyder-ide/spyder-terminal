@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2019-11-25 22:43-0500\n"
+"POT-Creation-Date: 2019-12-07 19:12-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,105 +15,83 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:31
-msgid "Terminal shell"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:44
-msgid "Select the shell interpreter:"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:54
-msgid "Terminal style preferences"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:56
-msgid "Bar"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:56
-msgid "Block"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:56
-msgid "Underline"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:57
-msgid "Type of cursor:"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:65
-msgid "Enable bell sound"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:66
-msgid "Enable bell sound on terminal"
-msgstr ""
-
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:113
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:112
 msgid "Open a new terminal"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:116
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:115
 msgid "Options"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:157
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:156
 msgid "Spyder Terminal Error"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:158
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:157
 msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:193
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:192
 msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:201
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:200
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:213
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:212
 msgid "Terminal"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:223
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:222
 msgid "New terminal in current working directory"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:225
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:224
 msgid "Sets the pwd at the current working directory"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:231
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:230
 msgid "New terminal in current project"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:233
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:232
 msgid "Sets the pwd at the current project directory"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:241
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:240
 msgid "New terminal in current Editor file"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:243
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:242
 msgid "Sets the pwd at the directory that contains the current opened file"
 msgstr ""
 
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:251
+#:
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/terminalplugin.py:250
 msgid "Rename terminal"
 msgstr ""
 
 #:
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/widgets/terminalgui.py:162
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/widgets/terminalgui.py:138
 msgid "Copy text"
 msgstr ""
 
 #:
-#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/widgets/terminalgui.py:166
+#: /Users/gpena-castellanos/develop/quansight/spyder-terminal/spyder_terminal/widgets/terminalgui.py:142
 msgid "Paste text"
 msgstr ""
 

@@ -1,8 +1,14 @@
 Spyder-Terminal
 ===============
 
-|license| |pypi status| |pypi version| |conda version|
-|circleci status| |appveyor status| |coverage| |backers| |gitter|
+Project status
+--------------
+
+|license| |pypi status| |pypi version| |conda version| |backers| |gitter|
+
+Build status
+------------
+|circleci status| |appveyor status| |coverage| |crowdin|
 
 .. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/github/spyder-ide/spyder-terminal?branch=master&svg=true
    :target: https://ci.appveyor.com/project/spyder-ide/spyder-terminal
@@ -34,6 +40,10 @@ Spyder-Terminal
 .. |sponsors| image:: https://opencollective.com/spyder/sponsors/badge.svg?color=blue
    :target: #sponsors
    :alt: OpenCollective Sponsors
+.. |crowdin| image:: https://badges.crowdin.net/spyder-terminal/localized.svg
+   :target: https://crowdin.com/project/spyder-terminal
+   :alt: Crowdin
+
 
 *Copyright © 2017–2018 Spyder Project Contributors*
 
