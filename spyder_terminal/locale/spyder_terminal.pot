@@ -1,89 +1,80 @@
-# -*- coding: utf-8 -*-
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR ORGANIZATION
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2019-12-09 09:55-0500\n"
-"PO-Revision-Date: 2019-12-09 09:58-0500\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: es\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Generator: Poedit 2.2.4\n"
 
 #: spyder_terminal/confpage.py:34
 msgid "Terminal shell"
-msgstr "Shell de terminal"
+msgstr ""
 
 #: spyder_terminal/confpage.py:47
 msgid "Select the shell interpreter:"
-msgstr "Seleccione el intérprete de shell"
+msgstr ""
 
 #: spyder_terminal/confpage.py:57
 msgid "Terminal style preferences"
-msgstr "Preferencias de estilo de la terminal"
+msgstr ""
 
 #: spyder_terminal/confpage.py:59
 msgid "Bar"
-msgstr "Barra"
+msgstr ""
 
 #: spyder_terminal/confpage.py:59
 msgid "Block"
-msgstr "Bloque"
+msgstr ""
 
 #: spyder_terminal/confpage.py:59
 msgid "Underline"
-msgstr "Raya al piso"
+msgstr ""
 
 #: spyder_terminal/confpage.py:60
 msgid "Type of cursor:"
-msgstr "Tipo de cursor"
+msgstr ""
 
 #: spyder_terminal/confpage.py:68
 msgid "Enable bell sound"
-msgstr "Habilitar sonido de campana"
+msgstr ""
 
 #: spyder_terminal/confpage.py:69
 msgid "Enable bell sound on terminal"
-msgstr "Habilitar sonido de campana en la terminal"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:107
 msgid "Open a new terminal"
-msgstr "Abrir una nueva terminal"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:110
 msgid "Options"
-msgstr "Opciones"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:151
 msgid "Spyder Terminal Error"
-msgstr "Error de la terminal de Spyder"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:152
 msgid ""
-"Terminal server could not be located at <a href=\"http://127.0.0.1:"
-"{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and "
-"open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at "
-"{3}."
+"Terminal server could not be located at <a "
+"href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart "
+"Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt>"
+" and <tt>{2}</tt> files at {3}."
 msgstr ""
-"El servidor del terminal no se encontró en <a href=“http://127.0.0.1:"
-"{0}”>http://127.0.0.1:{0}</a>, por favor reinicie Spyder en modo de "
-"debugger y reporte el problema con los contenidos de los archivos <tt>{1}</"
-"tt> y <tt>{2}</tt> en {3}."
 
 #: spyder_terminal/terminalplugin.py:187
 msgid ""
 "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will "
 "be deactivated."
 msgstr ""
-"<b>spyder-terminal</b> no funciona con Qt 4. Por esto, este plugin se "
-"desactivara."
 
 #: spyder_terminal/terminalplugin.py:195
 msgid ""
@@ -92,47 +83,43 @@ msgid ""
 "deactivated.<br><br> This usually happens on Windows 7 systems. If that's "
 "the case, please consider updating to a newer Windows version."
 msgstr ""
-"Desafortunadamente, la librería que <b>spyder-terminal</b> usa para crear "
-"las terminales esta fallando en nuestro sistema. Por esto, este plugin se "
-"desactivara. <br><br> Esto usualmente sucede en  sistemas Windows 7. Si "
-"este es el caso, por favor considere actualizar su versión de Windows."
 
 #: spyder_terminal/terminalplugin.py:207
 msgid "Terminal"
-msgstr "Terminal"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:217
 msgid "New terminal in current working directory"
-msgstr "Nueva terminal en el directorio actual"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:219
 msgid "Sets the pwd at the current working directory"
-msgstr "Genera el pwd en el directorio actual"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:225
 msgid "New terminal in current project"
-msgstr "Nueva terminal en el proyecto actual"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:227
 msgid "Sets the pwd at the current project directory"
-msgstr "Genera el pwd en el directorio del proyecto actual"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:235
 msgid "New terminal in current Editor file"
-msgstr "Nueva terminal en el archivo de Editor actual"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:237
 msgid "Sets the pwd at the directory that contains the current opened file"
-msgstr "Genera el pwd en el directorio que contiene el archivo actual"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:245
 msgid "Rename terminal"
-msgstr "Renombre la terminal"
+msgstr ""
 
 #: spyder_terminal/widgets/terminalgui.py:168
 msgid "Copy text"
-msgstr "Copia texto"
+msgstr ""
 
 #: spyder_terminal/widgets/terminalgui.py:172
 msgid "Paste text"
-msgstr "Pega texto"
+msgstr ""

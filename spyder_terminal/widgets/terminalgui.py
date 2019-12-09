@@ -9,26 +9,32 @@
 
 from __future__ import print_function
 
+# Standard library imports
 import sys
 
-from spyder_terminal.widgets.style.themes import ANSI_COLORS
-from spyder.config.base import DEV
-from spyder.config.manager import CONF
-from spyder.config.base import get_translation
+# Third-party imports
 from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
-from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
 from qtpy.QtGui import QKeySequence
-from spyder.widgets.browser import WebView
+from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
+                                     WEBENGINE)
+from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget
+from spyder.config.base import DEV, get_translation
+from spyder.config.manager import CONF
 from spyder.utils import icon_manager as ima
-from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
+from spyder.widgets.browser import WebView
 
-from qtpy.QtWebEngineWidgets import WEBENGINE
+# Local imports
+from spyder_terminal.widgets.style.themes import ANSI_COLORS
+from spyder_terminal.config import CONF_SECTION
+
 if WEBENGINE:
-    from PyQt5.QtWebChannel import QWebChannel
+    from qtpy.QtWebChannel import QWebChannel
 
 PREFIX = 'spyder_terminal.default.'
+
+# For translations
 _ = get_translation('spyder_terminal')
 
 
@@ -92,7 +98,7 @@ class TerminalWidget(QFrame):
         self.set_font(self.font)
         self.set_dir(self.initial_path)
         self.current_theme = self.set_theme(self.theme, self.color_scheme)
-        options = self.parent.CONF.options('terminal')
+        options = self.parent.CONF.options(CONF_SECTION)
         dict_options = {}
         for option in options:
             dict_options[option] = self.parent.get_option(option)

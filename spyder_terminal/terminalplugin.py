@@ -7,50 +7,44 @@
 # -----------------------------------------------------------------------------
 """Terminal Plugin."""
 
+# Standard imports
 import os
 import sys
 import requests
 import subprocess
 import os.path as osp
 
+# Third party imports
 from qtpy import PYQT4, PYSIDE
 from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
                             QShortcut)
 
 from qtpy.QtCore import Qt, Signal, QTimer, Slot
 from qtpy.QtGui import QKeySequence
-
-# from spyder.preferences import PluginConfigPage
+from spyder.api.plugins import SpyderPluginWidget
+from spyder.config.base import get_translation, DEV
 from spyder.config.manager import CONF
-from spyder.config.base import get_translation
 from spyder.utils import icon_manager as ima
 from spyder.utils.programs import find_program
 from spyder.utils.qthelpers import (add_actions, create_action,
                                     create_toolbutton,
                                     MENU_SEPARATOR)
 from spyder.widgets.tabs import Tabs
-from spyder.config.manager import CONF
-
-# from spyder.config.gui import set_shortcut, config_shortcut
-try:
-   # Spyder 4
-   from spyder.api.plugins import SpyderPluginWidget
-except ImportError:
-   # Spyder 3
-   from spyder.plugins import SpyderPluginWidget
-
-from spyder_terminal.widgets.terminalgui import TerminalWidget
-from spyder_terminal.confpage import TerminalConfigPage
-from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION
-from spyder.utils.programs import find_program
+from spyder.py3compat import PY2, getcwd
 from spyder.utils.misc import select_port
 
-from spyder.py3compat import PY2, getcwd
-from spyder.config.base import DEV
+# Local imports
+from spyder_terminal.widgets.terminalgui import TerminalWidget
+from spyder_terminal.confpage import TerminalConfigPage
+from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION, CONF_SECTION
 
+
+# Constants
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
 WINDOWS = os.name == 'nt'
+
+# For translations
 _ = get_translation('spyder_terminal')
 
 
@@ -58,7 +52,7 @@ class TerminalPlugin(SpyderPluginWidget):
     """Terminal plugin."""
 
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
-    CONF_SECTION = 'terminal'
+    CONF_SECTION = CONF_SECTION
     CONFIGWIDGET_CLASS = TerminalConfigPage
     CONF_DEFAULTS = CONF_DEFAULTS
     # CONF_VERSION = CONF_VERSION
@@ -218,7 +212,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def get_plugin_icon(self):
         """Return widget icon."""
-        return ima.icon('copywop')
+        return ima.icon('DollarFileIcon')
 
     def get_plugin_actions(self):
         """Get plugin actions."""
