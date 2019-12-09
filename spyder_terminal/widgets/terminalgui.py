@@ -252,8 +252,6 @@ class TermView(WebView):
         Evaluate Javascript instructions inside DOM with the expected prefix.
         """
         script = PREFIX + script
-        print('=======')
-        print(script)
         if WEBENGINE:
             self.document.runJavaScript("{}".format(script),
                                         self.return_js_value)
