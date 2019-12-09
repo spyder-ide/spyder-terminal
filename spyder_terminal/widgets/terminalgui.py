@@ -9,23 +9,31 @@
 
 from __future__ import print_function
 
+# Standard library imports
 import sys
 
-from spyder.config.base import _, DEV
+# Third-party imports
 from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
-from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
 from qtpy.QtGui import QKeySequence
-from spyder.widgets.browser import WebView
+from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
+                                     WEBENGINE)
+from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget
+from spyder.config.base import DEV, get_translation
 from spyder.utils import icon_manager as ima
-from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
+from spyder.widgets.browser import WebView
 
-from qtpy.QtWebEngineWidgets import WEBENGINE
+# Local imports
+from spyder_terminal.config import CONF_SECTION
+
 if WEBENGINE:
-    from PyQt5.QtWebChannel import QWebChannel
+    from qtpy.QtWebChannel import QWebChannel
 
 PREFIX = 'spyder_terminal.default.'
+
+# For translations
+_ = get_translation('spyder_terminal')
 
 
 class ChannelHandler(QObject):
@@ -65,7 +73,7 @@ class TerminalWidget(QFrame):
         self.view = TermView(self, term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
-
+        self.parent = parent
         layout = QVBoxLayout()
         layout.addWidget(self.view)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -84,6 +92,11 @@ class TerminalWidget(QFrame):
         print("\0", end='')
         self.set_font(self.font)
         self.set_dir(self.initial_path)
+        options = self.parent.CONF.options(CONF_SECTION)
+        dict_options = {}
+        for option in options:
+            dict_options[option] = self.parent.get_option(option)
+        self.apply_settings(dict_options)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
@@ -125,6 +138,23 @@ class TerminalWidget(QFrame):
         """Check if terminal process is alive."""
         alive = self.eval_javascript('isAlive()')
         return alive
+
+    def set_option(self, option_name, option):
+        """Set a configuration option in the terminal."""
+        self.eval_javascript('setOption("{}", "{}")'.format(option_name,
+                                                            option))
+
+    def apply_settings(self, options):
+        """Apply custom settings given an option dictionary."""
+        # Bell style option
+        if 'sound' in options:
+            bell_style = 'sound' if options['sound'] else 'none'
+            self.set_option('bellStyle', bell_style)
+        # Cursor option
+        if 'cursor_type' in options:
+            cursor_id = options['cursor_type']
+            cursor_choices = {0: "block", 1: "underline", 2: "bar"}
+            self.set_option('cursorStyle', cursor_choices[cursor_id])
 
 
 class TermView(WebView):

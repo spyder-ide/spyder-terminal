@@ -40,8 +40,13 @@ def get_description():
     return data
 
 
-REQUIREMENTS = ['spyder>=4.0.0b5', 'tornado', 'terminado',
-                'coloredlogs', 'requests']
+REQUIREMENTS = [
+    'spyder>=4.0.0,<5.0.0',
+    'tornado',
+    'terminado',
+    'coloredlogs',
+    'requests'
+]
 
 
 # Verify that COMPONENTS exist before trying to build wheels

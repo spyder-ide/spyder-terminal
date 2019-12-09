@@ -1,0 +1,138 @@
+# -*- coding: utf-8 -*-
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2019-11-25 21:45-0500\n"
+"PO-Revision-Date: 2019-11-25 21:57-0500\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:30
+msgid "Terminal shell"
+msgstr "Shell de terminal"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:43
+msgid "Select the shell interpreter:"
+msgstr "Seleccione el intérprete de shell"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:53
+msgid "Terminal style preferences"
+msgstr "Preferencias de estilo de la terminal"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:55
+msgid "Bar"
+msgstr "Barra"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:55
+msgid "Block"
+msgstr "Bloque"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:55
+msgid "Underline"
+msgstr "Raya al piso"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:56
+msgid "Type of cursor:"
+msgstr "Tipo de cursor"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:64
+msgid "Enable bell sound"
+msgstr "Habilitar sonido de campana"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/confpage.py:65
+msgid "Enable bell sound on terminal"
+msgstr "Habilitar sonido de campana en la terminal"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:112
+msgid "Open a new terminal"
+msgstr "Abrir una nueva terminal"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:115
+msgid "Options"
+msgstr "Opciones"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:156
+msgid "Spyder Terminal Error"
+msgstr "Error de la terminal de Spyder"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:157
+msgid ""
+"Terminal server could not be located at <a href=\"http://127.0.0.1:"
+"{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and "
+"open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at "
+"{3}."
+msgstr ""
+"El servidor del terminal no se encontró en <a href=“http://127.0.0.1:"
+"{0}”>http://127.0.0.1:{0}</a>, por favor reinicie Spyder en modo de "
+"debugger y reporte el problema con los contenidos de los archivos <tt>{1}</"
+"tt> y <tt>{2}</tt> en {3}."
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:192
+msgid ""
+"<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will "
+"be deactivated."
+msgstr ""
+"<b>spyder-terminal</b> no funciona con Qt 4. Por esto, este plugin se "
+"desactivara."
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:200
+msgid ""
+"Unfortunately, the library that <b>spyder-terminal</b> uses to create "
+"terminals is failing to work in your system. Therefore, this plugin will be "
+"deactivated.<br><br> This usually happens on Windows 7 systems. If that's "
+"the case, please consider updating to a newer Windows version."
+msgstr ""
+"Desafortunadamente, la librería que <b>spyder-terminal</b> usa para crear "
+"las terminales esta fallando en nuestro sistema. Por esto, este plugin se "
+"desactivara. <br><br> Esto usualmente sucede en  sistemas Windows 7. Si "
+"este es el caso, por favor considere actualizar su versión de Windows."
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:212
+msgid "Terminal"
+msgstr "Terminal"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:222
+msgid "New terminal in current working directory"
+msgstr "Nueva terminal en el directorio actual"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:224
+msgid "Sets the pwd at the current working directory"
+msgstr "Genera el pwd en el directorio actual"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:230
+msgid "New terminal in current project"
+msgstr "Nueva terminal en el proyecto actual"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:232
+msgid "Sets the pwd at the current project directory"
+msgstr "Genera el pwd en el directorio del proyecto actual"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:240
+msgid "New terminal in current Editor file"
+msgstr "Nueva terminal en el archivo de Editor actual"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:242
+msgid "Sets the pwd at the directory that contains the current opened file"
+msgstr "Genera el pwd en el directorio que contiene el archivo actual"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/terminalplugin.py:250
+msgid "Rename terminal"
+msgstr "Renombre la terminal"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/widgets/terminalgui.py:161
+msgid "Copy text"
+msgstr "Copia texto"
+
+#: /Users/tefa/Documents/spyder-terminal/spyder_terminal/widgets/terminalgui.py:165
+msgid "Paste text"
+msgstr "Pega texto"

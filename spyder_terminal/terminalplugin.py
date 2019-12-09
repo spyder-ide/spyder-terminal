@@ -7,57 +7,55 @@
 # -----------------------------------------------------------------------------
 """Terminal Plugin."""
 
+# Standard imports
 import os
 import sys
 import requests
 import subprocess
 import os.path as osp
 
+# Third party imports
 from qtpy import PYQT4, PYSIDE
 from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
                             QShortcut)
 
 from qtpy.QtCore import Qt, Signal, QTimer, Slot
 from qtpy.QtGui import QKeySequence
-
-# from spyder.preferences import PluginConfigPage
-
-from spyder.config.base import _
+from spyder.api.plugins import SpyderPluginWidget
+from spyder.config.base import get_translation, DEV
+from spyder.config.manager import CONF
 from spyder.utils import icon_manager as ima
 from spyder.utils.programs import find_program
 from spyder.utils.qthelpers import (add_actions, create_action,
                                     create_toolbutton,
                                     MENU_SEPARATOR)
 from spyder.widgets.tabs import Tabs
-# from spyder.config.gui import set_shortcut, config_shortcut
-try:
-   # Spyder 4
-   from spyder.api.plugins import SpyderPluginWidget
-except ImportError:
-   # Spyder 3
-   from spyder.plugins import SpyderPluginWidget
-    
-from spyder_terminal.widgets.terminalgui import TerminalWidget
-# from spyder.py3compat import is_text_string, to_text_string
+from spyder.py3compat import PY2, getcwd
 from spyder.utils.misc import select_port
 
-from spyder.py3compat import PY2, getcwd
-from spyder.config.base import DEV
+# Local imports
+from spyder_terminal.widgets.terminalgui import TerminalWidget
+from spyder_terminal.confpage import TerminalConfigPage
+from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION, CONF_SECTION
 
+
+# Constants
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
 WINDOWS = os.name == 'nt'
 
-# class TerminalConfigPage(PluginConfigPage):
-#     """Terminal plugin preferences."""
-#     pass
+# For translations
+_ = get_translation('spyder_terminal')
 
 
 class TerminalPlugin(SpyderPluginWidget):
     """Terminal plugin."""
 
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
-    CONF_SECTION = 'terminal'
+    CONF_SECTION = CONF_SECTION
+    CONFIGWIDGET_CLASS = TerminalConfigPage
+    CONF_DEFAULTS = CONF_DEFAULTS
+    # CONF_VERSION = CONF_VERSION
     focus_changed = Signal()
     sig_server_is_ready = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
@@ -71,10 +69,8 @@ class TerminalPlugin(SpyderPluginWidget):
         self.server_ready = False
         self.port = select_port(default_port=8071)
 
-        self.cmd = 'bash'
-        if WINDOWS:
-            self.cmd = 'cmd'
-
+        self.cmd = find_program(self.get_option('shell'))
+        self.CONF = CONF
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
         self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
@@ -82,7 +78,6 @@ class TerminalPlugin(SpyderPluginWidget):
         if DEV:
             self.server_stdout = open(self.stdout_file, 'w')
             self.server_stderr = open(self.stderr_file, 'w')
-
         self.server = subprocess.Popen(
             [sys.executable, '-m', 'spyder_terminal.server',
              '--port', str(self.port), '--shell', self.cmd],
@@ -214,7 +209,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def get_plugin_icon(self):
         """Return widget icon."""
-        return ima.icon('cmdprompt')
+        return ima.icon('DollarFileIcon')
 
     def get_plugin_actions(self):
         """Get plugin actions."""
@@ -307,6 +302,14 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
         self.options_menu.aboutToShow.connect(self.setup_menu_actions)
+
+    def apply_plugin_settings(self, options):
+        """Apply the config settings."""
+        term_options = {}
+        for option in options:
+            term_options[option] = self.get_option(option)
+        for term in self.get_terms():
+            term.apply_settings(term_options)
 
     # ------ Public API (for terminals) -------------------------
     def get_terms(self):
