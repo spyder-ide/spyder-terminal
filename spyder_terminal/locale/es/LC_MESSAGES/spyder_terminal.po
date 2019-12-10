@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2019-12-09 09:55-0500\n"
-"PO-Revision-Date: 2019-12-09 15:01\n"
+"PO-Revision-Date: 2019-12-10 14:58\n"
 "Last-Translator: Gonzalo Peña-Castellanos (goanpeca)\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Desafortunadamente, la librería que <b>spyder-terminal</b> usa para cre
 
 #: spyder_terminal/terminalplugin.py:207
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 #: spyder_terminal/terminalplugin.py:217
 msgid "New terminal in current working directory"
