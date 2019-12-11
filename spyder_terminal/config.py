@@ -22,8 +22,8 @@ CONF_DEFAULTS = [
      ),
     ('shortcuts',
      {
-      'terminal/copy': 'Ctrl+Shift+C',
-      'terminal/paste': 'Ctrl+Shift+P',
+      'terminal/copy': 'Ctrl+Alt+Shift+C',
+      'terminal/paste': 'Ctrl+Alt+Shift+P',
       'terminal/new_term': 'Ctrl+Alt+Shift+T',
      }
      ),
