@@ -20,6 +20,13 @@ CONF_DEFAULTS = [
       'shell': 'cmd' if WINDOWS else 'bash'
      }
      ),
+    ('shortcuts',
+     {
+      'terminal/copy': 'Ctrl+Shift+C',
+      'terminal/paste': 'Ctrl+Shift+P',
+      'terminal/new_term': 'Ctrl+Alt+Shift+T',
+     }
+     ),
 ]
 
 # IMPORTANT NOTES:
