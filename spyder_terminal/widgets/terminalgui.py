@@ -176,6 +176,10 @@ class TermView(WebView):
             icon=ima.icon('editpaste'),
             triggered=self.paste,
             shortcut=self.CONF.get_shortcut(CONF_SECTION, 'paste'))
+        self.clear_action = create_action(
+            self, _("Clear Terminal"),
+            triggered=self.clear,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'clear'))
         if WEBENGINE:
             self.channel = QWebChannel(self.page())
             self.page().setWebChannel(self.channel)
@@ -202,6 +206,10 @@ class TermView(WebView):
     def paste(self):
         """Paste unicode text into terminal."""
         self.triggerPageAction(QWebEnginePage.Paste)
+
+    def clear(self):
+        """Clear the terminal."""
+        self.eval_javascript('clearTerm()')
 
     def contextMenuEvent(self, event):
         """Override Qt method."""
@@ -237,6 +245,36 @@ class TermView(WebView):
         """Catch and process wheel scrolling events via Javascript."""
         delta = event.angleDelta().y()
         self.eval_javascript('scrollTerm({0})'.format(delta))
+
+    def event(self, event):
+        """Grab all keyboard input."""
+        if event.type() == QEvent.ShortcutOverride:
+            key = event.key()
+            modifiers = event.modifiers()
+
+            if modifiers & Qt.ShiftModifier:
+                key += Qt.SHIFT
+            if modifiers & Qt.ControlModifier:
+                key += Qt.CTRL
+            if modifiers & Qt.AltModifier:
+                key += Qt.ALT
+            if modifiers & Qt.MetaModifier:
+                key += Qt.META
+
+            sequence = QKeySequence(key).toString(QKeySequence.PortableText)
+            if sequence == self.CONF.get_shortcut(CONF_SECTION, 'copy'):
+                self.copy()
+            elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'paste'):
+                self.paste()
+            elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'clear'):
+                self.clear()
+            else:
+                event.ignore()
+                return False
+            event.accept()
+            return True
+
+        return WebView.event(self, event)
 
 
 def test():
