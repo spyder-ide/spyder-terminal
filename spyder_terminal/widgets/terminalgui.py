@@ -20,6 +20,7 @@ from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
                                      WEBENGINE)
 from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget
 from spyder.config.base import DEV, get_translation
+from spyder.config.gui import is_dark_interface
 from spyder.utils import icon_manager as ima
 from spyder.utils.qthelpers import create_action, add_actions
 from spyder.widgets.browser import WebView
@@ -92,6 +93,7 @@ class TerminalWidget(QFrame):
         print("\0", end='')
         self.set_font(self.font)
         self.set_dir(self.initial_path)
+        self.set_scrollbar_style()
         options = self.parent.CONF.options(CONF_SECTION)
         dict_options = {}
         for option in options:
@@ -101,6 +103,11 @@ class TerminalWidget(QFrame):
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
         return self.view.eval_javascript(script)
+
+    def set_scrollbar_style(self):
+        """Set terminal scrollbar style."""
+        if is_dark_interface():
+            self.eval_javascript('addClassStyleToContainer("dark-scroll")')
 
     def set_dir(self, path):
         """Set terminal initial current working directory."""
