@@ -71,7 +71,8 @@ class TerminalWidget(QFrame):
         self.handler = ChannelHandler(self)
         self.handler.sig_ready.connect(lambda: self.terminal_ready.emit())
         self.handler.sig_closed.connect(lambda: self.terminal_closed.emit())
-        self.view = TermView(self, term_url=url, handler=self.handler)
+        self.view = TermView(self, parent.CONF,
+                             term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
         self.parent = parent
@@ -167,19 +168,25 @@ class TerminalWidget(QFrame):
 class TermView(WebView):
     """XTerm Wrapper."""
 
-    def __init__(self, parent, term_url='http://127.0.0.1:8070',
+    def __init__(self, parent, CONF, term_url='http://127.0.0.1:8070',
                  handler=None):
         """Webview main constructor."""
         WebView.__init__(self, parent)
         self.parent = parent
-        self.copy_action = create_action(self, _("Copy text"),
-                                         icon=ima.icon('editcopy'),
-                                         triggered=self.copy,
-                                         shortcut='Ctrl+Shift+C')
-        self.paste_action = create_action(self, _("Paste text"),
-                                          icon=ima.icon('editpaste'),
-                                          triggered=self.paste,
-                                          shortcut='Ctrl+Shift+V')
+        self.CONF = CONF
+        self.copy_action = create_action(
+            self, _("Copy text"), icon=ima.icon('editcopy'),
+            triggered=self.copy,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'copy'))
+        self.paste_action = create_action(
+            self, _("Paste text"),
+            icon=ima.icon('editpaste'),
+            triggered=self.paste,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'paste'))
+        self.clear_action = create_action(
+            self, _("Clear Terminal"),
+            triggered=self.clear,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'clear'))
         if WEBENGINE:
             self.channel = QWebChannel(self.page())
             self.page().setWebChannel(self.channel)
@@ -206,6 +213,10 @@ class TermView(WebView):
     def paste(self):
         """Paste unicode text into terminal."""
         self.triggerPageAction(QWebEnginePage.Paste)
+
+    def clear(self):
+        """Clear the terminal."""
+        self.eval_javascript('clearTerm()')
 
     def contextMenuEvent(self, event):
         """Override Qt method."""
@@ -258,14 +269,15 @@ class TermView(WebView):
                 key += Qt.META
 
             sequence = QKeySequence(key).toString(QKeySequence.PortableText)
-
-            if sequence == 'Ctrl+Alt+Shift+T':
+            if sequence == self.CONF.get_shortcut(CONF_SECTION, 'copy'):
+                self.copy()
+            elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'paste'):
+                self.paste()
+            elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'clear'):
+                self.clear()
+            else:
                 event.ignore()
                 return False
-            elif sequence == 'Ctrl+Shift+C':
-                self.copy()
-            elif sequence == 'Ctrl+Shift+V':
-                self.paste()
             event.accept()
             return True
 
