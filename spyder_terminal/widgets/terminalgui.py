@@ -186,6 +186,10 @@ class TerminalWidget(QFrame):
             cursor_id = options['cursor_type']
             cursor_choices = {0: "block", 1: "underline", 2: "bar"}
             self.set_option('cursorStyle', cursor_choices[cursor_id])
+        if 'color_scheme_name' in options:
+            color_scheme = CONF.get('appearance', 'ui_theme')
+            theme = CONF.get('appearance', 'selected')
+            self.set_theme(theme, color_scheme)
 
 
 class TermView(WebView):

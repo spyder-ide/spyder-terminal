@@ -310,7 +310,10 @@ class TerminalPlugin(SpyderPluginWidget):
         """Apply the config settings."""
         term_options = {}
         for option in options:
-            term_options[option] = self.get_option(option)
+            if option == 'color_scheme_name':
+                term_options[option] = option
+            else:
+                term_options[option] = self.get_option(option)
         for term in self.get_terms():
             term.apply_settings(term_options)
 
