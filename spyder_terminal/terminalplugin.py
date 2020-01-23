@@ -92,7 +92,6 @@ class TerminalPlugin(SpyderPluginWidget):
         self.project_path = None
         self.current_file_path = None
         self.current_cwd = getcwd()
-        self._options_menu = QMenu(self)
 
         try:
             # Spyder 3

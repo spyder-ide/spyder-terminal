@@ -17,15 +17,15 @@ h1 {
 
 #terminal-container {
     height:100vh;
-    margin:     0px;
-    padding:    0px;
+    margin: 0px;
+    padding: 0px;
     z-index: 255;
 }
 
 #terminal-container .terminal {
     background-color: #000;
     color: #fafafa;
-    padding: 0px;
+    padding: 07px;
     font-family: 'Ubuntu Mono', monospace;
     height:100%;
     font-size: 1em;
