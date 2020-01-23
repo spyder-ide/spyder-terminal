@@ -45,7 +45,7 @@ class TerminalConfigPage(PluginConfigPage):
         valid_shells = zip(valid_shells, valid_shells)
         default_option = 'cmd' if WINDOWS else 'bash'
         shell_combo = self.create_combobox(_("Select the shell interpreter:"),
-                                           valid_shells, 'shell',
+                                           valid_shells, 'shell', restart=True,
                                            default=default_option)
         shell_combo.combobox.setMinimumContentsLength(15)
         shell_layout.addWidget(shell_combo)
