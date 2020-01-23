@@ -133,8 +133,9 @@ class TerminalPlugin(SpyderPluginWidget):
         layout.addWidget(self.tabwidget)
         self.setLayout(layout)
 
-        new_term_shortcut = QShortcut(QKeySequence("Ctrl+Alt+Shift+T"),
-                                      self, self.create_new_term)
+        new_term_shortcut = QShortcut(
+            CONF.get_shortcut(CONF_SECTION, 'new_term'),
+            self, self.create_new_term)
         new_term_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
         self.color_scheme = CONF.get('appearance', 'ui_theme')

@@ -7,8 +7,10 @@
 """Spyder terminal default configuration."""
 
 import os
+import sys
 
 WINDOWS = os.name == 'nt'
+LINUX = sys.platform.startswith('linux')
 
 CONF_SECTION = 'terminal'
 
@@ -18,6 +20,14 @@ CONF_DEFAULTS = [
       'sound': True,
       'cursor_type': 0,
       'shell': 'cmd' if WINDOWS else 'bash'
+     }
+     ),
+    ('shortcuts',
+     {
+      'terminal/copy': 'Ctrl+Alt+Shift+C' if LINUX else 'Ctrl+Alt+C',
+      'terminal/paste': 'Ctrl+Alt+Shift+V' if LINUX else 'Ctrl+Alt+V',
+      'terminal/new_term': 'Ctrl+Alt+T',
+      'terminal/clear': 'Ctrl+Alt+K',
      }
      ),
 ]
