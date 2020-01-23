@@ -198,6 +198,10 @@ function addDomListener(element, type, handler){
   term._core.register({dispose: () => element.removeEventListener(type, handler)});
 }
 
+function addClassStyleToContainer(className){
+  document.getElementById('terminal-container').classList.add(className);
+}
+
 $(document).ready( () => {
   createTerminal();
   new QWebChannel(qt.webChannelTransport, function (channel) {
@@ -227,6 +231,7 @@ const term_functions = {
   searchNext: searchNext,
   searchPrevious: searchPrevious,
   setOption: setOption,
+  addClassStyleToContainer: addClassStyleToContainer,
 };
 
 export default term_functions;
