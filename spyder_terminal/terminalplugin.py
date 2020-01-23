@@ -92,7 +92,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.project_path = None
         self.current_file_path = None
         self.current_cwd = getcwd()
-        self.options_menu = QMenu(self)
+        self._options_menu = QMenu(self)
 
         try:
             # Spyder 3
@@ -103,21 +103,16 @@ class TerminalPlugin(SpyderPluginWidget):
 
         layout = QVBoxLayout()
         new_term_btn = create_toolbutton(self,
-                                         icon=ima.icon('expand'),
+                                         icon=ima.icon('expand_selection'),
                                          tip=_('Open a new terminal'),
                                          triggered=self.create_new_term)
-        menu_btn = create_toolbutton(self, icon=ima.icon('tooloptions'),
-                                     tip=_('Options'))
-        menu_btn.setMenu(self.options_menu)
-        menu_btn.setPopupMode(menu_btn.InstantPopup)
-        
-        # if self.get_option('first_time', True):
-        # self.setup_shortcuts()
-        # self.shortcuts = self.create_shortcuts()
-        corner_widgets = {Qt.TopRightCorner: [new_term_btn, menu_btn]}
-        self.tabwidget = Tabs(self, menu=self.options_menu,
+
+        corner_widgets = {Qt.TopRightCorner: [new_term_btn,
+                                              self.options_button]}
+        self.tabwidget = Tabs(self, menu=self._options_menu,
                               actions=self.menu_actions,
-                              corner_widgets=corner_widgets, rename_tabs=True)
+                              corner_widgets=corner_widgets,
+                              rename_tabs=True)
 
         if hasattr(self.tabwidget, 'setDocumentMode') \
            and not sys.platform == 'darwin':
@@ -246,17 +241,13 @@ class TerminalPlugin(SpyderPluginWidget):
                                           _("Rename terminal"),
                                           triggered=self.tab_name_editor)
 
-        add_actions(self.options_menu, [new_terminal_cwd,
-                                        self.new_terminal_project,
-                                        new_terminal_file,
-                                        rename_tab_action])
+        self.plugin_actions = [new_terminal_cwd, self.new_terminal_project,
+                               new_terminal_file, MENU_SEPARATOR,
+                               rename_tab_action]
 
-        self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
-                             new_terminal_file, MENU_SEPARATOR,
-                             rename_tab_action]
         self.setup_menu_actions()
 
-        return self.menu_actions
+        return self.plugin_actions
 
     def setup_menu_actions(self):
         """Setup and update the Options menu actions."""
@@ -302,7 +293,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
-        self.options_menu.aboutToShow.connect(self.setup_menu_actions)
+        self._options_menu.aboutToShow.connect(self.setup_menu_actions)
 
     def apply_plugin_settings(self, options):
         """Apply the config settings."""
