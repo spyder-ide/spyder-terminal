@@ -20,12 +20,14 @@ from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
                                      WEBENGINE)
 from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget
 from spyder.config.base import DEV, get_translation
+from spyder.config.manager import CONF
 from spyder.config.gui import is_dark_interface
 from spyder.utils import icon_manager as ima
 from spyder.utils.qthelpers import create_action, add_actions
 from spyder.widgets.browser import WebView
 
 # Local imports
+from spyder_terminal.widgets.style.themes import ANSI_COLORS
 from spyder_terminal.config import CONF_SECTION
 
 if WEBENGINE:
@@ -64,7 +66,8 @@ class TerminalWidget(QFrame):
     terminal_closed = Signal()
     terminal_ready = Signal()
 
-    def __init__(self, parent, port, path='~', font=None):
+    def __init__(self, parent, port, path='~', font=None, theme=None,
+                 color_scheme=None):
         """Frame main constructor."""
         QWidget.__init__(self, parent)
         url = 'http://127.0.0.1:{0}?path={1}'.format(port, path)
@@ -75,6 +78,8 @@ class TerminalWidget(QFrame):
                              term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
+        self.theme = theme
+        self.color_scheme = color_scheme
         self.parent = parent
         layout = QVBoxLayout()
         layout.addWidget(self.view)
@@ -94,6 +99,7 @@ class TerminalWidget(QFrame):
         print("\0", end='')
         self.set_font(self.font)
         self.set_dir(self.initial_path)
+        self.current_theme = self.set_theme(self.theme, self.color_scheme)
         self.set_scrollbar_style()
         options = self.parent.CONF.options(CONF_SECTION)
         dict_options = {}
@@ -118,6 +124,31 @@ class TerminalWidget(QFrame):
         """Set terminal font via CSS."""
         self.font = font
         self.eval_javascript('fitFont("{0}")'.format(self.font))
+
+    def set_theme(self, theme, color_scheme):
+        """Set theme for the terminal."""
+        supported_themes = ANSI_COLORS.keys()
+        new_theme = {}
+        if theme not in supported_themes:
+            theme = 'spyder' if color_scheme == 'light' else 'spyder/dark'
+
+        new_theme['background'] = CONF.get('appearance',
+                                           '{}/background'.format(theme))
+        new_theme['foreground'] = CONF.get('appearance',
+                                           '{}/normal'.format(theme))[0]
+        new_theme['cursor'] = CONF.get('appearance',
+                                       '{}/normal'.format(theme))[0]
+        new_theme['cursorAccent'] = CONF.get('appearance',
+                                             '{}/ctrlclick'.format(theme))
+        new_theme['selection'] = CONF.get('appearance',
+                                          '{}/occurrence'.format(theme))
+        theme_colors = ANSI_COLORS[theme]
+        for color in theme_colors:
+            new_theme[color] = theme_colors[color]
+
+        self.eval_javascript('setOption("{}", {})'.format('theme', new_theme))
+        self.set_option('fontFamily', CONF.get('appearance', 'font/family'))
+        return new_theme
 
     def get_fonts(self):
         """List terminal CSS fonts."""
@@ -163,6 +194,10 @@ class TerminalWidget(QFrame):
             cursor_id = options['cursor_type']
             cursor_choices = {0: "block", 1: "underline", 2: "bar"}
             self.set_option('cursorStyle', cursor_choices[cursor_id])
+        if 'color_scheme_name' in options:
+            color_scheme = CONF.get('appearance', 'ui_theme')
+            theme = CONF.get('appearance', 'selected')
+            self.set_theme(theme, color_scheme)
 
 
 class TermView(WebView):

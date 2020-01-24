@@ -132,6 +132,9 @@ class TerminalPlugin(SpyderPluginWidget):
             self, self.create_new_term)
         new_term_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
+        self.color_scheme = CONF.get('appearance', 'ui_theme')
+        self.theme = CONF.get('appearance', 'selected')
+
         self.__wait_server_to_start()
 
     # ------ Private API ------------------------------------------
@@ -298,7 +301,10 @@ class TerminalPlugin(SpyderPluginWidget):
         """Apply the config settings."""
         term_options = {}
         for option in options:
-            term_options[option] = self.get_option(option)
+            if option == 'color_scheme_name':
+                term_options[option] = option
+            else:
+                term_options[option] = self.get_option(option)
         for term in self.get_terms():
             term.apply_settings(term_options)
 
@@ -329,7 +335,8 @@ class TerminalPlugin(SpyderPluginWidget):
             path = self.current_cwd
         path = path.replace('\\', '/')
         font = self.get_font()
-        term = TerminalWidget(self, self.port, path=path, font=font.family())
+        term = TerminalWidget(self, self.port, path=path, font=font.family(),
+                              theme=self.theme, color_scheme=self.color_scheme)
         self.add_tab(term)
         term.terminal_closed.connect(lambda: self.close_term(term=term))
 
