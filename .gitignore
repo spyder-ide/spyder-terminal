@@ -44,6 +44,7 @@ nosetests.xml
 coverage.xml
 *,cover
 .hypothesis/
+.pytest_cache/
 
 # Django stuff:
 *.log
@@ -163,3 +164,6 @@ typings/
 
 # Serverless directories
 .serverless
+
+# vscode settings
+.vscode/

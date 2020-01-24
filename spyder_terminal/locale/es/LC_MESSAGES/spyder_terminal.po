@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
@@ -65,16 +70,36 @@ msgid "Spyder Terminal Error"
 msgstr "Error de la terminal de Spyder"
 
 #: spyder_terminal/terminalplugin.py:152
-msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
-msgstr "El servidor del terminal no se encontró en <a href=“http://127.0.0.1:{0}”>http://127.0.0.1:{0}</a>, por favor reinicie Spyder en modo de debugger y reporte el problema con los contenidos de los archivos <tt>{1}</tt> y <tt>{2}</tt> en {3}."
+msgid ""
+"Terminal server could not be located at <a href=\"http://127.0.0.1:"
+"{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and "
+"open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at "
+"{3}."
+msgstr ""
+"El servidor del terminal no se encontró en <a href=“http://127.0.0.1:"
+"{0}”>http://127.0.0.1:{0}</a>, por favor reinicie Spyder en modo de "
+"debugger y reporte el problema con los contenidos de los archivos <tt>{1}</"
+"tt> y <tt>{2}</tt> en {3}."
 
 #: spyder_terminal/terminalplugin.py:187
-msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
-msgstr "<b>spyder-terminal</b> no funciona con Qt 4. Por esto, este plugin se desactivara."
+msgid ""
+"<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will "
+"be deactivated."
+msgstr ""
+"<b>spyder-terminal</b> no funciona con Qt 4. Por esto, este plugin se "
+"desactivara."
 
 #: spyder_terminal/terminalplugin.py:195
-msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
-msgstr "Desafortunadamente, la librería que <b>spyder-terminal</b> usa para crear las terminales esta fallando en nuestro sistema. Por esto, este plugin se desactivara. <br><br> Esto usualmente sucede en  sistemas Windows 7. Si este es el caso, por favor considere actualizar su versión de Windows."
+msgid ""
+"Unfortunately, the library that <b>spyder-terminal</b> uses to create "
+"terminals is failing to work in your system. Therefore, this plugin will be "
+"deactivated.<br><br> This usually happens on Windows 7 systems. If that's "
+"the case, please consider updating to a newer Windows version."
+msgstr ""
+"Desafortunadamente, la librería que <b>spyder-terminal</b> usa para crear "
+"las terminales esta fallando en nuestro sistema. Por esto, este plugin se "
+"desactivara. <br><br> Esto usualmente sucede en  sistemas Windows 7. Si "
+"este es el caso, por favor considere actualizar su versión de Windows."
 
 #: spyder_terminal/terminalplugin.py:207
 msgid "Terminal"

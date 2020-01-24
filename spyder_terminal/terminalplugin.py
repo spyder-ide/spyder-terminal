@@ -7,57 +7,55 @@
 # -----------------------------------------------------------------------------
 """Terminal Plugin."""
 
+# Standard imports
 import os
 import sys
 import requests
 import subprocess
 import os.path as osp
 
+# Third party imports
 from qtpy import PYQT4, PYSIDE
 from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
                             QShortcut)
 
 from qtpy.QtCore import Qt, Signal, QTimer, Slot
 from qtpy.QtGui import QKeySequence
-
-# from spyder.preferences import PluginConfigPage
-
-from spyder.config.base import _
+from spyder.api.plugins import SpyderPluginWidget
+from spyder.config.base import get_translation, DEV
+from spyder.config.manager import CONF
 from spyder.utils import icon_manager as ima
 from spyder.utils.programs import find_program
 from spyder.utils.qthelpers import (add_actions, create_action,
                                     create_toolbutton,
                                     MENU_SEPARATOR)
 from spyder.widgets.tabs import Tabs
-# from spyder.config.gui import set_shortcut, config_shortcut
-try:
-   # Spyder 4
-   from spyder.api.plugins import SpyderPluginWidget
-except ImportError:
-   # Spyder 3
-   from spyder.plugins import SpyderPluginWidget
-    
-from spyder_terminal.widgets.terminalgui import TerminalWidget
-# from spyder.py3compat import is_text_string, to_text_string
+from spyder.py3compat import PY2, getcwd
 from spyder.utils.misc import select_port
 
-from spyder.py3compat import PY2, getcwd
-from spyder.config.base import DEV
+# Local imports
+from spyder_terminal.widgets.terminalgui import TerminalWidget
+from spyder_terminal.confpage import TerminalConfigPage
+from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION, CONF_SECTION
 
+
+# Constants
 LOCATION = osp.realpath(osp.join(os.getcwd(),
                                  osp.dirname(__file__)))
 WINDOWS = os.name == 'nt'
 
-# class TerminalConfigPage(PluginConfigPage):
-#     """Terminal plugin preferences."""
-#     pass
+# For translations
+_ = get_translation('spyder_terminal')
 
 
 class TerminalPlugin(SpyderPluginWidget):
     """Terminal plugin."""
 
     URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
-    CONF_SECTION = 'terminal'
+    CONF_SECTION = CONF_SECTION
+    CONFIGWIDGET_CLASS = TerminalConfigPage
+    CONF_DEFAULTS = CONF_DEFAULTS
+    # CONF_VERSION = CONF_VERSION
     focus_changed = Signal()
     sig_server_is_ready = Signal()
     MAX_SERVER_CONTACT_RETRIES = 40
@@ -71,10 +69,8 @@ class TerminalPlugin(SpyderPluginWidget):
         self.server_ready = False
         self.port = select_port(default_port=8071)
 
-        self.cmd = 'bash'
-        if WINDOWS:
-            self.cmd = 'cmd'
-
+        self.cmd = find_program(self.get_option('shell'))
+        self.CONF = CONF
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
         self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
@@ -82,7 +78,6 @@ class TerminalPlugin(SpyderPluginWidget):
         if DEV:
             self.server_stdout = open(self.stdout_file, 'w')
             self.server_stderr = open(self.stderr_file, 'w')
-
         self.server = subprocess.Popen(
             [sys.executable, '-m', 'spyder_terminal.server',
              '--port', str(self.port), '--shell', self.cmd],
@@ -97,7 +92,6 @@ class TerminalPlugin(SpyderPluginWidget):
         self.project_path = None
         self.current_file_path = None
         self.current_cwd = getcwd()
-        self.options_menu = QMenu(self)
 
         try:
             # Spyder 3
@@ -108,21 +102,16 @@ class TerminalPlugin(SpyderPluginWidget):
 
         layout = QVBoxLayout()
         new_term_btn = create_toolbutton(self,
-                                         icon=ima.icon('expand'),
+                                         icon=ima.icon('expand_selection'),
                                          tip=_('Open a new terminal'),
                                          triggered=self.create_new_term)
-        menu_btn = create_toolbutton(self, icon=ima.icon('tooloptions'),
-                                     tip=_('Options'))
-        menu_btn.setMenu(self.options_menu)
-        menu_btn.setPopupMode(menu_btn.InstantPopup)
-        
-        # if self.get_option('first_time', True):
-        # self.setup_shortcuts()
-        # self.shortcuts = self.create_shortcuts()
-        corner_widgets = {Qt.TopRightCorner: [new_term_btn, menu_btn]}
-        self.tabwidget = Tabs(self, menu=self.options_menu,
+
+        corner_widgets = {Qt.TopRightCorner: [new_term_btn,
+                                              self.options_button]}
+        self.tabwidget = Tabs(self, menu=self._options_menu,
                               actions=self.menu_actions,
-                              corner_widgets=corner_widgets, rename_tabs=True)
+                              corner_widgets=corner_widgets,
+                              rename_tabs=True)
 
         if hasattr(self.tabwidget, 'setDocumentMode') \
            and not sys.platform == 'darwin':
@@ -138,8 +127,9 @@ class TerminalPlugin(SpyderPluginWidget):
         layout.addWidget(self.tabwidget)
         self.setLayout(layout)
 
-        new_term_shortcut = QShortcut(QKeySequence("Ctrl+Alt+Shift+T"),
-                                      self, self.create_new_term)
+        new_term_shortcut = QShortcut(
+            CONF.get_shortcut(CONF_SECTION, 'new_term'),
+            self, self.create_new_term)
         new_term_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
 
         self.__wait_server_to_start()
@@ -214,7 +204,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
     def get_plugin_icon(self):
         """Return widget icon."""
-        return ima.icon('cmdprompt')
+        return ima.icon('DollarFileIcon')
 
     def get_plugin_actions(self):
         """Get plugin actions."""
@@ -250,17 +240,13 @@ class TerminalPlugin(SpyderPluginWidget):
                                           _("Rename terminal"),
                                           triggered=self.tab_name_editor)
 
-        add_actions(self.options_menu, [new_terminal_cwd,
-                                        self.new_terminal_project,
-                                        new_terminal_file,
-                                        rename_tab_action])
+        self.plugin_actions = [new_terminal_cwd, self.new_terminal_project,
+                               new_terminal_file, MENU_SEPARATOR,
+                               rename_tab_action]
 
-        self.menu_actions = [new_terminal_cwd, self.new_terminal_project,
-                             new_terminal_file, MENU_SEPARATOR,
-                             rename_tab_action]
         self.setup_menu_actions()
 
-        return self.menu_actions
+        return self.plugin_actions
 
     def setup_menu_actions(self):
         """Setup and update the Options menu actions."""
@@ -306,7 +292,15 @@ class TerminalPlugin(SpyderPluginWidget):
         self.main.projects.sig_project_loaded.connect(self.set_project_path)
         self.main.projects.sig_project_closed.connect(self.unset_project_path)
         self.main.editor.open_file_update.connect(self.set_current_opened_file)
-        self.options_menu.aboutToShow.connect(self.setup_menu_actions)
+        self._options_menu.aboutToShow.connect(self.setup_menu_actions)
+
+    def apply_plugin_settings(self, options):
+        """Apply the config settings."""
+        term_options = {}
+        for option in options:
+            term_options[option] = self.get_option(option)
+        for term in self.get_terms():
+            term.apply_settings(term_options)
 
     # ------ Public API (for terminals) -------------------------
     def get_terms(self):

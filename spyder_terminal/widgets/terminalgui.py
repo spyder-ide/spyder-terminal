@@ -9,23 +9,32 @@
 
 from __future__ import print_function
 
+# Standard library imports
 import sys
 
-from spyder.config.base import _, DEV
+# Third-party imports
 from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
-from qtpy.QtWidgets import (QMenu, QFrame, QVBoxLayout, QWidget)
 from qtpy.QtGui import QKeySequence
-from spyder.widgets.browser import WebView
+from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
+                                     WEBENGINE)
+from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget
+from spyder.config.base import DEV, get_translation
+from spyder.config.gui import is_dark_interface
 from spyder.utils import icon_manager as ima
-from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from spyder.utils.qthelpers import create_action, add_actions
+from spyder.widgets.browser import WebView
 
-from qtpy.QtWebEngineWidgets import WEBENGINE
+# Local imports
+from spyder_terminal.config import CONF_SECTION
+
 if WEBENGINE:
-    from PyQt5.QtWebChannel import QWebChannel
+    from qtpy.QtWebChannel import QWebChannel
 
 PREFIX = 'spyder_terminal.default.'
+
+# For translations
+_ = get_translation('spyder_terminal')
 
 
 class ChannelHandler(QObject):
@@ -62,10 +71,11 @@ class TerminalWidget(QFrame):
         self.handler = ChannelHandler(self)
         self.handler.sig_ready.connect(lambda: self.terminal_ready.emit())
         self.handler.sig_closed.connect(lambda: self.terminal_closed.emit())
-        self.view = TermView(self, term_url=url, handler=self.handler)
+        self.view = TermView(self, parent.CONF,
+                             term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
-
+        self.parent = parent
         layout = QVBoxLayout()
         layout.addWidget(self.view)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -84,10 +94,21 @@ class TerminalWidget(QFrame):
         print("\0", end='')
         self.set_font(self.font)
         self.set_dir(self.initial_path)
+        self.set_scrollbar_style()
+        options = self.parent.CONF.options(CONF_SECTION)
+        dict_options = {}
+        for option in options:
+            dict_options[option] = self.parent.get_option(option)
+        self.apply_settings(dict_options)
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
         return self.view.eval_javascript(script)
+
+    def set_scrollbar_style(self):
+        """Set terminal scrollbar style."""
+        if is_dark_interface():
+            self.eval_javascript('addClassStyleToContainer("dark-scroll")')
 
     def set_dir(self, path):
         """Set terminal initial current working directory."""
@@ -126,23 +147,46 @@ class TerminalWidget(QFrame):
         alive = self.eval_javascript('isAlive()')
         return alive
 
+    def set_option(self, option_name, option):
+        """Set a configuration option in the terminal."""
+        self.eval_javascript('setOption("{}", "{}")'.format(option_name,
+                                                            option))
+
+    def apply_settings(self, options):
+        """Apply custom settings given an option dictionary."""
+        # Bell style option
+        if 'sound' in options:
+            bell_style = 'sound' if options['sound'] else 'none'
+            self.set_option('bellStyle', bell_style)
+        # Cursor option
+        if 'cursor_type' in options:
+            cursor_id = options['cursor_type']
+            cursor_choices = {0: "block", 1: "underline", 2: "bar"}
+            self.set_option('cursorStyle', cursor_choices[cursor_id])
+
 
 class TermView(WebView):
     """XTerm Wrapper."""
 
-    def __init__(self, parent, term_url='http://127.0.0.1:8070',
+    def __init__(self, parent, CONF, term_url='http://127.0.0.1:8070',
                  handler=None):
         """Webview main constructor."""
         WebView.__init__(self, parent)
         self.parent = parent
-        self.copy_action = create_action(self, _("Copy text"),
-                                         icon=ima.icon('editcopy'),
-                                         triggered=self.copy,
-                                         shortcut='Ctrl+Shift+C')
-        self.paste_action = create_action(self, _("Paste text"),
-                                          icon=ima.icon('editpaste'),
-                                          triggered=self.paste,
-                                          shortcut='Ctrl+Shift+V')
+        self.CONF = CONF
+        self.copy_action = create_action(
+            self, _("Copy text"), icon=ima.icon('editcopy'),
+            triggered=self.copy,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'copy'))
+        self.paste_action = create_action(
+            self, _("Paste text"),
+            icon=ima.icon('editpaste'),
+            triggered=self.paste,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'paste'))
+        self.clear_action = create_action(
+            self, _("Clear Terminal"),
+            triggered=self.clear,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'clear'))
         if WEBENGINE:
             self.channel = QWebChannel(self.page())
             self.page().setWebChannel(self.channel)
@@ -169,6 +213,10 @@ class TermView(WebView):
     def paste(self):
         """Paste unicode text into terminal."""
         self.triggerPageAction(QWebEnginePage.Paste)
+
+    def clear(self):
+        """Clear the terminal."""
+        self.eval_javascript('clearTerm()')
 
     def contextMenuEvent(self, event):
         """Override Qt method."""
@@ -221,14 +269,15 @@ class TermView(WebView):
                 key += Qt.META
 
             sequence = QKeySequence(key).toString(QKeySequence.PortableText)
-
-            if sequence == 'Ctrl+Alt+Shift+T':
+            if sequence == self.CONF.get_shortcut(CONF_SECTION, 'copy'):
+                self.copy()
+            elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'paste'):
+                self.paste()
+            elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'clear'):
+                self.clear()
+            else:
                 event.ignore()
                 return False
-            elif sequence == 'Ctrl+Shift+C':
-                self.copy()
-            elif sequence == 'Ctrl+Shift+V':
-                self.paste()
             event.accept()
             return True
 

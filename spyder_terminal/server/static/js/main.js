@@ -171,7 +171,11 @@ function scrollTerm(delta) {
 }
 
 function isAlive() {
-   return alive;
+  return alive;
+}
+
+function setOption(option_name, option) {
+  term.setOption(option_name, option)
 }
 
 function runRealTerminal() {
@@ -192,6 +196,10 @@ function runRealTerminal() {
 function addDomListener(element, type, handler){
   element.addEventListener(type, handler);
   term._core.register({dispose: () => element.removeEventListener(type, handler)});
+}
+
+function addClassStyleToContainer(className){
+  document.getElementById('terminal-container').classList.add(className);
 }
 
 $(document).ready( () => {
@@ -222,6 +230,8 @@ const term_functions = {
   getTerminalLines: getTerminalLines,
   searchNext: searchNext,
   searchPrevious: searchPrevious,
+  setOption: setOption,
+  addClassStyleToContainer: addClassStyleToContainer,
 };
 
 export default term_functions;
