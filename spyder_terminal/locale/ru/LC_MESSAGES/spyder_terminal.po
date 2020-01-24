@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: spyder-terminal\n"
+"POT-Creation-Date: 2019-12-09 09:55-0500\n"
+"PO-Revision-Date: 2019-12-09 14:58\n"
+"Last-Translator: Gonzalo Peña-Castellanos (goanpeca)\n"
+"Language-Team: Russian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=4; plural=((n%10==1 && n%100!=11) ? 0 : ((n%10 >= 2 && n%10 <=4 && (n%100 < 12 || n%100 > 14)) ? 1 : ((n%10 == 0 || (n%10 >= 5 && n%10 <=9)) || (n%100 >= 11 && n%100 <= 14)) ? 2 : 3));\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: spyder-terminal\n"
+"X-Crowdin-Language: ru\n"
+"X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
+"Language: ru_RU\n"
+
+#: spyder_terminal/confpage.py:34
+msgid "Terminal shell"
+msgstr ""
+
+#: spyder_terminal/confpage.py:47
+msgid "Select the shell interpreter:"
+msgstr ""
+
+#: spyder_terminal/confpage.py:57
+msgid "Terminal style preferences"
+msgstr ""
+
+#: spyder_terminal/confpage.py:59
+msgid "Bar"
+msgstr ""
+
+#: spyder_terminal/confpage.py:59
+msgid "Block"
+msgstr ""
+
+#: spyder_terminal/confpage.py:59
+msgid "Underline"
+msgstr ""
+
+#: spyder_terminal/confpage.py:60
+msgid "Type of cursor:"
+msgstr ""
+
+#: spyder_terminal/confpage.py:68
+msgid "Enable bell sound"
+msgstr ""
+
+#: spyder_terminal/confpage.py:69
+msgid "Enable bell sound on terminal"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:107
+msgid "Open a new terminal"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:110
+msgid "Options"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:151
+msgid "Spyder Terminal Error"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:152
+msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:187
+msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:195
+msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:207
+msgid "Terminal"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:217
+msgid "New terminal in current working directory"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:219
+msgid "Sets the pwd at the current working directory"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:225
+msgid "New terminal in current project"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:227
+msgid "Sets the pwd at the current project directory"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:235
+msgid "New terminal in current Editor file"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:237
+msgid "Sets the pwd at the directory that contains the current opened file"
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:245
+msgid "Rename terminal"
+msgstr ""
+
+#: spyder_terminal/widgets/terminalgui.py:168
+msgid "Copy text"
+msgstr ""
+
+#: spyder_terminal/widgets/terminalgui.py:172
+msgid "Paste text"
+msgstr ""
+

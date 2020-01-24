@@ -1,0 +1,118 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: spyder-terminal\n"
+"POT-Creation-Date: 2019-12-09 09:55-0500\n"
+"PO-Revision-Date: 2019-12-10 14:58\n"
+"Last-Translator: Gonzalo Peña-Castellanos (goanpeca)\n"
+"Language-Team: Portuguese, Brazilian\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: crowdin.com\n"
+"X-Crowdin-Project: spyder-terminal\n"
+"X-Crowdin-Language: pt-BR\n"
+"X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
+"Language: pt_BR\n"
+
+#: spyder_terminal/confpage.py:34
+msgid "Terminal shell"
+msgstr "Terminal do shell"
+
+#: spyder_terminal/confpage.py:47
+msgid "Select the shell interpreter:"
+msgstr "Selecione o interpretador do shell:"
+
+#: spyder_terminal/confpage.py:57
+msgid "Terminal style preferences"
+msgstr "Preferências de estilo do terminal"
+
+#: spyder_terminal/confpage.py:59
+msgid "Bar"
+msgstr "Barra"
+
+#: spyder_terminal/confpage.py:59
+msgid "Block"
+msgstr "Bloco"
+
+#: spyder_terminal/confpage.py:59
+msgid "Underline"
+msgstr "Sublinhado"
+
+#: spyder_terminal/confpage.py:60
+msgid "Type of cursor:"
+msgstr "Tipo de cursor:"
+
+#: spyder_terminal/confpage.py:68
+msgid "Enable bell sound"
+msgstr "Habilitar som de alerta"
+
+#: spyder_terminal/confpage.py:69
+msgid "Enable bell sound on terminal"
+msgstr "Habilitar som de alerta no terminal"
+
+#: spyder_terminal/terminalplugin.py:107
+msgid "Open a new terminal"
+msgstr "Abrir uma nova janela"
+
+#: spyder_terminal/terminalplugin.py:110
+msgid "Options"
+msgstr "Opções"
+
+#: spyder_terminal/terminalplugin.py:151
+msgid "Spyder Terminal Error"
+msgstr "Erro Terminal do Spyder"
+
+#: spyder_terminal/terminalplugin.py:152
+msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
+msgstr "O servidor Terminal não pôde ser localizado em <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, por favor reinicie o Spyder no modo de depuração e abra um registro de problema com o conteúdo de <tt>{1}</tt> e <tt>{2}</tt> arquivos em {3}."
+
+#: spyder_terminal/terminalplugin.py:187
+msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
+msgstr "<b>spyder-terminal-</b> não funciona com Qt 4. Portanto, este plugin será desativado."
+
+#: spyder_terminal/terminalplugin.py:195
+msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
+msgstr "Infelizmente, a biblioteca que o <b>spyder-terminal</b> usa para criar terminais não está funcionando no seu sistema. Portanto, este plugin será desativado.<br><br> Isso geralmente acontece com sistemas Windows 7. Se for esse o caso, por favor, considere atualizar para uma versão mais recente do Windows."
+
+#: spyder_terminal/terminalplugin.py:207
+msgid "Terminal"
+msgstr "Terminal"
+
+#: spyder_terminal/terminalplugin.py:217
+msgid "New terminal in current working directory"
+msgstr "Novo terminal no diretório de trabalho atual"
+
+#: spyder_terminal/terminalplugin.py:219
+msgid "Sets the pwd at the current working directory"
+msgstr "Define o diretório de trabalho como o diretório atual"
+
+#: spyder_terminal/terminalplugin.py:225
+msgid "New terminal in current project"
+msgstr "Novo terminal do projeto atual"
+
+#: spyder_terminal/terminalplugin.py:227
+msgid "Sets the pwd at the current project directory"
+msgstr "Define o diretório de trabalho como o diretório do projeto atual"
+
+#: spyder_terminal/terminalplugin.py:235
+msgid "New terminal in current Editor file"
+msgstr "Novo terminal no arquivo atual do Editor"
+
+#: spyder_terminal/terminalplugin.py:237
+msgid "Sets the pwd at the directory that contains the current opened file"
+msgstr "Define o diretório de trabalho como o diretório que contém o arquivo aberto"
+
+#: spyder_terminal/terminalplugin.py:245
+msgid "Rename terminal"
+msgstr "Renomear terminal"
+
+#: spyder_terminal/widgets/terminalgui.py:168
+msgid "Copy text"
+msgstr "Copiar texto"
+
+#: spyder_terminal/widgets/terminalgui.py:172
+msgid "Paste text"
+msgstr "Colar texto"
+
