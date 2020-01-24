@@ -1,21 +1,15 @@
-# -*- coding: utf-8 -*-
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR ORGANIZATION
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2019-12-09 09:55-0500\n"
-"PO-Revision-Date: 2019-12-10 14:58\n"
-"Last-Translator: Gonzalo Peña-Castellanos (goanpeca)\n"
+"PO-Revision-Date: 2020-01-24 16:49\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: crowdin.com\n"
 "X-Crowdin-Project: spyder-terminal\n"
 "X-Crowdin-Language: es-ES\n"
 "X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
@@ -23,7 +17,7 @@ msgstr ""
 
 #: spyder_terminal/confpage.py:34
 msgid "Terminal shell"
-msgstr "Shell de terminal"
+msgstr "Shell de consola"
 
 #: spyder_terminal/confpage.py:47
 msgid "Select the shell interpreter:"
@@ -31,7 +25,7 @@ msgstr "Seleccione el intérprete de shell"
 
 #: spyder_terminal/confpage.py:57
 msgid "Terminal style preferences"
-msgstr "Preferencias de estilo de la terminal"
+msgstr "Preferencias de estilo de la consola"
 
 #: spyder_terminal/confpage.py:59
 msgid "Bar"
@@ -55,11 +49,11 @@ msgstr "Habilitar sonido de campana"
 
 #: spyder_terminal/confpage.py:69
 msgid "Enable bell sound on terminal"
-msgstr "Habilitar sonido de campana en la terminal"
+msgstr "Habilitar sonido de campana en la consola"
 
 #: spyder_terminal/terminalplugin.py:107
 msgid "Open a new terminal"
-msgstr "Abrir una nueva terminal"
+msgstr "Abrir una nueva consola"
 
 #: spyder_terminal/terminalplugin.py:110
 msgid "Options"
@@ -67,47 +61,27 @@ msgstr "Opciones"
 
 #: spyder_terminal/terminalplugin.py:151
 msgid "Spyder Terminal Error"
-msgstr "Error de la terminal de Spyder"
+msgstr "Error de la consola de Spyder"
 
 #: spyder_terminal/terminalplugin.py:152
-msgid ""
-"Terminal server could not be located at <a href=\"http://127.0.0.1:"
-"{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and "
-"open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at "
-"{3}."
-msgstr ""
-"El servidor del terminal no se encontró en <a href=“http://127.0.0.1:"
-"{0}”>http://127.0.0.1:{0}</a>, por favor reinicie Spyder en modo de "
-"debugger y reporte el problema con los contenidos de los archivos <tt>{1}</"
-"tt> y <tt>{2}</tt> en {3}."
+msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
+msgstr "El servidor de la consola no se encontró en <a href=“http://127.0.0.1:{0}”>http://127.0.0.1:{0}</a>, por favor reinicie Spyder en modo de debugger y reporte el problema con los contenidos de los archivos <tt>{1}</tt> y <tt>{2}</tt> en {3}."
 
 #: spyder_terminal/terminalplugin.py:187
-msgid ""
-"<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will "
-"be deactivated."
-msgstr ""
-"<b>spyder-terminal</b> no funciona con Qt 4. Por esto, este plugin se "
-"desactivara."
+msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
+msgstr "<b>spyder-terminal</b> no funciona con Qt 4. Por esto, este plugin se desactivará."
 
 #: spyder_terminal/terminalplugin.py:195
-msgid ""
-"Unfortunately, the library that <b>spyder-terminal</b> uses to create "
-"terminals is failing to work in your system. Therefore, this plugin will be "
-"deactivated.<br><br> This usually happens on Windows 7 systems. If that's "
-"the case, please consider updating to a newer Windows version."
-msgstr ""
-"Desafortunadamente, la librería que <b>spyder-terminal</b> usa para crear "
-"las terminales esta fallando en nuestro sistema. Por esto, este plugin se "
-"desactivara. <br><br> Esto usualmente sucede en  sistemas Windows 7. Si "
-"este es el caso, por favor considere actualizar su versión de Windows."
+msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
+msgstr "Desafortunadamente, la librería que <b>spyder-terminal</b> usa para crear las consolas esta fallando en nuestro sistema. Por esto, este plugin se desactivará. <br><br> Esto usualmente sucede en sistemas Windows 7. Si este es el caso, por favor considere actualizar su versión de Windows."
 
 #: spyder_terminal/terminalplugin.py:207
 msgid "Terminal"
-msgstr "Terminal"
+msgstr "Consola"
 
 #: spyder_terminal/terminalplugin.py:217
 msgid "New terminal in current working directory"
-msgstr "Nueva terminal en el directorio actual"
+msgstr "Nueva consola en el directorio actual"
 
 #: spyder_terminal/terminalplugin.py:219
 msgid "Sets the pwd at the current working directory"
@@ -115,7 +89,7 @@ msgstr "Genera el pwd en el directorio actual"
 
 #: spyder_terminal/terminalplugin.py:225
 msgid "New terminal in current project"
-msgstr "Nueva terminal en el proyecto actual"
+msgstr "Nueva consola en el proyecto actual"
 
 #: spyder_terminal/terminalplugin.py:227
 msgid "Sets the pwd at the current project directory"
@@ -123,7 +97,7 @@ msgstr "Genera el pwd en el directorio del proyecto actual"
 
 #: spyder_terminal/terminalplugin.py:235
 msgid "New terminal in current Editor file"
-msgstr "Nueva terminal en el archivo de Editor actual"
+msgstr "Nueva consola en el archivo de Editor actual"
 
 #: spyder_terminal/terminalplugin.py:237
 msgid "Sets the pwd at the directory that contains the current opened file"
@@ -131,7 +105,7 @@ msgstr "Genera el pwd en el directorio que contiene el archivo actual"
 
 #: spyder_terminal/terminalplugin.py:245
 msgid "Rename terminal"
-msgstr "Renombre la terminal"
+msgstr "Renombre la consola"
 
 #: spyder_terminal/widgets/terminalgui.py:168
 msgid "Copy text"
