@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2019-12-09 09:55-0500\n"
-"PO-Revision-Date: 2020-01-24 16:49\n"
+"PO-Revision-Date: 2020-01-25 16:46\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Spanish\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: spyder_terminal/confpage.py:34
 msgid "Terminal shell"
-msgstr "Shell de consola"
+msgstr "Consola del sistema"
 
 #: spyder_terminal/confpage.py:47
 msgid "Select the shell interpreter:"
@@ -73,7 +73,7 @@ msgstr "<b>spyder-terminal</b> no funciona con Qt 4. Por esto, este plugin se de
 
 #: spyder_terminal/terminalplugin.py:195
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
-msgstr "Desafortunadamente, la librería que <b>spyder-terminal</b> usa para crear las consolas esta fallando en nuestro sistema. Por esto, este plugin se desactivará. <br><br> Esto usualmente sucede en sistemas Windows 7. Si este es el caso, por favor considere actualizar su versión de Windows."
+msgstr "Desafortunadamente, la librería que <b>spyder-terminal</b> usa para crear las consolas esta fallando en su sistema. Debido a ello, este plugin se desactivará. <br><br> Esto usualmente sucede en sistemas Windows 7. Si este es el caso, por favor considere actualizar su versión de Windows."
 
 #: spyder_terminal/terminalplugin.py:207
 msgid "Terminal"
