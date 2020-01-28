@@ -87,11 +87,6 @@ Using pip (only if you don't use conda!):
 
     pip install spyder-terminal
 
-Please be sure of installing node and yarn for development:
-
-::
-
-    conda install -c conda-forge nodejs yarn
 
 Dependencies
 ------------
@@ -133,37 +128,46 @@ the following bash script:
 
     python -m spyder_terminal.server --port <PORT> --shell <Path to the terminal backend to execute>
 
-Build from source code
-----------------------
 
-Install all the dependencies given in our `requirements file <https://github.com/spyder-ide/spyder-terminal/tree/master/requirements>`_
-depending on your OS, a distribution of `node <https://nodejs.org/>`_ and
-`yarn <https://yarnpkg.com/lang/en/>`_. Then, use the following bash script 
-to build the plugin from source code.
+Development and contribution
+----------------------------
+
+To start contributing to this project, you need to install the ``yarn``
+and ``npm`` package managers. If you use conda, you can run the following
+command to do that:
+
+::
+
+    conda install -c conda-forge nodejs yarn
+
+Then, please install this package's dependencies with:
+
+::
+
+    conda create -n spyder-terminal-dev -c conda-forge --file requirements/{conda,conda_win}.txt
+
+depending on your operating system.
+
+Afterwards, you need to run
 
 ::
 
     python setup.py build_static
 
+to build the Javascript components for this plugin.
 
-Run tests
----------
+Finally, in order to run our test suite, please install its required dependencies with
 
-In order to run our test suite, install the `dependencies <https://github.com/spyder-ide/spyder-terminal/blob/master/requirements/tests.txt>`_ for
-tests and make sure spyder-terminal is already installed. Then, use pytest
-to run the server and client tests for the terminal.
+::
+
+    conda install -c conda-forge --file requirements/tests.txt
+
+
+and use pytest to run the server and client tests for the terminal like this
 
 ::
 
     pytest .
-
-
-Development and contribution
-----------------------------
-
-To start contributing to this project, you must have installed the ``yarn``
-and ``npm`` package managers, then you can execute ``python setup.py install``
-to test your changes on Spyder. We follow PEP8 and PEP257 style guidelines.
 
 
 Sponsors
