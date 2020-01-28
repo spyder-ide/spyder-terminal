@@ -45,24 +45,24 @@ Build status
    :alt: Crowdin
 
 
-*Copyright © 2017–2018 Spyder Project Contributors*
+*Copyright © 2017–2020 Spyder Project Contributors*
+
+Overview
+--------
+
+This is a Spyder plugin for displaying an OS independent virtual terminal inside
+the main Spyder window. It currently supports both Unix-like and Windows operating
+systems.
+
+Spyder-Terminal allows you to easily execute any ``bash`` command inside
+Spyder, even ``ncurses`` programs like ``nano`` or ``vi``:
 
 |linux-gif|
 
 .. |linux-gif| image:: https://github.com/spyder-ide/spyder-terminal/blob/master/doc/example.gif?raw=true
    :alt: Animated GIF of Spyder-Terminal on Linux
 
-----
-
-Overview
---------
-
-Spyder plugin for displaying an OS independent virtual terminal inside the main
-Spyder window. Currently supports both Unix-like and Windows operating systems.
-
-Spyder-Terminal allows you to easily execute any ``bash`` command inside
-Spyder, even ``ncurses`` programs like ``nano`` or ``vi``;
-or, on Windows, console applications such as ``powershell``.
+On Windows you can run console applications such as ``IPython`` or ``powershell``:
 
 |windows-gif|
 
@@ -72,8 +72,9 @@ or, on Windows, console applications such as ``powershell``.
 
 Installation
 ------------
-To install this plugin, you can use either ``pip`` or ``conda`` package
-managers, as it follows:
+
+To install this plugin, you can use either the ``conda`` or ``pip`` package
+managers, as follows:
 
 Using conda:
 
@@ -140,7 +141,7 @@ command to do that:
 
     conda install -c conda-forge nodejs yarn
 
-Then, please install this package's dependencies with:
+Then, please install the package's dependencies with:
 
 ::
 
