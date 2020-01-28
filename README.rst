@@ -8,11 +8,11 @@ Project status
 
 Build status
 ------------
-|circleci status| |appveyor status| |coverage| |crowdin|
+|circleci status| |Azure status| |coverage| |crowdin|
 
-.. |appveyor status| image:: https://ci.appveyor.com/api/projects/status/github/spyder-ide/spyder-terminal?branch=master&svg=true
-   :target: https://ci.appveyor.com/project/spyder-ide/spyder-terminal
-   :alt: Appveyor build status
+.. |Azure status| image:: https://dev.azure.com/spyder-ide/spyder-terminal/_apis/build/status/spyder-ide.spyder-terminal?branchName=master
+   :target: https://dev.azure.com/spyder-ide/spyder-terminal/_build/latest?definitionId=2&branchName=master
+   :alt: Azure build status
 .. |circleci status| image:: https://img.shields.io/circleci/project/github/spyder-ide/spyder-terminal/master.svg
    :target: https://circleci.com/gh/spyder-ide/spyder-terminal/tree/master
    :alt: Circle-CI build status
@@ -45,24 +45,24 @@ Build status
    :alt: Crowdin
 
 
-*Copyright © 2017–2018 Spyder Project Contributors*
+*Copyright © 2017–2020 Spyder Project Contributors*
+
+Overview
+--------
+
+This is a Spyder plugin for displaying an OS independent virtual terminal inside
+the main Spyder window. It currently supports both Unix-like and Windows operating
+systems.
+
+Spyder-Terminal allows you to easily execute any ``bash`` command inside
+Spyder, even ``ncurses`` programs like ``nano`` or ``vi``:
 
 |linux-gif|
 
 .. |linux-gif| image:: https://github.com/spyder-ide/spyder-terminal/blob/master/doc/example.gif?raw=true
    :alt: Animated GIF of Spyder-Terminal on Linux
 
-----
-
-Overview
---------
-
-Spyder plugin for displaying an OS independent virtual terminal inside the main
-Spyder window. Currently supports both Unix-like and Windows operating systems.
-
-Spyder-Terminal allows you to easily execute any ``bash`` command inside
-Spyder, even ``ncurses`` programs like ``nano`` or ``vi``;
-or, on Windows, console applications such as ``powershell``.
+On Windows you can run console applications such as ``IPython`` or ``powershell``:
 
 |windows-gif|
 
@@ -72,15 +72,9 @@ or, on Windows, console applications such as ``powershell``.
 
 Installation
 ------------
-To install this plugin, you can use either ``pip`` or ``conda`` package
-managers, as it follows:
 
-Using pip:
-
-::
-
- pip install spyder-terminal
-
+To install this plugin, you can use either the ``conda`` or ``pip`` package
+managers, as follows:
 
 Using conda:
 
@@ -88,10 +82,12 @@ Using conda:
 
     conda install spyder-terminal -c spyder-ide
 
-Please be sure of installing a node and yarn version:
+Using pip (only if you don't use conda!):
 
 ::
-    conda install -c conda-forge nodejs yarn
+
+    pip install spyder-terminal
+
 
 Dependencies
 ------------
@@ -100,7 +96,7 @@ This project depends on
 
 * `Spyder <https://github.com/spyder-ide/spyder>`_
 * `Tornado <https://github.com/tornadoweb/tornado>`_
-* `Pexpect <https://github.com/pexpect/pexpect>`_ (*nix Systems)
+* `Pexpect <https://github.com/pexpect/pexpect>`_ (Posix Systems)
 * `pywinpty <https://github.com/spyder-ide/pywinpty>`_ (Windows Systems)
 * `Coloredlogs <https://github.com/xolox/python-coloredlogs>`_
 * `xterm.js <https://github.com/sourcelair/xterm.js>`_
@@ -115,14 +111,12 @@ file to know more about our new features and improvements.
 Server implementation
 ---------------------
 
-Besides a Qt console, spyder-terminal also provides a web-based terminal
+Besides a Qt terminal, spyder-terminal also provides a web-based terminal
 interface based on Tornado, which allows you to deploy and serve terminals
 from a Web/Javascript frontend. To deploy only the server, you can execute
 the following bash script:
 
 ::
-
-    cd spyder_terminal/server
 
     # Shell option:
 
@@ -133,51 +127,64 @@ the following bash script:
     # cmd: %SystemRoot%\windows\system32\cmd.exe
     # powershell: %SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe
 
-    python main.py --port <PORT> --shell <Path to the terminal backend to execute>
-
-Build from source code
--------------------------
-
-Install all the dependencies given in our `requirements file <https://github.com/spyder-ide/spyder-terminal/tree/master/requirements>`_
-depending on your OS, a distribution of `node <https://nodejs.org/>`_ and
-`yarn <https://yarnpkg.com/lang/en/>`_. Then, use the following bash script 
-to build the plugin from source code.
-
-::
-    python setup.py build_static
-
-
-Run tests
----------
-
-In order to run our test suite, install the `dependencies <https://github.com/spyder-ide/spyder-terminal/blob/master/requirements/tests.txt>`_ for
-tests and make sure spyder-terminal is already installed. Then, use pytest
-to run the server and client tests for the terminal.
-
-::
-    pytest .
+    python -m spyder_terminal.server --port <PORT> --shell <Path to the terminal backend to execute>
 
 
 Development and contribution
 ----------------------------
 
-To start contributing to this project, you must have installed the ``yarn``
-package manager, then you can execute ``python setup.py install`` to test
-your changes on Spyder. We follow PEP8 and PEP257 style guidelines.
+To start contributing to this project, you need to install the ``yarn``
+and ``npm`` package managers. If you use conda, you can run the following
+command to do that:
+
+::
+
+    conda install -c conda-forge nodejs yarn
+
+Then, please install the package's dependencies with:
+
+::
+
+    conda create -n spyder-terminal-dev -c conda-forge --file requirements/{conda,conda_win}.txt
+
+depending on your operating system.
+
+Afterwards, you need to run
+
+::
+
+    python setup.py build_static
+
+to build the Javascript components for this plugin.
+
+Finally, in order to run our test suite, please install its required dependencies with
+
+::
+
+    conda install -c conda-forge --file requirements/tests.txt
 
 
-~~~~~~~
+and use pytest to run the server and client tests for the terminal like this
 
-Support us with a monthly donation and help us continue our activities.
+::
 
-.. image:: https://opencollective.com/spyder/backers.svg
-   :target: https://opencollective.com/spyder#support
-   :alt: Backers
+    pytest .
+
 
 Sponsors
-~~~~~~~~
+--------
 
-Become a sponsor to get your logo on our README on Github.
+Spyder is funded thanks to the generous support of
+
+.. image:: https://static.wixstatic.com/media/095d2c_2508c560e87d436ea00357abc404cf1d~mv2.png/v1/crop/x_0,y_9,w_915,h_329/fill/w_380,h_128,al_c,usm_0.66_1.00_0.01/095d2c_2508c560e87d436ea00357abc404cf1d~mv2.png
+   :target: https://www.quansight.com
+   :alt: Quansight
+
+.. image:: https://i2.wp.com/numfocus.org/wp-content/uploads/2017/07/NumFocus_LRG.png?fit=320%2C148&ssl=1
+   :target: https://numfocus.org/
+   :alt: Numfocus
+
+And the donations we have received from our users around the world through `Open Collective <https://opencollective.com/spyder>`_:
 
 .. image:: https://opencollective.com/spyder/sponsors.svg
    :target: https://opencollective.com/spyder#support

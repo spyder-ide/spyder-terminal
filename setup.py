@@ -75,6 +75,7 @@ setup(
     description='Spyder Plugin for displaying a virtual terminal '
                 '(OS independent) inside the main Spyder window',
     long_description=get_description(),
+    long_description_content_type='text/x-rst',
     packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
     install_requires=REQUIREMENTS,
     include_package_data=True,
