@@ -8,14 +8,11 @@ Project status
 
 Build status
 ------------
-|circleci status| |Azure status| |coverage| |crowdin|
+|Github actions status| |coverage| |crowdin|
 
-.. |Azure status| image:: https://dev.azure.com/spyder-ide/spyder-terminal/_apis/build/status/spyder-ide.spyder-terminal?branchName=master
-   :target: https://dev.azure.com/spyder-ide/spyder-terminal/_build/latest?definitionId=2&branchName=master
-   :alt: Azure build status
-.. |circleci status| image:: https://img.shields.io/circleci/project/github/spyder-ide/spyder-terminal/master.svg
-   :target: https://circleci.com/gh/spyder-ide/spyder-terminal/tree/master
-   :alt: Circle-CI build status
+.. |Github actions status| image:: https://github.com/spyder-ide/spyder-terminal/workflows/Tests/badge.svg
+   :target: https://github.com/spyder-ide/spyder-terminal/actions
+   :alt: Github actions build status
 .. |license| image:: https://img.shields.io/pypi/l/spyder-terminal.svg
    :target: LICENSE.txt
    :alt: License (MIT)

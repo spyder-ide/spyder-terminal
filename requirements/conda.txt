@@ -1,6 +1,6 @@
-spyder>=4.0.0
-pexpect
-tornado
 coloredlogs
+pexpect
 requests
+spyder>=4.0.0
 terminado
+tornado

@@ -1,5 +1,6 @@
+codecov
+flaky
 pytest
 pytest-cov
-flaky
 pytest-qt
 pytest-timeout

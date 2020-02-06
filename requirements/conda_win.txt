@@ -1,6 +1,6 @@
-spyder>=4.0.0
-pywinpty==0.5.1
-tornado
 coloredlogs
+pywinpty>=0.5.1
 requests
+spyder>=4.0.0
 terminado
+tornado

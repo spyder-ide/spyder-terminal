@@ -1,0 +1,180 @@
+name: Tests
+
+on:
+  # This avoids having duplicate builds for a pull request
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+jobs:
+  smoke:
+    name: Linux smoke test Py${{ matrix.PYTHON_VERSION }} conda=${{ matrix.USE_CONDA }}
+    runs-on: ubuntu-latest
+    env:
+      CI: True
+      PYTHON_VERSION: ${{ matrix.PYTHON_VERSION }}
+      RUNNER_OS: ubuntu
+      USE_CONDA: ${{ matrix.USE_CONDA }}
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['2.7']
+        USE_CONDA: ['yes']
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1.2.0
+      - name: Install system packages
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get install libegl1-mesa
+      - name: Install Conda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+           activate-environment: 'test'
+           auto-activate-base: false
+           auto-update-conda: true
+           miniconda-version: 'latest'
+           python-version: ${{ matrix.PYTHON_VERSION }}
+      - name: Install dependencies
+        shell: bash -l {0}
+        run: ./.github/workflows/install.sh
+      - name: Install package
+        shell: bash -l {0}
+        run: python setup.py build_static
+      - name: Environment information
+        shell: bash -l {0}
+        run: conda list
+      - name: Run tests
+        shell: bash -l {0}
+        run: python runtests.py
+      - name: Upload coverage results
+        shell: bash -l {0}
+        run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
+
+  linux:
+    name: Linux Py${{ matrix.PYTHON_VERSION }} conda=${{ matrix.USE_CONDA }}
+    # needs: smoke
+    runs-on: ubuntu-latest
+    env:
+      CI: True
+      PYTHON_VERSION: ${{ matrix.PYTHON_VERSION }}
+      RUNNER_OS: ubuntu
+      USE_CONDA: ${{ matrix.USE_CONDA }}
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['3.6', '3.7']
+        USE_CONDA: ['yes']
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1.2.0
+      - name: Install system packages
+        run: |
+          sudo apt-get -qq update
+          sudo apt-get install libegl1-mesa
+      - name: Install Conda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+           activate-environment: 'test'
+           auto-activate-base: false
+           auto-update-conda: true
+           miniconda-version: 'latest'
+           python-version: ${{ matrix.PYTHON_VERSION }}
+      - name: Install dependencies
+        shell: bash -l {0}
+        run: ./.github/workflows/install.sh
+      - name: Install package
+        shell: bash -l {0}
+        run: python setup.py build_static
+      - name: Environment information
+        shell: bash -l {0}
+        run: conda list
+      - name: Run tests
+        shell: bash -l {0}
+        run: python runtests.py
+      - name: Upload coverage results
+        shell: bash -l {0}
+        run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
+
+  macos:
+    name: Mac Py${{ matrix.PYTHON_VERSION }} conda=${{ matrix.USE_CONDA }}
+    # needs: smoke
+    runs-on: macos-latest
+    env:
+      CI: True
+      PYTHON_VERSION: ${{ matrix.PYTHON_VERSION }}
+      RUNNER_OS: macos
+      USE_CONDA: ${{ matrix.USE_CONDA }}
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['2.7', '3.6', '3.7']
+        USE_CONDA: ['yes']
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1.2.0
+      - name: Install Conda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+           activate-environment: 'test'
+           auto-activate-base: false
+           auto-update-conda: true
+           miniconda-version: 'latest'
+           python-version: ${{ matrix.PYTHON_VERSION }}
+      - name: Install dependencies
+        shell: bash -l {0}
+        run: ./.github/workflows/install.sh
+      - name: Install package
+        shell: bash -l {0}
+        run: python setup.py build_static
+      - name: Environment information
+        shell: bash -l {0}
+        run: conda list
+      - name: Run tests
+        shell: bash -l {0}
+        run: python runtests.py
+      - name: Upload coverage results
+        shell: bash -l {0}
+        run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
+
+  windows:
+    name: Windows Py${{ matrix.PYTHON_VERSION }} conda=${{ matrix.USE_CONDA }}
+    # needs: smoke
+    runs-on: windows-latest
+    env:
+      CI: True
+      PYTHON_VERSION: ${{ matrix.PYTHON_VERSION }}
+      RUNNER_OS: windows
+      USE_CONDA: ${{ matrix.USE_CONDA }}
+    strategy:
+      fail-fast: false 
+      matrix:
+        PYTHON_VERSION: ['2.7', '3.6', '3.7']
+        USE_CONDA: ['yes', 'no']
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1.2.0
+      - name: Install Conda
+        uses: goanpeca/setup-miniconda@v1
+        with:
+           activate-environment: 'test'
+           auto-activate-base: false
+           auto-update-conda: true
+           miniconda-version: 'latest'
+           python-version: ${{ matrix.PYTHON_VERSION }}
+      - name: Install dependencies
+        shell: bash -l {0}
+        run: bash -l ./.github/workflows/install.sh
+      - name: Install package
+        shell: bash -l {0}
+        run: python setup.py build_static
+      - name: Environment information
+        run: conda list
+      - name: Run tests
+        shell: bash -l {0}
+        run: python runtests.py
+      - name: Upload coverage results
+        run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
