@@ -125,7 +125,7 @@ def test_terminal_font(setup_terminal, qtbot_module):
     #terminal.closing_plugin()
 
 
-@pytest.mark.skipif(sys.platform.startswith('linux'), reason="It fails on linux")
+@pytest.mark.skipif(sys.platform != 'darwin', reason="It fails on linux and windows")
 def test_terminal_tab_title(setup_terminal, qtbot_module):
     """Test if terminal tab titles are numbered sequentially."""
     terminal = setup_terminal

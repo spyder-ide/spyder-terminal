@@ -22,6 +22,7 @@ if [ "$USE_CONDA" = "yes" ]; then
         conda install qt=5.9.6 -c conda-forge -q -y
     fi
 else
+    pip install pyqt5
 
     # Install dependencies
     if [ "$RUNNER_OS" = "windows" ]; then
