@@ -170,7 +170,7 @@ jobs:
       - name: Environment information
         run: conda list
       - name: Run tests
-        shell: cmd /C CALL {0}
+        shell: bash -l {0}
         run: pytest spyder_terminal --cov=spyder_terminal
       - name: Upload coverage results
         run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
