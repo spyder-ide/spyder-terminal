@@ -19,10 +19,16 @@ if [ "$USE_CONDA" = "yes" ]; then
 
     # Install qt
     if [ "$RUNNER_OS" = "macos" ]; then
-        conda install qt=5.9.6 -c conda-forge -q -y
+        conda install qt=5.* -c conda-forge -q -y
+        # conda install qt=5.9.6 -c conda-forge -q -y
     fi
 else
-    pip install pyqt5
+    # Install qt
+    if [ "$PYTHON_VERSION" = "2.7" ]; then
+        conda install qt=5.* -c conda-forge -q -y
+    else
+        pip install pyqt5
+    fi
 
     # Install dependencies
     if [ "$RUNNER_OS" = "windows" ]; then

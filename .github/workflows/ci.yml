@@ -174,7 +174,7 @@ jobs:
       - name: Environment information
         run: conda list
       - name: Run tests
-        shell: bash -l {0}
+        shell: powershell
         run: python runtests.py
       - name: Upload coverage results
         run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
