@@ -21,7 +21,7 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['2.7']
+        PYTHON_VERSION: ['3.6']
         USE_CONDA: ['yes']
     steps:
       - name: Checkout branch
@@ -49,9 +49,6 @@ jobs:
       - name: Run tests
         shell: bash -l {0}
         run: python runtests.py
-      - name: Upload coverage results
-        shell: bash -l {0}
-        run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
 
   linux:
     name: Linux Py${{ matrix.PYTHON_VERSION }} conda=${{ matrix.USE_CONDA }}
@@ -65,7 +62,7 @@ jobs:
     strategy:
       fail-fast: false 
       matrix:
-        PYTHON_VERSION: ['3.6', '3.7']
+        PYTHON_VERSION: ['2.7', '3.7']
         USE_CONDA: ['yes']
     steps:
       - name: Checkout branch
@@ -93,9 +90,6 @@ jobs:
       - name: Run tests
         shell: bash -l {0}
         run: python runtests.py
-      - name: Upload coverage results
-        shell: bash -l {0}
-        run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
 
   macos:
     name: Mac Py${{ matrix.PYTHON_VERSION }} conda=${{ matrix.USE_CONDA }}
@@ -172,5 +166,3 @@ jobs:
       - name: Run tests
         shell: bash -l {0}
         run: pytest spyder_terminal --cov=spyder_terminal
-      - name: Upload coverage results
-        run: codecov -t 273c981b-7851-4895-a4bb-07377c67791e
