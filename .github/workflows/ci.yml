@@ -164,5 +164,8 @@ jobs:
       - name: Environment information
         run: conda list
       - name: Run tests
+        shell: cmd /C CALL {0}
+        run: conda list
+      - name: Run tests
         shell: bash -l {0}
-        run: pytest spyder_terminal --cov=spyder_terminal
+        run: pytest -s spyder_terminal --cov=spyder_terminal --timeout=60
