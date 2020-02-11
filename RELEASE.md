@@ -8,17 +8,15 @@ To release a new version of spyder-terminal:
 
 * Update CHANGELOG.md with `loghub -m <milestone> -u <github-user> spyder-ide/spyder-terminal`
 
+* git add and git commit with "Update Changelog"
+
 * Update VERSION_INFO in `__init__.py` (set release version, remove 'dev0')
 
-* git add and git commit
+* git add and git commit with "Release x.x.x"
 
 * python setup.py clean_components
 
 * python setup.py build_static
-
-* python setup.py bdist_wheel --plat-name win_amd64
-
-* python setup.py bdist_wheel --plat-name win32
 
 * python setup.py bdist_wheel --universal
 
@@ -28,7 +26,7 @@ To release a new version of spyder-terminal:
 
 * twine upload dist/*
 
-* git tag -a vX.X.X -m 'comment'
+* git tag -a vX.X.X -m 'Release x.x.x'
 
 * Update VERSION_INFO in `__init__.py` (add 'dev0' and increment minor)
 
