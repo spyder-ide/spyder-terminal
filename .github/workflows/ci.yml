@@ -143,9 +143,9 @@ jobs:
       matrix:
         PYTHON_VERSION: ['2.7', '3.6', '3.7']
         USE_CONDA: ['yes', 'no']
-      exclude:
-        - PYTHON_VERSION: '2.7'
-          USE_CONDA: 'no'
+        exclude:
+          - PYTHON_VERSION: '2.7'
+            USE_CONDA: 'no'
     steps:
       - name: Checkout branch
         uses: actions/checkout@v1.2.0
