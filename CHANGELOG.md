@@ -1,3 +1,45 @@
+## Version 0.3.0 (2020-02-05)
+
+### Issues Closed
+
+* [Issue 168](https://github.com/spyder-ide/spyder-terminal/issues/168) - Change "terminal" to "consola" in Spanish translation ([PR 169](https://github.com/spyder-ide/spyder-terminal/pull/169))
+* [Issue 161](https://github.com/spyder-ide/spyder-terminal/issues/161) - Some UI/UX improvements for 0.3.0 ([PR 166](https://github.com/spyder-ide/spyder-terminal/pull/166))
+* [Issue 159](https://github.com/spyder-ide/spyder-terminal/issues/159) - Test new localization scripts ([PR 156](https://github.com/spyder-ide/spyder-terminal/pull/156))
+* [Issue 158](https://github.com/spyder-ide/spyder-terminal/issues/158) - Add correct localization handling
+* [Issue 149](https://github.com/spyder-ide/spyder-terminal/issues/149) - Spyder-terminal is not starting on spyder 4 beta 2 ([PR 150](https://github.com/spyder-ide/spyder-terminal/pull/150))
+* [Issue 138](https://github.com/spyder-ide/spyder-terminal/issues/138) - Implement JS routines using ES6/JSX syntax ([PR 153](https://github.com/spyder-ide/spyder-terminal/pull/153))
+* [Issue 137](https://github.com/spyder-ide/spyder-terminal/issues/137) - Migrate JS dependencies to Yarn ([PR 141](https://github.com/spyder-ide/spyder-terminal/pull/141))
+* [Issue 126](https://github.com/spyder-ide/spyder-terminal/issues/126) - xterm 3.0 (switched from DOM to canvas) ([PR 153](https://github.com/spyder-ide/spyder-terminal/pull/153))
+* [Issue 122](https://github.com/spyder-ide/spyder-terminal/issues/122) - Use Terminado as backend terminal server handler ([PR 142](https://github.com/spyder-ide/spyder-terminal/pull/142))
+* [Issue 116](https://github.com/spyder-ide/spyder-terminal/issues/116) - Changes for compatibility with new undocking behavior of Spyder ([PR 144](https://github.com/spyder-ide/spyder-terminal/pull/144))
+* [Issue 108](https://github.com/spyder-ide/spyder-terminal/issues/108) - Add terminal color schemes ([PR 160](https://github.com/spyder-ide/spyder-terminal/pull/160))
+
+In this release 11 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 173](https://github.com/spyder-ide/spyder-terminal/pull/173) - PR: Update to latest xterm.js version and pin dependencies
+* [PR 171](https://github.com/spyder-ide/spyder-terminal/pull/171) - PR: Make some improvements to the Readme
+* [PR 170](https://github.com/spyder-ide/spyder-terminal/pull/170) - PR: Fix double scroll bar appearing in Linux
+* [PR 169](https://github.com/spyder-ide/spyder-terminal/pull/169) - PR: New Crowdin translations ([168](https://github.com/spyder-ide/spyder-terminal/issues/168))
+* [PR 166](https://github.com/spyder-ide/spyder-terminal/pull/166) - PR: Fix styling issues for UI consistency ([161](https://github.com/spyder-ide/spyder-terminal/issues/161))
+* [PR 165](https://github.com/spyder-ide/spyder-terminal/pull/165) - PR: Add scrollbar style to match Spyder dark theme
+* [PR 163](https://github.com/spyder-ide/spyder-terminal/pull/163) - PR: Add shortcuts configuration
+* [PR 160](https://github.com/spyder-ide/spyder-terminal/pull/160) - PR: Add themes to the terminal ([108](https://github.com/spyder-ide/spyder-terminal/issues/108))
+* [PR 156](https://github.com/spyder-ide/spyder-terminal/pull/156) - PR: Add configuration entry for preferences ([159](https://github.com/spyder-ide/spyder-terminal/issues/159))
+* [PR 155](https://github.com/spyder-ide/spyder-terminal/pull/155) - PR: Fix connection between Qt handler and Javascript
+* [PR 154](https://github.com/spyder-ide/spyder-terminal/pull/154) - PR: Upgrade xterm to 4.2 and add search functionality
+* [PR 153](https://github.com/spyder-ide/spyder-terminal/pull/153) - PR: Update xterm.js to its latest version ([138](https://github.com/spyder-ide/spyder-terminal/issues/138), [126](https://github.com/spyder-ide/spyder-terminal/issues/126))
+* [PR 152](https://github.com/spyder-ide/spyder-terminal/pull/152) - PR: Update to CircleCI 2.0
+* [PR 151](https://github.com/spyder-ide/spyder-terminal/pull/151) - PR: Set up CI with Azure Pipelines
+* [PR 150](https://github.com/spyder-ide/spyder-terminal/pull/150) - PR: Update SpyderPluginWidget import  ([149](https://github.com/spyder-ide/spyder-terminal/issues/149))
+* [PR 144](https://github.com/spyder-ide/spyder-terminal/pull/144) - PR: Add support for undocking behavior compatibility with Spyder 4 ([116](https://github.com/spyder-ide/spyder-terminal/issues/116))
+* [PR 142](https://github.com/spyder-ide/spyder-terminal/pull/142) - PR: Migrate to terminado for the server ([122](https://github.com/spyder-ide/spyder-terminal/issues/122))
+* [PR 141](https://github.com/spyder-ide/spyder-terminal/pull/141) - PR: Yarn migration ([137](https://github.com/spyder-ide/spyder-terminal/issues/137))
+
+In this release 18 pull requests were closed.
+
+
 ## Version 0.2.4 (2018/05/31)
 
 ### Issues Closed
