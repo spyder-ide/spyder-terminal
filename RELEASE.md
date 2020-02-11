@@ -24,7 +24,7 @@ To release a new version of spyder-terminal:
 
 * python setup.py sdist
 
-* twine check
+* twine check dist/*
 
 * twine upload dist/*
 
