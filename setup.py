@@ -48,6 +48,16 @@ REQUIREMENTS = [
     'requests'
 ]
 
+EXTRAS_REQUIRE = {
+    'test':
+        [
+        'pytest',
+        'pytest-cov',
+        'flaky',
+        'pytest-qt',
+        'pytest-timeout'
+        ]
+}
 
 # Verify that COMPONENTS exist before trying to build wheels
 if any([arg == 'bdist_wheel' for arg in sys.argv]):
@@ -90,4 +100,6 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
-    ])
+        ],
+    extras_require= EXTRAS_REQUIRE
+    )
