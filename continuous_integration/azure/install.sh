@@ -10,9 +10,6 @@ if [ $(uname) == Darwin ]; then
     conda install -q -y qt=5.9.6
 fi
 
-# Install nodejs
-conda install -q -y -c conda-forge nodejs 
-
 # Install yarn
 conda install -q -y -c conda-forge yarn
 
