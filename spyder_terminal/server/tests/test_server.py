@@ -164,7 +164,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
 
         sock.write_message('cd {0}{1}'.format(LOCATION_SLASH, LINE_END))
 
-        python_exec = 'python3 print_size.py' + LINE_END
+        python_exec = 'python print_size.py' + LINE_END
         sock.write_message(python_exec)
 
         expected_size = '(73, 23)'
