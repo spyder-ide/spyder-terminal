@@ -10,7 +10,7 @@ source $HOME/miniconda/etc/profile.d/conda.sh
 conda create -y -n test python=$PYTHON_VERSION
 conda activate test
 
-# Install nomkl to avoid installing Intel MKL libraries 
+# Install nomkl to avoid installing Intel MKL libraries
 conda install -q -y nomkl
 
 # Install dependencies
@@ -19,8 +19,11 @@ conda install -q -y -c spyder-ide --file requirements/conda.txt
 # Install test dependencies
 conda install -q -y -c spyder-ide --file requirements/tests.txt
 
-# Install nodejs
-conda install -q -y -c conda-forge nodejs 
+# Update to latest version of nodejs using nvm
+export NVM_DIR="/opt/circleci/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+nvm install v13.10.1
 
 # -- Install Yarn
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
