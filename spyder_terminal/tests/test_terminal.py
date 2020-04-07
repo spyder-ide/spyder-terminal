@@ -142,7 +142,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
     terminal = setup_terminal
-    # blocker = qtbot_module.waitSignal(terminal.server_is_ready, 
+    # blocker = qtbot_module.waitSignal(terminal.server_is_ready,
     #                                   timeout=TERM_UP)
     # blocker.wait()
     qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
@@ -191,7 +191,6 @@ def test_output_redirection(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-@pytest.mark.first
 @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
 def test_close_terminal_manually(setup_terminal, qtbot_module):
     """Test if terminal tab is closed after process was finished manually."""
