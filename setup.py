@@ -49,14 +49,13 @@ REQUIREMENTS = [
 ]
 
 EXTRAS_REQUIRE = {
-    'test':
-        [
+    'test': [
         'pytest',
         'pytest-cov',
         'flaky',
         'pytest-qt',
         'pytest-timeout'
-        ]
+    ]
 }
 
 # Verify that COMPONENTS exist before trying to build wheels
