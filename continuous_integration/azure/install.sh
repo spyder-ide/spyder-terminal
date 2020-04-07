@@ -10,7 +10,6 @@ if [ $(uname) == Darwin ]; then
     conda install -q -y qt=5.9.6
 fi
 
-# Install yarn
-conda install -q -y -c conda-forge yarn
+which yarn
 
 pip install -q codecov
