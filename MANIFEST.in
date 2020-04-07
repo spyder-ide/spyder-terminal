@@ -4,3 +4,5 @@ include LICENSE.txt
 include README.rst
 include setupbase.py
 recursive-include spyder_terminal/server/static *.html *.js *.json *.css *.png *.eot *.tff *.woff *.woff2
+prune spyder_terminal/tests
+prune spyder_terminal/server/tests
