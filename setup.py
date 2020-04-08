@@ -41,13 +41,22 @@ def get_description():
 
 
 REQUIREMENTS = [
-    'spyder>=4.0.0,<5.0.0',
+    'spyder>=4.1.0,<5.0.0',
     'tornado',
     'terminado',
     'coloredlogs',
     'requests'
 ]
 
+EXTRAS_REQUIRE = {
+    'test': [
+        'pytest',
+        'pytest-cov',
+        'flaky',
+        'pytest-qt',
+        'pytest-timeout'
+    ]
+}
 
 # Verify that COMPONENTS exist before trying to build wheels
 if any([arg == 'bdist_wheel' for arg in sys.argv]):
@@ -92,4 +101,6 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8'
-    ])
+        ],
+    extras_require= EXTRAS_REQUIRE
+    )
