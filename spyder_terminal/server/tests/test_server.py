@@ -164,7 +164,11 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
 
         sock.write_message('cd {0}{1}'.format(LOCATION_SLASH, LINE_END))
 
-        python_exec = 'python print_size.py' + LINE_END
+        # Use the current python interpreter to execute print_size.py if it
+        # can be determined by sys.executable. Otherwise just hope that there
+        # is a `python` in the shell's path which works with the script.
+        python_bin = sys.executable or "python"
+        python_exec = python_bin + ' print_size.py' + LINE_END
         sock.write_message(python_exec)
 
         expected_size = '(73, 23)'
