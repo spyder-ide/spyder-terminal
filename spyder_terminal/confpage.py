@@ -43,7 +43,12 @@ class TerminalConfigPage(PluginConfigPage):
             if find_program(shell) is not None:
                 valid_shells.append(shell)
         valid_shells = zip(valid_shells, valid_shells)
-        default_option = 'cmd' if WINDOWS else 'bash'
+        if WINDOWS:
+            default_option = 'cmd'
+        elif sys.platform == 'linux':
+            default_option = 'bash'
+        else:
+            default_option = 'zsh'
         shell_combo = self.create_combobox(_("Select the shell interpreter:"),
                                            valid_shells, 'shell', restart=True,
                                            default=default_option)
