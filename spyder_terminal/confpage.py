@@ -8,8 +8,10 @@
 
 # Standard library imports
 import os
+import platform
 
 # Third party imports
+from distutils.version import LooseVersion
 from qtpy.QtWidgets import (QVBoxLayout, QGroupBox, QGridLayout, QButtonGroup,
                             QRadioButton, QWidget)
 from spyder.api.preferences import PluginConfigPage
@@ -45,10 +47,15 @@ class TerminalConfigPage(PluginConfigPage):
         valid_shells = zip(valid_shells, valid_shells)
         if WINDOWS:
             default_option = 'cmd'
-        elif sys.platform == 'linux':
+        elif sys.platform.startswith('linux'):
             default_option = 'bash'
         else:
-            default_option = 'zsh'
+            mac_ver = LooseVersion(platform.mac_ver()[0])
+            if mac_ver >= LooseVersion('10.15.0'):
+                # Catalina changed the default shell to zsh
+                default_option = 'zsh'
+            else:
+                default_option = 'bash'
         shell_combo = self.create_combobox(_("Select the shell interpreter:"),
                                            valid_shells, 'shell', restart=True,
                                            default=default_option)
