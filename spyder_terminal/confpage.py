@@ -10,8 +10,9 @@
 import os
 import platform
 
-# Third party imports
 from distutils.version import LooseVersion
+
+# Third party imports
 from qtpy.QtWidgets import (QVBoxLayout, QGroupBox, QGridLayout, QButtonGroup,
                             QRadioButton, QWidget)
 from spyder.api.preferences import PluginConfigPage
