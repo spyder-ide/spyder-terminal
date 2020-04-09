@@ -85,7 +85,7 @@ setup(
                 '(OS independent) inside the main Spyder window',
     long_description=get_description(),
     long_description_content_type='text/x-rst',
-    packages=find_packages(exclude=['contrib', 'docs', 'tests*']),
+    packages=find_packages(exclude=['contrib', 'docs']),
     install_requires=REQUIREMENTS,
     include_package_data=True,
     classifiers=[
@@ -98,7 +98,9 @@ setup(
         'Operating System :: POSIX :: Linux',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8'
         ],
     extras_require= EXTRAS_REQUIRE
     )
