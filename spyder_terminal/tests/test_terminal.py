@@ -182,7 +182,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
 
 def test_output_redirection(setup_terminal, qtbot_module):
     """Test if stdout and stderr are redirected on DEV mode."""
-    assert spyder_terminal.terminalplugin.DEV == True
+    assert spyder_terminal.terminalplugin.DEV == 'True'
 
     stdout = osp.join(getcwd(), 'spyder_terminal_out.log')
     stderr = osp.join(getcwd(), 'spyder_terminal_err.log')
