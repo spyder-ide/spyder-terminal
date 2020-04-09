@@ -16,7 +16,6 @@ jobs:
     USE_CONDA: "yes"
     CI: True
     AZURE: True
-    SPYDER_DEV: True
 
   # Run the pipeline with multiple Python versions
   strategy:
@@ -95,7 +94,6 @@ jobs:
     AZURE: True
     PYTHON: "C:\\Miniconda"
     PYWINPTY_BLOCK: 0
-    SPYDER_DEV: True
     CODECOV_TOKEN: "273c981b-7851-4895-a4bb-07377c67791e"
 
   # Run the pipeline with multiple Python versions

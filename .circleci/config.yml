@@ -22,7 +22,6 @@ jobs:
     environment:
       - PYTHON_VERSION: "3.6"
       - USE_CONDA: "yes"
-      - SPYDER_DEV: true
       - CODECOV_TOKEN: "273c981b-7851-4895-a4bb-07377c67791e"
 
   python3.7:
@@ -30,7 +29,6 @@ jobs:
     environment:
       - PYTHON_VERSION: "3.7"
       - USE_CONDA: "yes"
-      - SPYDER_DEV: true
       - CODECOV_TOKEN: "273c981b-7851-4895-a4bb-07377c67791e"
 
 workflows:
