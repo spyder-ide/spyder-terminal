@@ -12,6 +12,7 @@ let socketURL;
 let socket;
 let pid;
 let curFont;
+let curTheme;
 let alive;
 
 let myHeaders = new Headers();
@@ -44,22 +45,23 @@ function createTerminal(){
   term.loadAddon(searchAddon);
   fitAddon = new FitAddon();
   term.loadAddon(fitAddon);
-  
+
   term.onResize((size) => {
       if (!pid) {
           return;
       }
-      fitAddon.fit();
       const cols = size.cols;
       const rows = size.rows;
       const url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
 
       fetch(url, {method: 'POST', headers: myHeaders});
+      term.setOption('theme', curTheme);
+      term.setOption('fontFamily', curFont);
   });
 
   protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
-  
+
   term.open(terminalContainer);
   fitAddon.fit();
   term.focus();
@@ -115,7 +117,6 @@ function setFont(font) {
     let fonts = "monospace";
     fonts = "'"+font+"', "+fonts;
     term.setOption('fontFamily', fonts);
-    fitAddon.fit();
 }
 
 function fitFont(font) {
@@ -175,7 +176,10 @@ function isAlive() {
 }
 
 function setOption(option_name, option) {
-  term.setOption(option_name, option)
+  term.setOption(option_name, option);
+  if(option_name === 'theme'){
+    curTheme = option;
+  }
 }
 
 function runRealTerminal() {

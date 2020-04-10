@@ -257,8 +257,7 @@ class TermView(WebView):
         """Override Qt method."""
         menu = QMenu(self)
         actions = [self.pageAction(QWebEnginePage.SelectAll),
-                   self.copy_action, self.paste_action, None,
-                   self.zoom_in_action, self.zoom_out_action]
+                   self.copy_action, self.paste_action]
         if DEV and not WEBENGINE:
             settings = self.page().settings()
             settings.setAttribute(QWebEngineSettings.DeveloperExtrasEnabled,
