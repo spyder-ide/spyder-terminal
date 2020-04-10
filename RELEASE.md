@@ -2,11 +2,11 @@ To release a new version of spyder-terminal:
 
 * git fetch upstream && git merge upstream/master
 
-* Close milestone on Github
+* Close milestone on Zenhub
 
 * git clean -xfdi
 
-* Update CHANGELOG.md with `loghub -m <milestone> -u <github-user> spyder-ide/spyder-terminal`
+* Update CHANGELOG.md with `loghub spyder-ide/spyder-terminal -zr "spyder-terminal vX.X.X"`
 
 * git add and git commit with "Update Changelog"
 
