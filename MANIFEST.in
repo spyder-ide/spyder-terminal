@@ -3,8 +3,6 @@ include CONTRIBUTORS.md
 include LICENSE.txt
 include README.rst
 include setupbase.py
-include runtests.py
-include conftest.py
 recursive-include spyder_terminal *.po
 recursive-include spyder_terminal *.pot
 recursive-include spyder_terminal *.mo
