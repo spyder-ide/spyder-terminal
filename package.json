@@ -13,7 +13,7 @@
     "fetch": "github/fetch#^2.0.3",
     "jquery": "jquery/jquery-dist#^3.2.1",
     "promise-polyfill": "taylorhakes/promise-polyfill#^6.0.2",
-    "xterm": "^4.4.0",
+    "xterm": "^4.5.0",
     "xterm-addon-attach": "^0.3.0",
     "xterm-addon-fit": "^0.3.0",
     "xterm-addon-search": "^0.3.0",
