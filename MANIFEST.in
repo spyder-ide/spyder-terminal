@@ -3,6 +3,9 @@ include CONTRIBUTORS.md
 include LICENSE.txt
 include README.rst
 include setupbase.py
-recursive-include spyder_terminal/server/static *.html *.js *.json *.css *.png *.eot *.tff *.woff *.woff2
+recursive-include spyder_terminal *.po
+recursive-include spyder_terminal *.pot
+recursive-include spyder_terminal *.mo
+recursive-include spyder_terminal/server/static *.html *.js *.json *.css *.png *.eot *.woff *.woff2 *.svg *.ttf
 prune spyder_terminal/tests
 prune spyder_terminal/server/tests

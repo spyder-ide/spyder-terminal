@@ -4,6 +4,8 @@ To release a new version of spyder-terminal:
 
 * Close milestone on Zenhub
 
+* Run `check-manifest` to verify that all required files are part of the distribution.
+
 * git clean -xfdi
 
 * Update CHANGELOG.md with `loghub spyder-ide/spyder-terminal -zr "spyder-terminal vX.X.X"`
