@@ -1,3 +1,38 @@
+## Version spyder-terminal v0.3.1 (2020/04/21)
+
+### Issues Closed
+
+* [Issue 184](https://github.com/spyder-ide/spyder-terminal/issues/184) - Don't distribute our tests with the package ([PR 190](https://github.com/spyder-ide/spyder-terminal/pull/190) by [@steff456](https://github.com/steff456))
+* [Issue 183](https://github.com/spyder-ide/spyder-terminal/issues/183) - Add testing requirements to setup.py ([PR 185](https://github.com/spyder-ide/spyder-terminal/pull/185) by [@steff456](https://github.com/steff456))
+* [Issue 181](https://github.com/spyder-ide/spyder-terminal/issues/181) - Unknown mark pytest.mark.first on a test ([PR 186](https://github.com/spyder-ide/spyder-terminal/pull/186) by [@steff456](https://github.com/steff456))
+* [Issue 180](https://github.com/spyder-ide/spyder-terminal/issues/180) - Declare DEV mode in tests using conftest.py ([PR 192](https://github.com/spyder-ide/spyder-terminal/pull/192) by [@steff456](https://github.com/steff456))
+* [Issue 179](https://github.com/spyder-ide/spyder-terminal/issues/179) - test_terminal_resize assumes python command ([PR 191](https://github.com/spyder-ide/spyder-terminal/pull/191) by [@bnavigator](https://github.com/bnavigator))
+* [Issue 177](https://github.com/spyder-ide/spyder-terminal/issues/177) - Command prompt shows wrong shell ([PR 193](https://github.com/spyder-ide/spyder-terminal/pull/193) by [@steff456](https://github.com/steff456))
+* [Issue 176](https://github.com/spyder-ide/spyder-terminal/issues/176) - Update requirement to Spyder >=4.1.0 when released ([PR 178](https://github.com/spyder-ide/spyder-terminal/pull/178) by [@steff456](https://github.com/steff456))
+
+In this release 7 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 198](https://github.com/spyder-ide/spyder-terminal/pull/198) - PR: Add compatibility with the latest release of xterm, by [@steff456](https://github.com/steff456)
+* [PR 197](https://github.com/spyder-ide/spyder-terminal/pull/197) - PR: Add some missing files to the distribution package, by [@ccordoba12](https://github.com/ccordoba12)
+* [PR 196](https://github.com/spyder-ide/spyder-terminal/pull/196) - PR: Update release instructions with new loghub command, by [@ccordoba12](https://github.com/ccordoba12)
+* [PR 195](https://github.com/spyder-ide/spyder-terminal/pull/195) - PR: Fix font size bug when resizing the terminal, by [@steff456](https://github.com/steff456)
+* [PR 194](https://github.com/spyder-ide/spyder-terminal/pull/194) - PR: Do not set DEV but assert it has been set, by [@bnavigator](https://github.com/bnavigator)
+* [PR 193](https://github.com/spyder-ide/spyder-terminal/pull/193) - PR: Change default terminal for macOS Catalina, by [@steff456](https://github.com/steff456) ([177](https://github.com/spyder-ide/spyder-terminal/issues/177))
+* [PR 192](https://github.com/spyder-ide/spyder-terminal/pull/192) - PR: Add conftest.py and remove the SPYDER_DEV variable in the CIs, by [@steff456](https://github.com/steff456) ([180](https://github.com/spyder-ide/spyder-terminal/issues/180))
+* [PR 191](https://github.com/spyder-ide/spyder-terminal/pull/191) - PR: Use sys.executable in test_terminal_resize, by [@bnavigator](https://github.com/bnavigator) ([179](https://github.com/spyder-ide/spyder-terminal/issues/179), [179](https://github.com/spyder-ide/spyder-terminal/issues/179))
+* [PR 190](https://github.com/spyder-ide/spyder-terminal/pull/190) - PR: Exclude tests from distribution package, by [@steff456](https://github.com/steff456) ([184](https://github.com/spyder-ide/spyder-terminal/issues/184))
+* [PR 189](https://github.com/spyder-ide/spyder-terminal/pull/189) - PR: Bump acorn from 6.4.0 to 6.4.1, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 188](https://github.com/spyder-ide/spyder-terminal/pull/188) - PR: Resolve vulnerabilities, by [@steff456](https://github.com/steff456)
+* [PR 187](https://github.com/spyder-ide/spyder-terminal/pull/187) - PR: Update deprecated dependencies and remove Python 2 from CIs, by [@steff456](https://github.com/steff456)
+* [PR 186](https://github.com/spyder-ide/spyder-terminal/pull/186) - PR: Remove unnecessary pytest first marker, by [@steff456](https://github.com/steff456) ([181](https://github.com/spyder-ide/spyder-terminal/issues/181))
+* [PR 185](https://github.com/spyder-ide/spyder-terminal/pull/185) - PR: Add testing requirements to setup.py, by [@steff456](https://github.com/steff456) ([183](https://github.com/spyder-ide/spyder-terminal/issues/183))
+* [PR 178](https://github.com/spyder-ide/spyder-terminal/pull/178) - PR: Update Spyder requirement to 4.1, by [@steff456](https://github.com/steff456) ([176](https://github.com/spyder-ide/spyder-terminal/issues/176))
+
+In this release 15 pull requests were closed.
+
+
 ## Version 0.3.0 (2020-02-05)
 
 ### Issues Closed
