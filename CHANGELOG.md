@@ -1,3 +1,12 @@
+## Version spyder-terminal v0.3.2 (2020/04/27)
+
+
+### Pull Requests Merged
+
+* [PR 201](https://github.com/spyder-ide/spyder-terminal/pull/201) - PR: Import sys for confpage, by [@bnavigator](https://github.com/bnavigator)
+
+In this release 1 pull request was closed.
+
 ## Version spyder-terminal v0.3.1 (2020/04/21)
 
 ### Issues Closed
