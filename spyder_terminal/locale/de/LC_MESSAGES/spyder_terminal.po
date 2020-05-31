@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2019-12-09 09:55-0500\n"
-"PO-Revision-Date: 2020-04-27 18:56\n"
+"PO-Revision-Date: 2020-05-31 17:26\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: spyder_terminal/confpage.py:34
 msgid "Terminal shell"
-msgstr ""
+msgstr "Terminal-Shell"
 
 #: spyder_terminal/confpage.py:47
 msgid "Select the shell interpreter:"
@@ -53,11 +53,11 @@ msgstr ""
 
 #: spyder_terminal/terminalplugin.py:107
 msgid "Open a new terminal"
-msgstr ""
+msgstr "Neues Terminal öffnen"
 
 #: spyder_terminal/terminalplugin.py:110
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: spyder_terminal/terminalplugin.py:151
 msgid "Spyder Terminal Error"
@@ -77,11 +77,11 @@ msgstr ""
 
 #: spyder_terminal/terminalplugin.py:207
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 #: spyder_terminal/terminalplugin.py:217
 msgid "New terminal in current working directory"
-msgstr ""
+msgstr "Neues Terminal im aktuellen Arbeitsverzeichnis"
 
 #: spyder_terminal/terminalplugin.py:219
 msgid "Sets the pwd at the current working directory"
@@ -89,7 +89,7 @@ msgstr ""
 
 #: spyder_terminal/terminalplugin.py:225
 msgid "New terminal in current project"
-msgstr ""
+msgstr "Neues Terminal im aktuellen Projekt"
 
 #: spyder_terminal/terminalplugin.py:227
 msgid "Sets the pwd at the current project directory"
@@ -105,13 +105,13 @@ msgstr ""
 
 #: spyder_terminal/terminalplugin.py:245
 msgid "Rename terminal"
-msgstr ""
+msgstr "Terminal umbenennen"
 
 #: spyder_terminal/widgets/terminalgui.py:168
 msgid "Copy text"
-msgstr ""
+msgstr "Text kopieren"
 
 #: spyder_terminal/widgets/terminalgui.py:172
 msgid "Paste text"
-msgstr ""
+msgstr "Text einfügen"
 
