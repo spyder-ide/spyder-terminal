@@ -12,4 +12,4 @@ NOTE: DO NOT add fixtures here. It could generate problems with
 
 import os
 
-os.environ['SPYDER_DEV'] = 'True'
+os.environ['SPYDER_DEBUG'] = '3'
