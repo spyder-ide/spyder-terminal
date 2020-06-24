@@ -22,7 +22,7 @@ from qtpy.QtWidgets import (QApplication, QMessageBox, QVBoxLayout, QMenu,
 from qtpy.QtCore import Qt, Signal, QTimer, Slot
 from qtpy.QtGui import QKeySequence
 from spyder.api.plugins import SpyderPluginWidget
-from spyder.config.base import get_translation, DEV
+from spyder.config.base import get_translation, get_debug_level
 from spyder.config.manager import CONF
 from spyder.utils import icon_manager as ima
 from spyder.utils.programs import find_program
@@ -75,7 +75,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.server_stderr = subprocess.PIPE
         self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
         self.stderr_file = osp.join(getcwd(), 'spyder_terminal_err.log')
-        if DEV:
+        if get_debug_level() > 0:
             self.server_stdout = open(self.stdout_file, 'w')
             self.server_stderr = open(self.stderr_file, 'w')
         self.server = subprocess.Popen(
@@ -272,7 +272,7 @@ class TerminalPlugin(SpyderPluginWidget):
         for term in self.terms:
             term.close()
         self.server.terminate()
-        if DEV:
+        if get_debug_level() > 0:
             self.server_stdout.close()
             self.server_stderr.close()
         return True
