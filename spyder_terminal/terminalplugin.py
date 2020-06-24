@@ -30,7 +30,6 @@ from spyder.utils.qthelpers import (add_actions, create_action,
                                     create_toolbutton,
                                     MENU_SEPARATOR)
 from spyder.widgets.tabs import Tabs
-from spyder.py3compat import PY2, getcwd
 from spyder.utils.misc import select_port
 
 # Local imports
@@ -73,8 +72,8 @@ class TerminalPlugin(SpyderPluginWidget):
         self.CONF = CONF
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
-        self.stdout_file = osp.join(getcwd(), 'spyder_terminal_out.log')
-        self.stderr_file = osp.join(getcwd(), 'spyder_terminal_err.log')
+        self.stdout_file = osp.join(os.getcwd(), 'spyder_terminal_out.log')
+        self.stderr_file = osp.join(os.getcwd(), 'spyder_terminal_err.log')
         if get_debug_level() > 0:
             self.server_stdout = open(self.stdout_file, 'w')
             self.server_stderr = open(self.stderr_file, 'w')
@@ -91,7 +90,7 @@ class TerminalPlugin(SpyderPluginWidget):
 
         self.project_path = None
         self.current_file_path = None
-        self.current_cwd = getcwd()
+        self.current_cwd = os.getcwd()
 
         try:
             # Spyder 3

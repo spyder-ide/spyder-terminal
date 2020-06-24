@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 """Term manager."""
-
-from __future__ import unicode_literals
-
 import os
 import time
 import signal
@@ -45,12 +42,13 @@ class TermManager(TermManagerBase):
 
     def __init__(self, shell_command, **kwargs):
         """Create a new terminal handler instance."""
-        super(TermManager, self).__init__(shell_command, **kwargs)
+        super().__init__(shell_command, **kwargs)
         self.consoles = {}
 
     def new_terminal(self, **options):
         """Make a new terminal, return a :class:`PtyReader` instance."""
-        tty = super(TermManager, self).new_terminal(**options)
+        # tty = super(TermManager, self).new_terminal(**options)
+        tty = super().new_terminal(**options)
         return PtyReader(tty.ptyproc)
 
     @tornado.gen.coroutine
