@@ -13,11 +13,11 @@
     "fetch": "github/fetch#^2.0.3",
     "jquery": "jquery/jquery-dist#^3.5.0",
     "promise-polyfill": "taylorhakes/promise-polyfill#^6.0.2",
-    "xterm": "4.5.0",
-    "xterm-addon-attach": "0.3.0",
-    "xterm-addon-fit": "0.3.0",
-    "xterm-addon-search": "0.3.0",
-    "xterm-addon-web-links": "0.2.1",
+    "xterm": "4.7.0",
+    "xterm-addon-attach": "0.6.0",
+    "xterm-addon-fit": "0.4.0",
+    "xterm-addon-search": "0.7.0",
+    "xterm-addon-web-links": "0.4.0",
     "xterm.js": "sourcelair/xterm.js#^3.14.5"
   },
   "engines": {
@@ -30,8 +30,8 @@
   "devDependencies": {
     "html-webpack-plugin": "^3.2.0",
     "path": "^0.12.7",
-    "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11",
+    "webpack": "4.43.0",
+    "webpack-cli": "3.3.12",
     "webpack-dev-server": "^3.7.2"
   }
 }
