@@ -244,6 +244,7 @@ const term_functions = {
   searchPrevious: searchPrevious,
   setOption: setOption,
   addClassStyleToContainer: addClassStyleToContainer,
+  hexToRGB: hexToRGB,
 };
 
 export default term_functions;
