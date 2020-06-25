@@ -182,12 +182,14 @@ function increaseFontSize(){
   fontSize += 1;
   setOption('fontSize', fontSize);
   fitAddon.fit();
+  return fontSize;
 }
 
 function decreaseFontSize(){
   fontSize -= 1;
   setOption('fontSize', fontSize);
   fitAddon.fit();
+  return fontSize;
 }
 
 function setOption(option_name, option) {
