@@ -47,7 +47,6 @@ class TermManager(TermManagerBase):
 
     def new_terminal(self, **options):
         """Make a new terminal, return a :class:`PtyReader` instance."""
-        # tty = super(TermManager, self).new_terminal(**options)
         tty = super().new_terminal(**options)
         return PtyReader(tty.ptyproc)
 
