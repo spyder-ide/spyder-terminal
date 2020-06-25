@@ -14,6 +14,7 @@ let pid;
 let curFont;
 let curTheme;
 let alive;
+let fontSize;
 
 let myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
@@ -70,6 +71,8 @@ function createTerminal(){
 
   let cols = term.cols;
   let rows = term.rows;
+
+  fontSize = term.getOption('fontSize');
 
   fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {
     method: 'POST',
@@ -175,6 +178,18 @@ function isAlive() {
   return alive;
 }
 
+function increaseFontSize(){
+  fontSize += 1;
+  setOption('fontSize', fontSize);
+  fitAddon.fit();
+}
+
+function decreaseFontSize(){
+  fontSize -= 1;
+  setOption('fontSize', fontSize);
+  fitAddon.fit();
+}
+
 function setOption(option_name, option) {
   term.setOption(option_name, option);
   if(option_name === 'theme'){
@@ -235,6 +250,8 @@ const term_functions = {
   searchNext: searchNext,
   searchPrevious: searchPrevious,
   setOption: setOption,
+  increaseFontSize: increaseFontSize,
+  decreaseFontSize: decreaseFontSize,
   addClassStyleToContainer: addClassStyleToContainer,
 };
 

@@ -253,6 +253,14 @@ class TermView(WebView):
         """Clear the terminal."""
         self.eval_javascript('clearTerm()')
 
+    def increase_font(self):
+        """Increase terminal font."""
+        return self.eval_javascript('increaseFontSize()')
+
+    def decrease_font(self):
+        """Decrease terminal font."""
+        return self.eval_javascript('decreaseFontSize()')
+
     def contextMenuEvent(self, event):
         """Override Qt method."""
         menu = QMenu(self)
@@ -309,6 +317,12 @@ class TermView(WebView):
                 self.paste()
             elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'clear'):
                 self.clear()
+            elif sequence == self.CONF.get_shortcut(
+                    CONF_SECTION, 'increase_font'):
+                self.increase_font()
+            elif sequence == self.CONF.get_shortcut(
+                    CONF_SECTION, 'decrease_font'):
+                self.decrease_font()
             else:
                 event.ignore()
                 return False
