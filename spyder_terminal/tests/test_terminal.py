@@ -21,7 +21,6 @@ os.environ['SPYDER_DEV'] = 'True'
 # Local imports
 import spyder_terminal.terminalplugin
 from spyder_terminal.terminalplugin import TerminalPlugin
-from spyder.py3compat import getcwd
 
 LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
@@ -184,8 +183,8 @@ def test_output_redirection(setup_terminal, qtbot_module):
     """Test if stdout and stderr are redirected on DEV mode."""
     assert spyder_terminal.terminalplugin.get_debug_level() > 0
 
-    stdout = osp.join(getcwd(), 'spyder_terminal_out.log')
-    stderr = osp.join(getcwd(), 'spyder_terminal_err.log')
+    stdout = osp.join(os.getcwd(), 'spyder_terminal_out.log')
+    stderr = osp.join(os.getcwd(), 'spyder_terminal_err.log')
     assert osp.exists(stdout) and osp.exists(stderr)
     # terminal.closing_plugin()
 
