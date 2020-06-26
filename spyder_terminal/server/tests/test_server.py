@@ -8,13 +8,8 @@ Note: This uses tornado.testing unittest style tests
 import os
 import sys
 import os.path as osp
+from urllib.parse import urlencode
 
-PY3 = sys.version_info[0] == 3
-
-if PY3:
-    from urllib.parse import urlencode
-else:
-    from urllib import urlencode
 
 import pytest
 from flaky import flaky

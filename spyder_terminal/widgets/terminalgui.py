@@ -6,9 +6,6 @@
 # (see LICENSE.txt for details)
 # -----------------------------------------------------------------------------
 """Terminal Widget."""
-
-from __future__ import print_function
-
 # Standard library imports
 import sys
 
