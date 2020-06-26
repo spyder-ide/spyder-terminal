@@ -80,7 +80,7 @@ setup(
     url='https://github.com/spyder-ide/spyder-terminal',
     license='MIT',
     author='Spyder Project Contributors',
-    author_email='admin@spyder-ide.org',
+    author_email='spyder.python@gmail.com',
     description='Spyder Plugin for displaying a virtual terminal '
                 '(OS independent) inside the main Spyder window',
     long_description=get_description(),
