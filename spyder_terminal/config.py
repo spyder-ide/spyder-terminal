@@ -28,6 +28,8 @@ CONF_DEFAULTS = [
       'terminal/paste': 'Ctrl+Alt+Shift+V' if LINUX else 'Ctrl+Alt+V',
       'terminal/new_term': 'Ctrl+Alt+T',
       'terminal/clear': 'Ctrl+Alt+K',
+      'terminal/increase_font': 'Ctrl++',
+      'terminal/decrease_font': 'Ctrl+-',
      }
      ),
 ]

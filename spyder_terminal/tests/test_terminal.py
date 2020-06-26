@@ -56,6 +56,30 @@ def check_pwd(termwidget):
         return LOCATION in termwidget.body.toHtml()
 
 
+def check_increase_font_size(term):
+    def callback(data):
+        global font_size
+        font_size = data
+    expected = 15
+    term.body.runJavaScript(PREFIX + "increaseFontSize()", callback)
+    try:
+        return font_size > expected
+    except NameError:
+        return False
+
+
+def check_decrease_font_size(term):
+    def callback(data):
+        global font_size
+        font_size = data
+    expected = 16
+    term.body.runJavaScript(PREFIX + "decreaseFontSize()", callback)
+    try:
+        return font_size < expected
+    except NameError:
+        return False
+
+
 def check_fonts(term, expected):
     """Check if terminal fonts were updated."""
     if WEBENGINE:
@@ -148,6 +172,12 @@ def test_terminal_font(setup_terminal, qtbot_module):
     term.set_font('Ubuntu Mono')
     expected = '\'Ubuntu Mono\', monospace'
     qtbot_module.waitUntil(lambda: check_fonts(term, expected),
+                           timeout=TERM_UP)
+    # Verify increase of size of font
+    qtbot_module.waitUntil(lambda: check_increase_font_size(term),
+                           timeout=TERM_UP)
+    # Verify decrease of size of font
+    qtbot_module.waitUntil(lambda: check_decrease_font_size(term),
                            timeout=TERM_UP)
     #terminal.closing_plugin()
 
