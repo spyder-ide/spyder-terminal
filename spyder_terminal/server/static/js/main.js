@@ -190,6 +190,7 @@ function decreaseFontSize(){
   setOption('fontSize', fontSize);
   fitAddon.fit();
   return fontSize;
+}
 
 function hexToRGB(hex) {
   let r = parseInt(hex.slice(1, 3), 16);

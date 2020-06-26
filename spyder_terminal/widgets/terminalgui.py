@@ -219,6 +219,12 @@ class TermView(WebView):
             self, _("Clear Terminal"),
             triggered=self.clear,
             shortcut=self.CONF.get_shortcut(CONF_SECTION, 'clear'))
+        self.zoom_in = create_action(
+            self, _("Zoom in"), triggered=self.increase_font,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'increase_font'))
+        self.zoom_out = create_action(
+            self, _("Zoom out"), triggered=self.decrease_font,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'decrease_font'))
         if WEBENGINE:
             self.channel = QWebChannel(self.page())
             self.page().setWebChannel(self.channel)
@@ -262,7 +268,8 @@ class TermView(WebView):
         """Override Qt method."""
         menu = QMenu(self)
         actions = [self.pageAction(QWebEnginePage.SelectAll),
-                   self.copy_action, self.paste_action]
+                   self.copy_action, self.paste_action, None, self.zoom_in,
+                   self.zoom_out]
         if DEV and not WEBENGINE:
             settings = self.page().settings()
             settings.setAttribute(QWebEngineSettings.DeveloperExtrasEnabled,
