@@ -60,10 +60,10 @@ def check_increase_font_size(term):
     def callback(data):
         global font_size
         font_size = data
-    expected = 16
+    expected = 15
     term.body.runJavaScript(PREFIX + "increaseFontSize()", callback)
     try:
-        return font_size == expected
+        return font_size > expected
     except NameError:
         return False
 
@@ -72,10 +72,10 @@ def check_decrease_font_size(term):
     def callback(data):
         global font_size
         font_size = data
-    expected = 15
+    expected = 16
     term.body.runJavaScript(PREFIX + "decreaseFontSize()", callback)
     try:
-        return font_size == expected
+        return font_size < expected
     except NameError:
         return False
 
