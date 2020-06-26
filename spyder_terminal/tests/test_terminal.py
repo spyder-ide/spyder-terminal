@@ -73,6 +73,24 @@ def check_fonts(term, expected):
         return fonts == expected
 
 
+def check_hex_to_rgb(term):
+    """Check if terminal is converting hexa colors to rgb correctly."""
+    if WEBENGINE:
+        def callback(data):
+            global hex_to_rgb
+            hex_to_rgb = data
+        expected = 'rgba(170, 171, 33, 0.2)'
+        color = '#aaab21'
+        term.body.runJavaScript(PREFIX + "hexToRGB('{}')".format(color),
+                                callback)
+        try:
+            return hex_to_rgb == expected
+        except NameError:
+            return False
+    else:
+        return True
+
+
 def check_num_tabs(terminal, ref_value):
     """Check if total number of terminal tabs has changed."""
     value = len(terminal.get_terms())
@@ -101,6 +119,19 @@ def setup_terminal(qtbot_module, request):
 
     request.addfinalizer(teardown)
     return terminal
+
+
+def test_terminal_color(setup_terminal, qtbot_module):
+    """Test if the terminal color is converting to rgba correctly."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    term = terminal.get_current_term()
+    port = terminal.port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
+    assert status_code == 200
+    qtbot_module.waitUntil(lambda: check_hex_to_rgb(term),  timeout=TERM_UP)
 
 
 def test_terminal_font(setup_terminal, qtbot_module):
