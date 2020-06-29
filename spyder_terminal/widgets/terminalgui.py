@@ -13,8 +13,8 @@ import sys
 from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
 from qtpy.QtGui import QKeySequence
-from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
-                                     WEBENGINE)
+from qtpy.QtWebChannel import QWebChannel
+from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget
 from spyder.config.base import DEV, get_translation
 from spyder.config.manager import CONF
@@ -27,8 +27,6 @@ from spyder.widgets.browser import WebView
 from spyder_terminal.widgets.style.themes import ANSI_COLORS
 from spyder_terminal.config import CONF_SECTION
 
-if WEBENGINE:
-    from qtpy.QtWebChannel import QWebChannel
 
 PREFIX = 'spyder_terminal.default.'
 
@@ -88,8 +86,6 @@ class TerminalWidget(QFrame):
         self.body = self.view.document
 
         self.handler.sig_ready.connect(self.setup_term)
-        if not WEBENGINE:
-            QTimer.singleShot(250, self.__alive_loopback)
 
     def setup_term(self):
         """Setup other terminal options after page has loaded."""
@@ -222,21 +218,18 @@ class TermView(WebView):
         self.parent = parent
         self.CONF = CONF
         self.shortcuts = self.create_shortcuts()
-        if WEBENGINE:
-            self.channel = QWebChannel(self.page())
-            self.page().setWebChannel(self.channel)
-            self.channel.registerObject('handler', handler)
+        self.channel = QWebChannel(self.page())
+        self.page().setWebChannel(self.channel)
+        self.channel.registerObject('handler', handler)
+
         self.term_url = QUrl(term_url)
         self.load(self.term_url)
 
-        if WEBENGINE:
-            self.document = self.page()
-            try:
-                self.document.profile().clearHttpCache()
-            except AttributeError:
-                pass
-        else:
-            self.document = self.page().mainFrame()
+        self.document = self.page()
+        try:
+            self.document.profile().clearHttpCache()
+        except AttributeError:
+            pass
 
         self.initial_y_pos = 0
         self.setFocusPolicy(Qt.ClickFocus)
@@ -326,11 +319,6 @@ class TermView(WebView):
         actions = [self.pageAction(QWebEnginePage.SelectAll),
                    copy_action, paste_action, clear_action, None, zoom_in,
                    zoom_out]
-        if DEV and not WEBENGINE:
-            settings = self.page().settings()
-            settings.setAttribute(QWebEngineSettings.DeveloperExtrasEnabled,
-                                  True)
-            actions += [None, self.pageAction(QWebEnginePage.InspectElement)]
         add_actions(menu, actions)
         menu.popup(event.globalPos())
         event.accept()
@@ -340,11 +328,7 @@ class TermView(WebView):
         Evaluate Javascript instructions inside DOM with the expected prefix.
         """
         script = PREFIX + script
-        if WEBENGINE:
-            self.document.runJavaScript("{}".format(script),
-                                        self.return_js_value)
-        else:
-            self.document.evaluateJavaScript("{}".format(script))
+        self.document.runJavaScript("{}".format(script), self.return_js_value)
 
     def return_js_value(self, value):
         """Return the value of the function evaluated in Javascript."""

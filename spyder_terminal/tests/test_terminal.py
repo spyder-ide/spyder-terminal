@@ -18,7 +18,6 @@ from unittest.mock import Mock
 from qtpy.QtWebEngineWidgets import WEBENGINE
 from qtpy.QtWidgets import QMainWindow
 
-
 os.environ['SPYDER_DEV'] = 'True'
 
 # Local imports
@@ -46,17 +45,14 @@ PREFIX = 'spyder_terminal.default.'
 
 def check_pwd(termwidget):
     """Check if pwd command is executed."""
-    if WEBENGINE:
-        def callback(data):
-            global html
-            html = data
-        termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
-        try:
-            return LOCATION in html
-        except NameError:
-            return False
-    else:
-        return LOCATION in termwidget.body.toHtml()
+    def callback(data):
+        global html
+        html = data
+    termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
+    try:
+        return LOCATION in html
+    except NameError:
+        return False
 
 
 def check_increase_font_size(term):
@@ -85,37 +81,29 @@ def check_decrease_font_size(term):
 
 def check_fonts(term, expected):
     """Check if terminal fonts were updated."""
-    if WEBENGINE:
-        def callback(data):
-            global term_fonts
-            term_fonts = data
-        term.body.runJavaScript(PREFIX + "getFonts()", callback)
-        try:
-            return term_fonts == expected
-        except NameError:
-            return False
-    else:
-        fonts = term.get_fonts()
-        fonts = fonts.replace("'", '"')
-        return fonts == expected
+    def callback(data):
+        global term_fonts
+        term_fonts = data
+    term.body.runJavaScript(PREFIX + "getFonts()", callback)
+    try:
+        return term_fonts == expected
+    except NameError:
+        return False
 
 
 def check_hex_to_rgb(term):
     """Check if terminal is converting hexa colors to rgb correctly."""
-    if WEBENGINE:
-        def callback(data):
-            global hex_to_rgb
-            hex_to_rgb = data
-        expected = 'rgba(170, 171, 33, 0.2)'
-        color = '#aaab21'
-        term.body.runJavaScript(PREFIX + "hexToRGB('{}')".format(color),
-                                callback)
-        try:
-            return hex_to_rgb == expected
-        except NameError:
-            return False
-    else:
-        return True
+    def callback(data):
+        global hex_to_rgb
+        hex_to_rgb = data
+    expected = 'rgba(170, 171, 33, 0.2)'
+    color = '#aaab21'
+    term.body.runJavaScript(PREFIX + "hexToRGB('{}')".format(color),
+                            callback)
+    try:
+        return hex_to_rgb == expected
+    except NameError:
+        return False
 
 
 def check_num_tabs(terminal, ref_value):
