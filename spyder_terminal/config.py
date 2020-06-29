@@ -26,10 +26,10 @@ CONF_DEFAULTS = [
      {
       'terminal/copy': 'Ctrl+Alt+Shift+C' if LINUX else 'Ctrl+Alt+C',
       'terminal/paste': 'Ctrl+Alt+Shift+V' if LINUX else 'Ctrl+Alt+V',
-      'terminal/new_term': 'Ctrl+Alt+T',
+      'terminal/new terminal': 'Ctrl+Alt+T',
       'terminal/clear': 'Ctrl+Alt+K',
-      'terminal/increase_font': 'Ctrl++',
-      'terminal/decrease_font': 'Ctrl+-',
+      'terminal/zoom in': 'Ctrl++',
+      'terminal/zoom out': 'Ctrl+-',
      }
      ),
 ]
@@ -41,4 +41,4 @@ CONF_DEFAULTS = [
 #    or if you want to *rename* options, then you need to do a MAJOR update in
 #    version, e.g. from 1.0.0 to 2.0.0
 # 3. You don't need to touch this value if you're just adding a new option
-CONF_VERSION = '1.0.0'
+CONF_VERSION = '2.0.0'
