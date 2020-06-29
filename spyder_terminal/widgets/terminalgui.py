@@ -76,6 +76,7 @@ class TerminalWidget(QFrame):
         self.theme = theme
         self.color_scheme = color_scheme
         self.parent = parent
+        self.shortcuts = self.create_shortcuts()
         layout = QVBoxLayout()
         layout.addWidget(self.view)
         layout.setContentsMargins(0, 0, 0, 0)
@@ -99,6 +100,20 @@ class TerminalWidget(QFrame):
         for option in options:
             dict_options[option] = self.parent.get_option(option)
         self.apply_settings(dict_options)
+
+    def create_shortcuts(self):
+        """Create the terminal shortcuts."""
+        return self.view.create_shortcuts()
+
+    def get_shortcut_data(self):
+        """
+        Return shortcut data, a list of tuples (shortcut, text, default).
+
+        shortcut (QShortcut or QAction instance)
+        text (string): action/shortcut description
+        default (string): default key sequence
+        """
+        return self.view.get_shortcut_data()
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
@@ -202,28 +217,11 @@ class TermView(WebView):
         WebView.__init__(self, parent)
         self.parent = parent
         self.CONF = CONF
-        self.copy_action = create_action(
-            self, _("Copy text"), icon=ima.icon('editcopy'),
-            triggered=self.copy,
-            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'copy'))
-        self.paste_action = create_action(
-            self, _("Paste text"),
-            icon=ima.icon('editpaste'),
-            triggered=self.paste,
-            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'paste'))
-        self.clear_action = create_action(
-            self, _("Clear Terminal"),
-            triggered=self.clear,
-            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'clear'))
-        self.zoom_in = create_action(
-            self, _("Zoom in"), triggered=self.increase_font,
-            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'increase_font'))
-        self.zoom_out = create_action(
-            self, _("Zoom out"), triggered=self.decrease_font,
-            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'decrease_font'))
+        self.shortcuts = self.create_shortcuts()
         self.channel = QWebChannel(self.page())
         self.page().setWebChannel(self.channel)
         self.channel.registerObject('handler', handler)
+
         self.term_url = QUrl(term_url)
         self.load(self.term_url)
 
@@ -256,12 +254,71 @@ class TermView(WebView):
         """Decrease terminal font."""
         return self.eval_javascript('decreaseFontSize()')
 
+    def create_shortcuts(self):
+        """Create the terminal shortcuts."""
+        copy_shortcut = self.CONF.config_shortcut(
+            lambda: self.copy(),
+            context='terminal',
+            name='copy',
+            parent=self)
+        paste_shortcut = self.CONF.config_shortcut(
+            lambda: self.paste(),
+            context='terminal',
+            name='paste',
+            parent=self)
+        clear_shortcut = self.CONF.config_shortcut(
+            lambda: self.clear(),
+            context='terminal',
+            name='clear',
+            parent=self)
+        zoomin_shortcut = self.CONF.config_shortcut(
+            lambda: self.increase_font(),
+            context='terminal',
+            name='zoom in',
+            parent=self)
+        zoomout_shortcut = self.CONF.config_shortcut(
+            lambda: self.decrease_font(),
+            context='terminal',
+            name='zoom out',
+            parent=self)
+        return [copy_shortcut, paste_shortcut, clear_shortcut, zoomin_shortcut,
+                zoomout_shortcut]
+
+    def get_shortcut_data(self):
+        """
+        Return shortcut data, a list of tuples (shortcut, text, default).
+
+        shortcut (QShortcut or QAction instance)
+        text (string): action/shortcut description
+        default (string): default key sequence
+        """
+        return [sc.data for sc in self.shortcuts]
+
     def contextMenuEvent(self, event):
         """Override Qt method."""
+        copy_action = create_action(
+            self, _("Copy text"), icon=ima.icon('editcopy'),
+            triggered=self.copy,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'copy'))
+        paste_action = create_action(
+            self, _("Paste text"),
+            icon=ima.icon('editpaste'),
+            triggered=self.paste,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'paste'))
+        clear_action = create_action(
+            self, _("Clear Terminal"),
+            triggered=self.clear,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'clear'))
+        zoom_in = create_action(
+            self, _("Zoom in"), triggered=self.increase_font,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'zoom in'))
+        zoom_out = create_action(
+            self, _("Zoom out"), triggered=self.decrease_font,
+            shortcut=self.CONF.get_shortcut(CONF_SECTION, 'zoom out'))
         menu = QMenu(self)
         actions = [self.pageAction(QWebEnginePage.SelectAll),
-                   self.copy_action, self.paste_action, None, self.zoom_in,
-                   self.zoom_out]
+                   copy_action, paste_action, clear_action, None, zoom_in,
+                   zoom_out]
         add_actions(menu, actions)
         menu.popup(event.globalPos())
         event.accept()
@@ -305,10 +362,10 @@ class TermView(WebView):
             elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'clear'):
                 self.clear()
             elif sequence == self.CONF.get_shortcut(
-                    CONF_SECTION, 'increase_font'):
+                    CONF_SECTION, 'zoom in'):
                 self.increase_font()
             elif sequence == self.CONF.get_shortcut(
-                    CONF_SECTION, 'decrease_font'):
+                    CONF_SECTION, 'zoom out'):
                 self.decrease_font()
             else:
                 event.ignore()

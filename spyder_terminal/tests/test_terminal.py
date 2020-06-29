@@ -12,8 +12,11 @@ import os
 import pytest
 import requests
 import os.path as osp
-from pytestqt.plugin import QtBot
 from flaky import flaky
+from pytestqt.plugin import QtBot
+from unittest.mock import Mock
+from qtpy.QtWebEngineWidgets import WEBENGINE
+from qtpy.QtWidgets import QMainWindow
 
 os.environ['SPYDER_DEV'] = 'True'
 
@@ -119,7 +122,15 @@ def qtbot_module(qapp, request):
 @pytest.fixture(scope='module')
 def setup_terminal(qtbot_module, request):
     """Set up the Notebook plugin."""
-    terminal = TerminalPlugin(None)
+    class MainMock(QMainWindow):
+        def __getattr__(self, attr):
+            return Mock()
+
+        def register_shortcut(self, *args, **kwargs):
+            pass
+
+    main = MainMock()
+    terminal = TerminalPlugin(main)
     qtbot_module.addWidget(terminal)
     qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(5000)

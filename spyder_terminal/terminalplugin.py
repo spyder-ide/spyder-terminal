@@ -126,11 +126,6 @@ class TerminalPlugin(SpyderPluginWidget):
         layout.addWidget(self.tabwidget)
         self.setLayout(layout)
 
-        new_term_shortcut = QShortcut(
-            CONF.get_shortcut(CONF_SECTION, 'new_term'),
-            self, self.create_new_term)
-        new_term_shortcut.setContext(Qt.WidgetWithChildrenShortcut)
-
         self.color_scheme = CONF.get('appearance', 'ui_theme')
         self.theme = CONF.get('appearance', 'selected')
 
@@ -217,7 +212,8 @@ class TerminalPlugin(SpyderPluginWidget):
                                                "the current working "
                                                "directory"),
                                          triggered=self.create_new_term)
-
+        self.register_shortcut(new_terminal_cwd, context='terminal',
+                               name='new terminal')
         self.new_terminal_project = create_action(self,
                                                   _("New terminal in current "
                                                     "project"),
@@ -336,6 +332,7 @@ class TerminalPlugin(SpyderPluginWidget):
         font = self.get_font()
         term = TerminalWidget(self, self.port, path=path, font=font.family(),
                               theme=self.theme, color_scheme=self.color_scheme)
+        self.register_widget_shortcuts(term)
         self.add_tab(term)
         term.terminal_closed.connect(lambda: self.close_term(term=term))
 
