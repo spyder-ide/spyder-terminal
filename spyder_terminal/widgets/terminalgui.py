@@ -361,6 +361,8 @@ class TermView(WebView):
                 key += Qt.META
 
             sequence = QKeySequence(key).toString(QKeySequence.PortableText)
+            if sequence == 'super+V' and os.name == 'nt':
+                self.copy()
             if sequence == self.CONF.get_shortcut(CONF_SECTION, 'copy'):
                 self.copy()
             elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'paste'):
