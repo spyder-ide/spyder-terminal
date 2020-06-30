@@ -7,6 +7,7 @@
 # -----------------------------------------------------------------------------
 """Terminal Widget."""
 # Standard library imports
+import os
 import sys
 
 # Third-party imports
@@ -15,7 +16,7 @@ from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
 from qtpy.QtGui import QKeySequence
 from qtpy.QtWebChannel import QWebChannel
 from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
-from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget
+from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget, QApplication
 from spyder.config.base import DEV, get_translation
 from spyder.config.manager import CONF
 from spyder.config.gui import is_dark_interface
@@ -240,7 +241,12 @@ class TermView(WebView):
 
     def paste(self):
         """Paste unicode text into terminal."""
-        self.triggerPageAction(QWebEnginePage.Paste)
+        clipboard = QApplication.clipboard()
+        text = str(clipboard.text())
+        if len(text.splitlines()) > 1:
+            eol_chars = os.linesep
+            text = eol_chars.join((text + eol_chars).splitlines())
+        self.eval_javascript('pasteText({})'.format(repr(text)))
 
     def clear(self):
         """Clear the terminal."""
