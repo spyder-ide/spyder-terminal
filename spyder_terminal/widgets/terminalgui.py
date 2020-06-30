@@ -15,7 +15,8 @@ from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
 from qtpy.QtGui import QKeySequence
 from qtpy.QtWebChannel import QWebChannel
-from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
+from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
+                                     QWebEngineView)
 from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget, QApplication
 from spyder.config.base import DEV, get_translation
 from spyder.config.manager import CONF
@@ -209,13 +210,16 @@ class TerminalWidget(QFrame):
             self.set_theme(theme, color_scheme)
 
 
-class TermView(WebView):
+class TermView(QWebEngineView):
     """XTerm Wrapper."""
 
     def __init__(self, parent, CONF, term_url='http://127.0.0.1:8070',
                  handler=None):
         """Webview main constructor."""
-        WebView.__init__(self, parent)
+        super().__init__(parent)
+        web_page = QWebEnginePage(self)
+        self.setPage(web_page)
+        self.source_text = ''
         self.parent = parent
         self.CONF = CONF
         self.shortcuts = self.create_shortcuts()
@@ -348,40 +352,41 @@ class TermView(WebView):
     def event(self, event):
         """Grab all keyboard input."""
         if event.type() == QEvent.ShortcutOverride:
-            key = event.key()
-            modifiers = event.modifiers()
-
-            if modifiers & Qt.ShiftModifier:
-                key += Qt.SHIFT
-            if modifiers & Qt.ControlModifier:
-                key += Qt.CTRL
-            if modifiers & Qt.AltModifier:
-                key += Qt.ALT
-            if modifiers & Qt.MetaModifier:
-                key += Qt.META
-
-            sequence = QKeySequence(key).toString(QKeySequence.PortableText)
-            if sequence == 'super+V' and os.name == 'nt':
-                self.copy()
-            if sequence == self.CONF.get_shortcut(CONF_SECTION, 'copy'):
-                self.copy()
-            elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'paste'):
-                self.paste()
-            elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'clear'):
-                self.clear()
-            elif sequence == self.CONF.get_shortcut(
-                    CONF_SECTION, 'zoom in'):
-                self.increase_font()
-            elif sequence == self.CONF.get_shortcut(
-                    CONF_SECTION, 'zoom out'):
-                self.decrease_font()
-            else:
-                event.ignore()
-                return False
-            event.accept()
+            self.keyPressEvent(event)
             return True
+        return True
 
-        return WebView.event(self, event)
+    def keyPressEvent(self, event):
+        """Qt override method."""
+        key = event.key()
+        modifiers = event.modifiers()
+
+        if modifiers & Qt.ShiftModifier:
+            key += Qt.SHIFT
+        if modifiers & Qt.ControlModifier:
+            key += Qt.CTRL
+        if modifiers & Qt.AltModifier:
+            key += Qt.ALT
+        if modifiers & Qt.MetaModifier:
+            key += Qt.META
+
+        sequence = QKeySequence(key).toString(QKeySequence.PortableText)
+        if event == QKeySequence.Paste:
+            self.paste()
+        elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'copy'):
+            self.copy()
+        elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'paste'):
+            self.paste()
+        elif sequence == self.CONF.get_shortcut(CONF_SECTION, 'clear'):
+            self.clear()
+        elif sequence == self.CONF.get_shortcut(
+                CONF_SECTION, 'zoom in'):
+            self.increase_font()
+        elif sequence == self.CONF.get_shortcut(
+                CONF_SECTION, 'zoom out'):
+            self.decrease_font()
+        else:
+            super().keyPressEvent(event)
 
 
 def test():
