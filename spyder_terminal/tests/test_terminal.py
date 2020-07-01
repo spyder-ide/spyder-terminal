@@ -15,8 +15,7 @@ import os.path as osp
 from flaky import flaky
 from pytestqt.plugin import QtBot
 from unittest.mock import Mock
-from qtpy.QtWebEngineWidgets import WEBENGINE
-from qtpy.QtWidgets import QMainWindow
+from qtpy.QtWidgets import QMainWindow, QApplication
 
 os.environ['SPYDER_DEV'] = 'True'
 
@@ -51,6 +50,18 @@ def check_pwd(termwidget):
     termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
     try:
         return LOCATION in html
+    except NameError:
+        return False
+
+
+def check_paste(termwidget, expected):
+    """Check if pasting is correct in the terminal."""
+    def callback(data):
+        global text
+        text = data
+    termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
+    try:
+        return all([x in text for x in expected])
     except NameError:
         return False
 
@@ -142,6 +153,33 @@ def setup_terminal(qtbot_module, request):
 
     request.addfinalizer(teardown)
     return terminal
+
+
+def test_terminal_paste(setup_terminal, qtbot_module):
+    """Test the paste action in the terminal."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    term = terminal.get_current_term()
+    port = terminal.port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
+    assert status_code == 200
+
+    expected = ['prueba']
+    QApplication.clipboard().setText(expected[0])
+    term.view.paste()
+    qtbot_module.wait(1000)
+    qtbot_module.waitUntil(lambda: check_paste(term, expected),
+                           timeout=TERM_UP)
+
+    separator = os.linesep
+    expected = ['this', 'a', 'test']
+    QApplication.clipboard().setText(separator.join(expected))
+    term.view.paste()
+    qtbot_module.wait(1000)
+    qtbot_module.waitUntil(lambda: check_paste(term, expected),
+                           timeout=TERM_UP)
 
 
 def test_terminal_color(setup_terminal, qtbot_module):
