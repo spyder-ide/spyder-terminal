@@ -23,7 +23,6 @@ from spyder.config.manager import CONF
 from spyder.config.gui import is_dark_interface
 from spyder.utils import icon_manager as ima
 from spyder.utils.qthelpers import create_action, add_actions
-from spyder.widgets.browser import WebView
 
 # Local imports
 from spyder_terminal.widgets.style.themes import ANSI_COLORS
