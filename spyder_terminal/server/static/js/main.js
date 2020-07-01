@@ -155,6 +155,10 @@ function exec(cmd){
   socket.send('' + cmd + lineEnd);
 }
 
+function pasteText(cmd){
+  socket.send('' + cmd);
+}
+
 function closeTerm() {
   alive = false;
   window.dispatchEvent(closeEvent);
@@ -264,6 +268,7 @@ const term_functions = {
   decreaseFontSize: decreaseFontSize,
   addClassStyleToContainer: addClassStyleToContainer,
   hexToRGB: hexToRGB,
+  pasteText: pasteText,
 };
 
 export default term_functions;
