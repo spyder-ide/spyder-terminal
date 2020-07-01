@@ -61,6 +61,7 @@ def check_paste(termwidget, expected):
         text = data
     termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
     try:
+        print('-------', text)
         return all([x in text for x in expected])
     except NameError:
         return False
@@ -166,18 +167,19 @@ def test_terminal_paste(setup_terminal, qtbot_module):
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
 
+    separator = os.linesep
     expected = ['prueba']
-    QApplication.clipboard().setText(expected[0])
+    QApplication.clipboard().clear()
+    for _ in range(0, 10):
+        QApplication.clipboard().setText(separator.join(expected))
     term.view.paste()
-    qtbot_module.wait(1000)
     qtbot_module.waitUntil(lambda: check_paste(term, expected),
                            timeout=TERM_UP)
 
-    separator = os.linesep
     expected = ['this', 'a', 'test']
-    QApplication.clipboard().setText(separator.join(expected))
+    for _ in range(0, 10):
+        QApplication.clipboard().setText(separator.join(expected))
     term.view.paste()
-    qtbot_module.wait(1000)
     qtbot_module.waitUntil(lambda: check_paste(term, expected),
                            timeout=TERM_UP)
 
