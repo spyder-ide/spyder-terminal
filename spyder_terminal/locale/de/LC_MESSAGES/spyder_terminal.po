@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2019-12-09 09:55-0500\n"
-"PO-Revision-Date: 2020-05-31 17:26\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2020-07-04 11:36\n"
+"Last-Translator: \n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11,8 +11,10 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: spyder-terminal\n"
+"X-Crowdin-Project-ID: 381437\n"
 "X-Crowdin-Language: de\n"
 "X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
+"X-Crowdin-File-ID: 55\n"
 "Language: de_DE\n"
 
 #: spyder_terminal/confpage.py:34
@@ -21,11 +23,11 @@ msgstr "Terminal-Shell"
 
 #: spyder_terminal/confpage.py:47
 msgid "Select the shell interpreter:"
-msgstr ""
+msgstr "Wählen Sie den Shell-Interpreter aus:"
 
 #: spyder_terminal/confpage.py:57
 msgid "Terminal style preferences"
-msgstr ""
+msgstr "Terminal-Stil-Einstellungen"
 
 #: spyder_terminal/confpage.py:59
 msgid "Bar"
@@ -45,11 +47,11 @@ msgstr ""
 
 #: spyder_terminal/confpage.py:68
 msgid "Enable bell sound"
-msgstr ""
+msgstr "Glockenton aktivieren"
 
 #: spyder_terminal/confpage.py:69
 msgid "Enable bell sound on terminal"
-msgstr ""
+msgstr "Glockenton im Terminal aktivieren"
 
 #: spyder_terminal/terminalplugin.py:107
 msgid "Open a new terminal"
@@ -97,7 +99,7 @@ msgstr ""
 
 #: spyder_terminal/terminalplugin.py:235
 msgid "New terminal in current Editor file"
-msgstr ""
+msgstr "Neues Terminal in der aktuellen Editordatei"
 
 #: spyder_terminal/terminalplugin.py:237
 msgid "Sets the pwd at the directory that contains the current opened file"
