@@ -198,6 +198,57 @@ def test_terminal_color(setup_terminal, qtbot_module):
     qtbot_module.waitUntil(lambda: check_hex_to_rgb(term),  timeout=TERM_UP)
 
 
+def test_terminal_find(setup_terminal, qtbot_module):
+    """Test the terminal find next/previous functions."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    term = terminal.get_current_term()
+    port = terminal.port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
+    assert status_code == 200
+
+    term.exec_cmd('ls')
+    qtbot_module.wait(1000)
+
+    # Search without any special parameters
+    text = 'ls'
+    found = term.search_next(text)
+    found = False if found == -1 else True
+    assert found
+    found = term.search_previous(text)
+    found = False if found == -1 else True
+    assert found
+
+    # Search with case sensitive search
+    text = 'ls'
+    found = term.search_next(text, case=True)
+    found = False if found == -1 else True
+    assert found
+    found = term.search_previous(text, case=True)
+    found = False if found == -1 else True
+    assert found
+
+    # Search with the regex option
+    text = r'/\((.*?)\)/'
+    found = term.search_next(text, regex=True)
+    found = False if found == -1 else True
+    assert found
+    found = term.search_previous(text, regex=True)
+    found = False if found == -1 else True
+    assert found
+
+    # Search whole word option
+    text = 'ls'
+    found = term.search_next(text, word=True)
+    found = False if found == -1 else True
+    assert found
+    found = term.search_previous(text, word=True)
+    found = False if found == -1 else True
+    assert found
+
+
 def test_terminal_font(setup_terminal, qtbot_module):
     """Test if terminal loads a custom font."""
     terminal = setup_terminal
