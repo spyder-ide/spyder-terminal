@@ -215,38 +215,30 @@ def test_terminal_find(setup_terminal, qtbot_module):
     # Search without any special parameters
     text = 'ls'
     found = term.search_next(text)
-    found = False if found == -1 else True
-    assert found
+    assert found != -1
     found = term.search_previous(text)
-    found = False if found == -1 else True
-    assert found
+    assert found != -1
 
     # Search with case sensitive search
     text = 'ls'
     found = term.search_next(text, case=True)
-    found = False if found == -1 else True
-    assert found
+    assert found != -1
     found = term.search_previous(text, case=True)
-    found = False if found == -1 else True
-    assert found
+    assert found != -1
 
     # Search with the regex option
     text = r'/\((.*?)\)/'
     found = term.search_next(text, regex=True)
-    found = False if found == -1 else True
-    assert found
+    assert found != -1
     found = term.search_previous(text, regex=True)
-    found = False if found == -1 else True
-    assert found
+    assert found != -1
 
     # Search whole word option
     text = 'ls'
     found = term.search_next(text, word=True)
-    found = False if found == -1 else True
-    assert found
+    assert found != -1
     found = term.search_previous(text, word=True)
-    found = False if found == -1 else True
-    assert found
+    assert found != -1
 
 
 def test_terminal_font(setup_terminal, qtbot_module):

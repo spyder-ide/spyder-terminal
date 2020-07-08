@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright © Spyder Project Contributors
+# Licensed under the terms of the MIT License
+#
 
 from qtpy.QtCore import Slot
 from qtpy.QtWidgets import (QGridLayout, QHBoxLayout, QLabel,
