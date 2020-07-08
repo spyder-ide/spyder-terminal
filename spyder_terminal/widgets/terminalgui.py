@@ -7,6 +7,7 @@
 # -----------------------------------------------------------------------------
 """Terminal Widget."""
 # Standard library imports
+import json
 import os
 import sys
 
@@ -163,13 +164,22 @@ class TerminalWidget(QFrame):
         """List terminal CSS fonts."""
         return self.eval_javascript('getFonts()')
 
-    def search_next(self, regex):
+    def search_next(self, text, case=False, regex=False, word=False):
         """Search in the terminal for the given regex."""
-        return self.eval_javascript('searchNext("{}")'.format(regex))
+        search_options = {'regex': regex,
+                          'wholeWord': word,
+                          'caseSensitive': case}
+        return self.eval_javascript(
+            'searchNext("{}",{})'.format(text, json.dumps(search_options)))
 
-    def search_previous(self, regex):
+    def search_previous(self, text, case=False, regex=False, word=False):
         """Search in the terminal for the given regex."""
-        return self.eval_javascript('searchPrevious("{}")'.format(regex))
+        search_options = {'regex': regex,
+                          'wholeWord': word,
+                          'caseSensitive': case}
+        return self.eval_javascript(
+            'searchPrevious("{}", {})'.format(text,
+                                              json.dumps(search_options)))
 
     def exec_cmd(self, cmd):
         """Execute a command inside the terminal."""

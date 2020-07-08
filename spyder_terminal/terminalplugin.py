@@ -33,10 +33,10 @@ from spyder.widgets.tabs import Tabs
 from spyder.utils.misc import select_port
 
 # Local imports
+from spyder_terminal.widgets.findwidget import FindTerminal
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 from spyder_terminal.confpage import TerminalConfigPage
 from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION, CONF_SECTION
-
 
 # Constants
 LOCATION = osp.realpath(osp.join(os.getcwd(),
@@ -91,6 +91,8 @@ class TerminalPlugin(SpyderPluginWidget):
         self.project_path = None
         self.current_file_path = None
         self.current_cwd = os.getcwd()
+        self.find_widget = FindTerminal(self)
+        self.find_widget.hide()
 
         try:
             # Spyder 3
@@ -124,6 +126,7 @@ class TerminalPlugin(SpyderPluginWidget):
         self.tabwidget.set_close_function(self.close_term)
 
         layout.addWidget(self.tabwidget)
+        layout.addWidget(self.find_widget)
         self.setLayout(layout)
 
         self.color_scheme = CONF.get('appearance', 'ui_theme')
@@ -333,6 +336,7 @@ class TerminalPlugin(SpyderPluginWidget):
         term = TerminalWidget(self, self.port, path=path, font=font.family(),
                               theme=self.theme, color_scheme=self.color_scheme)
         self.register_widget_shortcuts(term)
+        self.register_widget_shortcuts(self.find_widget)
         self.add_tab(term)
         term.terminal_closed.connect(lambda: self.close_term(term=term))
 
@@ -375,6 +379,18 @@ class TerminalPlugin(SpyderPluginWidget):
     def server_is_ready(self):
         """Return server status."""
         return self.server_ready
+
+    def search_next(self, text, case=False, regex=False, word=False):
+        """Search in the current terminal for the given regex."""
+        term = self.get_current_term()
+        if term:
+            term.search_next(text, case=case, regex=regex, word=word)
+
+    def search_previous(self, text, case=False, regex=False, word=False):
+        """Search in the current terminal for the given regex."""
+        term = self.get_current_term()
+        if term:
+            term.search_previous(text, case=case, regex=regex, word=word)
 
     # ------ Public API (for tabs) ---------------------------
     def add_tab(self, widget):

@@ -98,15 +98,15 @@ window.onresize = (event) => {
   fitAddon.fit();
 }
 
-function searchNext(regex) {
-  if(searchAddon.findNext(regex)){
+function searchNext(regex, options) {
+  if(searchAddon.findNext(regex, options)){
     return term.getSelectionPosition();
   }
   return -1;
 }
 
-function searchPrevious(regex) {
-  if(searchAddon.findPrevious(regex)){
+function searchPrevious(regex, options) {
+  if(searchAddon.findPrevious(regex, options)){
     return term.getSelectionPosition();
   }
   return -1;
