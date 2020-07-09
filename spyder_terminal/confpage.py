@@ -82,6 +82,12 @@ class TerminalConfigPage(PluginConfigPage):
             tip=_("Enable bell sound on terminal"))
         options_layout.addWidget(self.sound_cb)
 
+        # Custom buffer limit
+        self.buffer_sb = self.create_spinbox(_("Buffer limit: "), "",
+                                             'buffer_lim', min_=100,
+                                             default=1000,
+                                             max_=1000000, step=1)
+        options_layout.addWidget(self.buffer_sb)
         terminal_group.setLayout(options_layout)
 
         layout = QVBoxLayout()

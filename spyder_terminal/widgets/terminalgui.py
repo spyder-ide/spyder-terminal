@@ -217,6 +217,9 @@ class TerminalWidget(QFrame):
             color_scheme = CONF.get('appearance', 'ui_theme')
             theme = CONF.get('appearance', 'selected')
             self.set_theme(theme, color_scheme)
+        if 'buffer_lim' in options:
+            new_lim = options['buffer_lim']
+            self.set_option('scrollback', new_lim)
 
 
 class TermView(QWebEngineView):
