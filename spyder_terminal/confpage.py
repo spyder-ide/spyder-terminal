@@ -76,18 +76,19 @@ class TerminalConfigPage(PluginConfigPage):
         self.cursor_combo.combobox.setMinimumContentsLength(15)
         options_layout.addWidget(self.cursor_combo)
 
-        # Custom sound option
-        self.sound_cb = self.create_checkbox(
-            _("Enable bell sound"), 'sound',
-            tip=_("Enable bell sound on terminal"))
-        options_layout.addWidget(self.sound_cb)
-
         # Custom buffer limit
         self.buffer_sb = self.create_spinbox(_("Buffer limit: "), "",
                                              'buffer_lim', min_=100,
                                              default=1000,
                                              max_=1000000, step=1)
         options_layout.addWidget(self.buffer_sb)
+
+        # Custom sound option
+        self.sound_cb = self.create_checkbox(
+            _("Enable bell sound"), 'sound',
+            tip=_("Enable bell sound on terminal"))
+        options_layout.addWidget(self.sound_cb)
+
         terminal_group.setLayout(options_layout)
 
         layout = QVBoxLayout()
