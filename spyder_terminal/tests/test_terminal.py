@@ -362,7 +362,7 @@ def test_close_terminal_manually(setup_terminal, qtbot_module):
 def test_terminal_cwd(setup_terminal, qtbot_module):
     """Test if the a new terminal supports cwd  with especial characters."""
     start_dir = os.getcwd()
-    new_dir = osp.join(start_dir, '"this is dir with spaces"')
+    new_dir = osp.join(start_dir, 'this is dir with spaces')
     if not osp.exists(new_dir):
         os.mkdir(new_dir)
     os.chdir(new_dir)
