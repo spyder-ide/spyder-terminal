@@ -357,3 +357,23 @@ def test_close_terminal_manually(setup_terminal, qtbot_module):
                            timeout=TERM_UP)
     final_num = len(terminal.get_terms())
     assert final_num == initial_num - 1
+
+
+def test_terminal_cwd(setup_terminal, qtbot_module):
+    """Test if the a new terminal supports cwd  with especial characters."""
+    start_dir = os.getcwd()
+    new_dir = osp.join(start_dir, 'this is dir with spaces')
+    if not osp.exists(new_dir):
+        os.mkdir(new_dir)
+    os.chdir(new_dir)
+
+    terminal = setup_terminal
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    port = terminal.port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
+    assert status_code == 200
+
+    # Revert cwd
+    os.chdir(start_dir)
