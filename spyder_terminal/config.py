@@ -19,7 +19,8 @@ CONF_DEFAULTS = [
      {
       'sound': True,
       'cursor_type': 0,
-      'shell': 'cmd' if WINDOWS else 'bash'
+      'shell': 'cmd' if WINDOWS else 'bash',
+      'buffer_limit': 1000
      }
      ),
     ('shortcuts',

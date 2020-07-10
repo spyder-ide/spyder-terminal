@@ -66,6 +66,19 @@ class TerminalConfigPage(PluginConfigPage):
         shell_layout.addStretch(1)
         options_layout.addWidget(shell_group)
 
+        # Display preferences
+        display_group = QGroupBox(_("Terminal display preferences"))
+        display_layout = QVBoxLayout()
+        # Custom buffer limit
+        self.buffer_sb = self.create_spinbox(_("Buffer limit: "), "",
+                                             'buffer_limit', min_=100,
+                                             default=1000,
+                                             max_=1000000, step=1)
+        display_layout.addWidget(self.buffer_sb)
+        display_group.setLayout(display_layout)
+        display_layout.addStretch(1)
+        options_layout.addWidget(display_group)
+
         # Style preferences
         terminal_group = QGroupBox(_("Terminal style preferences"))
         # Custom bar option
@@ -86,6 +99,7 @@ class TerminalConfigPage(PluginConfigPage):
 
         layout = QVBoxLayout()
         layout.addWidget(shell_group)
+        layout.addWidget(display_group)
         layout.addWidget(terminal_group)
         layout.addStretch(1)
 
