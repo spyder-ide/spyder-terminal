@@ -198,6 +198,21 @@ def test_terminal_color(setup_terminal, qtbot_module):
     qtbot_module.waitUntil(lambda: check_hex_to_rgb(term),  timeout=TERM_UP)
 
 
+def test_terminal_cwd(setup_terminal, qtbot_module):
+    """Test if the a new terminal supports cwd  with especial characters."""
+    new_dir = osp.join(os.getcwd(), '"this is dir with spaces"')
+    os.mkdir(new_dir)
+    os.chdir(new_dir)
+
+    terminal = setup_terminal
+    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    port = terminal.port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
+    assert status_code == 200
+
+
 def test_terminal_find(setup_terminal, qtbot_module):
     """Test the terminal find next/previous functions."""
     terminal = setup_terminal

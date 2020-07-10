@@ -18,7 +18,7 @@ class MainHandler(tornado.web.RequestHandler):
     def get(self):
         """Get static index.html page."""
         cwd = self.get_argument('path', getcwd())
-        # We need to do percent encoding for sending the info through a cookie
+        # We need to do percent encoding for sending the cwd through a cookie
         # For further information see spyder-ide/spyder-terminal#225
         self.set_cookie('cwd', quote(cwd))
         self.render('../static/build/index.html')
