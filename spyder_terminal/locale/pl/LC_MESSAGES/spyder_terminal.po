@@ -1,53 +1,62 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
-"POT-Creation-Date: 2019-12-09 09:55-0500\n"
+"POT-Creation-Date: 2020-07-13 17:07-0500\n"
 "PO-Revision-Date: 2020-01-04 15:27\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Polish\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Crowdin-Project: spyder-terminal\n"
-"X-Crowdin-Language: pl\n"
+"Generated-By: pygettext.py 1.5\n"
 "X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
-"Language: pl_PL\n"
+"X-Crowdin-Language: pl\n"
+"X-Crowdin-Project: spyder-terminal\n"
 
-#: spyder_terminal/confpage.py:34
+#: spyder_terminal/confpage.py:37
 msgid "Terminal shell"
 msgstr ""
 
-#: spyder_terminal/confpage.py:47
+#: spyder_terminal/confpage.py:60
 msgid "Select the shell interpreter:"
 msgstr ""
 
-#: spyder_terminal/confpage.py:57
+#: spyder_terminal/confpage.py:70
+msgid "Terminal display preferences"
+msgstr ""
+
+#: spyder_terminal/confpage.py:73
+msgid "Buffer limit: "
+msgstr ""
+
+#: spyder_terminal/confpage.py:83
 msgid "Terminal style preferences"
 msgstr ""
 
-#: spyder_terminal/confpage.py:59
+#: spyder_terminal/confpage.py:85
 msgid "Bar"
 msgstr ""
 
-#: spyder_terminal/confpage.py:59
+#: spyder_terminal/confpage.py:85
 msgid "Block"
 msgstr ""
 
-#: spyder_terminal/confpage.py:59
+#: spyder_terminal/confpage.py:85
 msgid "Underline"
 msgstr ""
 
-#: spyder_terminal/confpage.py:60
+#: spyder_terminal/confpage.py:86
 msgid "Type of cursor:"
 msgstr ""
 
-#: spyder_terminal/confpage.py:68
+#: spyder_terminal/confpage.py:94
 msgid "Enable bell sound"
 msgstr ""
 
-#: spyder_terminal/confpage.py:69
+#: spyder_terminal/confpage.py:95
 msgid "Enable bell sound on terminal"
 msgstr ""
 
@@ -55,63 +64,70 @@ msgstr ""
 msgid "Open a new terminal"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:110
-msgid "Options"
-msgstr ""
-
-#: spyder_terminal/terminalplugin.py:151
+#: spyder_terminal/terminalplugin.py:146
 msgid "Spyder Terminal Error"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:152
+#: spyder_terminal/terminalplugin.py:147
 msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:187
+#: spyder_terminal/terminalplugin.py:182
 msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:195
+#: spyder_terminal/terminalplugin.py:190
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:207
+#: spyder_terminal/terminalplugin.py:202
 msgid "Terminal"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:217
+#: spyder_terminal/terminalplugin.py:212
 msgid "New terminal in current working directory"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:219
+#: spyder_terminal/terminalplugin.py:214
 msgid "Sets the pwd at the current working directory"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:225
+#: spyder_terminal/terminalplugin.py:221
 msgid "New terminal in current project"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:227
+#: spyder_terminal/terminalplugin.py:223
 msgid "Sets the pwd at the current project directory"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:235
+#: spyder_terminal/terminalplugin.py:231
 msgid "New terminal in current Editor file"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:237
+#: spyder_terminal/terminalplugin.py:233
 msgid "Sets the pwd at the directory that contains the current opened file"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:245
+#: spyder_terminal/terminalplugin.py:241
 msgid "Rename terminal"
 msgstr ""
 
-#: spyder_terminal/widgets/terminalgui.py:168
+#: spyder_terminal/widgets/terminalgui.py:322
 msgid "Copy text"
 msgstr ""
 
-#: spyder_terminal/widgets/terminalgui.py:172
+#: spyder_terminal/widgets/terminalgui.py:326
 msgid "Paste text"
 msgstr ""
 
+#: spyder_terminal/widgets/terminalgui.py:331
+msgid "Clear Terminal"
+msgstr ""
+
+#: spyder_terminal/widgets/terminalgui.py:335
+msgid "Zoom in"
+msgstr ""
+
+#: spyder_terminal/widgets/terminalgui.py:338
+msgid "Zoom out"
+msgstr ""

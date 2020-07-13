@@ -1,54 +1,64 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
-"POT-Creation-Date: 2019-12-09 09:55-0500\n"
+"POT-Creation-Date: 2020-07-13 17:07-0500\n"
 "PO-Revision-Date: 2019-12-10 14:58\n"
 "Last-Translator: Gonzalo Peña-Castellanos (goanpeca)\n"
 "Language-Team: Portuguese, Brazilian\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: pygettext.py 1.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: crowdin.com\n"
-"X-Crowdin-Project: spyder-terminal\n"
-"X-Crowdin-Language: pt-BR\n"
+"Generated-By: pygettext.py 1.5\n"
 "X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
-"Language: pt_BR\n"
+"X-Crowdin-Language: pt-BR\n"
+"X-Crowdin-Project: spyder-terminal\n"
+"X-Generator: crowdin.com\n"
 
-#: spyder_terminal/confpage.py:34
+#: spyder_terminal/confpage.py:37
 msgid "Terminal shell"
 msgstr "Terminal do shell"
 
-#: spyder_terminal/confpage.py:47
+#: spyder_terminal/confpage.py:60
 msgid "Select the shell interpreter:"
 msgstr "Selecione o interpretador do shell:"
 
-#: spyder_terminal/confpage.py:57
+#: spyder_terminal/confpage.py:70
+#, fuzzy
+msgid "Terminal display preferences"
+msgstr "Preferências de estilo do terminal"
+
+#: spyder_terminal/confpage.py:73
+msgid "Buffer limit: "
+msgstr ""
+
+#: spyder_terminal/confpage.py:83
 msgid "Terminal style preferences"
 msgstr "Preferências de estilo do terminal"
 
-#: spyder_terminal/confpage.py:59
+#: spyder_terminal/confpage.py:85
 msgid "Bar"
 msgstr "Barra"
 
-#: spyder_terminal/confpage.py:59
+#: spyder_terminal/confpage.py:85
 msgid "Block"
 msgstr "Bloco"
 
-#: spyder_terminal/confpage.py:59
+#: spyder_terminal/confpage.py:85
 msgid "Underline"
 msgstr "Sublinhado"
 
-#: spyder_terminal/confpage.py:60
+#: spyder_terminal/confpage.py:86
 msgid "Type of cursor:"
 msgstr "Tipo de cursor:"
 
-#: spyder_terminal/confpage.py:68
+#: spyder_terminal/confpage.py:94
 msgid "Enable bell sound"
 msgstr "Habilitar som de alerta"
 
-#: spyder_terminal/confpage.py:69
+#: spyder_terminal/confpage.py:95
 msgid "Enable bell sound on terminal"
 msgstr "Habilitar som de alerta no terminal"
 
@@ -56,63 +66,74 @@ msgstr "Habilitar som de alerta no terminal"
 msgid "Open a new terminal"
 msgstr "Abrir uma nova janela"
 
-#: spyder_terminal/terminalplugin.py:110
-msgid "Options"
-msgstr "Opções"
-
-#: spyder_terminal/terminalplugin.py:151
+#: spyder_terminal/terminalplugin.py:146
 msgid "Spyder Terminal Error"
 msgstr "Erro Terminal do Spyder"
 
-#: spyder_terminal/terminalplugin.py:152
+#: spyder_terminal/terminalplugin.py:147
 msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
 msgstr "O servidor Terminal não pôde ser localizado em <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, por favor reinicie o Spyder no modo de depuração e abra um registro de problema com o conteúdo de <tt>{1}</tt> e <tt>{2}</tt> arquivos em {3}."
 
-#: spyder_terminal/terminalplugin.py:187
+#: spyder_terminal/terminalplugin.py:182
 msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
 msgstr "<b>spyder-terminal-</b> não funciona com Qt 4. Portanto, este plugin será desativado."
 
-#: spyder_terminal/terminalplugin.py:195
+#: spyder_terminal/terminalplugin.py:190
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
 msgstr "Infelizmente, a biblioteca que o <b>spyder-terminal</b> usa para criar terminais não está funcionando no seu sistema. Portanto, este plugin será desativado.<br><br> Isso geralmente acontece com sistemas Windows 7. Se for esse o caso, por favor, considere atualizar para uma versão mais recente do Windows."
 
-#: spyder_terminal/terminalplugin.py:207
+#: spyder_terminal/terminalplugin.py:202
 msgid "Terminal"
 msgstr "Terminal"
 
-#: spyder_terminal/terminalplugin.py:217
+#: spyder_terminal/terminalplugin.py:212
 msgid "New terminal in current working directory"
 msgstr "Novo terminal no diretório de trabalho atual"
 
-#: spyder_terminal/terminalplugin.py:219
+#: spyder_terminal/terminalplugin.py:214
 msgid "Sets the pwd at the current working directory"
 msgstr "Define o diretório de trabalho como o diretório atual"
 
-#: spyder_terminal/terminalplugin.py:225
+#: spyder_terminal/terminalplugin.py:221
 msgid "New terminal in current project"
 msgstr "Novo terminal do projeto atual"
 
-#: spyder_terminal/terminalplugin.py:227
+#: spyder_terminal/terminalplugin.py:223
 msgid "Sets the pwd at the current project directory"
 msgstr "Define o diretório de trabalho como o diretório do projeto atual"
 
-#: spyder_terminal/terminalplugin.py:235
+#: spyder_terminal/terminalplugin.py:231
 msgid "New terminal in current Editor file"
 msgstr "Novo terminal no arquivo atual do Editor"
 
-#: spyder_terminal/terminalplugin.py:237
+#: spyder_terminal/terminalplugin.py:233
 msgid "Sets the pwd at the directory that contains the current opened file"
 msgstr "Define o diretório de trabalho como o diretório que contém o arquivo aberto"
 
-#: spyder_terminal/terminalplugin.py:245
+#: spyder_terminal/terminalplugin.py:241
 msgid "Rename terminal"
 msgstr "Renomear terminal"
 
-#: spyder_terminal/widgets/terminalgui.py:168
+#: spyder_terminal/widgets/terminalgui.py:322
 msgid "Copy text"
 msgstr "Copiar texto"
 
-#: spyder_terminal/widgets/terminalgui.py:172
+#: spyder_terminal/widgets/terminalgui.py:326
 msgid "Paste text"
 msgstr "Colar texto"
 
+#: spyder_terminal/widgets/terminalgui.py:331
+#, fuzzy
+msgid "Clear Terminal"
+msgstr "Terminal"
+
+#: spyder_terminal/widgets/terminalgui.py:335
+msgid "Zoom in"
+msgstr ""
+
+#: spyder_terminal/widgets/terminalgui.py:338
+msgid "Zoom out"
+msgstr ""
+
+#~ msgid "Options"
+#~ msgstr "Opções"
