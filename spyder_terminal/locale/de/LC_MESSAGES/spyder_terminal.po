@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2020-07-13 17:07-0500\n"
-"PO-Revision-Date: 2020-07-13 22:26\n"
+"PO-Revision-Date: 2020-07-14 22:37\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,11 @@ msgstr "Wählen Sie den Shell-Interpreter aus:"
 
 #: spyder_terminal/confpage.py:70
 msgid "Terminal display preferences"
-msgstr ""
+msgstr "Terminal-Anzeigeeinstellungen"
 
 #: spyder_terminal/confpage.py:73
 msgid "Buffer limit: "
-msgstr ""
+msgstr "Pufferlimit: "
 
 #: spyder_terminal/confpage.py:83
 msgid "Terminal style preferences"
@@ -67,7 +67,7 @@ msgstr "Neues Terminal öffnen"
 
 #: spyder_terminal/terminalplugin.py:146
 msgid "Spyder Terminal Error"
-msgstr ""
+msgstr "Spyder-Terminal-Fehler"
 
 #: spyder_terminal/terminalplugin.py:147
 msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
@@ -123,13 +123,13 @@ msgstr "Text einfügen"
 
 #: spyder_terminal/widgets/terminalgui.py:331
 msgid "Clear Terminal"
-msgstr ""
+msgstr "Terminal leeren"
 
 #: spyder_terminal/widgets/terminalgui.py:335
 msgid "Zoom in"
-msgstr ""
+msgstr "Hineinzoomen"
 
 #: spyder_terminal/widgets/terminalgui.py:338
 msgid "Zoom out"
-msgstr ""
+msgstr "Hinauszoomen"
 
