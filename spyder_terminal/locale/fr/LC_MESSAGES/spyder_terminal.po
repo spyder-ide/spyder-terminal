@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2020-07-13 17:07-0500\n"
-"PO-Revision-Date: 2020-07-13 22:26\n"
+"PO-Revision-Date: 2020-07-17 20:56\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -19,35 +19,35 @@ msgstr ""
 
 #: spyder_terminal/confpage.py:37
 msgid "Terminal shell"
-msgstr ""
+msgstr "Commande shell"
 
 #: spyder_terminal/confpage.py:60
 msgid "Select the shell interpreter:"
-msgstr ""
+msgstr "Sélectionnez l'interpréteur de shell :"
 
 #: spyder_terminal/confpage.py:70
 msgid "Terminal display preferences"
-msgstr ""
+msgstr "Préférences d'affichage du terminal"
 
 #: spyder_terminal/confpage.py:73
 msgid "Buffer limit: "
-msgstr ""
+msgstr "Limite du tampon: "
 
 #: spyder_terminal/confpage.py:83
 msgid "Terminal style preferences"
-msgstr ""
+msgstr "Préférences de style du terminal"
 
 #: spyder_terminal/confpage.py:85
 msgid "Bar"
-msgstr ""
+msgstr "Barre"
 
 #: spyder_terminal/confpage.py:85
 msgid "Block"
-msgstr ""
+msgstr "Bloc"
 
 #: spyder_terminal/confpage.py:85
 msgid "Underline"
-msgstr ""
+msgstr "Souligné"
 
 #: spyder_terminal/confpage.py:86
 msgid "Type of cursor:"
