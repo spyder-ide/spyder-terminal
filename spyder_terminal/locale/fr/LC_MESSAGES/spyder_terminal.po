@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2020-07-13 17:07-0500\n"
-"PO-Revision-Date: 2020-07-17 20:56\n"
+"PO-Revision-Date: 2020-07-18 20:56\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
@@ -51,85 +51,85 @@ msgstr "Souligné"
 
 #: spyder_terminal/confpage.py:86
 msgid "Type of cursor:"
-msgstr ""
+msgstr "Style du curseur:"
 
 #: spyder_terminal/confpage.py:94
 msgid "Enable bell sound"
-msgstr ""
+msgstr "Activer le son de cloche"
 
 #: spyder_terminal/confpage.py:95
 msgid "Enable bell sound on terminal"
-msgstr ""
+msgstr "Activer le son de cloche sur le terminal"
 
 #: spyder_terminal/terminalplugin.py:107
 msgid "Open a new terminal"
-msgstr ""
+msgstr "Ouvrir un terminal"
 
 #: spyder_terminal/terminalplugin.py:146
 msgid "Spyder Terminal Error"
-msgstr ""
+msgstr "Erreur du Spyder Terminal"
 
 #: spyder_terminal/terminalplugin.py:147
 msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
-msgstr ""
+msgstr "Le serveur du terminal n'a pas pu être localisé à <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, veuillez redémarrer Spyder en mode déboggage et ouvrez un erreur avec les contenues des fichiers <tt>{1}</tt> et <tt>{2}</tt> à {3}."
 
 #: spyder_terminal/terminalplugin.py:182
 msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
-msgstr ""
+msgstr "<b>spyder-terminal</b> ne fonctionne pas avec Qt 4. Ce plugin sera donc désactivé."
 
 #: spyder_terminal/terminalplugin.py:190
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
-msgstr ""
+msgstr "Malhereusement, la bibliothèque que <b>spyder-terminal</b> utilise pour créer des terminaux ne fonctionne pas dans votre système. Par conséquent, ce plugin sera désactivé.<br><br> Ceci se produit généralement sur Windows 7. Si c'est les cas, veuillez considérer la mise à jour vers une version plus récente de Windows."
 
 #: spyder_terminal/terminalplugin.py:202
 msgid "Terminal"
-msgstr ""
+msgstr "Terminal"
 
 #: spyder_terminal/terminalplugin.py:212
 msgid "New terminal in current working directory"
-msgstr ""
+msgstr "Nouveau terminal dans le répertoire de travail actuel"
 
 #: spyder_terminal/terminalplugin.py:214
 msgid "Sets the pwd at the current working directory"
-msgstr ""
+msgstr "Définit le pwd dans le répertoire de travail actuel"
 
 #: spyder_terminal/terminalplugin.py:221
 msgid "New terminal in current project"
-msgstr ""
+msgstr "Nouveau terminal dans le répertoire actuel du projet"
 
 #: spyder_terminal/terminalplugin.py:223
 msgid "Sets the pwd at the current project directory"
-msgstr ""
+msgstr "Définit le pwd dans le répertoire actuel du projet"
 
 #: spyder_terminal/terminalplugin.py:231
 msgid "New terminal in current Editor file"
-msgstr ""
+msgstr "Nouveau terminal dans le fichier actuel de l'éditeur"
 
 #: spyder_terminal/terminalplugin.py:233
 msgid "Sets the pwd at the directory that contains the current opened file"
-msgstr ""
+msgstr "Définit le pwd dans le fichier en cours"
 
 #: spyder_terminal/terminalplugin.py:241
 msgid "Rename terminal"
-msgstr ""
+msgstr "Renommer le terminal"
 
 #: spyder_terminal/widgets/terminalgui.py:322
 msgid "Copy text"
-msgstr ""
+msgstr "Copier le texte"
 
 #: spyder_terminal/widgets/terminalgui.py:326
 msgid "Paste text"
-msgstr ""
+msgstr "Coller le texte"
 
 #: spyder_terminal/widgets/terminalgui.py:331
 msgid "Clear Terminal"
-msgstr ""
+msgstr "Effacer le terminal"
 
 #: spyder_terminal/widgets/terminalgui.py:335
 msgid "Zoom in"
-msgstr ""
+msgstr "Agrandir"
 
 #: spyder_terminal/widgets/terminalgui.py:338
 msgid "Zoom out"
-msgstr ""
+msgstr "Réduire"
 
