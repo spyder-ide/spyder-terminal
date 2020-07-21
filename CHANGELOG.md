@@ -1,3 +1,43 @@
+## Version spyder-terminal v0.4.0 (2020/07/21)
+
+### Issues Closed
+
+* [Issue 233](https://github.com/spyder-ide/spyder-terminal/issues/233) - Update translations
+* [Issue 227](https://github.com/spyder-ide/spyder-terminal/issues/227) - Add option to set buffer limit ([PR 228](https://github.com/spyder-ide/spyder-terminal/pull/228) by [@steff456](https://github.com/steff456))
+* [Issue 225](https://github.com/spyder-ide/spyder-terminal/issues/225) - Terminal error "ValueError: Invalid cookie 'cwd'" ([PR 229](https://github.com/spyder-ide/spyder-terminal/pull/229) by [@steff456](https://github.com/steff456))
+* [Issue 224](https://github.com/spyder-ide/spyder-terminal/issues/224) - Add widget for find functionality in the terminal ([PR 226](https://github.com/spyder-ide/spyder-terminal/pull/226) by [@steff456](https://github.com/steff456))
+* [Issue 219](https://github.com/spyder-ide/spyder-terminal/issues/219) - Remove QWebKit from the code ([PR 221](https://github.com/spyder-ide/spyder-terminal/pull/221) by [@steff456](https://github.com/steff456))
+* [Issue 218](https://github.com/spyder-ide/spyder-terminal/issues/218) - Shortcuts are not appearing in the preferences pane ([PR 222](https://github.com/spyder-ide/spyder-terminal/pull/222) by [@steff456](https://github.com/steff456))
+* [Issue 213](https://github.com/spyder-ide/spyder-terminal/issues/213) - Update to xterm.js latest version ([PR 214](https://github.com/spyder-ide/spyder-terminal/pull/214) by [@steff456](https://github.com/steff456))
+* [Issue 212](https://github.com/spyder-ide/spyder-terminal/issues/212) - Migrate this plugin to Python 3 ([PR 215](https://github.com/spyder-ide/spyder-terminal/pull/215) by [@steff456](https://github.com/steff456))
+* [Issue 206](https://github.com/spyder-ide/spyder-terminal/issues/206) - Correctly generate logging files ([PR 210](https://github.com/spyder-ide/spyder-terminal/pull/210) by [@steff456](https://github.com/steff456))
+* [Issue 202](https://github.com/spyder-ide/spyder-terminal/issues/202) - Problems when highlight text on terminal ([PR 216](https://github.com/spyder-ide/spyder-terminal/pull/216) by [@steff456](https://github.com/steff456))
+* [Issue 148](https://github.com/spyder-ide/spyder-terminal/issues/148) - How to increase/decrease size of font in terminal? ([PR 217](https://github.com/spyder-ide/spyder-terminal/pull/217) by [@steff456](https://github.com/steff456))
+
+In this release 11 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 232](https://github.com/spyder-ide/spyder-terminal/pull/232) - New Crowdin updates, by [@spyder-bot](https://github.com/spyder-bot)
+* [PR 231](https://github.com/spyder-ide/spyder-terminal/pull/231) - PR: Update translation files, by [@steff456](https://github.com/steff456)
+* [PR 229](https://github.com/spyder-ide/spyder-terminal/pull/229) - PR: Percent encode/decode cwd to encode spaces and special characters, by [@steff456](https://github.com/steff456) ([225](https://github.com/spyder-ide/spyder-terminal/issues/225))
+* [PR 228](https://github.com/spyder-ide/spyder-terminal/pull/228) - PR: Add scrollback option to the terminal, by [@steff456](https://github.com/steff456) ([227](https://github.com/spyder-ide/spyder-terminal/issues/227))
+* [PR 226](https://github.com/spyder-ide/spyder-terminal/pull/226) - PR: Add find widget to the terminal, by [@steff456](https://github.com/steff456) ([224](https://github.com/spyder-ide/spyder-terminal/issues/224))
+* [PR 223](https://github.com/spyder-ide/spyder-terminal/pull/223) - PR: Improve clipboard support in the terminal, by [@steff456](https://github.com/steff456)
+* [PR 222](https://github.com/spyder-ide/spyder-terminal/pull/222) - PR: Fix shortcuts to new API, by [@steff456](https://github.com/steff456) ([218](https://github.com/spyder-ide/spyder-terminal/issues/218))
+* [PR 221](https://github.com/spyder-ide/spyder-terminal/pull/221) - PR: Remove deprecated QWebKit code, by [@steff456](https://github.com/steff456) ([219](https://github.com/spyder-ide/spyder-terminal/issues/219))
+* [PR 217](https://github.com/spyder-ide/spyder-terminal/pull/217) - PR: Add option to zoom in/zoom out in the terminal, by [@steff456](https://github.com/steff456) ([148](https://github.com/spyder-ide/spyder-terminal/issues/148))
+* [PR 216](https://github.com/spyder-ide/spyder-terminal/pull/216) - PR: Fix highlight text on the terminal, by [@steff456](https://github.com/steff456) ([202](https://github.com/spyder-ide/spyder-terminal/issues/202))
+* [PR 215](https://github.com/spyder-ide/spyder-terminal/pull/215) - PR: Move Spyder-terminal plugin to Python 3, by [@steff456](https://github.com/steff456) ([212](https://github.com/spyder-ide/spyder-terminal/issues/212))
+* [PR 214](https://github.com/spyder-ide/spyder-terminal/pull/214) - PR: Upgrade xterm to 4.7 release, by [@steff456](https://github.com/steff456) ([213](https://github.com/spyder-ide/spyder-terminal/issues/213))
+* [PR 211](https://github.com/spyder-ide/spyder-terminal/pull/211) - PR: Fix issues when running our test suite in Azure, by [@ccordoba12](https://github.com/ccordoba12)
+* [PR 210](https://github.com/spyder-ide/spyder-terminal/pull/210) - PR: Generate logging files with Spyder's debug level, by [@steff456](https://github.com/steff456) ([206](https://github.com/spyder-ide/spyder-terminal/issues/206))
+* [PR 208](https://github.com/spyder-ide/spyder-terminal/pull/208) - Bump websocket-extensions from 0.1.3 to 0.1.4, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 204](https://github.com/spyder-ide/spyder-terminal/pull/204) - Bump jquery from 3.4.1 to 3.5.0, by [@dependabot[bot]](https://github.com/apps/dependabot)
+
+In this release 16 pull requests were closed.
+
+
 ## Version spyder-terminal v0.3.2 (2020/04/27)
 
 

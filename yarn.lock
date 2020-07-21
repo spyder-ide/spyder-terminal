@@ -4917,7 +4917,7 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-cli@^3.3.11:
+webpack-cli@^3.3.12:
   version "3.3.12"
   resolved "https://registry.yarnpkg.com/webpack-cli/-/webpack-cli-3.3.12.tgz#94e9ada081453cd0aa609c99e500012fd3ad2d4a"
   integrity sha512-NVWBaz9k839ZH/sinurM+HcDvJOTXwSjYp1ku+5XKeOC03z8v5QitnK/x+lAxGXFyhdayoIf/GOpv85z3/xPag==
@@ -5000,7 +5000,7 @@ webpack-sources@^1.4.0, webpack-sources@^1.4.1:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.42.1:
+webpack@^4.43.0:
   version "4.43.0"
   resolved "https://registry.yarnpkg.com/webpack/-/webpack-4.43.0.tgz#c48547b11d563224c561dad1172c8aa0b8a678e6"
   integrity sha512-GW1LjnPipFW2Y78OOab8NJlCflB7EFskMih2AHdvjbpKMeDJqEgSx24cXXXiPS65+WSwVyxtDsJH6jGX2czy+g==
@@ -5095,22 +5095,22 @@ xtend@^4.0.0, xtend@~4.0.1:
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
 
-xterm-addon-attach@0.6.0:
+xterm-addon-attach@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/xterm-addon-attach/-/xterm-addon-attach-0.6.0.tgz#220c23addd62ab88c9914e2d4c06f7407e44680e"
   integrity sha512-Mo8r3HTjI/EZfczVCwRU6jh438B4WLXxdFO86OB7bx0jGhwh2GdF4ifx/rP+OB+Cb2vmLhhVIZ00/7x3YSP3dg==
 
-xterm-addon-fit@0.4.0:
+xterm-addon-fit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/xterm-addon-fit/-/xterm-addon-fit-0.4.0.tgz#06e0c5d0a6aaacfb009ef565efa1c81e93d90193"
   integrity sha512-p4BESuV/g2L6pZzFHpeNLLnep9mp/DkF3qrPglMiucSFtD8iJxtMufEoEJbN8LZwB4i+8PFpFvVuFrGOSpW05w==
 
-xterm-addon-search@0.7.0:
+xterm-addon-search@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.7.0.tgz#c929d3e5cbb335e82bff72f158ea82936d9cd4ef"
   integrity sha512-6060evmJJ+tZcjnx33FXaeEHLpuXEa7l9UzUsYfMlCKbu88AbE+5LJocTKCHYd71cwCwb9pjmv/G1o9Rf9Zbcg==
 
-xterm-addon-web-links@0.4.0:
+xterm-addon-web-links@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/xterm-addon-web-links/-/xterm-addon-web-links-0.4.0.tgz#265cbf8221b9b315d0a748e1323bee331cd5da03"
   integrity sha512-xv8GeiINmx0zENO9hf5k+5bnkaE8mRzF+OBAr9WeFq2eLaQSudioQSiT34M1ofKbzcdjSsKiZm19Rw3i4eXamg==
@@ -5119,10 +5119,10 @@ xterm.js@sourcelair/xterm.js#^3.14.5:
   version "3.14.5"
   resolved "https://codeload.github.com/sourcelair/xterm.js/tar.gz/b2bb848dfe49923c03eff35736a5e4411f1ee2b6"
 
-xterm@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.7.0.tgz#254485811146b03fbea10c911f7f68a99e1d3bfd"
-  integrity sha512-UeH6U/1iknCBP94/AcKAFBeQz6ZicMugJHGXruTmsY8RcZt+mkx+vl8jLLOqNYweXdBbywCg2kK88WDKjcmSmg==
+xterm@^4.7.0:
+  version "4.8.1"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.8.1.tgz#155a1729a43e1a89b406524e22c5634339e39ca1"
+  integrity sha512-ax91ny4tI5eklqIfH79OUSGE2PUX2rGbwONmB6DfqpyhSZO8/cf++sqiaMWEVCMjACyMfnISW7C3gGMoNvNolQ==
 
 y18n@^4.0.0:
   version "4.0.0"
