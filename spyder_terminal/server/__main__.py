@@ -3,8 +3,10 @@
 """Main terminal server point of entry."""
 
 import argparse
+import asyncio
 import logging
 import os
+import sys
 
 import coloredlogs
 import tornado.web
@@ -53,6 +55,9 @@ def main(port, shell):
 
 
 if __name__ == '__main__':
+    if (sys.version_info[0] == 3 and sys.version_info[1] >= 8 and
+            sys.platform.startswith('win')):
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     args = parser.parse_args()
     port = int(args.port)
     shell = args.shell
