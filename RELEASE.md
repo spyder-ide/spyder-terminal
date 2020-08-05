@@ -25,7 +25,7 @@ Follow the steps to release a new version of spyder-terminal
 
 * git clean -xfdi
 
-* Update CHANGELOG.md with `loghub spyder-ide/spyder-terminal -zr "spyder-terminal vX.X.X"`
+* Update CHANGELOG.md with `loghub spyder-ide/spyder-terminal --milestone vX.X.X`
 
 * git add and git commit with "Update Changelog"
 

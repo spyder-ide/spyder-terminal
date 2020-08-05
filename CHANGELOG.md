@@ -1,3 +1,18 @@
+## Version 0.4.1 (2020/08/05)
+
+### Issues Closed
+
+* [Issue 235](https://github.com/spyder-ide/spyder-terminal/issues/235) - Plugin fails on Python 3.8 and Windows ([PR 236](https://github.com/spyder-ide/spyder-terminal/pull/236) by [@steff456](https://github.com/steff456))
+
+In this release 1 issue was closed.
+
+### Pull Requests Merged
+
+* [PR 236](https://github.com/spyder-ide/spyder-terminal/pull/236) - PR: Add tornado patch for python 3.8 in windows, by [@steff456](https://github.com/steff456) ([235](https://github.com/spyder-ide/spyder-terminal/issues/235))
+
+In this release 1 pull request was closed.
+
+
 ## Version spyder-terminal v0.4.0 (2020/07/21)
 
 ### Issues Closed
