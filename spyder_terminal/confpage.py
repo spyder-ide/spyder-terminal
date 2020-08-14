@@ -22,8 +22,8 @@ from spyder.utils.programs import find_program
 # Constants
 WINDOWS = os.name == 'nt'
 UNIX_SHELLS = ['bash', 'sh', 'ksh', 'zsh', 'csh', 'pwsh', 'rbash', 'dash',
-               'screen', 'tmux', 'tcsh', 'fish']
-WINDOWS_SHELLS = ['cmd', 'powershell']
+               'screen', 'tmux', 'tcsh', 'fish', 'xonsh']
+WINDOWS_SHELLS = ['cmd', 'powershell', 'xonsh']
 
 # For translations
 _ = get_translation('spyder_terminal')
