@@ -19,7 +19,7 @@ Follow the steps to release a new version of spyder-terminal
 ## Release updates
 * git fetch upstream && git merge upstream/master
 
-* Close milestone on Zenhub
+* Close milestone on Github
 
 * Run `check-manifest` to verify that all required files are part of the distribution.
 

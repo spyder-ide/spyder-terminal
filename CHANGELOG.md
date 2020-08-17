@@ -1,3 +1,13 @@
+## Version 0.4.2 (2020-08-17)
+
+
+### Pull Requests Merged
+
+* [PR 237](https://github.com/spyder-ide/spyder-terminal/pull/237) - PR: Add Xonsh to list of supported terminals in Unix and Windows, by [@steff456](https://github.com/steff456)
+
+In this release 1 pull request was closed.
+
+
 ## Version 0.4.1 (2020/08/05)
 
 ### Issues Closed
