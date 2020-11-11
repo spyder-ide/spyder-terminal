@@ -3,4 +3,4 @@ pywinpty==0.5.1
 tornado
 coloredlogs
 requests
-terminado
+terminado>=0.91

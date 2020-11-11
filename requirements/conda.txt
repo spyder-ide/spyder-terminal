@@ -3,4 +3,4 @@ pexpect
 tornado
 coloredlogs
 requests
-terminado
+terminado>=0.91
