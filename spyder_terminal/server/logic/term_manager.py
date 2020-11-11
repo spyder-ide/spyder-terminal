@@ -46,10 +46,15 @@ class TermManager(TermManagerBase):
         super().__init__(shell_command, **kwargs)
         self.consoles = {}
 
-    def new_terminal(self, **options):
+    def new_terminal(self, **kwargs):
         """Make a new terminal, return a :class:`PtyReader` instance."""
-        tty = super().new_terminal(**options)
-        return PtyReader(tty.ptyproc)
+        options = self.term_settings.copy()
+        options['shell_command'] = self.shell_command
+        options.update(kwargs)
+        argv = options['shell_command']
+        env = self.make_term_env(**options)
+        cwd = options.get('cwd', None)
+        return PtyReader(argv, env, cwd)
 
     @tornado.gen.coroutine
     def client_disconnected(self, pid, socket):
