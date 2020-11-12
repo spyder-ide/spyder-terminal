@@ -112,7 +112,7 @@ jobs:
     # Install nodejs version 13.x
   - task: NodeTool@0
     inputs:
-      versionSpec: '14.x'
+      versionSpec: '13.x'
 
     # Conda setup environment.
     # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/conda-environment?view=vsts
