@@ -10,7 +10,7 @@ if %USE_CONDA% == yes (
   conda install -q -y -c conda-forge --file requirements/tests.txt
   if errorlevel 1 exit 1
 
-  conda install -q -y -c conda-forge nodejs
+  conda install -q -y -c conda-forge nodejs=13
   if errorlevel 1 exit 1
 
   conda install -q -y -c conda-forge yarn

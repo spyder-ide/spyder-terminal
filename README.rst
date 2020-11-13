@@ -101,7 +101,7 @@ This project depends on
 * `pywinpty <https://github.com/spyder-ide/pywinpty>`_ (Windows Systems)
 * `Coloredlogs <https://github.com/xolox/python-coloredlogs>`_
 * `xterm.js <https://github.com/sourcelair/xterm.js>`_
-
+* `Terminado <https://github.com/jupyter/terminado>`_
 
 Changelog
 ---------
