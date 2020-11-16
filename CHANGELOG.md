@@ -1,3 +1,20 @@
+## Version 0.5.0 (2020-11-16)
+
+### Issues Closed
+
+* [Issue 242](https://github.com/spyder-ide/spyder-terminal/issues/242) - Terminal just displays a fat cursor and does nothing else ([PR 243](https://github.com/spyder-ide/spyder-terminal/pull/243) by [@steff456](https://github.com/steff456))
+* [Issue 240](https://github.com/spyder-ide/spyder-terminal/issues/240) - Terminal tab not working on spyder 4.1.5, Ubuntu 20.04 ([PR 243](https://github.com/spyder-ide/spyder-terminal/pull/243) by [@steff456](https://github.com/steff456))
+
+In this release 2 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 244](https://github.com/spyder-ide/spyder-terminal/pull/244) - PR: Upgrade dependencies of xtermjs and Spyder, by [@steff456](https://github.com/steff456)
+* [PR 243](https://github.com/spyder-ide/spyder-terminal/pull/243) - PR: Fix new terminal with work with latest Terminado version, by [@steff456](https://github.com/steff456) ([242](https://github.com/spyder-ide/spyder-terminal/issues/242), [240](https://github.com/spyder-ide/spyder-terminal/issues/240))
+
+In this release 2 pull requests were closed.
+
+
 ## Version 0.4.2 (2020-08-17)
 
 
