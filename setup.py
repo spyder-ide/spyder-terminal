@@ -102,5 +102,9 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8'
         ],
-    extras_require= EXTRAS_REQUIRE
-    )
+    extras_require=EXTRAS_REQUIRE,
+    entry_points={
+        "spyder.plugins": [
+            "terminal = spyder_terminal.terminalplugin:TerminalPlugin"
+        ],
+    })
