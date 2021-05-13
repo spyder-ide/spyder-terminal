@@ -44,6 +44,10 @@ class TerminalContainerWidgetToolbarSections:
     New = 'new'
 
 
+class TerminalContainerWidgetCornerToolbar:
+    NewTerm = 'new_terminal'
+
+
 class TerminalContainerWidgetMenuSections:
     New = 'new'
     TabActions = 'tab_actions'
@@ -142,16 +146,16 @@ class TerminalContainerWidget(PluginMainWidget):
         # Menu
         menu = self.get_options_menu()
 
-        # Toolbar
-        toolbar = self.get_main_toolbar()
-
         # Actions
-        new_terminal_action = self.create_action(
+        new_terminal_action = self.create_toolbutton(
             TerminalContainerWidgetToolbarSections.New,
             text=_("Open a new terminal"),
             icon=self.create_icon('expand_selection'),
             triggered=lambda: self.create_new_term(),
         )
+
+        self.add_corner_widget(
+            TerminalContainerWidgetCornerToolbar.NewTerm,  new_terminal_action)
 
         new_terminal_cwd = self.create_action(
             TerminalContainerWidgetActions.NewTerminalCWD,
@@ -227,11 +231,6 @@ class TerminalContainerWidget(PluginMainWidget):
 
         # Create context menu
         self.create_menu(TermViewMenus.Context)
-
-        # Add actions to toolbar
-        self.add_item_to_toolbar(
-            new_terminal_action, toolbar=toolbar,
-            section=TerminalContainerWidgetToolbarSections.New)
 
         # Add actions to options menu
         for item in [new_terminal_cwd, self.new_terminal_project,
