@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2020-07-13 17:07-0500\n"
-"PO-Revision-Date: 2020-07-13 22:26\n"
+"PO-Revision-Date: 2021-05-18 03:27\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "MIME-Version: 1.0\n"
@@ -19,23 +19,23 @@ msgstr ""
 
 #: spyder_terminal/confpage.py:37
 msgid "Terminal shell"
-msgstr ""
+msgstr "终端 Shell"
 
 #: spyder_terminal/confpage.py:60
 msgid "Select the shell interpreter:"
-msgstr ""
+msgstr "选择 Shell 解释器："
 
 #: spyder_terminal/confpage.py:70
 msgid "Terminal display preferences"
-msgstr ""
+msgstr "终端显示设置"
 
 #: spyder_terminal/confpage.py:73
 msgid "Buffer limit: "
-msgstr ""
+msgstr "缓冲区限制： "
 
 #: spyder_terminal/confpage.py:83
 msgid "Terminal style preferences"
-msgstr ""
+msgstr "终端样式设置"
 
 #: spyder_terminal/confpage.py:85
 msgid "Bar"
@@ -47,35 +47,35 @@ msgstr ""
 
 #: spyder_terminal/confpage.py:85
 msgid "Underline"
-msgstr ""
+msgstr "下划线"
 
 #: spyder_terminal/confpage.py:86
 msgid "Type of cursor:"
-msgstr ""
+msgstr "光标类型："
 
 #: spyder_terminal/confpage.py:94
 msgid "Enable bell sound"
-msgstr ""
+msgstr "启用铃声"
 
 #: spyder_terminal/confpage.py:95
 msgid "Enable bell sound on terminal"
-msgstr ""
+msgstr "在终端上启用铃声"
 
 #: spyder_terminal/terminalplugin.py:107
 msgid "Open a new terminal"
-msgstr ""
+msgstr "打开新终端"
 
 #: spyder_terminal/terminalplugin.py:146
 msgid "Spyder Terminal Error"
-msgstr ""
+msgstr "Spyder 终端错误"
 
 #: spyder_terminal/terminalplugin.py:147
 msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
-msgstr ""
+msgstr "无法在 <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a> 找到终端服务器，请尝试以调试模式重启 Spyder。若仍有问题，请提交新议题并带上位于 {3} 的 <tt>{1}</tt> 及 <tt>{2}</tt> 文件。"
 
 #: spyder_terminal/terminalplugin.py:182
 msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
-msgstr ""
+msgstr "<b>spyder-terminal</b> 不支持 Qt 4，此插件将被禁用。"
 
 #: spyder_terminal/terminalplugin.py:190
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
@@ -83,53 +83,53 @@ msgstr ""
 
 #: spyder_terminal/terminalplugin.py:202
 msgid "Terminal"
-msgstr ""
+msgstr "终端"
 
 #: spyder_terminal/terminalplugin.py:212
 msgid "New terminal in current working directory"
-msgstr ""
+msgstr "在当前工作目录打开新终端"
 
 #: spyder_terminal/terminalplugin.py:214
 msgid "Sets the pwd at the current working directory"
-msgstr ""
+msgstr "设置 pwd 为当前工作目录"
 
 #: spyder_terminal/terminalplugin.py:221
 msgid "New terminal in current project"
-msgstr ""
+msgstr "在当前项目中打开新终端"
 
 #: spyder_terminal/terminalplugin.py:223
 msgid "Sets the pwd at the current project directory"
-msgstr ""
+msgstr "设置 pwd 为当前项目目录"
 
 #: spyder_terminal/terminalplugin.py:231
 msgid "New terminal in current Editor file"
-msgstr ""
+msgstr "在当前编辑器文件中打开新终端"
 
 #: spyder_terminal/terminalplugin.py:233
 msgid "Sets the pwd at the directory that contains the current opened file"
-msgstr ""
+msgstr "设置 pwd 为包含当前打开文件的目录"
 
 #: spyder_terminal/terminalplugin.py:241
 msgid "Rename terminal"
-msgstr ""
+msgstr "重命名终端"
 
 #: spyder_terminal/widgets/terminalgui.py:322
 msgid "Copy text"
-msgstr ""
+msgstr "复制文本"
 
 #: spyder_terminal/widgets/terminalgui.py:326
 msgid "Paste text"
-msgstr ""
+msgstr "粘贴文本"
 
 #: spyder_terminal/widgets/terminalgui.py:331
 msgid "Clear Terminal"
-msgstr ""
+msgstr "清空终端内容"
 
 #: spyder_terminal/widgets/terminalgui.py:335
 msgid "Zoom in"
-msgstr ""
+msgstr "放大"
 
 #: spyder_terminal/widgets/terminalgui.py:338
 msgid "Zoom out"
-msgstr ""
+msgstr "缩小"
 
