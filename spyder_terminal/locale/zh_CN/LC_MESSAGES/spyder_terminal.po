@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2020-07-13 17:07-0500\n"
-"PO-Revision-Date: 2021-05-18 03:27\n"
+"PO-Revision-Date: 2021-05-19 03:26\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "MIME-Version: 1.0\n"
@@ -79,7 +79,7 @@ msgstr "<b>spyder-terminal</b> 不支持 Qt 4，此插件将被禁用。"
 
 #: spyder_terminal/terminalplugin.py:190
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
-msgstr ""
+msgstr "很抱歉，<b>spyder-terminal</b> 用于创建终端的库无法在您的系统上正常工作，本插件将被禁用。<br><br>此问题通常发生在 Windows 7 系统上。若您正运行此版本的 Windows，请考虑更新。"
 
 #: spyder_terminal/terminalplugin.py:202
 msgid "Terminal"
