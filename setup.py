@@ -43,7 +43,7 @@ def get_description():
 REQUIREMENTS = [
     'spyder>=5.0.0',
     'tornado',
-    'terminado>=0.9.1',
+    'terminado>=0.10.0',
     'coloredlogs',
     'requests'
 ]
