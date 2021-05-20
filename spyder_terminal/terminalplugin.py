@@ -139,3 +139,6 @@ class TerminalPlugin(SpyderDockablePlugin):
 
     def set_current_opened_file(self, filename, _language):
         self.get_widget().set_current_opened_file(filename)
+
+    def create_new_term(self, **kwargs):
+        self.get_widget().create_new_term(**kwargs)

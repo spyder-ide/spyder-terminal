@@ -189,8 +189,8 @@ class TerminalContainerWidget(PluginMainWidget):
             TerminalContainerWidgetActions.SelectAll,
             text=_('Select All'),
             shortcut_context='terminal',
-            triggered=lambda: self.select_all(),
-            register_shortcut=True)
+            register_shortcut=True,
+            triggered=lambda: self.select_all())
 
         self.create_action(
             TerminalContainerWidgetActions.Copy,
