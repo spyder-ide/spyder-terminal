@@ -116,7 +116,7 @@ class TerminalPlugin(SpyderDockablePlugin):
 
     def on_close(self, cancelable=False):
         """Perform actions before closing the plugin."""
-        self.get_widget().on_close(cancelable=False)
+        return self.get_widget().on_close(cancelable=False)
 
     def refresh(self):
         """Refresh main widget."""
