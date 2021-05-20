@@ -12,7 +12,6 @@ import os
 import os.path as osp
 
 # Third party imports
-from qtpy import PYQT4, PYSIDE
 from qtpy.QtCore import Signal
 from spyder.api.plugins import Plugins, SpyderDockablePlugin
 from spyder.config.base import get_translation
@@ -101,10 +100,6 @@ class TerminalPlugin(SpyderDockablePlugin):
         """Check if current Qt backend version is greater or equal to 5."""
         message = ''
         valid = True
-        if PYQT4 or PYSIDE:
-            message = _('<b>spyder-terminal</b> doesn\'t work with Qt 4. '
-                        'Therefore, this plugin will be deactivated.')
-            valid = False
         if WINDOWS:
             try:
                 import winpty
