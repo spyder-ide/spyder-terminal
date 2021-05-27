@@ -19,7 +19,6 @@ class TerminalContainerWidgetActions:
     Clear = 'clear'
     ZoomIn = 'zoom_in'
     ZoomOut = 'zoom_out'
-    SelectAll = 'select_all'
 
 
 class TermViewMenus:

@@ -252,8 +252,7 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
         """Create the terminal shortcuts."""
         # Create context menu
         self.context_menu = self.get_menu(TermViewMenus.Context)
-        for item in [self.get_action(TerminalContainerWidgetActions.SelectAll),
-                     self.get_action(TerminalContainerWidgetActions.Copy),
+        for item in [self.get_action(TerminalContainerWidgetActions.Copy),
                      self.get_action(TerminalContainerWidgetActions.Paste),
                      self.get_action(TerminalContainerWidgetActions.Clear)]:
             self.add_item_to_menu(
@@ -273,10 +272,6 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
     def copy(self):
         """Copy unicode text from terminal."""
         self.triggerPageAction(QWebEnginePage.Copy)
-
-    def select_all(self):
-        """Select all the text from the terminal."""
-        self.triggerPageAction(QWebEnginePage.SelectAll)
 
     def paste(self):
         """Paste unicode text into terminal."""

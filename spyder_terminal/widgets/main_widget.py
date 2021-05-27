@@ -186,13 +186,6 @@ class TerminalContainerWidget(PluginMainWidget):
 
         # Context menu actions
         self.create_action(
-            TerminalContainerWidgetActions.SelectAll,
-            text=_('Select All'),
-            shortcut_context='terminal',
-            register_shortcut=True,
-            triggered=lambda: self.select_all())
-
-        self.create_action(
             TerminalContainerWidgetActions.Copy,
             text=_('Copy text'),
             icon=self.create_icon('editcopy'),
@@ -268,10 +261,6 @@ class TerminalContainerWidget(PluginMainWidget):
     def decrease_font(self):
         if self.get_focus_widget():
             self.get_focus_widget().decrease_font()
-
-    def select_all(self):
-        if self.get_focus_widget():
-            self.get_focus_widget().select_all()
 
     def __wait_server_to_start(self):
         try:
