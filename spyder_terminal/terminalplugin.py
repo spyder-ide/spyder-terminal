@@ -18,8 +18,7 @@ from spyder.config.base import get_translation
 
 # Local imports
 from spyder_terminal.confpage import TerminalConfigPage
-from spyder_terminal.config import (CONF_DEFAULTS, CONF_VERSION,
-                                    ADDITIONAL_CONF_OPTIONS)
+from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION
 from spyder_terminal.widgets.main_widget import TerminalContainerWidget
 
 # Constants
@@ -45,7 +44,6 @@ class TerminalPlugin(SpyderDockablePlugin):
     CONF_WIDGET_CLASS = TerminalConfigPage
     CONF_DEFAULTS = CONF_DEFAULTS
     CONF_VERSION = CONF_VERSION
-    ADDITIONAL_CONF_OPTIONS = ADDITIONAL_CONF_OPTIONS
 
     # --- Signals
     # ------------------------------------------------------------------------

@@ -23,20 +23,18 @@ CONF_DEFAULTS = [
       'buffer_limit': 1000
      }
      ),
+    ('shortcuts',
+     {
+       'terminal/copy': 'Ctrl+Alt+Shift+C' if LINUX else 'Ctrl+Alt+C',
+       'terminal/paste': 'Ctrl+Alt+Shift+V' if LINUX else 'Ctrl+Alt+V',
+       'terminal/new_terminal_cwd_action': 'Ctrl+Alt+T',
+       'terminal/clear': 'Ctrl+Alt+K',
+       'terminal/select_all': 'Ctrl+Alt+A',
+       'terminal/zoom_in': 'Ctrl++',
+       'terminal/zoom_out': 'Ctrl+-',
+     }
+    )
 ]
-
-ADDITIONAL_CONF_OPTIONS = {
-    'shortcuts':
-    {
-      'terminal/copy': 'Ctrl+Alt+Shift+C' if LINUX else 'Ctrl+Alt+C',
-      'terminal/paste': 'Ctrl+Alt+Shift+V' if LINUX else 'Ctrl+Alt+V',
-      'terminal/new_terminal_cwd_action': 'Ctrl+Alt+T',
-      'terminal/clear': 'Ctrl+Alt+K',
-      'terminal/select_all': 'Ctrl+Alt+A',
-      'terminal/zoom_in': 'Ctrl++',
-      'terminal/zoom_out': 'Ctrl+-',
-    }
-}
 
 # IMPORTANT NOTES:
 # 1. If you want to *change* the default value of a current option, you need to

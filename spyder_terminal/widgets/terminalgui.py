@@ -344,17 +344,15 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
         sequence = QKeySequence(key).toString(QKeySequence.PortableText)
         if event == QKeySequence.Paste:
             self.paste()
-        elif sequence == self.get_conf('terminal/copy', section='shortcuts'):
+        elif sequence == self.get_shortcut('copy'):
             self.copy()
-        elif sequence == self.get_conf('terminal/paste', section='shortcuts'):
+        elif sequence == self.get_shortcut('paste'):
             self.paste()
-        elif sequence == self.get_conf('terminal/clear', section='shortcuts'):
+        elif sequence == self.get_shortcut('clear'):
             self.clear()
-        elif sequence == self.get_conf(
-                'terminal/zoom_in', section='shortcuts'):
+        elif sequence == self.get_shortcut('zoom_in'):
             self.increase_font()
-        elif sequence == self.get_conf(
-                'terminal/zoom_out', section='shortcuts'):
+        elif sequence == self.get_shortcut('zoom_out'):
             self.decrease_font()
         else:
             super().keyPressEvent(event)
