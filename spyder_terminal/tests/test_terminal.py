@@ -160,6 +160,7 @@ def setup_terminal(qtbot_module, request):
     return terminal
 
 
+@flaky(max_runs=3)
 @pytest.mark.skipif((os.environ.get('CI') and
                      sys.platform.startswith('linux')),
                     reason="Doesn't work on Linux CIs")
@@ -287,7 +288,9 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
+@pytest.mark.skipif((os.environ.get('CI') and
+                     sys.platform.startswith('linux')),
+                    reason="Doesn't work on Linux CIs")
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
