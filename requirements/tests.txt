@@ -1,5 +1,5 @@
 pytest
 pytest-cov
 flaky
-pytest-qt
+pytest-qt<4.0
 pytest-timeout
