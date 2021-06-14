@@ -155,6 +155,7 @@ jobs:
     displayName: 'Run tests'
     continueOnError: false
   - script: |
+      call activate test
       continuous_integration\azure\runcodecov.bat
     displayName: 'Run code coverage'
     continueOnError: false
