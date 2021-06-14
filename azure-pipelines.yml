@@ -156,9 +156,9 @@ jobs:
     continueOnError: false
   - script: |
       call activate test
-      continuous_integration\azure\runcodecov.bat
+      codecov
     displayName: 'Run code coverage'
-    continueOnError: false
+    continueOnError: true
     # Publish test results to the Azure DevOps server
   - task: PublishTestResults@2
     inputs:
