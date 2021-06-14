@@ -161,8 +161,8 @@ def setup_terminal(qtbot_module, request):
 
 
 @pytest.mark.skipif((os.environ.get('CI') and
-                     not sys.platform.startswith('linux')),
-                    reason="Doesn't work on Mac and Windows CIs")
+                     sys.platform.startswith('linux')),
+                    reason="Doesn't work on Linux CIs")
 def test_terminal_paste(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
