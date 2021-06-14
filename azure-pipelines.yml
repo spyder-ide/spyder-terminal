@@ -130,6 +130,9 @@ jobs:
   - script: conda create --yes --quiet --name test python=%PYTHON_VERSION%
     displayName: Create conda environment
 
+  - script: conda activate test
+    displayName: Activate conda environment
+
     # Install dependencies
   - script: |
       continuous_integration\azure\install.bat
