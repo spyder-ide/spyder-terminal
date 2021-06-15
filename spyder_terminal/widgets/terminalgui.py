@@ -107,6 +107,7 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         for option in options:
             dict_options[option] = self.get_conf(option)
         self.apply_settings(dict_options)
+        self.apply_zoom()
 
     def get_shortcut_data(self):
         """
@@ -201,10 +202,23 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         alive = self.eval_javascript('isAlive()')
         return alive
 
+    def apply_zoom(self):
+        zoom = self.get_conf('zoom')
+        if zoom > 0:
+            for __ in range(0, zoom):
+                self.view.increase_font()
+        if zoom < 0:
+            for __ in range(0, -zoom):
+                self.view.decrease_font()
+
     def set_option(self, option_name, option):
         """Set a configuration option in the terminal."""
-        self.eval_javascript('setOption("{}", "{}")'.format(option_name,
-                                                            option))
+        if type(option) == int:
+            self.eval_javascript('setOption("{}", {})'.format(option_name,
+                                                              option))
+        else:
+            self.eval_javascript('setOption("{}", "{}")'.format(option_name,
+                                                                option))
 
     def apply_settings(self, options):
         """Apply custom settings given an option dictionary."""
@@ -220,6 +234,8 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         if 'buffer_limit' in options:
             new_lim = options['buffer_limit']
             self.set_option('scrollback', new_lim)
+        if 'cursor_blink' in options:
+            self.set_option('cursorBlink', int(options['cursor_blink']))
 
 
 class TermView(QWebEngineView, SpyderWidgetMixin):
@@ -288,10 +304,14 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
 
     def increase_font(self):
         """Increase terminal font."""
+        zoom = self.get_conf('zoom')
+        self.set_conf('zoom', zoom+1)
         return self.eval_javascript('increaseFontSize()')
 
     def decrease_font(self):
         """Decrease terminal font."""
+        zoom = self.get_conf('zoom')
+        self.set_conf('zoom', zoom-1)
         return self.eval_javascript('decreaseFontSize()')
 
     def contextMenuEvent(self, event):

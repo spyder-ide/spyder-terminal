@@ -95,6 +95,12 @@ class TerminalConfigPage(PluginConfigPage):
             tip=_("Enable bell sound on terminal"))
         options_layout.addWidget(self.sound_cb)
 
+        # Visual bell option
+        self.cursor_blink_cb = self.create_checkbox(
+            _("Enable cursor blink"), 'cursor_blink',
+            tip=_("_Enable cursor blink on terminal"))
+        options_layout.addWidget(self.cursor_blink_cb)
+
         terminal_group.setLayout(options_layout)
 
         layout = QVBoxLayout()

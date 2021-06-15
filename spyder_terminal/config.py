@@ -20,7 +20,9 @@ CONF_DEFAULTS = [
       'sound': True,
       'cursor_type': 0,
       'shell': 'cmd' if WINDOWS else 'bash',
-      'buffer_limit': 1000
+      'buffer_limit': 1000,
+      'cursor_blink': True,
+      'zoom': 0,
      }
      ),
     ('shortcuts',
