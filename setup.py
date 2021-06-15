@@ -41,19 +41,19 @@ def get_description():
 
 
 REQUIREMENTS = [
-    'spyder>=4.1.0,<5.0.0',
+    'spyder>=5.0.4',
     'tornado',
-    'terminado>=0.9.1',
+    'terminado>=0.10.0',
     'coloredlogs',
     'requests'
 ]
 
 EXTRAS_REQUIRE = {
     'test': [
-        'pytest',
+        'pytest<6.0',
         'pytest-cov',
         'flaky',
-        'pytest-qt',
+        'pytest-qt==3.3.0',
         'pytest-timeout'
     ]
 }
@@ -102,5 +102,9 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8'
         ],
-    extras_require= EXTRAS_REQUIRE
-    )
+    extras_require=EXTRAS_REQUIRE,
+    entry_points={
+        "spyder.plugins": [
+            "terminal = spyder_terminal.terminalplugin:TerminalPlugin"
+        ],
+    })

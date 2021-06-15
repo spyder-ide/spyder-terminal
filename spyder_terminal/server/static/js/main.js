@@ -135,7 +135,8 @@ function setcwd(cwd) {
 
 function getTerminalLines(){
   let text = '';
-  for(let row = 0; row < term.rows; row++){
+  let totalLines = term.buffer.active.length;
+  for(let row = 0; row < totalLines; row++){
     let actLine = term.buffer.active.getLine(row);
     let length = actLine._line.length;
     text += actLine.translateToString(false, 0, length) + '';

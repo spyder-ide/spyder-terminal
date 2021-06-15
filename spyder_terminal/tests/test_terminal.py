@@ -17,6 +17,7 @@ from flaky import flaky
 from pytestqt.plugin import QtBot
 from unittest.mock import Mock
 from qtpy.QtWidgets import QMainWindow, QApplication
+from spyder.config.manager import CONF
 
 os.environ['SPYDER_DEV'] = 'True'
 
@@ -120,7 +121,7 @@ def check_hex_to_rgb(term):
 
 def check_num_tabs(terminal, ref_value):
     """Check if total number of terminal tabs has changed."""
-    value = len(terminal.get_terms())
+    value = len(terminal.get_widget().get_terms())
     return value != ref_value
 
 
@@ -142,31 +143,36 @@ def setup_terminal(qtbot_module, request):
             pass
 
     main = MainMock()
-    terminal = TerminalPlugin(main)
+    CONF.register_plugin(TerminalPlugin)
+    terminal = TerminalPlugin(main, CONF)
+    terminal.update_font()
     qtbot_module.addWidget(terminal)
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(5000)
     terminal.create_new_term()
-    terminal.show()
+    terminal.get_widget().show()
 
     def teardown():
-        terminal.closing_plugin()
+        terminal.on_close()
 
     request.addfinalizer(teardown)
     return terminal
 
 
+@flaky(max_runs=3)
 @pytest.mark.skipif((os.environ.get('CI') and
-                     not sys.platform.startswith('linux')),
-                    reason="Doesn't work on Mac and Windows CIs")
+                     sys.platform.startswith('linux')),
+                    reason="Doesn't work on Linux CIs")
 def test_terminal_paste(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(1000)
 
-    term = terminal.get_current_term()
-    port = terminal.port
+    term = terminal.get_widget().get_current_term()
+    port = terminal.get_widget().port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
 
@@ -188,11 +194,12 @@ def test_terminal_paste(setup_terminal, qtbot_module):
 def test_terminal_color(setup_terminal, qtbot_module):
     """Test if the terminal color is converting to rgba correctly."""
     terminal = setup_terminal
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(1000)
 
-    term = terminal.get_current_term()
-    port = terminal.port
+    term = terminal.get_widget().get_current_term()
+    port = terminal.get_widget().port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
     qtbot_module.waitUntil(lambda: check_hex_to_rgb(term),  timeout=TERM_UP)
@@ -201,11 +208,12 @@ def test_terminal_color(setup_terminal, qtbot_module):
 def test_terminal_find(setup_terminal, qtbot_module):
     """Test the terminal find next/previous functions."""
     terminal = setup_terminal
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(1000)
 
-    term = terminal.get_current_term()
-    port = terminal.port
+    term = terminal.get_widget().get_current_term()
+    port = terminal.get_widget().port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
 
@@ -245,11 +253,12 @@ def test_terminal_font(setup_terminal, qtbot_module):
     """Test if terminal loads a custom font."""
     terminal = setup_terminal
 
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(1000)
 
-    term = terminal.get_current_term()
-    port = terminal.port
+    term = terminal.get_widget().get_current_term()
+    port = terminal.get_widget().port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
     term.set_font('Ubuntu Mono')
@@ -262,42 +271,41 @@ def test_terminal_font(setup_terminal, qtbot_module):
     # Verify decrease of size of font
     qtbot_module.waitUntil(lambda: check_decrease_font_size(term),
                            timeout=TERM_UP)
-    #terminal.closing_plugin()
 
 
 def test_terminal_tab_title(setup_terminal, qtbot_module):
     """Test if terminal tab titles are numbered sequentially."""
     terminal = setup_terminal
 
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(1000)
     terminal.create_new_term()
     terminal.create_new_term()
-    num_1 = int(terminal.tabwidget.tabText(1)[-1])
-    num_2 = int(terminal.tabwidget.tabText(2)[-1])
+    num_1 = int(terminal.get_widget().tabwidget.tabText(1)[-1])
+    num_2 = int(terminal.get_widget().tabwidget.tabText(2)[-1])
     assert num_2 == num_1 + 1
-    # terminal.closing_plugin()
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
+@pytest.mark.skipif((os.environ.get('CI') and
+                     sys.platform.startswith('linux')),
+                    reason="Doesn't work on Linux CIs")
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
     terminal = setup_terminal
-    # blocker = qtbot_module.waitSignal(terminal.server_is_ready,
-    #                                   timeout=TERM_UP)
-    # blocker.wait()
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(1000)
 
     # Test if server is running
-    port = terminal.port
+    port = terminal.get_widget().port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
 
     terminal.create_new_term()
-    term = terminal.get_current_term()
+    term = terminal.get_widget().get_current_term()
     qtbot_module.wait(1000)
     # Move to LOCATION
     # qtbot_module.keyClicks(term.view, 'cd {}'.format(LOCATION))
@@ -320,17 +328,14 @@ def test_new_terminal(setup_terminal, qtbot_module):
     term.resize(900, 700)
     qtbot_module.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
 
-    # terminal.closing_plugin()
-
 
 def test_output_redirection(setup_terminal, qtbot_module):
     """Test if stdout and stderr are redirected on DEV mode."""
-    assert spyder_terminal.terminalplugin.get_debug_level() > 0
+    assert spyder_terminal.widgets.main_widget.get_debug_level() > 0
 
     stdout = osp.join(os.getcwd(), 'spyder_terminal_out.log')
     stderr = osp.join(os.getcwd(), 'spyder_terminal_err.log')
     assert osp.exists(stdout) and osp.exists(stderr)
-    # terminal.closing_plugin()
 
 
 @flaky(max_runs=3)
@@ -339,23 +344,20 @@ def test_close_terminal_manually(setup_terminal, qtbot_module):
     """Test if terminal tab is closed after process was finished manually."""
     # Setup widget
     terminal = setup_terminal
-
-    # blocker = qtbot_module.waitSignal(terminal.server_is_ready,
-    #                                   timeout=TERM_UP)
-    # blocker.wait()
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(1000)
 
     terminal.create_new_term()
-    initial_num = len(terminal.get_terms())
-    term = terminal.get_current_term()
+    initial_num = len(terminal.get_widget().get_terms())
+    term = terminal.get_widget().get_current_term()
     qtbot_module.wait(3000)
 
     term.exec_cmd(EXIT)
 
     qtbot_module.waitUntil(lambda: check_num_tabs(terminal, initial_num),
                            timeout=TERM_UP)
-    final_num = len(terminal.get_terms())
+    final_num = len(terminal.get_widget().get_terms())
     assert final_num == initial_num - 1
 
 
@@ -368,10 +370,11 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
     os.chdir(new_dir)
 
     terminal = setup_terminal
-    qtbot_module.waitUntil(lambda: terminal.server_is_ready(), timeout=TERM_UP)
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(1000)
 
-    port = terminal.port
+    port = terminal.get_widget().port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
 

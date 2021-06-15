@@ -137,6 +137,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
     @flaky(max_runs=3)
     @pytest.mark.timeout(10)
     @testing.gen_test
+    @pytest.mark.skipif(os.name == 'nt', reason="Doesn't work on Windows")
     def test_terminal_resize(self):
         """Test terminal resizing."""
         data = {'rows': '25', 'cols': '80'}
