@@ -19,7 +19,7 @@ from spyder.config.base import get_translation
 # Local imports
 from spyder_terminal.confpage import TerminalConfigPage
 from spyder_terminal.config import CONF_DEFAULTS, CONF_VERSION
-from spyder_terminal.widgets.main_widget import TerminalContainerWidget
+from spyder_terminal.widgets.main_widget import TerminalMainWidget
 
 # Constants
 LOCATION = osp.realpath(osp.join(os.getcwd(),
@@ -35,11 +35,11 @@ class TerminalPlugin(SpyderDockablePlugin):
     Terminal plugin.
     """
     NAME = 'terminal'
-    REQUIRES = [Plugins.WorkingDirectory, Plugins.Preferences]
-    OPTIONAL = [Plugins.Projects, Plugins.Editor]
+    REQUIRES = [Plugins.Preferences]
+    OPTIONAL = [Plugins.Projects, Plugins.Editor, Plugins.WorkingDirectory]
     TABIFY = [Plugins.IPythonConsole]
     CONF_SECTION = NAME
-    WIDGET_CLASS = TerminalContainerWidget
+    WIDGET_CLASS = TerminalMainWidget
     CONF_FILE = True
     CONF_WIDGET_CLASS = TerminalConfigPage
     CONF_DEFAULTS = CONF_DEFAULTS

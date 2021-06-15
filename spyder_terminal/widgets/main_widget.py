@@ -25,7 +25,7 @@ from spyder.widgets.tabs import Tabs
 from spyder.utils.misc import select_port
 
 # Local imports
-from spyder_terminal.api import TerminalContainerWidgetActions, TermViewMenus
+from spyder_terminal.api import TerminalMainWidgetActions, TermViewMenus
 from spyder_terminal.widgets.findwidget import FindTerminal
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 
@@ -40,20 +40,20 @@ WINDOWS = os.name == 'nt'
 _ = get_translation('spyder_terminal')
 
 
-class TerminalContainerWidgetToolbarSections:
+class TerminalMainWidgetToolbarSections:
     New = 'new'
 
 
-class TerminalContainerWidgetCornerToolbar:
+class TerminalMainWidgetCornerToolbar:
     NewTerm = 'new_terminal'
 
 
-class TerminalContainerWidgetMenuSections:
+class TerminalMainWidgetMenuSections:
     New = 'new'
     TabActions = 'tab_actions'
 
 
-class TerminalContainerWidget(PluginMainWidget):
+class TerminalMainWidget(PluginMainWidget):
     """
     Terminal plugin main widget.
     """
@@ -147,18 +147,19 @@ class TerminalContainerWidget(PluginMainWidget):
         menu = self.get_options_menu()
 
         # Actions
-        new_terminal_action = self.create_toolbutton(
-            TerminalContainerWidgetToolbarSections.New,
+        new_terminal_toolbar_action = self.create_toolbutton(
+            TerminalMainWidgetToolbarSections.New,
             text=_("Open a new terminal"),
             icon=self.create_icon('expand_selection'),
             triggered=lambda: self.create_new_term(),
         )
 
         self.add_corner_widget(
-            TerminalContainerWidgetCornerToolbar.NewTerm,  new_terminal_action)
+            TerminalMainWidgetCornerToolbar.NewTerm,
+            new_terminal_toolbar_action)
 
         new_terminal_cwd = self.create_action(
-            TerminalContainerWidgetActions.NewTerminalCWD,
+            TerminalMainWidgetActions.NewTerminalForCWD,
             text=_("New terminal in current working directory"),
             tip=_("Sets the pwd at the current working directory"),
             triggered=lambda: self.create_new_term(),
@@ -166,13 +167,13 @@ class TerminalContainerWidget(PluginMainWidget):
             register_shortcut=True)
 
         self.new_terminal_project = self.create_action(
-            TerminalContainerWidgetActions.NewTerminalProject,
+            TerminalMainWidgetActions.NewTerminalForProject,
             text=_("New terminal in current project"),
             tip=_("Sets the pwd at the current project directory"),
             triggered=lambda: self.create_new_term(path=self.project_path))
 
         new_terminal_file = self.create_action(
-            TerminalContainerWidgetActions.NewTerminalFile,
+            TerminalMainWidgetActions.NewTerminalForFile,
             text=_("New terminal in current Editor file"),
             tip=_("Sets the pwd at the directory that contains the current "
                   "opened file"),
@@ -180,13 +181,13 @@ class TerminalContainerWidget(PluginMainWidget):
                 path=self.current_file_path))
 
         rename_tab_action = self.create_action(
-            TerminalContainerWidgetActions.RenameTab,
+            TerminalMainWidgetActions.RenameTab,
             text=_("Rename terminal"),
             triggered=lambda: self.tab_name_editor())
 
         # Context menu actions
         self.create_action(
-            TerminalContainerWidgetActions.Copy,
+            TerminalMainWidgetActions.Copy,
             text=_('Copy text'),
             icon=self.create_icon('editcopy'),
             shortcut_context='terminal',
@@ -194,7 +195,7 @@ class TerminalContainerWidget(PluginMainWidget):
             register_shortcut=True)
 
         self.create_action(
-            TerminalContainerWidgetActions.Paste,
+            TerminalMainWidgetActions.Paste,
             text=_('Paste text'),
             icon=self.create_icon('editpaste'),
             shortcut_context='terminal',
@@ -202,21 +203,21 @@ class TerminalContainerWidget(PluginMainWidget):
             register_shortcut=True)
 
         self.create_action(
-            TerminalContainerWidgetActions.Clear,
+            TerminalMainWidgetActions.Clear,
             text=_('Clear terminal'),
             shortcut_context='terminal',
             triggered=lambda: self.clear(),
             register_shortcut=True)
 
         self.create_action(
-            TerminalContainerWidgetActions.ZoomIn,
+            TerminalMainWidgetActions.ZoomIn,
             text=_('Zoom in'),
             shortcut_context='terminal',
             triggered=lambda: self.increase_font(),
             register_shortcut=True)
 
         self.create_action(
-            TerminalContainerWidgetActions.ZoomOut,
+            TerminalMainWidgetActions.ZoomOut,
             text=_('Zoom out'),
             shortcut_context='terminal',
             triggered=lambda: self.decrease_font(),
@@ -230,11 +231,11 @@ class TerminalContainerWidget(PluginMainWidget):
                      new_terminal_file]:
             self.add_item_to_menu(
                 item, menu=menu,
-                section=TerminalContainerWidgetMenuSections.New)
+                section=TerminalMainWidgetMenuSections.New)
 
         self.add_item_to_menu(
             rename_tab_action, menu=menu,
-            section=TerminalContainerWidgetMenuSections.TabActions)
+            section=TerminalMainWidgetMenuSections.TabActions)
 
     def update_actions(self):
         """Setup and update the actions in the options menu."""
@@ -439,7 +440,7 @@ def test():
 
     app = qapplication(test_time=8)
     plugin_mock = MagicMock()
-    term = TerminalContainerWidget('terminal', plugin_mock, None)
+    term = TerminalMainWidget('terminal', plugin_mock, None)
     term.resize(900, 700)
     term._setup()
     term.setup()

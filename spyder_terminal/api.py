@@ -8,11 +8,11 @@
 """Spyder Terminal Plugin."""
 
 
-class TerminalContainerWidgetActions:
-    NewTerminal = 'new_terminal_action'
-    NewTerminalCWD = 'new_terminal_cwd_action'
-    NewTerminalProject = 'new_terminal_project_action'
-    NewTerminalFile = 'new_terminal_file_action'
+class TerminalMainWidgetActions:
+    NewTerminal = 'new_terminal_toolbar_action'
+    NewTerminalForCWD = 'new_terminal'
+    NewTerminalForProject = 'new_terminal_project_action'
+    NewTerminalForFile = 'new_terminal_file_action'
     RenameTab = 'rename_tab_action'
     Copy = 'copy'
     Paste = 'paste'

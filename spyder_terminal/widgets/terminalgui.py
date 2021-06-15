@@ -28,7 +28,7 @@ from spyder.utils import icon_manager as ima
 from spyder.utils.qthelpers import create_action, add_actions
 
 # Local imports
-from spyder_terminal.api import TerminalContainerWidgetActions, TermViewMenus
+from spyder_terminal.api import TerminalMainWidgetActions, TermViewMenus
 from spyder_terminal.widgets.style.themes import ANSI_COLORS
 
 
@@ -249,20 +249,20 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
         self.setup()
 
     def setup(self):
-        """Create the terminal shortcuts."""
+        """Create the terminal context menu."""
         # Create context menu
         self.context_menu = self.get_menu(TermViewMenus.Context)
-        for item in [self.get_action(TerminalContainerWidgetActions.Copy),
-                     self.get_action(TerminalContainerWidgetActions.Paste),
-                     self.get_action(TerminalContainerWidgetActions.Clear)]:
+        for item in [self.get_action(TerminalMainWidgetActions.Copy),
+                     self.get_action(TerminalMainWidgetActions.Paste),
+                     self.get_action(TerminalMainWidgetActions.Clear)]:
             self.add_item_to_menu(
                 item,
                 menu=self.context_menu,
                 section=TermViewSections.CommonActions,
             )
 
-        for item in [self.get_action(TerminalContainerWidgetActions.ZoomIn),
-                     self.get_action(TerminalContainerWidgetActions.ZoomOut)]:
+        for item in [self.get_action(TerminalMainWidgetActions.ZoomIn),
+                     self.get_action(TerminalMainWidgetActions.ZoomOut)]:
             self.add_item_to_menu(
                 item,
                 menu=self.context_menu,
