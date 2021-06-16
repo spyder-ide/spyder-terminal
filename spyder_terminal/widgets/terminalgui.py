@@ -305,13 +305,13 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
     def increase_font(self):
         """Increase terminal font."""
         zoom = self.get_conf('zoom')
-        self.set_conf('zoom', zoom+1)
+        self.set_conf('zoom', zoom + 1)
         return self.eval_javascript('increaseFontSize()')
 
     def decrease_font(self):
         """Decrease terminal font."""
         zoom = self.get_conf('zoom')
-        self.set_conf('zoom', zoom-1)
+        self.set_conf('zoom', zoom - 1)
         return self.eval_javascript('decreaseFontSize()')
 
     def contextMenuEvent(self, event):
