@@ -89,6 +89,9 @@ Using pip (only if you don't use conda!):
 
     pip install spyder-terminal
 
+**Note**: At the moment it is not possible to use this plugin with the
+`Spyder installers <http://docs.spyder-ide.org/current/installation.html#standalone-installers>`_
+for Windows and macOS. We're working to make that a reality in the future.
 
 Dependencies
 ------------
