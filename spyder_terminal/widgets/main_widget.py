@@ -81,6 +81,8 @@ class TerminalMainWidget(PluginMainWidget):
         self.port = select_port(default_port=8071)
         self.server_stdout = subprocess.PIPE
         self.server_stderr = subprocess.PIPE
+        if os.name == 'nt':
+            os.environ['PYWINPTY_BACKEND'] = '1'
         self.stdout_file = osp.join(os.getcwd(), 'spyder_terminal_out.log')
         self.stderr_file = osp.join(os.getcwd(), 'spyder_terminal_err.log')
         if get_debug_level() > 0:
