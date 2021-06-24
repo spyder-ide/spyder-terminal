@@ -19,16 +19,12 @@ from qtpy.QtGui import QKeySequence
 from qtpy.QtWebChannel import QWebChannel
 from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
                                      QWebEngineView)
-from qtpy.QtWidgets import QMenu, QFrame, QVBoxLayout, QWidget, QApplication
+from qtpy.QtWidgets import QFrame, QVBoxLayout, QApplication
 from spyder.api.widgets.mixins import SpyderWidgetMixin
 from spyder.api.config.decorators import on_conf_change
-from spyder.config.base import DEV, get_translation
-from spyder.config.manager import CONF
+from spyder.config.base import get_translation
 from spyder.config.gui import is_dark_interface
-from spyder.utils import icon_manager as ima
 from spyder.utils.palette import QStylePalette
-from spyder.utils.qthelpers import create_action, add_actions
-from spyder.widgets.browser import FrameWebView
 
 # Local imports
 from spyder_terminal.api import TerminalMainWidgetActions, TermViewMenus
