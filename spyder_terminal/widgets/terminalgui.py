@@ -9,6 +9,7 @@
 # Standard library imports
 import json
 import os
+import qstylizer
 import sys
 
 # Third-party imports
@@ -25,7 +26,9 @@ from spyder.config.base import DEV, get_translation
 from spyder.config.manager import CONF
 from spyder.config.gui import is_dark_interface
 from spyder.utils import icon_manager as ima
+from spyder.utils.palette import QStylePalette
 from spyder.utils.qthelpers import create_action, add_actions
+from spyder.widgets.browser import FrameWebView
 
 # Local imports
 from spyder_terminal.api import TerminalMainWidgetActions, TermViewMenus
@@ -93,6 +96,11 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         self.body = self.view.document
 
         self.handler.sig_ready.connect(self.setup_term)
+        self.view.sig_focus_in_event.connect(
+            lambda: self._apply_stylesheet(focus=True))
+        self.view.sig_focus_out_event.connect(
+            lambda: self._apply_stylesheet(focus=False))
+        self._apply_stylesheet()
 
     def setup_term(self):
         """Setup other terminal options after page has loaded."""
@@ -237,9 +245,36 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         if 'cursor_blink' in options:
             self.set_option('cursorBlink', int(options['cursor_blink']))
 
+    def _apply_stylesheet(self, focus=False):
+        """Apply stylesheet according to the current focus."""
+        if focus:
+            border_color = QStylePalette.COLOR_ACCENT_3
+        else:
+            border_color = QStylePalette.COLOR_BACKGROUND_4
+
+        css = qstylizer.style.StyleSheet()
+        css.QFrame.setValues(
+            border=f'1px solid {border_color}',
+            margin='0px 1px 0px 1px',
+            padding='0px 0px 1px 0px',
+            borderRadius='3px'
+        )
+
+        self.setStyleSheet(css.toString())
+
 
 class TermView(QWebEngineView, SpyderWidgetMixin):
     """XTerm Wrapper."""
+    sig_focus_in_event = Signal()
+    """
+    This signal is emitted when the widget receives focus.
+    """
+
+    sig_focus_out_event = Signal()
+    """
+    This signal is emitted when the widget loses focus.
+    """
+
     def __init__(self, parent, term_url='http://127.0.0.1:8070', handler=None):
         """Webview main constructor."""
         super().__init__(parent, class_parent=parent)
@@ -253,6 +288,7 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
 
         self.term_url = QUrl(term_url)
         self.load(self.term_url)
+        self.focusProxy().installEventFilter(self)
 
         self.document = self.page()
         try:
@@ -371,6 +407,19 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
             self.decrease_font()
         else:
             super().keyPressEvent(event)
+
+    def eventFilter(self, widget, event):
+        """
+        Handle events that affect the view.
+        All events (e.g. focus in/out) reach the focus proxy, not this
+        widget itself. That's why this event filter is necessary.
+        """
+        if self.focusProxy() is widget:
+            if event.type() == QEvent.FocusIn:
+                self.sig_focus_in_event.emit()
+            elif event.type() == QEvent.FocusOut:
+                self.sig_focus_out_event.emit()
+        return super().eventFilter(widget, event)
 
 
 def test():
