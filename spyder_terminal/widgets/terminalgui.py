@@ -79,7 +79,8 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         "screen": [],
         "tmux": [],
         "tcsh": ["~/.tcshrc"],
-        "xonsh": ["~/.xonshrc"]}
+        "xonsh": ["~/.xonshrc"]
+        }
 
     terminal_closed = Signal()
     terminal_ready = Signal()
