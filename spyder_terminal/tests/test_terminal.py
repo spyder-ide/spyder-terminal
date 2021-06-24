@@ -68,6 +68,18 @@ def check_paste(termwidget, expected):
         return False
 
 
+def check_output(termwidget, expected):
+    """Check if the output includes the expected string."""
+    def callback(data):
+        global text
+        text = data
+    termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
+    try:
+        return expected in text
+    except NameError:
+        return False
+
+
 def check_increase_font_size(term):
     def callback(data):
         global font_size
@@ -380,3 +392,23 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
 
     # Revert cwd
     os.chdir(start_dir)
+
+
+def test_conda_path(setup_terminal, qtbot_module):
+    """Test if conda is correctly added to the path of the terminal."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    term = terminal.get_widget().get_current_term()
+    # Check that conda list works
+    term.exec_cmd("conda env list")
+    qtbot_module.waitUntil(lambda: check_output(term, "test"), timeout=TERM_UP)
+
+    # Clear the terminal
+    term.exec_cmd("clear")
+
+    # Try to deactivate the current environment
+    term.exec_cmd("conda deactivate")
+    qtbot_module.waitUntil(lambda: check_output(term, "base"), timeout=TERM_UP)
