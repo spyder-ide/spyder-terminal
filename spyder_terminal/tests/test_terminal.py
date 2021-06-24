@@ -29,6 +29,8 @@ LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 LOCATION_SLASH = LOCATION.replace('\\', '/')
 
+PY_38 = sys.version_info.major == 3 and sys.version_info.minor == 8
+
 TERM_UP = 10000
 WINDOWS = os.name == 'nt'
 
@@ -395,6 +397,9 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
+@pytest.mark.skipif(
+    sys.platform == 'darwin' and PY_38,
+    reason="It hangs on python 3.8 in macOS")
 def test_conda_path(setup_terminal, qtbot_module):
     """Test if conda is correctly added to the path of the terminal."""
     terminal = setup_terminal
