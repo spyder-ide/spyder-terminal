@@ -397,9 +397,7 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif(
-    sys.platform == 'darwin' and PY_38,
-    reason="It hangs on python 3.8 in macOS")
+@pytest.mark.skipif(sys.platform == 'darwin', reason="It hangs on macOS")
 def test_conda_path(setup_terminal, qtbot_module):
     """Test if conda is correctly added to the path of the terminal."""
     terminal = setup_terminal
