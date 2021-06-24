@@ -394,6 +394,7 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
     os.chdir(start_dir)
 
 
+@flaky(max_runs=3)
 def test_conda_path(setup_terminal, qtbot_module):
     """Test if conda is correctly added to the path of the terminal."""
     terminal = setup_terminal
