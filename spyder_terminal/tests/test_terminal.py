@@ -29,8 +29,6 @@ LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 LOCATION_SLASH = LOCATION.replace('\\', '/')
 
-PY_38 = sys.version_info.major == 3 and sys.version_info.minor == 8
-
 TERM_UP = 10000
 WINDOWS = os.name == 'nt'
 
