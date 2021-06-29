@@ -86,7 +86,7 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         layout = QVBoxLayout()
         layout.addWidget(self.view)
         layout.setContentsMargins(0, 0, 0, 0)
-        self.setFrameStyle(QFrame.StyledPanel | QFrame.Sunken)
+        self.setFrameStyle(QFrame.NoFrame)
         self.setLayout(layout)
 
         self.body = self.view.document
