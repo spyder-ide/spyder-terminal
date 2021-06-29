@@ -11,11 +11,10 @@
 import os
 import sys
 import requests
-import subprocess
 import os.path as osp
 
 # Third party imports
-from qtpy.QtCore import Signal, QTimer, Slot, QProcess
+from qtpy.QtCore import QProcess, QTimer, Signal, Slot
 from qtpy.QtWidgets import QMessageBox, QVBoxLayout
 from spyder.api.config.decorators import on_conf_change
 from spyder.api.widgets.main_widget import PluginMainWidget
@@ -141,6 +140,7 @@ class TerminalMainWidget(PluginMainWidget):
         for var in os.environ:
             env.insert(var, os.environ[var])
         self.server.setProcessEnvironment(env)
+        self.server.errorOccurred.connect(self.handle_process_errors)
         self.server.setProcessChannelMode(QProcess.SeparateChannels)
         if self.stdout_file and self.stderr_file:
             self.server.setStandardOutputFile(self.stdout_file)
@@ -434,6 +434,20 @@ class TerminalMainWidget(PluginMainWidget):
         """Trigger the tab name editor."""
         index = self.tabwidget.currentIndex()
         self.tabwidget.tabBar().tab_name_editor.edit_tab(index)
+
+    def handle_process_errors(self):
+        """Handle when an error ocurrs in the server."""
+        QMessageBox.warning(
+            self,
+            _('Spyder Terminal Server Error'),
+            _("The server that creates terminals failed to start. Please "
+              "restart Spyder in a system terminal with the command spyder "
+              "--debug-info minimal and open an issue with the contents of "
+              "<tt>{0}</tt> and <tt>{1}</tt> files at {2}.").format(
+                  osp.join(os.getcwd(), 'spyder_terminal_out.log'),
+                  osp.join(os.getcwd(), 'spyder_terminal_err.log'),
+                  self.URL_ISSUES),
+            QMessageBox.Ok)
 
 
 def test():
