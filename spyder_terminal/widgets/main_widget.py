@@ -443,9 +443,10 @@ class TerminalMainWidget(PluginMainWidget):
             self,
             _('Spyder Terminal Server Error'),
             _("The server that creates terminals failed to start. Please "
-              "restart Spyder in a system terminal with the command spyder "
-              "--debug-info minimal and open an issue with the contents of "
-              "<tt>{0}</tt> and <tt>{1}</tt> files at {2}.").format(
+              "restart Spyder in a system terminal with the command <tt> "
+              "spyder --debug-info minimal</tt> and open an issue with "
+              "the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
+              ).format(
                   osp.join(os.getcwd(), 'spyder_terminal_out.log'),
                   osp.join(os.getcwd(), 'spyder_terminal_err.log'),
                   self.URL_ISSUES),
