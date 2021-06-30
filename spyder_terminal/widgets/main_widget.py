@@ -16,7 +16,7 @@ import subprocess
 import sys
 
 # Third party imports
-from qtpy.QtCore import Signal, QTimer, Slot
+from qtpy.QtCore import QProcess, QTimer, Signal, Slot
 from qtpy.QtWidgets import QMessageBox, QVBoxLayout
 from spyder.api.config.decorators import on_conf_change
 from spyder.api.widgets.main_widget import PluginMainWidget
@@ -80,13 +80,13 @@ class TerminalMainWidget(PluginMainWidget):
         self.server_ready = False
         self.font = None
         self.port = select_port(default_port=8071)
-        self.server_stdout = subprocess.PIPE
-        self.server_stderr = subprocess.PIPE
-        self.stdout_file = osp.join(os.getcwd(), 'spyder_terminal_out.log')
-        self.stderr_file = osp.join(os.getcwd(), 'spyder_terminal_err.log')
+        self.stdout_file = None
+        self.stderr_file = None
+        if os.name == 'nt':
+            os.environ['PYWINPTY_BACKEND'] = '1'
         if get_debug_level() > 0:
-            self.server_stdout = open(self.stdout_file, 'w')
-            self.server_stderr = open(self.stderr_file, 'w')
+            self.stdout_file = osp.join(os.getcwd(), 'spyder_terminal_out.log')
+            self.stderr_file = osp.join(os.getcwd(), 'spyder_terminal_err.log')
         self.project_path = None
         self.current_file_path = None
         self.current_cwd = os.getcwd()
@@ -140,11 +140,20 @@ class TerminalMainWidget(PluginMainWidget):
     def setup(self):
         """Perform the setup of plugin's main menu and signals."""
         self.cmd = find_program(self.get_conf('shell'))
-        self.server = subprocess.Popen(
-            [sys.executable, '-m', 'spyder_terminal.server',
-             '--port', str(self.port), '--shell', self.cmd],
-            stdout=self.server_stdout,
-            stderr=self.server_stderr)
+        server_args = [
+            sys.executable, '-m', 'spyder_terminal.server',
+             '--port', str(self.port), '--shell', self.cmd]
+        self.server = QProcess(self)
+        env = self.server.processEnvironment()
+        for var in os.environ:
+            env.insert(var, os.environ[var])
+        self.server.setProcessEnvironment(env)
+        self.server.errorOccurred.connect(self.handle_process_errors)
+        self.server.setProcessChannelMode(QProcess.SeparateChannels)
+        if self.stdout_file and self.stderr_file:
+            self.server.setStandardOutputFile(self.stdout_file)
+            self.server.setStandardErrorFile(self.stderr_file)
+        self.server.start(server_args[0], server_args[1:])
         self.color_scheme = self.get_conf('appearance', 'ui_theme')
         self.theme = self.get_conf('appearance', 'selected')
 
@@ -307,10 +316,7 @@ class TerminalMainWidget(PluginMainWidget):
         """Perform actions before parent main window is closed."""
         for term in self.terms:
             term.close()
-        self.server.terminate()
-        if get_debug_level() > 0:
-            self.server_stdout.close()
-            self.server_stderr.close()
+        self.server.kill()
         return True
 
     def refresh_plugin(self):
@@ -436,6 +442,21 @@ class TerminalMainWidget(PluginMainWidget):
         """Trigger the tab name editor."""
         index = self.tabwidget.currentIndex()
         self.tabwidget.tabBar().tab_name_editor.edit_tab(index)
+
+    def handle_process_errors(self):
+        """Handle when an error ocurrs in the server."""
+        QMessageBox.warning(
+            self,
+            _('Spyder Terminal Server Error'),
+            _("The server that creates terminals failed to start. Please "
+              "restart Spyder in a system terminal with the command <tt> "
+              "spyder --debug-info minimal</tt> and open an issue with "
+              "the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
+              ).format(
+                  osp.join(os.getcwd(), 'spyder_terminal_out.log'),
+                  osp.join(os.getcwd(), 'spyder_terminal_err.log'),
+                  self.URL_ISSUES),
+            QMessageBox.Ok)
 
 
 def test():
