@@ -9,10 +9,11 @@
 
 # Standard imports
 import os
-import sys
+import os.path as osp
+import qstylizer
 import requests
 import subprocess
-import os.path as osp
+import sys
 
 # Third party imports
 from qtpy.QtCore import Signal, QTimer, Slot
@@ -112,6 +113,10 @@ class TerminalMainWidget(PluginMainWidget):
         layout.addWidget(self.tabwidget)
         layout.addWidget(self.find_widget)
         self.setLayout(layout)
+
+        css = qstylizer.style.StyleSheet()
+        css.QTabWidget.pane.setValues(border=0)
+        self.setStyleSheet(css.toString())
 
         self.__wait_server_to_start()
 
