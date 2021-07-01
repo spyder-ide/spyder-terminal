@@ -10,12 +10,12 @@
 # Standard imports
 import os
 import os.path as osp
-import qstylizer
 import requests
 import subprocess
 import sys
 
 # Third party imports
+import qstylizer
 from qtpy.QtCore import Signal, QTimer, Slot
 from qtpy.QtWidgets import QMessageBox, QVBoxLayout
 from spyder.api.config.decorators import on_conf_change

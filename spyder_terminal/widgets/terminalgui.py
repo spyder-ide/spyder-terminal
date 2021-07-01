@@ -9,10 +9,10 @@
 # Standard library imports
 import json
 import os
-import qstylizer
 import sys
 
 # Third-party imports
+import qstylizer
 from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
 from qtpy.QtGui import QKeySequence
