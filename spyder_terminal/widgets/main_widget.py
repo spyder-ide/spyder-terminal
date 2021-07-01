@@ -11,7 +11,6 @@
 import os
 import os.path as osp
 import requests
-import subprocess
 import sys
 
 # Third party imports
