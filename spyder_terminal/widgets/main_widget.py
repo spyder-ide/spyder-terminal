@@ -9,11 +9,12 @@
 
 # Standard imports
 import os
-import sys
-import requests
 import os.path as osp
+import requests
+import sys
 
 # Third party imports
+import qstylizer
 from qtpy.QtCore import QProcess, QTimer, Signal, Slot
 from qtpy.QtWidgets import QMessageBox, QVBoxLayout
 from spyder.api.config.decorators import on_conf_change
@@ -111,6 +112,10 @@ class TerminalMainWidget(PluginMainWidget):
         layout.addWidget(self.tabwidget)
         layout.addWidget(self.find_widget)
         self.setLayout(layout)
+
+        css = qstylizer.style.StyleSheet()
+        css.QTabWidget.pane.setValues(border=0)
+        self.setStyleSheet(css.toString())
 
         self.__wait_server_to_start()
 
