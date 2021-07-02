@@ -1,21 +1,22 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
-"POT-Creation-Date: 2020-07-13 17:07-0500\n"
+"POT-Creation-Date: 2021-07-02 09:53-0500\n"
 "PO-Revision-Date: 2020-07-13 22:26\n"
 "Last-Translator: \n"
 "Language-Team: Croatian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: pygettext.py 1.5\n"
+"Language: hr_HR\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Crowdin-Project: spyder-terminal\n"
-"X-Crowdin-Project-ID: 381437\n"
-"X-Crowdin-Language: hr\n"
+"Generated-By: pygettext.py 1.5\n"
 "X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
 "X-Crowdin-File-ID: 55\n"
-"Language: hr_HR\n"
+"X-Crowdin-Language: hr\n"
+"X-Crowdin-Project: spyder-terminal\n"
+"X-Crowdin-Project-ID: 381437\n"
 
 #: spyder_terminal/confpage.py:37
 msgid "Terminal shell"
@@ -61,75 +62,90 @@ msgstr ""
 msgid "Enable bell sound on terminal"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:107
-msgid "Open a new terminal"
+#: spyder_terminal/confpage.py:100
+msgid "Enable cursor blink"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:146
-msgid "Spyder Terminal Error"
+#: spyder_terminal/confpage.py:101
+msgid "_Enable cursor blink on terminal"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:147
-msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
-msgstr ""
-
-#: spyder_terminal/terminalplugin.py:182
-msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
-msgstr ""
-
-#: spyder_terminal/terminalplugin.py:190
-msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
-msgstr ""
-
-#: spyder_terminal/terminalplugin.py:202
+#: spyder_terminal/terminalplugin.py:59 spyder_terminal/widgets/main_widget.py:135
 msgid "Terminal"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:212
+#: spyder_terminal/terminalplugin.py:63
+msgid "Create system terminals inside Spyder."
+msgstr ""
+
+#: spyder_terminal/terminalplugin.py:106
+msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
+msgstr ""
+
+#: spyder_terminal/widgets/main_widget.py:163
+msgid "Open a new terminal"
+msgstr ""
+
+#: spyder_terminal/widgets/main_widget.py:174
 msgid "New terminal in current working directory"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:214
+#: spyder_terminal/widgets/main_widget.py:175
 msgid "Sets the pwd at the current working directory"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:221
+#: spyder_terminal/widgets/main_widget.py:182
 msgid "New terminal in current project"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:223
+#: spyder_terminal/widgets/main_widget.py:183
 msgid "Sets the pwd at the current project directory"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:231
+#: spyder_terminal/widgets/main_widget.py:188
 msgid "New terminal in current Editor file"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:233
+#: spyder_terminal/widgets/main_widget.py:189
 msgid "Sets the pwd at the directory that contains the current opened file"
 msgstr ""
 
-#: spyder_terminal/terminalplugin.py:241
+#: spyder_terminal/widgets/main_widget.py:196
 msgid "Rename terminal"
 msgstr ""
 
-#: spyder_terminal/widgets/terminalgui.py:322
+#: spyder_terminal/widgets/main_widget.py:202
 msgid "Copy text"
 msgstr ""
 
-#: spyder_terminal/widgets/terminalgui.py:326
+#: spyder_terminal/widgets/main_widget.py:210
 msgid "Paste text"
 msgstr ""
 
-#: spyder_terminal/widgets/terminalgui.py:331
-msgid "Clear Terminal"
+#: spyder_terminal/widgets/main_widget.py:218
+msgid "Clear terminal"
 msgstr ""
 
-#: spyder_terminal/widgets/terminalgui.py:335
+#: spyder_terminal/widgets/main_widget.py:225
 msgid "Zoom in"
 msgstr ""
 
-#: spyder_terminal/widgets/terminalgui.py:338
+#: spyder_terminal/widgets/main_widget.py:232
 msgid "Zoom out"
 msgstr ""
 
+#: spyder_terminal/widgets/main_widget.py:285
+msgid "Spyder Terminal Error"
+msgstr ""
+
+#: spyder_terminal/widgets/main_widget.py:286
+msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, please restart Spyder on debugging mode and open an issue with the contents of <tt>{1}</tt> and <tt>{2}</tt> files at {3}."
+msgstr ""
+
+#: spyder_terminal/widgets/main_widget.py:447
+msgid "Spyder Terminal Server Error"
+msgstr ""
+
+#: spyder_terminal/widgets/main_widget.py:448
+msgid "The server that creates terminals failed to start. Please restart Spyder in a system terminal with the command <tt> spyder --debug-info minimal</tt> and open an issue with the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
+msgstr ""
