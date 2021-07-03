@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2021-07-02 09:53-0500\n"
-"PO-Revision-Date: 2021-07-02 15:16\n"
+"PO-Revision-Date: 2021-07-03 16:10\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "MIME-Version: 1.0\n"
@@ -63,11 +63,11 @@ msgstr "Glockenton im Terminal aktivieren"
 
 #: spyder_terminal/confpage.py:100
 msgid "Enable cursor blink"
-msgstr ""
+msgstr "Blinken der Schreibmarke aktivieren"
 
 #: spyder_terminal/confpage.py:101
 msgid "_Enable cursor blink on terminal"
-msgstr ""
+msgstr "Blinken der Schreibmarke im Terminal _aktivieren"
 
 #: spyder_terminal/terminalplugin.py:59 spyder_terminal/widgets/main_widget.py:135
 msgid "Terminal"
@@ -75,11 +75,11 @@ msgstr "Terminal"
 
 #: spyder_terminal/terminalplugin.py:63
 msgid "Create system terminals inside Spyder."
-msgstr ""
+msgstr "Systemterminals innerhalb von Spyder erstellen."
 
 #: spyder_terminal/terminalplugin.py:106
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
-msgstr ""
+msgstr "Leider funktioniert die Bibliothek, die <b>spyder-terminal</b> zum Erstellen von Terminals verwendet, auf Ihrem System nicht. Daher wird dieses Plugin deaktiviert.<br><br> Dies geschieht in der Regel auf Windows-7-Systemen. Wenn das der Fall ist, erwägen Sie bitte, auf eine neuere Windows-Version zu aktualisieren."
 
 #: spyder_terminal/widgets/main_widget.py:163
 msgid "Open a new terminal"
@@ -123,7 +123,7 @@ msgstr "Text einfügen"
 
 #: spyder_terminal/widgets/main_widget.py:218
 msgid "Clear terminal"
-msgstr ""
+msgstr "Terminal leeren"
 
 #: spyder_terminal/widgets/main_widget.py:225
 msgid "Zoom in"
@@ -143,9 +143,9 @@ msgstr ""
 
 #: spyder_terminal/widgets/main_widget.py:447
 msgid "Spyder Terminal Server Error"
-msgstr ""
+msgstr "Spyder-Terminal-Server-Fehler"
 
 #: spyder_terminal/widgets/main_widget.py:448
 msgid "The server that creates terminals failed to start. Please restart Spyder in a system terminal with the command <tt> spyder --debug-info minimal</tt> and open an issue with the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
-msgstr ""
+msgstr "Der Server, der Terminals erstellt, konnte nicht gestartet werden. Bitte starten Sie Spyder in einem Systemterminal mit dem Befehl <tt> spyder --debug-info minimal</tt> neu und öffnen Sie ein Thema mit den Inhalten der Dateien <tt>{0}</tt> und <tt>{1}</tt> bei {2}."
 
