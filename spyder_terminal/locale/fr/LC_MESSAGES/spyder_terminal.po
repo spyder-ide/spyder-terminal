@@ -1,22 +1,21 @@
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2021-07-02 09:53-0500\n"
-"PO-Revision-Date: 2020-07-18 20:56\n"
+"PO-Revision-Date: 2021-07-02 16:07\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr_FR\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
-"X-Crowdin-File-ID: 55\n"
-"X-Crowdin-Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Crowdin-Project: spyder-terminal\n"
 "X-Crowdin-Project-ID: 381437\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
+"X-Crowdin-File-ID: 55\n"
+"Language: fr_FR\n"
 
 #: spyder_terminal/confpage.py:37
 msgid "Terminal shell"
@@ -64,12 +63,11 @@ msgstr "Activer le son de cloche sur le terminal"
 
 #: spyder_terminal/confpage.py:100
 msgid "Enable cursor blink"
-msgstr ""
+msgstr "Activer le clignotement du curseur"
 
 #: spyder_terminal/confpage.py:101
-#, fuzzy
 msgid "_Enable cursor blink on terminal"
-msgstr "Activer le son de cloche sur le terminal"
+msgstr "_Activer le clignotement du curseur sur le terminal"
 
 #: spyder_terminal/terminalplugin.py:59 spyder_terminal/widgets/main_widget.py:135
 msgid "Terminal"
@@ -77,7 +75,7 @@ msgstr "Terminal"
 
 #: spyder_terminal/terminalplugin.py:63
 msgid "Create system terminals inside Spyder."
-msgstr ""
+msgstr "Créer des terminaux système dans Spyder."
 
 #: spyder_terminal/terminalplugin.py:106
 msgid "Unfortunately, the library that <b>spyder-terminal</b> uses to create terminals is failing to work in your system. Therefore, this plugin will be deactivated.<br><br> This usually happens on Windows 7 systems. If that's the case, please consider updating to a newer Windows version."
@@ -124,7 +122,6 @@ msgid "Paste text"
 msgstr "Coller le texte"
 
 #: spyder_terminal/widgets/main_widget.py:218
-#, fuzzy
 msgid "Clear terminal"
 msgstr "Effacer le terminal"
 
@@ -145,14 +142,10 @@ msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">
 msgstr "Le serveur du terminal n'a pas pu être localisé à <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, veuillez redémarrer Spyder en mode déboggage et ouvrez un erreur avec les contenues des fichiers <tt>{1}</tt> et <tt>{2}</tt> à {3}."
 
 #: spyder_terminal/widgets/main_widget.py:447
-#, fuzzy
 msgid "Spyder Terminal Server Error"
-msgstr "Erreur du Spyder Terminal"
+msgstr "Erreur de serveur de terminaux Spyder"
 
 #: spyder_terminal/widgets/main_widget.py:448
-#, fuzzy
 msgid "The server that creates terminals failed to start. Please restart Spyder in a system terminal with the command <tt> spyder --debug-info minimal</tt> and open an issue with the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
-msgstr "Le serveur du terminal n'a pas pu être localisé à <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, veuillez redémarrer Spyder en mode déboggage et ouvrez un erreur avec les contenues des fichiers <tt>{1}</tt> et <tt>{2}</tt> à {3}."
+msgstr "Le serveur qui crée les terminaux n'a pas pu démarrer. Veuillez redémarrer Spyder dans un terminal système avec la commande <tt> spyder --debug-info minimum</tt> et ouvrir un problème avec le contenu des fichiers <tt>{0}</tt> et <tt>{1}</tt> à {2}."
 
-#~ msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
-#~ msgstr "<b>spyder-terminal</b> ne fonctionne pas avec Qt 4. Ce plugin sera donc désactivé."

@@ -1,22 +1,21 @@
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: spyder-terminal\n"
 "POT-Creation-Date: 2021-07-02 09:53-0500\n"
-"PO-Revision-Date: 2020-07-13 22:26\n"
+"PO-Revision-Date: 2021-07-02 15:16\n"
 "Last-Translator: \n"
 "Language-Team: Portuguese, Brazilian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: pygettext.py 1.5\n"
-"X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
-"X-Crowdin-File-ID: 55\n"
-"X-Crowdin-Language: pt-BR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Crowdin-Project: spyder-terminal\n"
 "X-Crowdin-Project-ID: 381437\n"
+"X-Crowdin-Language: pt-BR\n"
+"X-Crowdin-File: /master/spyder_terminal/locale/spyder_terminal.pot\n"
+"X-Crowdin-File-ID: 55\n"
+"Language: pt_BR\n"
 
 #: spyder_terminal/confpage.py:37
 msgid "Terminal shell"
@@ -28,11 +27,11 @@ msgstr "Selecione o interpretador do shell:"
 
 #: spyder_terminal/confpage.py:70
 msgid "Terminal display preferences"
-msgstr ""
+msgstr "Preferências de exibição do terminal"
 
 #: spyder_terminal/confpage.py:73
 msgid "Buffer limit: "
-msgstr ""
+msgstr "Limite do buffer: "
 
 #: spyder_terminal/confpage.py:83
 msgid "Terminal style preferences"
@@ -67,9 +66,8 @@ msgid "Enable cursor blink"
 msgstr ""
 
 #: spyder_terminal/confpage.py:101
-#, fuzzy
 msgid "_Enable cursor blink on terminal"
-msgstr "Habilitar som de alerta no terminal"
+msgstr ""
 
 #: spyder_terminal/terminalplugin.py:59 spyder_terminal/widgets/main_widget.py:135
 msgid "Terminal"
@@ -124,17 +122,16 @@ msgid "Paste text"
 msgstr "Colar texto"
 
 #: spyder_terminal/widgets/main_widget.py:218
-#, fuzzy
 msgid "Clear terminal"
-msgstr "Renomear terminal"
+msgstr ""
 
 #: spyder_terminal/widgets/main_widget.py:225
 msgid "Zoom in"
-msgstr ""
+msgstr "Aumentar zoom"
 
 #: spyder_terminal/widgets/main_widget.py:232
 msgid "Zoom out"
-msgstr ""
+msgstr "Diminuir zoom"
 
 #: spyder_terminal/widgets/main_widget.py:285
 msgid "Spyder Terminal Error"
@@ -145,14 +142,10 @@ msgid "Terminal server could not be located at <a href=\"http://127.0.0.1:{0}\">
 msgstr "O servidor Terminal não pôde ser localizado em <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, por favor reinicie o Spyder no modo de depuração e abra um registro de problema com o conteúdo de <tt>{1}</tt> e <tt>{2}</tt> arquivos em {3}."
 
 #: spyder_terminal/widgets/main_widget.py:447
-#, fuzzy
 msgid "Spyder Terminal Server Error"
-msgstr "Erro Terminal do Spyder"
+msgstr ""
 
 #: spyder_terminal/widgets/main_widget.py:448
-#, fuzzy
 msgid "The server that creates terminals failed to start. Please restart Spyder in a system terminal with the command <tt> spyder --debug-info minimal</tt> and open an issue with the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
-msgstr "O servidor Terminal não pôde ser localizado em <a href=\"http://127.0.0.1:{0}\">http://127.0.0.1:{0}</a>, por favor reinicie o Spyder no modo de depuração e abra um registro de problema com o conteúdo de <tt>{1}</tt> e <tt>{2}</tt> arquivos em {3}."
+msgstr ""
 
-#~ msgid "<b>spyder-terminal</b> doesn't work with Qt 4. Therefore, this plugin will be deactivated."
-#~ msgstr "<b>spyder-terminal-</b> não funciona com Qt 4. Portanto, este plugin será desativado."
