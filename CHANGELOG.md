@@ -1,3 +1,30 @@
+## Version 1.0.0 (2021-07-07)
+
+### Issues Closed
+
+* [Issue 264](https://github.com/spyder-ide/spyder-terminal/issues/264) - Use QProcess instead of subprocess.Popen ([PR 273](https://github.com/spyder-ide/spyder-terminal/pull/273) by [@steff456](https://github.com/steff456))
+* [Issue 253](https://github.com/spyder-ide/spyder-terminal/issues/253) - Spyder-terminal never shows up on menu or as tabbed windows ([PR 255](https://github.com/spyder-ide/spyder-terminal/pull/255) by [@steff456](https://github.com/steff456))
+* [Issue 252](https://github.com/spyder-ide/spyder-terminal/issues/252) - Spyder 5 support ([PR 255](https://github.com/spyder-ide/spyder-terminal/pull/255) by [@steff456](https://github.com/steff456))
+* [Issue 250](https://github.com/spyder-ide/spyder-terminal/issues/250) - Shell interpreter: Anaconda Power Shell Prompt ([PR 271](https://github.com/spyder-ide/spyder-terminal/pull/271) by [@steff456](https://github.com/steff456))
+* [Issue 247](https://github.com/spyder-ide/spyder-terminal/issues/247) - Setting default font size ([PR 268](https://github.com/spyder-ide/spyder-terminal/pull/268) by [@steff456](https://github.com/steff456))
+* [Issue 164](https://github.com/spyder-ide/spyder-terminal/issues/164) - Spyder terminal does not activate conda environments and keeps asking to "conda init" even after initialization. ([PR 271](https://github.com/spyder-ide/spyder-terminal/pull/271) by [@steff456](https://github.com/steff456))
+
+In this release 6 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 276](https://github.com/spyder-ide/spyder-terminal/pull/276) - PR: Update translations for Spyder 1.0.0 release, by [@steff456](https://github.com/steff456)
+* [PR 275](https://github.com/spyder-ide/spyder-terminal/pull/275) - PR: Pin new version of Spyder and Pywinpty, by [@steff456](https://github.com/steff456)
+* [PR 273](https://github.com/spyder-ide/spyder-terminal/pull/273) - PR: Change subprocess.Popen to QProcess, by [@steff456](https://github.com/steff456) ([264](https://github.com/spyder-ide/spyder-terminal/issues/264))
+* [PR 272](https://github.com/spyder-ide/spyder-terminal/pull/272) - PR: Add blue border when the terminal is focused, by [@steff456](https://github.com/steff456)
+* [PR 271](https://github.com/spyder-ide/spyder-terminal/pull/271) - PR: Source terminal config files to have conda in PATH, by [@steff456](https://github.com/steff456) ([250](https://github.com/spyder-ide/spyder-terminal/issues/250), [164](https://github.com/spyder-ide/spyder-terminal/issues/164))
+* [PR 270](https://github.com/spyder-ide/spyder-terminal/pull/270) - PR: Add note to Readme to mention that this plugin doesn't work with our installers, by [@ccordoba12](https://github.com/ccordoba12)
+* [PR 268](https://github.com/spyder-ide/spyder-terminal/pull/268) - PR: Add new cursor option and zoom to the terminal, by [@steff456](https://github.com/steff456) ([247](https://github.com/spyder-ide/spyder-terminal/issues/247))
+* [PR 267](https://github.com/spyder-ide/spyder-terminal/pull/267) - PR: Upgrade to xtermjs 4.13.0, by [@steff456](https://github.com/steff456)
+* [PR 255](https://github.com/spyder-ide/spyder-terminal/pull/255) - PR: Migration to Spyder 5 new API, by [@steff456](https://github.com/steff456) ([253](https://github.com/spyder-ide/spyder-terminal/issues/253), [252](https://github.com/spyder-ide/spyder-terminal/issues/252))
+
+In this release 9 pull requests were closed.
+
 ## Version 0.5.0 (2020-11-16)
 
 ### Issues Closed
