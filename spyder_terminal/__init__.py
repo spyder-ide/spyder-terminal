@@ -11,5 +11,5 @@ from .terminalplugin import TerminalPlugin as PLUGIN_CLASS
 
 PLUGIN_CLASS
 
-VERSION_INFO = (0, 5, 1, 'dev0')
+VERSION_INFO = (1, 0, 0)
 __version__ = '.'.join(map(str, VERSION_INFO))
