@@ -1,4 +1,4 @@
-spyder>=5.0.5
+spyder>=5.1.1
 pexpect
 tornado
 coloredlogs
