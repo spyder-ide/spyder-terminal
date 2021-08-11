@@ -14,6 +14,7 @@ import os.path as osp
 # Third party imports
 from qtpy.QtCore import Signal
 from spyder.api.plugins import Plugins, SpyderDockablePlugin
+from spyder.api.plugin_registration.decorators import on_plugin_available
 from spyder.config.base import get_translation
 
 # Local imports
@@ -66,28 +67,37 @@ class TerminalPlugin(SpyderDockablePlugin):
         """Return widget icon."""
         return self.create_icon('DollarFileIcon')
 
-    def register(self):
-        """Register plugin in Spyder's main window."""
-        workingdirectory = self.get_plugin(Plugins.WorkingDirectory)
-        projects = self.get_plugin(Plugins.Projects)
-        editor = self.get_plugin(Plugins.Editor)
-        preferences = self.get_plugin(Plugins.Preferences)
-
+    def on_initialize(self):
+        """Initialize the plugin."""
         self.update_font()
         self.get_widget().sig_server_is_ready.connect(self.sig_server_is_ready)
+
+    @on_plugin_available(plugin=Plugins.WorkingDirectory)
+    def on_working_directory_available(self):
+        """Connect when working directory is available."""
+        workingdirectory = self.get_plugin(Plugins.WorkingDirectory)
+        workingdirectory.sig_current_directory_changed.connect(
+            self.set_current_cwd)
+
+    @on_plugin_available(plugin=Plugins.Projects)
+    def on_projects_available(self):
+        """Connect when projects is available."""
+        projects = self.get_plugin(Plugins.Projects)
+        projects.sig_project_loaded.connect(self.set_project_path)
+        projects.sig_project_closed.connect(self.unset_project_path)
+
+    @on_plugin_available(plugin=Plugins.Editor)
+    def on_editor_available(self):
+        """Connect when editor available."""
+        editor = self.get_plugin(Plugins.Editor)
+        editor.sig_file_opened_closed_or_updated.connect(
+            self.set_current_opened_file)
+
+    @on_plugin_available(plugin=Plugins.Preferences)
+    def on_preferences_available(self):
+        """Connect when preferences available."""
+        preferences = self.get_plugin(Plugins.Preferences)
         preferences.register_plugin_preferences(self)
-
-        if workingdirectory:
-            workingdirectory.sig_current_directory_changed.connect(
-                self.set_current_cwd)
-
-        if projects:
-            projects.sig_project_loaded.connect(self.set_project_path)
-            projects.sig_project_closed.connect(self.unset_project_path)
-
-        if editor:
-            editor.sig_file_opened_closed_or_updated.connect(
-                self.set_current_opened_file)
 
     def update_font(self):
         """Update font from Preferences."""
