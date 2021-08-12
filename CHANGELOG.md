@@ -1,3 +1,12 @@
+## Version 1.1.0 (2021/08/12)
+
+
+### Pull Requests Merged
+
+* [PR 281](https://github.com/spyder-ide/spyder-terminal/pull/281) - PR: Migrate registry to the new Spyder 5.1 API, by [@steff456](https://github.com/steff456)
+
+In this release 1 pull request was closed.
+
 ## Version 1.0.0 (2021-07-07)
 
 ### Issues Closed
