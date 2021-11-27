@@ -1,4 +1,4 @@
-spyder>=5.1.1
+spyder>=5.2.0
 pywinpty==1.1.3
 tornado
 coloredlogs
