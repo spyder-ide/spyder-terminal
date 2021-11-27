@@ -45,6 +45,7 @@ class TerminalPlugin(SpyderDockablePlugin):
     CONF_WIDGET_CLASS = TerminalConfigPage
     CONF_DEFAULTS = CONF_DEFAULTS
     CONF_VERSION = CONF_VERSION
+    CAN_BE_DISABLED = False
 
     # --- Signals
     # ------------------------------------------------------------------------
