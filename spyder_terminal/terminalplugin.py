@@ -45,6 +45,7 @@ class TerminalPlugin(SpyderDockablePlugin):
     CONF_WIDGET_CLASS = TerminalConfigPage
     CONF_DEFAULTS = CONF_DEFAULTS
     CONF_VERSION = CONF_VERSION
+    CAN_BE_DISABLED = False
 
     # --- Signals
     # ------------------------------------------------------------------------
@@ -55,7 +56,8 @@ class TerminalPlugin(SpyderDockablePlugin):
 
     # ---- SpyderDockablePlugin API
     # ------------------------------------------------------------------------
-    def get_name(self):
+    @staticmethod
+    def get_name():
         """Return plugin title."""
         return _('Terminal')
 
