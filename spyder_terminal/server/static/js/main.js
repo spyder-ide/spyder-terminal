@@ -56,8 +56,8 @@ function createTerminal(){
       const url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
 
       fetch(url, {method: 'POST', headers: myHeaders});
-      term.setOption('theme', curTheme);
-      term.setOption('fontFamily', curFont);
+      term.options.theme = curTheme;
+      term.options.fontFamily = curFont
   });
 
   protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
@@ -72,7 +72,7 @@ function createTerminal(){
   let cols = term.cols;
   let rows = term.rows;
 
-  fontSize = term.getOption('fontSize');
+  fontSize = term.options.fontSize;
 
   fetch('/api/terminals?cols=' + cols + '&rows=' + rows, {
     method: 'POST',
@@ -113,13 +113,13 @@ function searchPrevious(regex, options) {
 }
 
 function getFonts() {
-  return term.getOption('fontFamily');
+  return term.options.fontFamily;
 }
 
 function setFont(font) {
     let fonts = "monospace";
     fonts = "'"+font+"', "+fonts;
-    term.setOption('fontFamily', fonts);
+    term.options.fontFamily = fonts;
 }
 
 function fitFont(font) {
@@ -209,7 +209,7 @@ function setOption(option_name, option) {
     curTheme = option;
     option['selection'] = hexToRGB(option['selection']);
   }
-  term.setOption(option_name, option);
+  term.options[option_name] = option
 }
 
 function runRealTerminal() {
