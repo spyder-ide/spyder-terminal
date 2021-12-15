@@ -355,6 +355,8 @@ class TerminalMainWidget(PluginMainWidget):
         """Add a new terminal tab."""
         if path is None:
             path = self.current_cwd
+        if self.project_path is not None:
+            path = self.project_path
         path = path.replace('\\', '/')
         term = TerminalWidget(
             self, self.port, path=path, font=self.font.family(),
