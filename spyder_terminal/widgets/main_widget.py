@@ -357,8 +357,7 @@ class TerminalMainWidget(PluginMainWidget):
             path = self.current_cwd
         if self.project_path is not None:
             path = self.project_path
-        else:
-            path = path.replace('\\', '/')
+        path = path.replace('\\', '/')
         term = TerminalWidget(
             self, self.port, path=path, font=self.font.family(),
             theme=self.theme, color_scheme=self.color_scheme)
