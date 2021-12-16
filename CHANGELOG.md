@@ -1,3 +1,20 @@
+## Version 1.2.0 (2021-12-16)
+
+### Issues Closed
+
+* [Issue 285](https://github.com/spyder-ide/spyder-terminal/issues/285) - Default workdir ([PR 295](https://github.com/spyder-ide/spyder-terminal/pull/295) by [@steff456](https://github.com/steff456))
+
+In this release 1 issue was closed.
+
+### Pull Requests Merged
+
+* [PR 295](https://github.com/spyder-ide/spyder-terminal/pull/295) - PR: Open new terminals in the project path if active, by [@steff456](https://github.com/steff456) ([285](https://github.com/spyder-ide/spyder-terminal/issues/285))
+* [PR 294](https://github.com/spyder-ide/spyder-terminal/pull/294) - PR: Update to xterm 4.15, by [@steff456](https://github.com/steff456)
+* [PR 293](https://github.com/spyder-ide/spyder-terminal/pull/293) - PR: Update to Spyder 5.2.x API, by [@steff456](https://github.com/steff456)
+* [PR 289](https://github.com/spyder-ide/spyder-terminal/pull/289) - PR: Update installation instructions for conda, by [@ccordoba12](https://github.com/ccordoba12)
+
+In this release 4 pull requests were closed.
+
 ## Version 1.1.0 (2021/08/12)
 
 
