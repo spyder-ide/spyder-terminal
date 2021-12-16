@@ -81,7 +81,9 @@ Using conda:
 
 ::
 
-    conda install spyder-terminal -c spyder-ide
+    conda create -n spyder-env -c conda-forge spyder-terminal
+    conda activate spyder-env
+    spyder
 
 Using pip (only if you don't use conda!):
 
