@@ -66,7 +66,7 @@ class ChannelHandler(QObject):
 class TerminalWidget(QFrame, SpyderWidgetMixin):
     """Terminal widget."""
     ENV_ROUTES = {
-        "bash": ["~/.bashrc", "~/.bash_profile"],
+        "bash": ["/etc/profile", "~/.bash_profile"],
         "zsh": ["~/.zshrc"],
         "fish": ["~/.config/fish/config.fish"],
         "sh": ["~/.profile", "~/.shrc", "~/.shinit"],
