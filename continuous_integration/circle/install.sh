@@ -10,9 +10,6 @@ source $HOME/miniconda/etc/profile.d/conda.sh
 conda create -y -n test python=$PYTHON_VERSION
 conda activate test
 
-# Install nomkl to avoid installing Intel MKL libraries
-conda install -q -y nomkl
-
 # Install dependencies
 conda install -q -y -c conda-forge --file requirements/conda.txt
 
