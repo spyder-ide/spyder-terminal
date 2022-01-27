@@ -38,6 +38,13 @@ jobs:
       - USE_CONDA: "yes"
       - CODECOV_TOKEN: "273c981b-7851-4895-a4bb-07377c67791e"
 
+  python3.10:
+    <<: *main
+    environment:
+      - PYTHON_VERSION: "3.10"
+      - USE_CONDA: "yes"
+      - CODECOV_TOKEN: "273c981b-7851-4895-a4bb-07377c67791e"
+
 workflows:
   version: 2
   build_and_test:
@@ -45,3 +52,4 @@ workflows:
       - python3.7
       - python3.8
       - python3.9
+      - python3.10
