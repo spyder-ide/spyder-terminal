@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
 # Install dependencies
-conda install -q -y -c conda-forge --file requirements/conda.txt --strict
+conda install -q -y -c conda-forge --file requirements/conda.txt
 
 # Install test dependencies
 conda install -q -y -c conda-forge --file requirements/tests.txt
