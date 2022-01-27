@@ -26,8 +26,6 @@ jobs:
         python.version: '3.8'
       Python39:
         python.version: '3.9'
-      Python310:
-        python.version: '3.10'
     maxParallel: 4
 
   steps:
@@ -106,9 +104,6 @@ jobs:
         use.conda: "yes"
       Python39:
         python.version: '3.9'
-        use.conda: "yes"
-      Python310:
-        python.version: '3.10'
         use.conda: "yes"
     maxParallel: 4
 
