@@ -12,6 +12,10 @@ from terminado.management import TermManagerBase, PtyWithClients
 from urllib.parse import unquote
 
 WINDOWS = os.name == 'nt'
+REMOVE_ENV = ['ARGVZERO', 'EXECUTABLEPATH', 'PYTHONHOME', 'QT_API',
+              'QT_MAC_WANTS_LAYER', 'RESOURCEPATH', 'SPYDER_ARGS',
+              'SPYDER_DEBUG_FILE', 'SPYDER_DEV',
+              ]
 
 
 class PtyReader(PtyWithClients):
@@ -54,6 +58,11 @@ class TermManager(TermManagerBase):
         argv = options['shell_command']
         env = self.make_term_env(**options)
         cwd = options.get('cwd', None)
+
+        # Remove environment variables introduced by Spyder
+        for var in REMOVE_ENV:
+            env.pop(var, None)
+
         return PtyReader(argv, env, cwd)
 
     @tornado.gen.coroutine

@@ -65,9 +65,12 @@ class ChannelHandler(QObject):
 
 class TerminalWidget(QFrame, SpyderWidgetMixin):
     """Terminal widget."""
+    zdotdir = os.environ.get('ZDOTDIR') or os.environ.get('HOME')  # what about windows?
     ENV_ROUTES = {
-        "bash": ["~/.bashrc", "~/.bash_profile"],
-        "zsh": ["~/.zshrc"],
+        "bash": ["/etc/profile", "~/.bash_profile"],
+        "zsh": ["/etc/zshenv", f"{zdotdir}/.zshenv", "/etc/zprofile",
+                f"{zdotdir}/.zprofile", "/etc/zshrc", f"{zdotdir}/.zshrc",
+                "/etc/zlogin", f"{zdotdir}/.zlogin"],
         "fish": ["~/.config/fish/config.fish"],
         "sh": ["~/.profile", "~/.shrc", "~/.shinit"],
         "ksh": ["~/.profile", "~/.kshrc"],
