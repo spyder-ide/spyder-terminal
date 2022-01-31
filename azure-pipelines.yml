@@ -140,6 +140,7 @@ jobs:
     continueOnError: true
     # Setup Build
   - script: |
+      echo %username%
       call activate test
       python setup.py build_static
     displayName: 'Setup build'
