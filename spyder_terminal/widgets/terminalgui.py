@@ -237,10 +237,10 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         zoom = self.get_conf('zoom')
         if zoom > 0:
             for __ in range(0, zoom):
-                self.view.increase_font()
+                self.view.increase_font(new_term=True)
         if zoom < 0:
             for __ in range(0, -zoom):
-                self.view.decrease_font()
+                self.view.decrease_font(new_term=True)
 
     def set_option(self, option_name, option):
         """Set a configuration option in the terminal."""
@@ -361,16 +361,18 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
         """Clear the terminal."""
         self.eval_javascript('clearTerm()')
 
-    def increase_font(self):
+    def increase_font(self, new_term=False):
         """Increase terminal font."""
-        zoom = self.get_conf('zoom')
-        self.set_conf('zoom', zoom + 1)
+        if not new_term:
+            zoom = self.get_conf('zoom')
+            self.set_conf('zoom', zoom + 1)
         return self.eval_javascript('increaseFontSize()')
 
-    def decrease_font(self):
+    def decrease_font(self, new_term=False):
         """Decrease terminal font."""
-        zoom = self.get_conf('zoom')
-        self.set_conf('zoom', zoom - 1)
+        if not new_term:
+            zoom = self.get_conf('zoom')
+            self.set_conf('zoom', zoom - 1)
         return self.eval_javascript('decreaseFontSize()')
 
     def contextMenuEvent(self, event):
