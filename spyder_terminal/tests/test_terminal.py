@@ -416,3 +416,47 @@ def test_conda_path(setup_terminal, qtbot_module):
     # Try to deactivate the current environment
     term.exec_cmd("conda deactivate")
     qtbot_module.waitUntil(lambda: check_output(term, "base"), timeout=TERM_UP)
+
+
+def test_zoom(setup_terminal, qtbot_module):
+    """Test zoom level is increasing and decreasing."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    term = terminal.get_widget().get_current_term()
+    original_zoom = term.get_conf("zoom")
+
+    term.view.increase_font()
+    term.view.increase_font()
+    term.view.increase_font()
+
+    # Check the zoom increases three times
+    assert term.get_conf("zoom") == original_zoom + 3
+
+    term.view.decrease_font()
+    term.view.decrease_font()
+
+    # Check the zoom decreases two times
+    assert term.get_conf("zoom") == original_zoom + 1
+
+
+def test_zoom_new_term(setup_terminal, qtbot_module):
+    """Test zoom level is correct when creating a new terminal."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    term = terminal.get_widget().get_current_term()
+
+    term.view.increase_font()
+    term.view.increase_font()
+    term1_zoom = term.get_conf("zoom")
+
+    terminal.create_new_term()
+    term = terminal.get_widget().get_current_term()
+    new_zoom = term.get_conf("zoom")
+
+    assert term1_zoom == new_zoom
