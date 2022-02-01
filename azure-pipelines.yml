@@ -90,8 +90,6 @@ jobs:
     CI: True
     AZURE: True
     PYTHON: "C:\\Miniconda"
-    PYWINPTY_BLOCK: 0
-    CONPTY_CI: 1
     CODECOV_TOKEN: "273c981b-7851-4895-a4bb-07377c67791e"
 
   # Run the pipeline with multiple Python versions
@@ -145,17 +143,18 @@ jobs:
       python setup.py build_static
     displayName: 'Setup build'
     continueOnError: false
-  - powershell: |
-      Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
-      Expand-Archive ngrok.zip
-      .\ngrok\ngrok.exe authtoken 1raaG4z7gsaCRlLw8cRkUWW6ItF_2LWTUFxXwd6UeeJNAAAci
-      Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
-      Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-      Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
-      Set-LocalUser -Name "VssAdministrator" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
-      .\ngrok\ngrok.exe tcp 3389
-    displayName: 'Enable Ngrok'
-    continueOnError: true
+    # Enable this to debug via RDP
+  # - powershell: |
+  #     Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+  #     Expand-Archive ngrok.zip
+  #     .\ngrok\ngrok.exe authtoken 1raaG4z7gsaCRlLw8cRkUWW6ItF_2LWTUFxXwd6UeeJNAAAci
+  #     Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+  #     Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+  #     Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+  #     Set-LocalUser -Name "VssAdministrator" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
+  #     .\ngrok\ngrok.exe tcp 3389
+  #   displayName: 'Enable Ngrok'
+  #   continueOnError: true
     # Run tests
   - script: |
       call activate test
