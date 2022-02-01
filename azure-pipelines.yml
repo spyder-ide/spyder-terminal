@@ -163,7 +163,7 @@ jobs:
     continueOnError: false
   - script: |
       call activate test
-      pip install -q -y codecov
+      pip install -q codecov
       codecov
     displayName: 'Run code coverage'
     continueOnError: true
