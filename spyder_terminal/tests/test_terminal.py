@@ -188,6 +188,8 @@ def test_terminal_paste(setup_terminal, qtbot_module):
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
     assert status_code == 200
 
+    term.exec_cmd(f'{os.linesep}' * 2)
+
     separator = os.linesep
     expected = ['prueba']
     QApplication.clipboard().clear()
