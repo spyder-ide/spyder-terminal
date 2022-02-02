@@ -1,3 +1,21 @@
+## Version 1.2.1 (2022-02-02)
+
+### Issues Closed
+
+* [Issue 302](https://github.com/spyder-ide/spyder-terminal/issues/302) - Zoom level increases by 2x every time a Terminal is opened. ([PR 308](https://github.com/spyder-ide/spyder-terminal/pull/308) by [@steff456](https://github.com/steff456))
+
+In this release 1 issue was closed.
+
+### Pull Requests Merged
+
+* [PR 308](https://github.com/spyder-ide/spyder-terminal/pull/308) - PR: Fix double zoom when openning a new terminal, by [@steff456](https://github.com/steff456) ([302](https://github.com/spyder-ide/spyder-terminal/issues/302))
+* [PR 306](https://github.com/spyder-ide/spyder-terminal/pull/306) - Test pywinpty 2.0.1 on CI, by [@andfoy](https://github.com/andfoy)
+* [PR 305](https://github.com/spyder-ide/spyder-terminal/pull/305) - PR: Update CIs, by [@steff456](https://github.com/steff456)
+* [PR 298](https://github.com/spyder-ide/spyder-terminal/pull/298) - PR: Increase minimal Spyder version in setup.py, by [@ccordoba12](https://github.com/ccordoba12)
+
+In this release 4 pull requests were closed.
+
+
 ## Version 1.2.0 (2021-12-16)
 
 ### Issues Closed
