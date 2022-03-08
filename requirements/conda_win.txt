@@ -1,5 +1,5 @@
 spyder>=5.2.0
-pywinpty==2.0.1
+pywinpty==2.0.5
 tornado
 coloredlogs
 requests
