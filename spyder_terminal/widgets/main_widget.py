@@ -87,6 +87,7 @@ class TerminalMainWidget(PluginMainWidget):
         self.project_path = None
         self.current_file_path = None
         self.current_cwd = os.getcwd()
+        self.closing = False
 
         # Widgets
         self.main = parent
@@ -311,6 +312,7 @@ class TerminalMainWidget(PluginMainWidget):
 
     def on_close(self, cancelable=False):
         """Perform actions before parent main window is closed."""
+        self.closing = True
         for term in self.terms:
             term.close()
         self.server.kill()
@@ -444,18 +446,19 @@ class TerminalMainWidget(PluginMainWidget):
 
     def handle_process_errors(self):
         """Handle when an error ocurrs in the server."""
-        QMessageBox.warning(
-            self,
-            _('Spyder Terminal Server Error'),
-            _("The server that creates terminals failed to start. Please "
-              "restart Spyder in a system terminal with the command <tt> "
-              "spyder --debug-info minimal</tt> and open an issue with "
-              "the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
-              ).format(
-                  osp.join(os.getcwd(), 'spyder_terminal_out.log'),
-                  osp.join(os.getcwd(), 'spyder_terminal_err.log'),
-                  self.URL_ISSUES),
-            QMessageBox.Ok)
+        if not self.closing:
+            QMessageBox.warning(
+                self,
+                _('Spyder Terminal Server Error'),
+                _("The server that creates terminals failed to start. Please "
+                  "restart Spyder in a system terminal with the command <tt> "
+                  "spyder --debug-info minimal</tt> and open an issue with "
+                  "the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
+                  ).format(
+                      osp.join(os.getcwd(), 'spyder_terminal_out.log'),
+                      osp.join(os.getcwd(), 'spyder_terminal_err.log'),
+                      self.URL_ISSUES),
+                QMessageBox.Ok)
 
 
 def test():
