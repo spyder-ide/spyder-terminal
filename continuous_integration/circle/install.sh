@@ -6,6 +6,9 @@ wget https://repo.continuum.io/miniconda/$MINICONDA -O miniconda.sh
 bash miniconda.sh -b -p $HOME/miniconda
 source $HOME/miniconda/etc/profile.d/conda.sh
 
+conda config --set channel_priority strict
+conda config --prepend channels conda-forge
+
 # -- Make new conda environment with required Python version
 conda create -y -n test python=$PYTHON_VERSION
 conda activate test

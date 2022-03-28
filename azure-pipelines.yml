@@ -44,6 +44,11 @@ jobs:
   - script: sudo chown -R 501:20 /usr/local/miniconda/
     displayName: Fix miniconda permissions
 
+  - script: |
+      conda config --set channel_priority strict
+      conda config --prepend channels conda-forge
+    displayName: 'Set channel priority'
+
     # Conda setup environment.
     # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/conda-environment?view=vsts
   - task: CondaEnvironment@0
@@ -115,6 +120,11 @@ jobs:
   - task: NodeTool@0
     inputs:
       versionSpec: '13.x'
+
+  - script: |
+      conda config --set channel_priority strict
+      conda config --prepend channels conda-forge
+    displayName: 'Set channel priority'
 
     # Conda setup environment.
     # https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/conda-environment?view=vsts
