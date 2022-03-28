@@ -10,6 +10,7 @@ main: &main
           command: |
             sudo apt-get -qq update
             sudo apt-get install libegl1-mesa
+            sudo apt-get install libpci3
       - run:
           command: ./continuous_integration/circle/install.sh
       - run:
