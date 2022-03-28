@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 
 # Install dependencies
-if [[ $OS == 'win']]
+if [[ "$OS" == "win" ]]
 then
     mamba install -q -y -c conda-forge --file requirements/conda_win.txt
 else
