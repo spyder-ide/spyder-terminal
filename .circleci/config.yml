@@ -9,6 +9,10 @@ main: &main
           name: Install system packages
           command: |
             sudo apt-get -qq update
+            sudo apt-get install libegl1-mesa
+      - run:
+          name: list environment
+          command: conda list
       - run:
           command: ./continuous_integration/circle/install.sh
       - run:
