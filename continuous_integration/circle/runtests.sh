@@ -1,7 +1,7 @@
 #!/bin/bash -ex
 set -ex
 
-source $HOME/miniconda/etc/profile.d/conda.sh
+source $HOME/miniforge/etc/profile.d/conda.sh
 conda activate test
 
 export NVM_DIR="$HOME/.nvm"
