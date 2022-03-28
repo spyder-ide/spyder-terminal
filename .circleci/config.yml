@@ -1,11 +1,10 @@
 version: 2
 
 main: &main
-    machine: true
+    docker:
+      - image: dorowu/ubuntu-desktop-lxde-vnc:focal
     steps:
       - checkout
-      - run:
-          command: docker pull dorowu/ubuntu-desktop-lxde-vnc:focal
       - run:
           name: Install system packages
           command: |
