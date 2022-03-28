@@ -11,12 +11,12 @@ main: &main
             sudo apt-get -qq update
             sudo apt-get install libegl1-mesa
       - run:
+          command: ./continuous_integration/circle/install.sh
+      - run:
           name: list environment
           command: |
             source $HOME/miniforge/etc/profile.d/conda.sh
             conda list
-      - run:
-          command: ./continuous_integration/circle/install.sh
       - run:
           command: ./continuous_integration/circle/runtests.sh || ./continuous_integration/circle/runtests.sh
 
