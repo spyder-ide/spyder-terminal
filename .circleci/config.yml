@@ -8,9 +8,9 @@ main: &main
       - run:
           name: Install system packages
           command: |
-            sudo apt-get -qq update
+            sudo apt-get update --fix-missing
             sudo apt-get install libegl1-mesa
-            sudo apt-get install -y libpci3
+            sudo apt-get install -qq pyqt5-dev-tools libxcb-xinerama0 xterm --fix-missing
       - run:
           command: ./continuous_integration/circle/install.sh
       - run:
