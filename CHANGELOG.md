@@ -1,3 +1,14 @@
+## Version 1.2.2 (2022-03-29)
+
+
+### Pull Requests Merged
+
+* [PR 316](https://github.com/spyder-ide/spyder-terminal/pull/316) - PR: Move CIs to github actions, by [@steff456](https://github.com/steff456)
+* [PR 315](https://github.com/spyder-ide/spyder-terminal/pull/315) - PR: Prevent showing message for server errors when closing the plugin, by [@dalthviz](https://github.com/dalthviz)
+* [PR 313](https://github.com/spyder-ide/spyder-terminal/pull/313) - PR: Update pywinpty version to v2.0.5, by [@andfoy](https://github.com/andfoy)
+
+In this release 3 pull requests were closed.
+
 ## Version 1.2.1 (2022-02-02)
 
 ### Issues Closed
