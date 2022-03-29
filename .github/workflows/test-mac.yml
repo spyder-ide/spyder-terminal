@@ -39,6 +39,14 @@ jobs:
             channel-priority: true
             activate-environment: test
             miniforge-version: latest
+      - name: Create test environment
+        shell: bash -l {0}
+        run: bash -l .github/scripts/install.sh
+      - name: Show test environment
+        shell: bash -l {0}
+        run: |
+          conda info
+          conda list
       - name: Setup node
         uses: actions/setup-node@v2
         with:
@@ -48,14 +56,6 @@ jobs:
         run: |
           node -v
           npm -v
-      - name: Create test environment
-        shell: bash -l {0}
-        run: bash -l .github/scripts/install.sh
-      - name: Show test environment
-        shell: bash -l {0}
-        run: |
-          conda info
-          conda list
       - name: Build static resources
         shell: bash -l {0}
         run: python setup.py build_static
