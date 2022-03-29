@@ -54,10 +54,9 @@ jobs:
       - name: Node and NPM version
         shell: bash -l {0}
         run: |
+          export PATH=/Users/runner/hostedtoolcache/node/13.14.0/x64/bin:$PATH
           node -v
           npm -v
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
       - name: Build static resources
         shell: bash -l {0}
         run: python setup.py build_static
