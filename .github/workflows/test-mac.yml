@@ -28,17 +28,17 @@ jobs:
     steps:
       - name: checkout branch
         uses: actions/checkout@v3
-      - name : Setup miniforge
-        uses: conda-incubator/setup-miniconda@v2
-        with:
-            miniforge-variant: Mambaforge
-            python-version: ${{ matrix.PYTHON_VERSION }}
-            mamba-version: "*"
-            use-mamba: true
-            channels: conda-forge,defaults
-            channel-priority: true
-            activate-environment: test
-            miniforge-version: latest
+      # - name : Setup miniforge
+      #   uses: conda-incubator/setup-miniconda@v2
+      #   with:
+      #       miniforge-variant: Mambaforge
+      #       python-version: ${{ matrix.PYTHON_VERSION }}
+      #       mamba-version: "*"
+      #       use-mamba: true
+      #       channels: conda-forge,defaults
+      #       channel-priority: true
+      #       activate-environment: test
+      #       miniforge-version: latest
       - name: Create test environment
         shell: bash -l {0}
         run: bash -l .github/scripts/install.sh
