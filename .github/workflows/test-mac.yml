@@ -59,7 +59,9 @@ jobs:
           npm -v
       - name: Build static resources
         shell: bash -l {0}
-        run: python setup.py build_static
+        run: |
+          export PATH=/Users/runner/hostedtoolcache/node/13.14.0/x64/bin:$PATH
+          python setup.py build_static
       - name: Run tests
         shell: bash -l {0}
         run: python runtests.py || python runtests.py || python runtests.py || python runtests.py || python runtests.py

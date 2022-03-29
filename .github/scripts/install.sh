@@ -12,4 +12,4 @@ fi
 # Install test dependencies
 mamba install -q -y -c conda-forge --file requirements/tests.txt
 
-pip install -q codecov
+mamba install -q codecov
