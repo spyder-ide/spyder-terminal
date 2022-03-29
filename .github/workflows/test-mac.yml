@@ -42,7 +42,10 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '13'
+          node-version: '13.x'
+        run: |
+          node -v
+          npm -v
       - name: Create test environment
         shell: bash -l {0}
         run: bash -l .github/scripts/install.sh
