@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: Py${{ matrix.PYTHON_VERSION }}, ${{ matrix.INSTALL_TYPE }}
-    runs-on: macos-10.15
+    runs-on: macos-latest
     env:
       CI: 'true'
       CODECOV_TOKEN: "273c981b-7851-4895-a4bb-07377c67791e"
@@ -28,17 +28,17 @@ jobs:
     steps:
       - name: checkout branch
         uses: actions/checkout@v3
-      # - name : Setup miniforge
-      #   uses: conda-incubator/setup-miniconda@v2
-      #   with:
-      #       miniforge-variant: Mambaforge
-      #       python-version: ${{ matrix.PYTHON_VERSION }}
-      #       mamba-version: "*"
-      #       use-mamba: true
-      #       channels: conda-forge,defaults
-      #       channel-priority: true
-      #       activate-environment: test
-      #       miniforge-version: latest
+      - name : Setup miniforge
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+            miniforge-variant: Mambaforge
+            python-version: ${{ matrix.PYTHON_VERSION }}
+            mamba-version: "*"
+            use-mamba: true
+            channels: conda-forge,defaults
+            channel-priority: true
+            activate-environment: test
+            miniforge-version: latest
       - name: Create test environment
         shell: bash -l {0}
         run: bash -l .github/scripts/install.sh
@@ -50,7 +50,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '13'
       - name: Node and NPM version
         shell: bash -l {0}
         run: |
