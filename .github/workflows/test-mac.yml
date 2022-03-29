@@ -43,6 +43,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '13.8'
+      - name: Node and NPM version
+        shell: bash -l {0}
         run: |
           node -v
           npm -v
