@@ -42,7 +42,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '13.x'
+          node-version: '13.8'
         run: |
           node -v
           npm -v
