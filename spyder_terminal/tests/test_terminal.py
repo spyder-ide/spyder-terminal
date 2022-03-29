@@ -205,10 +205,6 @@ def test_terminal_paste(setup_terminal, qtbot_module):
                            timeout=TERM_UP)
 
 
-@flaky(max_runs=3)
-@pytest.mark.skipif((os.environ.get('CI') and
-                     sys.platform.startswith('linux')),
-                    reason="Doesn't work on Linux CIs")
 def test_terminal_color(setup_terminal, qtbot_module):
     """Test if the terminal color is converting to rgba correctly."""
     terminal = setup_terminal
