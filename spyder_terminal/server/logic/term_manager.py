@@ -50,6 +50,26 @@ class TermManager(TermManagerBase):
         super().__init__(shell_command, **kwargs)
         self.consoles = {}
 
+    def make_term_env(self, **kwargs):
+        """Build the environment variables for the process in the terminal."""
+
+        # TermManagerBase starts with os.environ and adds to it.
+        # We only want the additions, not everything else.
+        env_orig = os.environ.copy()
+        os.environ.clear()
+        env = super().make_term_env(**kwargs)  # only has additions/updates
+        os.environ.update(env_orig)  # restore original os.environ
+
+        # Now add back minimal required variables, platform dependent
+        if os.name == 'nt':
+            for k in ['SYSTEMROOT', 'SYSTEMDRIVE', 'HOMEPATH']:
+                if k in os.environ:
+                    env[k] = os.environ[k]
+        else:
+            env['HOME'] = os.environ['HOME']
+
+        return env
+
     def new_terminal(self, **kwargs):
         """Make a new terminal, return a :class:`PtyReader` instance."""
         options = self.term_settings.copy()
@@ -58,10 +78,6 @@ class TermManager(TermManagerBase):
         argv = options['shell_command']
         env = self.make_term_env(**options)
         cwd = options.get('cwd', None)
-
-        # Remove environment variables introduced by Spyder
-        for var in REMOVE_ENV:
-            env.pop(var, None)
 
         return PtyReader(argv, env, cwd)
 

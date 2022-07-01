@@ -65,24 +65,6 @@ class ChannelHandler(QObject):
 
 class TerminalWidget(QFrame, SpyderWidgetMixin):
     """Terminal widget."""
-    zdotdir = os.environ.get('ZDOTDIR') or os.environ.get('HOME')  # what about windows?
-    ENV_ROUTES = {
-        "bash": ["/etc/profile", "~/.bash_profile"],
-        "zsh": ["/etc/zshenv", f"{zdotdir}/.zshenv", "/etc/zprofile",
-                f"{zdotdir}/.zprofile", "/etc/zshrc", f"{zdotdir}/.zshrc",
-                "/etc/zlogin", f"{zdotdir}/.zlogin"],
-        "fish": ["~/.config/fish/config.fish"],
-        "sh": ["~/.profile", "~/.shrc", "~/.shinit"],
-        "ksh": ["~/.profile", "~/.kshrc"],
-        "csh": ["~/.cshrc", "~/.login"],
-        "pwsh": [],
-        "rbash": ["~/.bashrc", "~/.bash_profile"],
-        "dash": ["~/.profile"],
-        "screen": [],
-        "tmux": [],
-        "tcsh": ["~/.tcshrc"],
-        "xonsh": ["~/.xonshrc"]
-    }
 
     terminal_closed = Signal()
     terminal_ready = Signal()
@@ -130,15 +112,6 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
             dict_options[option] = self.get_conf(option)
         self.apply_settings(dict_options)
         self.apply_zoom()
-        shell_name = self.get_conf('shell')
-        if os.name != 'nt':
-            # Find environment variables in the home directory given the actual
-            # shell
-            env_route = self.ENV_ROUTES[shell_name]
-            for act_file in env_route:
-                if os.path.exists(os.path.expanduser(act_file)):
-                    self.exec_cmd(f"source {act_file}")
-                    self.exec_cmd("clear")
 
     def get_shortcut_data(self):
         """
