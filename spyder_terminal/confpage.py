@@ -47,6 +47,8 @@ class TerminalConfigPage(PluginConfigPage):
             default_option = 'cmd'
         elif sys.platform.startswith('linux'):
             default_option = 'bash'
+        elif 'bsd' in sys.platform:
+            default_option = 'sh'
         else:
             default_option = 'zsh'
         shell_combo = self.create_combobox(_("Select the shell interpreter:"),
