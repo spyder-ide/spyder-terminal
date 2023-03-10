@@ -50,6 +50,8 @@ class TerminalConfigPage(PluginConfigPage):
             default_option = 'cmd'
         elif sys.platform.startswith('linux'):
             default_option = 'bash'
+        elif 'bsd' in sys.platform:
+            default_option = 'sh'
         else:
             mac_ver = LooseVersion(platform.mac_ver()[0])
             if mac_ver >= LooseVersion('10.15.0'):
