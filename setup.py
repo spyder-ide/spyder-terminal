@@ -41,6 +41,7 @@ def get_description():
 
 
 REQUIREMENTS = [
+    'python>=3.12',
     'spyder>=6.0.0',
     'tornado',
     'terminado>=0.13.1',
@@ -96,11 +97,7 @@ setup(
         'Operating System :: MacOS',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX :: Linux',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.12',
         ],
     extras_require=EXTRAS_REQUIRE,
     entry_points={
