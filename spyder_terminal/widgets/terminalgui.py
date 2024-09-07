@@ -24,7 +24,7 @@ from spyder.api.widgets.mixins import SpyderWidgetMixin
 from spyder.api.config.decorators import on_conf_change
 from spyder.config.base import get_translation
 from spyder.config.gui import is_dark_interface
-from spyder.utils.palette import QStylePalette
+from spyder.utils.palette import SpyderPalette
 
 # Local imports
 from spyder_terminal.api import TerminalMainWidgetActions, TermViewMenus
@@ -271,9 +271,9 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
     def _apply_stylesheet(self, focus=False):
         """Apply stylesheet according to the current focus."""
         if focus:
-            border_color = QStylePalette.COLOR_ACCENT_3
+            border_color = SpyderPalette.COLOR_ACCENT_3
         else:
-            border_color = QStylePalette.COLOR_BACKGROUND_4
+            border_color = SpyderPalette.COLOR_BACKGROUND_4
 
         css = qstylizer.style.StyleSheet()
         css.QFrame.setValues(
