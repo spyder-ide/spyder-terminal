@@ -50,7 +50,7 @@ REQUIREMENTS = [
 
 EXTRAS_REQUIRE = {
     'test': [
-        'pytest<6.0',
+        'pytest',
         'pytest-cov',
         'flaky',
         'pytest-qt==3.3.0',
