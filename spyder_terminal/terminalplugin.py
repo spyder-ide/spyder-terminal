@@ -13,6 +13,7 @@ import os.path as osp
 
 # Third party imports
 from qtpy.QtCore import Signal
+from spyder.api.fonts import SpyderFontType
 from spyder.api.plugins import Plugins, SpyderDockablePlugin
 from spyder.api.plugin_registration.decorators import on_plugin_available
 from spyder.config.base import get_translation
@@ -103,7 +104,7 @@ class TerminalPlugin(SpyderDockablePlugin):
 
     def update_font(self):
         """Update font from Preferences."""
-        font = self.get_font()
+        font = self.get_font(SpyderFontType.MonospaceInterface )
         self.get_widget().update_font(font)
 
     def check_compatibility(self):
