@@ -41,7 +41,6 @@ def get_description():
 
 
 REQUIREMENTS = [
-    'python>=3.12',
     'spyder>=6.0.0',
     'tornado',
     'terminado>=0.13.1',
