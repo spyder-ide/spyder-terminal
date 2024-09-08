@@ -14,6 +14,7 @@ from urllib.parse import urlencode
 import pytest
 from flaky import flaky
 from tornado import testing, websocket, gen
+from tornado.websocket import WebSocketClosedError
 from tornado.concurrent import Future
 from spyder.utils.programs import find_program
 
@@ -130,7 +131,7 @@ class TerminalServerTests(testing.AsyncHTTPTestCase):
         yield self.close(sock)
         try:
             sock.write_message(' This shall not work')
-        except AttributeError:
+        except WebSocketClosedError:
             pass
         yield self.close(sock)
 
