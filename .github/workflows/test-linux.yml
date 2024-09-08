@@ -27,14 +27,14 @@ jobs:
     timeout-minutes: 120
     steps:
       - name: checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install dependencies
         shell: bash
         run: |
           sudo apt-get update --fix-missing
           sudo apt-get install -qq pyqt5-dev-tools libxcb-xinerama0 xterm --fix-missing
       - name : Setup miniforge
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
             miniforge-variant: Mambaforge
             python-version: ${{ matrix.PYTHON_VERSION }}
@@ -45,9 +45,9 @@ jobs:
             activate-environment: test
             miniforge-version: latest
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '13'
+          node-version: latest
       - name: Create test environment
         shell: bash -l {0}
         run: bash -l .github/scripts/install.sh

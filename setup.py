@@ -53,7 +53,7 @@ EXTRAS_REQUIRE = {
         'pytest',
         'pytest-cov',
         'flaky',
-        'pytest-qt==3.3.0',
+        'pytest-qt',
         'pytest-timeout'
     ]
 }

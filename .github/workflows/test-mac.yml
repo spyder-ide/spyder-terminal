@@ -27,9 +27,9 @@ jobs:
     timeout-minutes: 120
     steps:
       - name: checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name : Setup miniforge
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
             miniforge-variant: Mambaforge
             python-version: ${{ matrix.PYTHON_VERSION }}
@@ -48,19 +48,19 @@ jobs:
           conda info
           conda list
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '13'
+          node-version: '18.4.0'
       - name: Node and NPM version
         shell: bash -l {0}
         run: |
-          export PATH=/Users/runner/hostedtoolcache/node/13.14.0/x64/bin:$PATH
+          export PATH=/Users/runner/hostedtoolcache/node/18.4.0/x64/bin:$PATH
           node -v
           npm -v
       - name: Build static resources
         shell: bash -l {0}
         run: |
-          export PATH=/Users/runner/hostedtoolcache/node/13.14.0/x64/bin:$PATH
+          export PATH=/Users/runner/hostedtoolcache/node/18.4.0/x64/bin:$PATH
           python setup.py build_static
       - name: Run tests
         shell: bash -l {0}
