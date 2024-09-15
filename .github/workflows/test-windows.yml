@@ -31,7 +31,6 @@ jobs:
       - name : Setup miniforge
         uses: conda-incubator/setup-miniconda@v3
         with:
-            miniforge-variant: Miniforge
             python-version: ${{ matrix.PYTHON_VERSION }}
             mamba-version: "*"
             use-mamba: true
