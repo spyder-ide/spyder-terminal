@@ -158,7 +158,7 @@ def setup_terminal(qtbot_module, request):
     CONF.register_plugin(TerminalPlugin)
     terminal = TerminalPlugin(main, CONF)
     terminal.update_font()
-    qtbot_module.addWidget(terminal)
+    qtbot_module.addWidget(terminal.get_widget())
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(5000)
