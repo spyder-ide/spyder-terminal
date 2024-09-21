@@ -167,6 +167,7 @@ def setup_terminal(qtbot_module, request):
 
     def teardown():
         terminal.on_close()
+        CONF.unregister_plugin(TerminalPlugin)
 
     request.addfinalizer(teardown)
     return terminal
