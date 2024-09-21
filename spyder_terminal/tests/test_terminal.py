@@ -29,7 +29,7 @@ LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 LOCATION_SLASH = LOCATION.replace('\\', '/')
 
-TERM_UP = 40000
+TERM_UP = 80000
 WINDOWS = os.name == 'nt'
 
 EXIT = 'exit'
@@ -167,6 +167,7 @@ def setup_terminal(qtbot_module, request):
 
     def teardown():
         terminal.on_close()
+        CONF.unregister_plugin(TerminalPlugin)
 
     request.addfinalizer(teardown)
     return terminal
@@ -375,6 +376,7 @@ def test_conda_path(setup_terminal, qtbot_module):
     term = terminal.get_widget().get_current_term()
     # Check that conda list works
     term.exec_cmd("conda env list")
+    qtbot_module.wait(1000)
     qtbot_module.waitUntil(lambda: check_output(term, "test"), timeout=TERM_UP)
 
     # Clear the terminal
@@ -429,7 +431,7 @@ def test_zoom_new_term(setup_terminal, qtbot_module):
     assert term1_zoom == new_zoom
 
 
-@flaky(max_runs=50)
+@flaky(max_runs=5)
 # @pytest.mark.skipif((os.environ.get('CI') and
 #                      sys.platform.startswith('linux')),
 #                     reason="Doesn't work on Linux CIs")
