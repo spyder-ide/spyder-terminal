@@ -173,6 +173,40 @@ def setup_terminal(qtbot_module, request):
     return terminal
 
 
+@flaky(max_runs=50)
+@pytest.mark.skipif((os.environ.get('CI') and
+                     sys.platform.startswith('linux')),
+                     reason="Doesn't work on Linux CIs")
+def test_terminal_paste(setup_terminal, qtbot_module):
+    """Test the paste action in the terminal."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
+    qtbot_module.wait(1000)
+
+    term = terminal.get_widget().get_current_term()
+    port = terminal.get_widget().port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
+    assert status_code == 200
+
+    term.exec_cmd(f'{os.linesep}' * 2)
+
+    separator = os.linesep
+    expected = ['prueba']
+    QApplication.clipboard().clear()
+    QApplication.clipboard().setText(separator.join(expected))
+    term.view.paste()
+    qtbot_module.waitUntil(lambda: check_paste(term, expected),
+                           timeout=TERM_UP)
+
+    expected = ['this', 'a', 'test']
+    QApplication.clipboard().setText(separator.join(expected))
+    term.view.paste()
+    qtbot_module.wait(1000)
+    qtbot_module.waitUntil(lambda: check_paste(term, expected),
+                           timeout=TERM_UP)
+
+
 def test_terminal_color(setup_terminal, qtbot_module):
     """Test if the terminal color is converting to rgba correctly."""
     terminal = setup_terminal
@@ -270,9 +304,6 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-#@pytest.mark.skipif((os.environ.get('CI') and
-#                     sys.platform.startswith('linux')),
-#                    reason="Doesn't work on Linux CIs")
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
@@ -321,7 +352,6 @@ def test_output_redirection(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-# @pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
 def test_close_terminal_manually(setup_terminal, qtbot_module):
     """Test if terminal tab is closed after process was finished manually."""
     # Setup widget
@@ -365,7 +395,6 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-# @pytest.mark.skipif(sys.platform == 'darwin', reason="It hangs on macOS")
 def test_conda_path(setup_terminal, qtbot_module):
     """Test if conda is correctly added to the path of the terminal."""
     terminal = setup_terminal
@@ -429,36 +458,3 @@ def test_zoom_new_term(setup_terminal, qtbot_module):
     new_zoom = term.get_conf("zoom")
 
     assert term1_zoom == new_zoom
-
-
-@flaky(max_runs=5)
-# @pytest.mark.skipif((os.environ.get('CI') and
-#                      sys.platform.startswith('linux')),
-#                     reason="Doesn't work on Linux CIs")
-def test_terminal_paste(setup_terminal, qtbot_module):
-    """Test the paste action in the terminal."""
-    terminal = setup_terminal
-    qtbot_module.waitUntil(
-        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(2000)
-
-    term = terminal.get_widget().get_current_term()
-    port = terminal.get_widget().port
-    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
-    assert status_code == 200
-
-    term.exec_cmd(f'{os.linesep}' * 2)
-
-    separator = os.linesep
-    expected = ['prueba']
-    QApplication.clipboard().clear()
-    QApplication.clipboard().setText(separator.join(expected))
-    term.view.paste()
-    qtbot_module.waitUntil(lambda: check_paste(term, expected),
-                           timeout=TERM_UP)
-
-    expected = ['this', 'a', 'test']
-    QApplication.clipboard().setText(separator.join(expected))
-    term.view.paste()
-    qtbot_module.waitUntil(lambda: check_paste(term, expected),
-                           timeout=TERM_UP)
