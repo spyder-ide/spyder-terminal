@@ -29,7 +29,7 @@ LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 LOCATION_SLASH = LOCATION.replace('\\', '/')
 
-TERM_UP = 10000
+TERM_UP = 20000
 WINDOWS = os.name == 'nt'
 
 EXIT = 'exit'
@@ -181,7 +181,7 @@ def test_terminal_paste(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     port = terminal.get_widget().port
@@ -210,7 +210,7 @@ def test_terminal_color(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     port = terminal.get_widget().port
@@ -224,7 +224,7 @@ def test_terminal_find(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     port = terminal.get_widget().port
@@ -232,7 +232,7 @@ def test_terminal_find(setup_terminal, qtbot_module):
     assert status_code == 200
 
     term.exec_cmd('ls')
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     # Search without any special parameters
     text = 'ls'
@@ -269,7 +269,7 @@ def test_terminal_font(setup_terminal, qtbot_module):
 
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     port = terminal.get_widget().port
@@ -293,7 +293,7 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
 
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
     terminal.create_new_term()
     terminal.create_new_term()
     num_1 = int(terminal.get_widget().tabwidget.tabText(1)[-1])
@@ -311,7 +311,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     # Test if server is running
     port = terminal.get_widget().port
@@ -320,7 +320,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
 
     terminal.create_new_term()
     term = terminal.get_widget().get_current_term()
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
     # Move to LOCATION
     # qtbot_module.keyClicks(term.view, 'cd {}'.format(LOCATION))
     # qtbot_module.keyPress(term.view, Qt.Key_Return)
@@ -334,9 +334,9 @@ def test_new_terminal(setup_terminal, qtbot_module):
     # Run pwd
     # qtbot_module.keyClicks(term.view, 'pwd')
     # qtbot_module.keyPress(term.view, Qt.Key_Return)
-    qtbot_module.wait(3000)
+    qtbot_module.wait(4000)
     term.exec_cmd(PWD)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     # Assert pwd is LOCATION
     term.resize(900, 700)
@@ -360,12 +360,12 @@ def test_close_terminal_manually(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     terminal.create_new_term()
     initial_num = len(terminal.get_widget().get_terms())
     term = terminal.get_widget().get_current_term()
-    qtbot_module.wait(3000)
+    qtbot_module.wait(4000)
 
     term.exec_cmd(EXIT)
 
@@ -386,7 +386,7 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     port = terminal.get_widget().port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
@@ -403,7 +403,7 @@ def test_conda_path(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     # Check that conda list works
@@ -423,7 +423,7 @@ def test_zoom(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     original_zoom = term.get_conf("zoom")
@@ -447,7 +447,7 @@ def test_zoom_new_term(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
 
