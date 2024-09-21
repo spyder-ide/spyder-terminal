@@ -29,7 +29,7 @@ LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 LOCATION_SLASH = LOCATION.replace('\\', '/')
 
-TERM_UP = 20000
+TERM_UP = 40000
 WINDOWS = os.name == 'nt'
 
 EXIT = 'exit'
@@ -173,9 +173,9 @@ def setup_terminal(qtbot_module, request):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif((os.environ.get('CI') and
-                     sys.platform.startswith('linux')),
-                    reason="Doesn't work on Linux CIs")
+# @pytest.mark.skipif((os.environ.get('CI') and
+#                      sys.platform.startswith('linux')),
+#                     reason="Doesn't work on Linux CIs")
 def test_terminal_paste(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
