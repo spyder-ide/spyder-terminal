@@ -60,7 +60,7 @@ jobs:
         run: python setup.py build_static
       - name: Run tests
         shell: bash -l {0}
-        run: xvfb-run --auto-servernum python runtests.py || xvfb-run --auto-servernum python runtests.py || xvfb-run --auto-servernum python runtests.py || xvfb-run --auto-servernum python runtests.py || xvfb-run --auto-servernum python runtests.py
+        run: xvfb-run --auto-servernum python runtests.py
       - name: Coverage
         shell: bash -l {0}
         run: codecov
