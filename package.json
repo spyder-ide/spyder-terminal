@@ -20,7 +20,7 @@
     "promise-polyfill": "latest"
   },
   "engines": {
-    "yarn": "latest"
+    "yarn": ">=1.22.22"
   },
   "scripts": {
     "webpack": "webpack --config webpack.config.js",
