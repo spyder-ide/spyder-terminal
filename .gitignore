@@ -167,3 +167,5 @@ typings/
 
 # vscode settings
 .vscode/
+.yarn/install-state.gz
+.yarnrc.yml
