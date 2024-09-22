@@ -66,9 +66,9 @@ class BuildStatic(Command):
             run(['yarn', 'install'], cwd=repo_root)
             log.info("installing webpack")
             run(['npm', 'i', '-D', 'webpack'], cwd=repo_root)
-            run(['npm', 'i', 'webpack-cli', 'html-webpack-plugin', 'xterm',
-                 'xterm-addon-attach', 'xterm-addon-search',
-                 'xterm-addon-web-links', 'xterm-addon-fit'],
+            run(['npm', 'i', 'webpack-cli', 'html-webpack-plugin', '@xterm/xterm',
+                 '@xterm/addon-attach', '@xterm/addon-search',
+                 '@xterm/addon-web-links', '@xterm/addon-fit'],
                 cwd=repo_root)
             log.info('running webpack')
             run(['npm', 'run', 'webpack'], cwd=repo_root)
