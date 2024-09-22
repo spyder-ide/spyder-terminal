@@ -200,6 +200,7 @@ def test_terminal_paste_1(setup_terminal, qtbot_module):
     qtbot_module.waitUntil(lambda: check_paste(term, expected),
                            timeout=TERM_UP)
 
+
 @flaky(max_runs=3)
 @pytest.mark.skipif((os.environ.get('CI') and
                      (sys.platform.startswith('linux') or WINDOWS)),
