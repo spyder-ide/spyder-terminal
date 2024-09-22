@@ -173,10 +173,9 @@ def setup_terminal(qtbot_module, request):
     return terminal
 
 
-@flaky(max_runs=3)
 @pytest.mark.skipif((os.environ.get('CI') and
-                     sys.platform.startswith('linux')),
-                     reason="Doesn't work on Linux CIs")
+                     (sys.platform.startswith('linux') or WINDOWS)),
+                     reason="Doesn't work on Linux and Windows CIs")
 def test_terminal_paste_1(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
@@ -201,7 +200,6 @@ def test_terminal_paste_1(setup_terminal, qtbot_module):
                            timeout=TERM_UP)
 
 
-@flaky(max_runs=3)
 @pytest.mark.skipif((os.environ.get('CI') and
                      sys.platform.startswith('linux')),
                      reason="Doesn't work on Linux CIs")
@@ -325,7 +323,6 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
     assert num_2 == num_1 + 1
 
 
-@flaky(max_runs=3)
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
