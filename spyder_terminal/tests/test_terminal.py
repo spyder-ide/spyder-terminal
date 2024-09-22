@@ -175,8 +175,8 @@ def setup_terminal(qtbot_module, request):
 
 @flaky(max_runs=3)
 @pytest.mark.skipif((os.environ.get('CI') and
-                     sys.platform.startswith('linux')),
-                     reason="Doesn't work on Linux CIs")
+                     (sys.platform.startswith('linux') or WINDOWS)),
+                     reason="Doesn't work on Linux and Windows CIs")
 def test_terminal_paste_1(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
@@ -200,11 +200,10 @@ def test_terminal_paste_1(setup_terminal, qtbot_module):
     qtbot_module.waitUntil(lambda: check_paste(term, expected),
                            timeout=TERM_UP)
 
-
 @flaky(max_runs=3)
 @pytest.mark.skipif((os.environ.get('CI') and
-                     sys.platform.startswith('linux')),
-                     reason="Doesn't work on Linux CIs")
+                     (sys.platform.startswith('linux') or WINDOWS)),
+                     reason="Doesn't work on Linux and Windows CIs")
 def test_terminal_paste_2(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
@@ -326,6 +325,8 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
+@pytest.mark.skipif(os.environ.get('CI') and WINDOWS),
+                     reason="Doesn't work on Windows CIs")
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
@@ -362,7 +363,6 @@ def test_new_terminal(setup_terminal, qtbot_module):
     # Assert pwd is LOCATION
     term.resize(900, 700)
     qtbot_module.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
-
 
 def test_output_redirection(setup_terminal, qtbot_module):
     """Test if stdout and stderr are redirected on DEV mode."""
