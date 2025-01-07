@@ -7,10 +7,11 @@
 """Spyder terminal configuration page."""
 
 # Standard library imports
-from distutils.version import LooseVersion
 import os
 import platform
 import sys
+
+from looseversion import LooseVersion
 
 # Third party imports
 from qtpy.QtWidgets import (QVBoxLayout, QGroupBox, QGridLayout, QButtonGroup,

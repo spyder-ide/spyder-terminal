@@ -45,7 +45,8 @@ REQUIREMENTS = [
     'tornado',
     'terminado>=0.13.1',
     'coloredlogs',
-    'requests'
+    'requests',
+    'looseversion'
 ]
 
 EXTRAS_REQUIRE = {
