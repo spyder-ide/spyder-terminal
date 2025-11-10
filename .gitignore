@@ -81,6 +81,7 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+.spyproject
 
 # Rope project settings
 .ropeproject
@@ -153,6 +154,12 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
+# Other yarn files
+.yarn/install-state.gz
+
+# Unused lock files
+package-lock.json
+
 # dotenv environment variables file
 .env
 
@@ -167,5 +174,3 @@ typings/
 
 # vscode settings
 .vscode/
-.yarn/install-state.gz
-.yarnrc.yml
