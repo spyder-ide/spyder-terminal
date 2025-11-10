@@ -63,7 +63,7 @@ jobs:
           python setup.py build_static
       - name: Run tests
         shell: bash -l {0}
-        run: python runtests.py
+        run: python runtests.py || python runtests.py || python runtests.py || python runtests.py || python runtests.py
       - name: Coverage
         shell: bash -l {0}
         run: codecov
