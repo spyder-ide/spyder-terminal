@@ -72,6 +72,9 @@ class BuildStatic(Command):
                 cwd=repo_root)
             log.info('running webpack')
             run(['npm', 'run', 'webpack'], cwd=repo_root)
+            log.info("copying static assests (jquery and xterm)")
+            shutil.copytree('./node_modules/jquery', './spyder_terminal/server/static/components/jquery', dirs_exist_ok=True)
+            shutil.copytree('./node_modules/@xterm', './spyder_terminal/server/static/components/@xterm', dirs_exist_ok=True)
 
 
 class DevelopWithBuildStatic(develop):

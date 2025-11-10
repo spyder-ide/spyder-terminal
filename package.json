@@ -27,9 +27,9 @@
     "start": "webpack-dev-server --open"
   },
   "devDependencies": {
-    "html-webpack-plugin": "^5.6.0",
+    "html-webpack-plugin": "^5.6.4",
     "path": "latest",
-    "webpack": "^5.94.0",
+    "webpack": "^5.102.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "latest"
   }

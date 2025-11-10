@@ -87,6 +87,7 @@ setup(
     long_description_content_type='text/x-rst',
     packages=find_packages(exclude=['contrib', 'docs']),
     install_requires=REQUIREMENTS,
+    python_requires='>=3.8',
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',
