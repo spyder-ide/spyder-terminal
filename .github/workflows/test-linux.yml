@@ -37,8 +37,6 @@ jobs:
         uses: conda-incubator/setup-miniconda@v3
         with:
             python-version: ${{ matrix.PYTHON_VERSION }}
-            mamba-version: "*"
-            use-mamba: true
             channels: conda-forge,defaults
             channel-priority: true
             activate-environment: test
