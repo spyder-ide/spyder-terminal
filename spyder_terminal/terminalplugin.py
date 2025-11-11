@@ -104,7 +104,7 @@ class TerminalPlugin(SpyderDockablePlugin):
 
     def update_font(self):
         """Update font from Preferences."""
-        font = self.get_font(SpyderFontType.MonospaceInterface )
+        font = self.get_font(SpyderFontType.Monospace)
         self.get_widget().update_font(font)
 
     def check_compatibility(self):
