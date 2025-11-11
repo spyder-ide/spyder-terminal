@@ -76,7 +76,7 @@ def check_output(termwidget, expected):
     termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
     try:
         return expected in text
-    except NameError:
+    except (NameError, TypeError):
         return False
 
 

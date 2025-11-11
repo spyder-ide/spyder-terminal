@@ -314,6 +314,7 @@ class TerminalMainWidget(PluginMainWidget):
         for term in self.terms:
             term.close()
         self.server.kill()
+        self.server.waitForFinished()
         return True
 
     def refresh_plugin(self):

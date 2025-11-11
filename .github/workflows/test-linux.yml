@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         INSTALL_TYPE: ['conda']
-        PYTHON_VERSION: ['3.9', '3.10', '3.11', '3.12']
+        PYTHON_VERSION: ['3.8', '3.10', '3.12']
     timeout-minutes: 120
     steps:
       - name: checkout branch
@@ -58,7 +58,7 @@ jobs:
         run: python setup.py build_static
       - name: Run tests
         shell: bash -l {0}
-        run: xvfb-run --auto-servernum python runtests.py || python runtests.py || python runtests.py || python runtests.py || python runtests.py
+        run: xvfb-run --auto-servernum python runtests.py || xvfb-run --auto-servernum python runtests.py || xvfb-run --auto-servernum python runtests.py || xvfb-run --auto-servernum python runtests.py || xvfb-run --auto-servernum python runtests.py
       - name: Coverage
         shell: bash -l {0}
         run: codecov
