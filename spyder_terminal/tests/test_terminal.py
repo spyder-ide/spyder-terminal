@@ -174,9 +174,10 @@ def setup_terminal(qtbot_module, request):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif((os.environ.get('CI') and
-                     (sys.platform.startswith('linux') or WINDOWS)),
-                     reason="Doesn't work on Linux and Windows CIs")
+@pytest.mark.skipif(
+    os.environ.get('CI') and not sys.platform == "darwin",
+    reason="Only works on Mac in CIs"
+)
 def test_terminal_paste_1(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
@@ -202,14 +203,16 @@ def test_terminal_paste_1(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif((os.environ.get('CI') and
-                     (sys.platform.startswith('linux') or WINDOWS)),
-                     reason="Doesn't work on Linux and Windows CIs")
+@pytest.mark.skipif(
+    os.environ.get('CI') and not sys.platform == "darwin",
+    reason="Only works on Mac in CIs",
+)
 def test_terminal_paste_2(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
     qtbot_module.waitUntil(
-        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP
+    )
     qtbot_module.wait(1000)
 
     term = terminal.get_widget().get_current_term()
@@ -326,8 +329,10 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif(os.environ.get('CI') and WINDOWS,
-                     reason="Doesn't work on Windows CIs")
+@pytest.mark.skipif(
+    os.environ.get('CI') and WINDOWS,
+    reason="Doesn't work on Windows CIs",
+)
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
@@ -430,13 +435,15 @@ def test_conda_path_1(setup_terminal, qtbot_module):
     term.exec_cmd("conda env list")
     qtbot_module.wait(1000)
     qtbot_module.waitUntil(lambda: check_output(term, "test"), timeout=TERM_UP)
-    
+
+
 @flaky(max_runs=3)
 def test_conda_path_2(setup_terminal, qtbot_module):
     """Test if conda is correctly added to the path of the terminal."""
     terminal = setup_terminal
     qtbot_module.waitUntil(
-        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP
+    )
     qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
