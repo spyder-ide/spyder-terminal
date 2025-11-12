@@ -1,5 +1,5 @@
-spyder>=5.2.0
-pywinpty==2.0.5
+spyder>=6.0.0,<7.0.0
+pexpect
 tornado
 coloredlogs
 requests

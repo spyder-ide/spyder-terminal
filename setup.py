@@ -41,7 +41,7 @@ def get_description():
 
 
 REQUIREMENTS = [
-    'spyder>=5.2.0',
+    'spyder>=6.0.0,<7.0.0',
     'tornado',
     'terminado>=0.13.1',
     'coloredlogs',
@@ -51,10 +51,10 @@ REQUIREMENTS = [
 
 EXTRAS_REQUIRE = {
     'test': [
-        'pytest<6.0',
+        'pytest',
         'pytest-cov',
         'flaky',
-        'pytest-qt==3.3.0',
+        'pytest-qt',
         'pytest-timeout'
     ]
 }
@@ -88,6 +88,7 @@ setup(
     long_description_content_type='text/x-rst',
     packages=find_packages(exclude=['contrib', 'docs']),
     install_requires=REQUIREMENTS,
+    python_requires='>=3.8',
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -97,11 +98,7 @@ setup(
         'Operating System :: MacOS',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX :: Linux',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8'
+        'Programming Language :: Python :: 3.12',
         ],
     extras_require=EXTRAS_REQUIRE,
     entry_points={

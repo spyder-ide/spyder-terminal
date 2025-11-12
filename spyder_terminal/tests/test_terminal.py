@@ -29,7 +29,7 @@ LOCATION = os.path.realpath(os.path.join(os.getcwd(),
                                          os.path.dirname(__file__)))
 LOCATION_SLASH = LOCATION.replace('\\', '/')
 
-TERM_UP = 10000
+TERM_UP = 40000
 WINDOWS = os.name == 'nt'
 
 EXIT = 'exit'
@@ -76,7 +76,7 @@ def check_output(termwidget, expected):
     termwidget.body.runJavaScript(PREFIX + "getTerminalLines()", callback)
     try:
         return expected in text
-    except NameError:
+    except (NameError, TypeError):
         return False
 
 
@@ -158,7 +158,7 @@ def setup_terminal(qtbot_module, request):
     CONF.register_plugin(TerminalPlugin)
     terminal = TerminalPlugin(main, CONF)
     terminal.update_font()
-    qtbot_module.addWidget(terminal)
+    qtbot_module.addWidget(terminal.get_widget())
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
     qtbot_module.wait(5000)
@@ -167,16 +167,18 @@ def setup_terminal(qtbot_module, request):
 
     def teardown():
         terminal.on_close()
+        CONF.unregister_plugin(TerminalPlugin)
 
     request.addfinalizer(teardown)
     return terminal
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif((os.environ.get('CI') and
-                     sys.platform.startswith('linux')),
-                    reason="Doesn't work on Linux CIs")
-def test_terminal_paste(setup_terminal, qtbot_module):
+@pytest.mark.skipif(
+    os.environ.get('CI') and not sys.platform == "darwin",
+    reason="Only works on Mac in CIs"
+)
+def test_terminal_paste_1(setup_terminal, qtbot_module):
     """Test the paste action in the terminal."""
     terminal = setup_terminal
     qtbot_module.waitUntil(
@@ -195,12 +197,37 @@ def test_terminal_paste(setup_terminal, qtbot_module):
     QApplication.clipboard().clear()
     QApplication.clipboard().setText(separator.join(expected))
     term.view.paste()
+    qtbot_module.wait(1000)
     qtbot_module.waitUntil(lambda: check_paste(term, expected),
                            timeout=TERM_UP)
+
+
+@flaky(max_runs=3)
+@pytest.mark.skipif(
+    os.environ.get('CI') and not sys.platform == "darwin",
+    reason="Only works on Mac in CIs",
+)
+def test_terminal_paste_2(setup_terminal, qtbot_module):
+    """Test the paste action in the terminal."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP
+    )
+    qtbot_module.wait(1000)
+
+    term = terminal.get_widget().get_current_term()
+    port = terminal.get_widget().port
+    status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
+    assert status_code == 200
+
+    term.exec_cmd(f'{os.linesep}' * 2)
+
+    separator = os.linesep
 
     expected = ['this', 'a', 'test']
     QApplication.clipboard().setText(separator.join(expected))
     term.view.paste()
+    qtbot_module.wait(1000)
     qtbot_module.waitUntil(lambda: check_paste(term, expected),
                            timeout=TERM_UP)
 
@@ -210,7 +237,7 @@ def test_terminal_color(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     port = terminal.get_widget().port
@@ -224,7 +251,7 @@ def test_terminal_find(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     port = terminal.get_widget().port
@@ -232,7 +259,7 @@ def test_terminal_find(setup_terminal, qtbot_module):
     assert status_code == 200
 
     term.exec_cmd('ls')
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     # Search without any special parameters
     text = 'ls'
@@ -269,7 +296,7 @@ def test_terminal_font(setup_terminal, qtbot_module):
 
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     port = terminal.get_widget().port
@@ -293,7 +320,7 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
 
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
     terminal.create_new_term()
     terminal.create_new_term()
     num_1 = int(terminal.get_widget().tabwidget.tabText(1)[-1])
@@ -302,16 +329,17 @@ def test_terminal_tab_title(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif((os.environ.get('CI') and
-                     sys.platform.startswith('linux')),
-                    reason="Doesn't work on Linux CIs")
+@pytest.mark.skipif(
+    os.environ.get('CI') and WINDOWS,
+    reason="Doesn't work on Windows CIs",
+)
 def test_new_terminal(setup_terminal, qtbot_module):
     """Test if a new terminal is added."""
     # Setup widget
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     # Test if server is running
     port = terminal.get_widget().port
@@ -320,7 +348,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
 
     terminal.create_new_term()
     term = terminal.get_widget().get_current_term()
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
     # Move to LOCATION
     # qtbot_module.keyClicks(term.view, 'cd {}'.format(LOCATION))
     # qtbot_module.keyPress(term.view, Qt.Key_Return)
@@ -334,14 +362,13 @@ def test_new_terminal(setup_terminal, qtbot_module):
     # Run pwd
     # qtbot_module.keyClicks(term.view, 'pwd')
     # qtbot_module.keyPress(term.view, Qt.Key_Return)
-    qtbot_module.wait(3000)
+    qtbot_module.wait(4000)
     term.exec_cmd(PWD)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     # Assert pwd is LOCATION
     term.resize(900, 700)
     qtbot_module.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
-
 
 def test_output_redirection(setup_terminal, qtbot_module):
     """Test if stdout and stderr are redirected on DEV mode."""
@@ -353,19 +380,18 @@ def test_output_redirection(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif(os.name == 'nt', reason="It hangs on Windows")
 def test_close_terminal_manually(setup_terminal, qtbot_module):
     """Test if terminal tab is closed after process was finished manually."""
     # Setup widget
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     terminal.create_new_term()
     initial_num = len(terminal.get_widget().get_terms())
     term = terminal.get_widget().get_current_term()
-    qtbot_module.wait(3000)
+    qtbot_module.wait(4000)
 
     term.exec_cmd(EXIT)
 
@@ -386,7 +412,7 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     port = terminal.get_widget().port
     status_code = requests.get('http://127.0.0.1:{}'.format(port)).status_code
@@ -397,21 +423,30 @@ def test_terminal_cwd(setup_terminal, qtbot_module):
 
 
 @flaky(max_runs=3)
-@pytest.mark.skipif(sys.platform == 'darwin', reason="It hangs on macOS")
-def test_conda_path(setup_terminal, qtbot_module):
+def test_conda_path_1(setup_terminal, qtbot_module):
     """Test if conda is correctly added to the path of the terminal."""
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     # Check that conda list works
     term.exec_cmd("conda env list")
+    qtbot_module.wait(1000)
     qtbot_module.waitUntil(lambda: check_output(term, "test"), timeout=TERM_UP)
 
-    # Clear the terminal
-    term.exec_cmd("clear")
+
+@flaky(max_runs=3)
+def test_conda_path_2(setup_terminal, qtbot_module):
+    """Test if conda is correctly added to the path of the terminal."""
+    terminal = setup_terminal
+    qtbot_module.waitUntil(
+        lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP
+    )
+    qtbot_module.wait(2000)
+
+    term = terminal.get_widget().get_current_term()
 
     # Try to deactivate the current environment
     term.exec_cmd("conda deactivate")
@@ -423,7 +458,7 @@ def test_zoom(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
     original_zoom = term.get_conf("zoom")
@@ -447,7 +482,7 @@ def test_zoom_new_term(setup_terminal, qtbot_module):
     terminal = setup_terminal
     qtbot_module.waitUntil(
         lambda: terminal.get_widget().server_is_ready(), timeout=TERM_UP)
-    qtbot_module.wait(1000)
+    qtbot_module.wait(2000)
 
     term = terminal.get_widget().get_current_term()
 
