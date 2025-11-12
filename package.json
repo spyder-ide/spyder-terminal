@@ -1,37 +1,36 @@
 {
   "name": "spyder-terminal",
-  "version": "0.2.4",
+  "version": "1.2.2",
   "description": "Spyder Qt System Console",
   "main": "spyder_terminal/server/static/index.js",
   "repository": "https://github.com/spyder-ide/spyder-terminal",
   "author": "Edgar Andrés Margffoy Tuay <andfoy@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.5.5",
-    "@babel/preset-env": "^7.5.5",
-    "babel-loader": "^8.0.6",
-    "fetch": "github/fetch#^2.0.3",
-    "jquery": "jquery/jquery-dist#^3.5.0",
-    "promise-polyfill": "taylorhakes/promise-polyfill#^6.0.2",
-    "xterm": "^4.18.0",
-    "xterm-addon-attach": "^0.6.0",
-    "xterm-addon-fit": "^0.5.0",
-    "xterm-addon-search": "^0.8.2",
-    "xterm-addon-web-links": "^0.4.0",
-    "xterm.js": "sourcelair/xterm.js#^3.14.5"
+    "@babel/core": "latest",
+    "@babel/preset-env": "latest",
+    "@xterm/addon-attach": "^0.11.0",
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/addon-search": "^0.15.0",
+    "@xterm/addon-web-links": "^0.11.0",
+    "@xterm/xterm": "^5.5.0",
+    "babel-loader": "latest",
+    "fetch": "latest",
+    "jquery": "latest",
+    "promise-polyfill": "latest"
   },
   "engines": {
-    "yarn": ">= 1.0.0"
+    "yarn": ">=1.22.22"
   },
   "scripts": {
     "webpack": "webpack --config webpack.config.js",
     "start": "webpack-dev-server --open"
   },
   "devDependencies": {
-    "html-webpack-plugin": "^3.2.0",
-    "path": "^0.12.7",
-    "webpack": "^4.46.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.7.2"
+    "html-webpack-plugin": "^5.6.4",
+    "path": "latest",
+    "webpack": "^5.102.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "latest"
   }
 }

@@ -151,7 +151,9 @@ Then, please install the package's dependencies with:
 
 ::
 
-    conda create -n spyder-terminal-dev -c conda-forge --file requirements/{conda,conda_win}.txt
+    conda create -n spyder-terminal-dev -c conda-forge python=3.12
+    conda activate spyder-terminal-dev
+    conda install -c conda-forge --file requirements/{unix,windows}.txt
 
 depending on your operating system.
 

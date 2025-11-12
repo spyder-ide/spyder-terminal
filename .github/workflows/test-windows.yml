@@ -23,26 +23,23 @@ jobs:
       fail-fast: false
       matrix:
         INSTALL_TYPE: ['conda']
-        PYTHON_VERSION: ['3.7', '3.8', '3.9']
+        PYTHON_VERSION: ['3.8', '3.10', '3.12']
     timeout-minutes: 120
     steps:
       - name: checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name : Setup miniforge
-        uses: conda-incubator/setup-miniconda@v2
+        uses: conda-incubator/setup-miniconda@v3
         with:
-            miniforge-variant: Mambaforge
             python-version: ${{ matrix.PYTHON_VERSION }}
-            mamba-version: "*"
-            use-mamba: true
             channels: conda-forge,defaults
             channel-priority: true
             activate-environment: test
             miniforge-version: latest
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '13'
+          node-version: '24'
       - name: Create test environment
         shell: bash -l {0}
         run: bash -l .github/scripts/install.sh

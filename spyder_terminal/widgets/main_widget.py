@@ -166,9 +166,7 @@ class TerminalMainWidget(PluginMainWidget):
             triggered=lambda: self.create_new_term(),
         )
 
-        self.add_corner_widget(
-            TerminalMainWidgetCornerToolbar.NewTerm,
-            new_terminal_toolbar_action)
+        self.add_corner_widget(new_terminal_toolbar_action)
 
         new_terminal_cwd = self.create_action(
             TerminalMainWidgetActions.NewTerminalForCWD,
@@ -316,6 +314,7 @@ class TerminalMainWidget(PluginMainWidget):
         for term in self.terms:
             term.close()
         self.server.kill()
+        self.server.waitForFinished()
         return True
 
     def refresh_plugin(self):
