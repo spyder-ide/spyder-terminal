@@ -47,17 +47,17 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: '22.7.0'
+          node-version: '24.11.1'
       - name: Node and NPM version
         shell: bash -l {0}
         run: |
-          export PATH=/Users/runner/hostedtoolcache/node/22.7.0/x64/bin:$PATH
+          export PATH=/Users/runner/hostedtoolcache/node/24.11.1/x64/bin:$PATH
           node -v
           npm -v
       - name: Build static resources
         shell: bash -l {0}
         run: |
-          export PATH=/Users/runner/hostedtoolcache/node/22.7.0/x64/bin:$PATH
+          export PATH=/Users/runner/hostedtoolcache/node/24.11.1/x64/bin:$PATH
           python setup.py build_static
       - name: Run tests
         shell: bash -l {0}

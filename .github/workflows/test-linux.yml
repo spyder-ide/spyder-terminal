@@ -44,7 +44,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
         with:
-          node-version: latest
+          node-version: '24'
       - name: Create test environment
         shell: bash -l {0}
         run: bash -l .github/scripts/install.sh
