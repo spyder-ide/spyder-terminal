@@ -17,23 +17,25 @@ setupbase definition
 See: https://github.com/jupyter/notebook/blob/master/setupbase.py
 """
 
+import logging
 import os
 import os.path as osp
-import pipes
+import shlex
 import shutil
 import sys
 
-from distutils import log
-from distutils.core import Command
+from setuptools import Command
 from setuptools.command.develop import develop
 from setuptools.command.sdist import sdist
 from subprocess import check_call
+
+log = logging.getLogger()
 
 if sys.platform == 'win32':
     from subprocess import list2cmdline
 else:
     def list2cmdline(cmd_list):
-        return ' '.join(map(pipes.quote, cmd_list))
+        return ' '.join(map(shlex.quote, cmd_list))
 
 
 HERE = os.path.abspath(os.path.dirname(__file__))
