@@ -8,12 +8,10 @@
 
 # Standard library imports
 import os
-import platform
 import sys
 
 # Third party imports
-from qtpy.QtWidgets import (QVBoxLayout, QGroupBox, QGridLayout, QButtonGroup,
-                            QRadioButton, QWidget)
+from qtpy.QtWidgets import QVBoxLayout, QGroupBox, QGridLayout
 from spyder.api.preferences import PluginConfigPage
 from spyder.config.base import get_translation
 from spyder.utils.programs import find_program
