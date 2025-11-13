@@ -11,8 +11,6 @@ import os
 import platform
 import sys
 
-from looseversion import LooseVersion
-
 # Third party imports
 from qtpy.QtWidgets import (QVBoxLayout, QGroupBox, QGridLayout, QButtonGroup,
                             QRadioButton, QWidget)
@@ -52,12 +50,7 @@ class TerminalConfigPage(PluginConfigPage):
         elif sys.platform.startswith('linux'):
             default_option = 'bash'
         else:
-            mac_ver = LooseVersion(platform.mac_ver()[0])
-            if mac_ver >= LooseVersion('10.15.0'):
-                # Catalina changed the default shell to zsh
-                default_option = 'zsh'
-            else:
-                default_option = 'bash'
+            default_option = 'zsh'
         shell_combo = self.create_combobox(_("Select the shell interpreter:"),
                                            valid_shells, 'shell', restart=True,
                                            default=default_option)
