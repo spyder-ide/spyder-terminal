@@ -23,3 +23,6 @@ class TerminalMainWidgetActions:
 
 class TermViewMenus:
     Context = 'context_menu'
+
+class TerminalMainWidgetMenus:
+    Remote = 'remote_menu'

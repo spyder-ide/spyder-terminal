@@ -17,13 +17,13 @@ from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
 from qtpy.QtGui import QKeySequence
 from qtpy.QtWebChannel import QWebChannel
-from qtpy.QtWebEngineWidgets import (QWebEnginePage, QWebEngineSettings,
-                                     QWebEngineView)
+from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
 from qtpy.QtWidgets import QFrame, QVBoxLayout, QApplication
 from spyder.api.widgets.mixins import SpyderWidgetMixin
 from spyder.api.config.decorators import on_conf_change
 from spyder.config.base import get_translation
 from spyder.config.gui import is_dark_interface
+from spyder.plugins.remoteclient.widgets import AuthenticationMethod
 from spyder.utils.palette import SpyderPalette
 
 # Local imports
@@ -88,7 +88,7 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
     terminal_ready = Signal()
 
     def __init__(self, parent, port, path='~', font=None, theme=None,
-                 color_scheme=None):
+                 color_scheme=None, config_id=None):
         """Frame main constructor."""
         super().__init__(parent, class_parent=parent)
         url = 'http://127.0.0.1:{0}?path={1}'.format(port, path)
@@ -109,14 +109,14 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
 
         self.body = self.view.document
 
-        self.handler.sig_ready.connect(self.setup_term)
+        self.handler.sig_ready.connect(lambda: self.setup_term(config_id=config_id))
         self.view.sig_focus_in_event.connect(
             lambda: self._apply_stylesheet(focus=True))
         self.view.sig_focus_out_event.connect(
             lambda: self._apply_stylesheet(focus=False))
         self._apply_stylesheet()
 
-    def setup_term(self):
+    def setup_term(self, config_id=None):
         """Setup other terminal options after page has loaded."""
         # This forces to display the black background
         print("\0", end='')
@@ -139,6 +139,52 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
                 if os.path.exists(os.path.expanduser(act_file)):
                     self.exec_cmd(f"source {act_file}")
                     self.exec_cmd("clear")
+
+        if config_id:
+            # Attempt to initialize a SSH connection following remote client
+            # config id
+            _pass = None
+            auth_method = self.get_conf(
+                option=f"{config_id}/auth_method", section="remoteclient"
+            )
+            address = self.get_conf(
+                option=f"{config_id}/{auth_method}/address",
+                section="remoteclient",
+            )
+            username = self.get_conf(
+                option=f"{config_id}/{auth_method}/username",
+                section="remoteclient",
+            )
+            port = self.get_conf(
+                option=f"{config_id}/{auth_method}/port",
+                section="remoteclient",
+            )
+            ssh_command = (
+                f"ssh {username}@{address} -o StrictHostKeychecking=no"
+            )
+
+            if port:
+                ssh_command = f"{ssh_command} -p {port}"
+            if auth_method == AuthenticationMethod.Password:
+                _pass = self.get_conf(
+                    option=f"{config_id}/password",
+                    section="remoteclient",
+                    secure=True,
+                )
+            elif auth_method == AuthenticationMethod.KeyFile:
+                keyfile = self.get_conf(
+                    option=f"{config_id}/keyfile", section="remoteclient"
+                )
+                _pass = self.get_conf(
+                    option=f"{config_id}/passphrase",
+                    section="remoteclient",
+                    secure=True,
+                )
+                ssh_command = f"{ssh_command} -i {keyfile}"
+
+            self.exec_cmd(ssh_command)
+            if _pass:
+                self.exec_delayed_cmd(_pass)
 
     def get_shortcut_data(self):
         """
@@ -220,6 +266,24 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
     def exec_cmd(self, cmd):
         """Execute a command inside the terminal."""
         self.eval_javascript('exec("{0}")'.format(cmd))
+
+    def exec_delayed_cmd(self, cmd, delay=1500):
+        """
+        Execute a command inside the terminal with a delay
+
+        Parameters
+        ----------
+        cmd : str
+            Command to type.
+        delay : int, optional
+            Milliseconds to wait to execute. The default is 1500.
+
+        """
+        self.eval_javascript('exec_delayed("{0}", {1})'.format(cmd, delay))
+
+    def reload(self):
+        """Reload webview."""
+        self.view.reload()
 
     def __alive_loopback(self):
         alive = self.is_alive()
