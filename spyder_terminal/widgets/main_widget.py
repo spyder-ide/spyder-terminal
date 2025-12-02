@@ -295,7 +295,7 @@ class TerminalMainWidget(PluginMainWidget):
             section=TerminalMainWidgetMenuSections.TabActions,
         )
 
-    def setup_remote_terminals_menu(self, render=True):
+    def setup_remote_terminals_menu(self):
         self.remote_menu.clear_actions()
 
         for config_id in self._plugin._remote_client.get_config_ids():

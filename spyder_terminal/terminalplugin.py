@@ -120,7 +120,7 @@ class TerminalPlugin(SpyderDockablePlugin):
         remoteclient.sig_server_changed.connect(
             widget.setup_remote_terminals_menu
         )
-        widget.setup_remote_terminals_menu(render=False)
+        widget.setup_remote_terminals_menu()
 
     @on_plugin_teardown(plugin=Plugins.RemoteClient)
     def on_remoteclient_teardown(self):
