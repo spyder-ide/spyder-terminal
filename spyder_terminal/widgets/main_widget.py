@@ -24,7 +24,7 @@ from spyder.config.base import get_translation, get_debug_level
 from spyder.utils.misc import select_port
 from spyder.utils.programs import find_program
 from spyder.widgets.tabs import Tabs
-from spyder.plugins.remoteclient.api.protocol import ClientType
+from spyder.plugins.remoteclient.widgets import AuthenticationMethod
 
 # Local imports
 from spyder_terminal.api import (
@@ -300,11 +300,14 @@ class TerminalMainWidget(PluginMainWidget):
 
         for config_id in self._plugin._remote_client.get_config_ids():
             client_type = self.get_conf(
-                option=f"{config_id}/client_type", section="remoteclient"
+                option=f"{config_id}/auth_method", section="remoteclient"
             )
             name = self._plugin._remote_client.get_server_name(config_id)
 
-            if client_type != ClientType.SSH:
+            if client_type not in [
+                AuthenticationMethod.Password,
+                AuthenticationMethod.KeyFile,
+            ]:
                 continue
 
             action = self.create_action(
