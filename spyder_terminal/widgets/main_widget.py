@@ -359,8 +359,8 @@ class TerminalMainWidget(PluginMainWidget):
                 _(
                     "Terminal server could not be located at "
                     '<a href="http://127.0.0.1:{0}">'
-                    "http://127.0.0.1:{0}</a>,"
-                    " please restart Spyder on debugging mode "
+                    "http://127.0.0.1:{0}</a>, "
+                    "please restart Spyder on debug mode "
                     "and open an issue with the contents of "
                     "<tt>{1}</tt> and <tt>{2}</tt> "
                     "files at {3}."

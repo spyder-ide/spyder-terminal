@@ -87,8 +87,16 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
     terminal_closed = Signal()
     terminal_ready = Signal()
 
-    def __init__(self, parent, port, path='~', font=None, theme=None,
-                 color_scheme=None, config_id=None):
+    def __init__(
+        self,
+        parent,
+        port,
+        path='~',
+        font=None,
+        theme=None,
+        color_scheme=None,
+        config_id=None,
+    ):
         """Frame main constructor."""
         super().__init__(parent, class_parent=parent)
         url = 'http://127.0.0.1:{0}?path={1}'.format(port, path)
@@ -277,7 +285,6 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
             Command to type.
         delay : int, optional
             Milliseconds to wait to execute. The default is 1500.
-
         """
         self.eval_javascript('exec_delayed("{0}", {1})'.format(cmd, delay))
 
