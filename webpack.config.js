@@ -18,7 +18,9 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'spyder_terminal', 'server', 'static', 'index.html')
+      template: path.join(__dirname, 'spyder_terminal', 'server', 'static', 'index.html'),
+      publicPath: 'static/build/',
+      scriptLoading: 'blocking'
     })
   ]
 };

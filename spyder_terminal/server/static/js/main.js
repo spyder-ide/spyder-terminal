@@ -95,7 +95,9 @@ function createTerminal(){
 }
 
 window.onresize = (event) => {
-  fitAddon.fit();
+  if(fitAddon){
+    fitAddon.fit();
+  }
 }
 
 function searchNext(regex, options) {
@@ -154,6 +156,10 @@ function clearTerm(){
 
 function exec(cmd){
   socket.send('' + cmd + lineEnd);
+}
+
+function exec_delayed(cmd, delay){
+  setTimeout(() => { exec(cmd) }, delay)
 }
 
 function pasteText(cmd){
@@ -257,6 +263,7 @@ const term_functions = {
   chdir: chdir,
   clearTerm: clearTerm,
   exec: exec,
+  exec_delayed: exec_delayed,
   closeTerm: closeTerm,
   consoleReady: consoleReady,
   scrollTerm: scrollTerm,

@@ -1,7 +1,7 @@
-spyder>=6.0.0,<7.0.0
+spyder>=6.1.0,<7.0.0
 pexpect
 tornado
 coloredlogs
 requests
 terminado>=0.13.1
-qt>=5.12
+pyqt>=5.12

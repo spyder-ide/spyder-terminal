@@ -8,6 +8,7 @@
 """Terminal Plugin."""
 
 # Standard imports
+from functools import cached_property
 import os
 import os.path as osp
 
@@ -15,7 +16,10 @@ import os.path as osp
 from qtpy.QtCore import Signal
 from spyder.api.fonts import SpyderFontType
 from spyder.api.plugins import Plugins, SpyderDockablePlugin
-from spyder.api.plugin_registration.decorators import on_plugin_available
+from spyder.api.plugin_registration.decorators import (
+    on_plugin_available,
+    on_plugin_teardown,
+)
 from spyder.config.base import get_translation
 
 # Local imports
@@ -38,7 +42,12 @@ class TerminalPlugin(SpyderDockablePlugin):
     """
     NAME = 'terminal'
     REQUIRES = [Plugins.Preferences]
-    OPTIONAL = [Plugins.Projects, Plugins.Editor, Plugins.WorkingDirectory]
+    OPTIONAL = [
+        Plugins.Projects,
+        Plugins.Editor,
+        Plugins.WorkingDirectory,
+        Plugins.RemoteClient,
+    ]
     TABIFY = [Plugins.IPythonConsole]
     CONF_SECTION = NAME
     WIDGET_CLASS = TerminalMainWidget
@@ -102,6 +111,27 @@ class TerminalPlugin(SpyderDockablePlugin):
         preferences = self.get_plugin(Plugins.Preferences)
         preferences.register_plugin_preferences(self)
 
+    @on_plugin_available(plugin=Plugins.RemoteClient)
+    def on_remoteclient_available(self):
+        """Connect when preferences available."""
+        remoteclient = self.get_plugin(Plugins.RemoteClient)
+        widget = self.get_widget()
+
+        remoteclient.sig_server_changed.connect(
+            widget.setup_remote_terminals_menu
+        )
+        widget.setup_remote_terminals_menu()
+
+    @on_plugin_teardown(plugin=Plugins.RemoteClient)
+    def on_remoteclient_teardown(self):
+        """Connect when preferences available."""
+        remoteclient = self.get_plugin(Plugins.RemoteClient)
+        widget = self.get_widget()
+
+        remoteclient.sig_server_changed.disconnect(
+            widget.setup_remote_terminals_menu
+        )
+
     def update_font(self):
         """Update font from Preferences."""
         font = self.get_font(SpyderFontType.Monospace)
@@ -148,3 +178,7 @@ class TerminalPlugin(SpyderDockablePlugin):
 
     def create_new_term(self, **kwargs):
         self.get_widget().create_new_term(**kwargs)
+
+    @cached_property
+    def _remote_client(self):
+        return self.get_plugin(Plugins.RemoteClient)

@@ -8,6 +8,7 @@
 """Terminal Plugin."""
 
 # Standard imports
+import functools
 import os
 import os.path as osp
 import requests
@@ -20,45 +21,50 @@ from qtpy.QtWidgets import QMessageBox, QVBoxLayout
 from spyder.api.config.decorators import on_conf_change
 from spyder.api.widgets.main_widget import PluginMainWidget
 from spyder.config.base import get_translation, get_debug_level
+from spyder.utils.misc import select_port
 from spyder.utils.programs import find_program
 from spyder.widgets.tabs import Tabs
-from spyder.utils.misc import select_port
+from spyder.plugins.remoteclient.api.protocol import ClientType
 
 # Local imports
-from spyder_terminal.api import TerminalMainWidgetActions, TermViewMenus
+from spyder_terminal.api import (
+    TerminalMainWidgetActions,
+    TermViewMenus,
+    TerminalMainWidgetMenus,
+)
 from spyder_terminal.widgets.findwidget import FindTerminal
 from spyder_terminal.widgets.terminalgui import TerminalWidget
 
 
-
 # Constants
-LOCATION = osp.realpath(osp.join(os.getcwd(),
-                                 osp.dirname(__file__)))
-WINDOWS = os.name == 'nt'
+LOCATION = osp.realpath(osp.join(os.getcwd(), osp.dirname(__file__)))
+WINDOWS = os.name == "nt"
 
 # For translations
-_ = get_translation('spyder_terminal')
+_ = get_translation("spyder_terminal")
 
 
 class TerminalMainWidgetToolbarSections:
-    New = 'new'
+    New = "new"
+    Reload = "reload"
 
 
 class TerminalMainWidgetCornerToolbar:
-    NewTerm = 'new_terminal'
+    NewTerm = "new_terminal"
 
 
 class TerminalMainWidgetMenuSections:
-    New = 'new'
-    TabActions = 'tab_actions'
+    New = "new"
+    TabActions = "tab_actions"
 
 
 class TerminalMainWidget(PluginMainWidget):
     """
     Terminal plugin main widget.
     """
+
     MAX_SERVER_CONTACT_RETRIES = 40
-    URL_ISSUES = ' https://github.com/spyder-ide/spyder-terminal/issues'
+    URL_ISSUES = " https://github.com/spyder-ide/spyder-terminal/issues"
 
     # --- Signals
     # ------------------------------------------------------------------------
@@ -82,8 +88,8 @@ class TerminalMainWidget(PluginMainWidget):
         self.stdout_file = None
         self.stderr_file = None
         if get_debug_level() > 0:
-            self.stdout_file = osp.join(os.getcwd(), 'spyder_terminal_out.log')
-            self.stderr_file = osp.join(os.getcwd(), 'spyder_terminal_err.log')
+            self.stdout_file = osp.join(os.getcwd(), "spyder_terminal_out.log")
+            self.stderr_file = osp.join(os.getcwd(), "spyder_terminal_err.log")
         self.project_path = None
         self.current_file_path = None
         self.current_cwd = os.getcwd()
@@ -102,8 +108,10 @@ class TerminalMainWidget(PluginMainWidget):
         self.tabwidget.move_data.connect(self.move_tab)
         self.tabwidget.set_close_function(self.close_term)
 
-        if (hasattr(self.tabwidget, 'setDocumentMode') and
-                not sys.platform == 'darwin'):
+        if (
+            hasattr(self.tabwidget, "setDocumentMode")
+            and not sys.platform == "darwin"
+        ):
             # Don't set document mode to true on OSX because it generates
             # a crash when the console is detached from the main window
             # Fixes Issue 561
@@ -133,14 +141,20 @@ class TerminalMainWidget(PluginMainWidget):
 
     def get_title(self):
         """Define the title of the widget."""
-        return _('Terminal')
+        return _("Terminal")
 
     def setup(self):
         """Perform the setup of plugin's main menu and signals."""
-        self.cmd = find_program(self.get_conf('shell'))
+        self.cmd = find_program(self.get_conf("shell"))
         server_args = [
-            sys.executable, '-m', 'spyder_terminal.server',
-             '--port', str(self.port), '--shell', self.cmd]
+            sys.executable,
+            "-m",
+            "spyder_terminal.server",
+            "--port",
+            str(self.port),
+            "--shell",
+            self.cmd,
+        ]
         self.server = QProcess(self)
         env = self.server.processEnvironment()
         for var in os.environ:
@@ -152,8 +166,8 @@ class TerminalMainWidget(PluginMainWidget):
             self.server.setStandardOutputFile(self.stdout_file)
             self.server.setStandardErrorFile(self.stderr_file)
         self.server.start(server_args[0], server_args[1:])
-        self.color_scheme = self.get_conf('appearance', 'ui_theme')
-        self.theme = self.get_conf('appearance', 'selected')
+        self.color_scheme = self.get_conf("appearance", "ui_theme")
+        self.theme = self.get_conf("appearance", "selected")
 
         # Menu
         menu = self.get_options_menu()
@@ -162,90 +176,147 @@ class TerminalMainWidget(PluginMainWidget):
         new_terminal_toolbar_action = self.create_toolbutton(
             TerminalMainWidgetToolbarSections.New,
             text=_("Open a new terminal"),
-            icon=self.create_icon('expand_selection'),
+            icon=self.create_icon("expand_selection"),
             triggered=lambda: self.create_new_term(),
         )
+        reload_terminal_toolbar_action = self.create_toolbutton(
+            TerminalMainWidgetToolbarSections.Reload,
+            text=_("Reload terminal"),
+            icon=self.create_icon("restart"),
+            triggered=lambda: self.reload_current_term(),
+        )
 
-        self.add_corner_widget(new_terminal_toolbar_action)
+        for toolbar_action in [
+            new_terminal_toolbar_action,
+            reload_terminal_toolbar_action,
+        ]:
+            self.add_corner_widget(toolbar_action)
 
         new_terminal_cwd = self.create_action(
             TerminalMainWidgetActions.NewTerminalForCWD,
             text=_("New terminal in current working directory"),
             tip=_("Sets the pwd at the current working directory"),
             triggered=lambda: self.create_new_term(),
-            shortcut_context='terminal',
-            register_shortcut=True)
+            shortcut_context="terminal",
+            register_shortcut=True,
+        )
 
         self.new_terminal_project = self.create_action(
             TerminalMainWidgetActions.NewTerminalForProject,
             text=_("New terminal in current project"),
             tip=_("Sets the pwd at the current project directory"),
-            triggered=lambda: self.create_new_term(path=self.project_path))
+            triggered=lambda: self.create_new_term(path=self.project_path),
+        )
 
         new_terminal_file = self.create_action(
             TerminalMainWidgetActions.NewTerminalForFile,
             text=_("New terminal in current Editor file"),
-            tip=_("Sets the pwd at the directory that contains the current "
-                  "opened file"),
+            tip=_(
+                "Sets the pwd at the directory that contains the current "
+                "opened file"
+            ),
             triggered=lambda: self.create_new_term(
-                path=self.current_file_path))
+                path=self.current_file_path
+            ),
+        )
 
         rename_tab_action = self.create_action(
             TerminalMainWidgetActions.RenameTab,
             text=_("Rename terminal"),
-            triggered=lambda: self.tab_name_editor())
+            triggered=lambda: self.tab_name_editor(),
+        )
 
         # Context menu actions
         self.create_action(
             TerminalMainWidgetActions.Copy,
-            text=_('Copy text'),
-            icon=self.create_icon('editcopy'),
-            shortcut_context='terminal',
+            text=_("Copy text"),
+            icon=self.create_icon("editcopy"),
+            shortcut_context="terminal",
             triggered=lambda: self.copy(),
-            register_shortcut=True)
+            register_shortcut=True,
+        )
 
         self.create_action(
             TerminalMainWidgetActions.Paste,
-            text=_('Paste text'),
-            icon=self.create_icon('editpaste'),
-            shortcut_context='terminal',
+            text=_("Paste text"),
+            icon=self.create_icon("editpaste"),
+            shortcut_context="terminal",
             triggered=lambda: self.paste(),
-            register_shortcut=True)
+            register_shortcut=True,
+        )
 
         self.create_action(
             TerminalMainWidgetActions.Clear,
-            text=_('Clear terminal'),
-            shortcut_context='terminal',
+            text=_("Clear terminal"),
+            shortcut_context="terminal",
             triggered=lambda: self.clear(),
-            register_shortcut=True)
+            register_shortcut=True,
+        )
 
         self.create_action(
             TerminalMainWidgetActions.ZoomIn,
-            text=_('Zoom in'),
-            shortcut_context='terminal',
+            text=_("Zoom in"),
+            shortcut_context="terminal",
             triggered=lambda: self.increase_font(),
-            register_shortcut=True)
+            register_shortcut=True,
+        )
 
         self.create_action(
             TerminalMainWidgetActions.ZoomOut,
-            text=_('Zoom out'),
-            shortcut_context='terminal',
+            text=_("Zoom out"),
+            shortcut_context="terminal",
             triggered=lambda: self.decrease_font(),
-            register_shortcut=True)
+            register_shortcut=True,
+        )
 
         # Create context menu
         self.create_menu(TermViewMenus.Context)
 
+        # Create remote terminals menu
+        self.remote_menu = self.create_menu(
+            TerminalMainWidgetMenus.Remote,
+            title=_("New terminal in remote server"),
+        )
+
         # Add actions to options menu
-        for item in [new_terminal_cwd, self.new_terminal_project,
-                     new_terminal_file]:
+        for item in [
+            new_terminal_cwd,
+            self.new_terminal_project,
+            new_terminal_file,
+            self.remote_menu,
+        ]:
             self.add_item_to_menu(
-                item, menu=menu,
-                section=TerminalMainWidgetMenuSections.New)
+                item, menu=menu, section=TerminalMainWidgetMenuSections.New
+            )
 
         self.add_item_to_menu(
-            rename_tab_action, menu=menu,
-            section=TerminalMainWidgetMenuSections.TabActions)
+            rename_tab_action,
+            menu=menu,
+            section=TerminalMainWidgetMenuSections.TabActions,
+        )
+
+    def setup_remote_terminals_menu(self):
+        self.remote_menu.clear_actions()
+
+        for config_id in self._plugin._remote_client.get_config_ids():
+            client_type = self.get_conf(
+                option=f"{config_id}/client_type", section="remoteclient"
+            )
+            name = self._plugin._remote_client.get_server_name(config_id)
+
+            if client_type != ClientType.SSH:
+                continue
+
+            action = self.create_action(
+                name=config_id,
+                text=f"New terminal in {name} server",
+                triggered=functools.partial(
+                    self.create_new_term,
+                    config_id=config_id,
+                ),
+                overwrite=True,
+            )
+            self.add_item_to_menu(action, menu=self.remote_menu)
 
     def update_actions(self):
         """Setup and update the actions in the options menu."""
@@ -275,24 +346,32 @@ class TerminalMainWidget(PluginMainWidget):
 
     def __wait_server_to_start(self):
         try:
-            code = requests.get('http://127.0.0.1:{0}'.format(
-                self.port)).status_code
+            code = requests.get(
+                "http://127.0.0.1:{0}".format(self.port)
+            ).status_code
         except:
             code = 500
 
         if self.server_retries == self.MAX_SERVER_CONTACT_RETRIES:
-            QMessageBox.critical(self, _('Spyder Terminal Error'),
-                                 _("Terminal server could not be located at "
-                                   '<a href="http://127.0.0.1:{0}">'
-                                   'http://127.0.0.1:{0}</a>,'
-                                   ' please restart Spyder on debugging mode '
-                                   "and open an issue with the contents of "
-                                   "<tt>{1}</tt> and <tt>{2}</tt> "
-                                   "files at {3}.").format(self.port,
-                                                           self.stdout_file,
-                                                           self.stderr_file,
-                                                           self.URL_ISSUES),
-                                 QMessageBox.Ok)
+            QMessageBox.critical(
+                self,
+                _("Spyder Terminal Error"),
+                _(
+                    "Terminal server could not be located at "
+                    '<a href="http://127.0.0.1:{0}">'
+                    "http://127.0.0.1:{0}</a>, "
+                    "please restart Spyder on debug mode "
+                    "and open an issue with the contents of "
+                    "<tt>{1}</tt> and <tt>{2}</tt> "
+                    "files at {3}."
+                ).format(
+                    self.port,
+                    self.stdout_file,
+                    self.stderr_file,
+                    self.URL_ISSUES,
+                ),
+                QMessageBox.Ok,
+            )
         elif code != 200:
             self.server_retries += 1
             QTimer.singleShot(250, self.__wait_server_to_start)
@@ -312,6 +391,10 @@ class TerminalMainWidget(PluginMainWidget):
         """Perform actions before parent main window is closed."""
         self.closing = True
         for term in self.terms:
+            try:
+                term.terminal_closed.disconnect()
+            except TypeError:
+                pass
             term.close()
         self.server.kill()
         self.server.waitForFinished()
@@ -331,7 +414,7 @@ class TerminalMainWidget(PluginMainWidget):
         """Apply the config settings."""
         term_options = {}
         for option in options:
-            if option == 'color_scheme_name':
+            if option == "color_scheme_name":
                 term_options[option] = option
             else:
                 term_options[option] = self.get_conf(option)
@@ -352,16 +435,30 @@ class TerminalMainWidget(PluginMainWidget):
         if terminal is not None:
             return terminal
 
-    def create_new_term(self, name=None, give_focus=True, path=None):
+    def reload_current_term(self):
+        """Reload currently selected terminal."""
+        current_term = self.get_current_term()
+        if current_term:
+            current_term.reload()
+
+    def create_new_term(
+        self, name=None, give_focus=True, path=None, config_id=None
+    ):
         """Add a new terminal tab."""
         if path is None:
             path = self.current_cwd
         if self.project_path is not None:
             path = self.project_path
-        path = path.replace('\\', '/')
+        path = path.replace("\\", "/")
         term = TerminalWidget(
-            self, self.port, path=path, font=self.font.family(),
-            theme=self.theme, color_scheme=self.color_scheme)
+            self,
+            self.port,
+            path=path,
+            font=self.font.family(),
+            theme=self.theme,
+            color_scheme=self.color_scheme,
+            config_id=config_id,
+        )
         self.add_tab(term)
         term.terminal_closed.connect(lambda: self.close_term(term=term))
 
@@ -376,6 +473,7 @@ class TerminalMainWidget(PluginMainWidget):
         if index is not None:
             term = self.tabwidget.widget(index)
         if term:
+            term.terminal_closed.disconnect()
             term.close()
         self.tabwidget.removeTab(self.tabwidget.indexOf(term))
         if term in self.terms:
@@ -448,16 +546,19 @@ class TerminalMainWidget(PluginMainWidget):
         if not self.closing:
             QMessageBox.warning(
                 self,
-                _('Spyder Terminal Server Error'),
-                _("The server that creates terminals failed to start. Please "
-                  "restart Spyder in a system terminal with the command <tt> "
-                  "spyder --debug-info minimal</tt> and open an issue with "
-                  "the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
-                  ).format(
-                      osp.join(os.getcwd(), 'spyder_terminal_out.log'),
-                      osp.join(os.getcwd(), 'spyder_terminal_err.log'),
-                      self.URL_ISSUES),
-                QMessageBox.Ok)
+                _("Spyder Terminal Server Error"),
+                _(
+                    "The server that creates terminals failed to start. Please "
+                    "restart Spyder in a system terminal with the command <tt> "
+                    "spyder --debug-info minimal</tt> and open an issue with "
+                    "the contents of <tt>{0}</tt> and <tt>{1}</tt> files at {2}."
+                ).format(
+                    osp.join(os.getcwd(), "spyder_terminal_out.log"),
+                    osp.join(os.getcwd(), "spyder_terminal_err.log"),
+                    self.URL_ISSUES,
+                ),
+                QMessageBox.Ok,
+            )
 
 
 def test():
@@ -467,7 +568,7 @@ def test():
 
     app = qapplication(test_time=8)
     plugin_mock = MagicMock()
-    term = TerminalMainWidget('terminal', plugin_mock, None)
+    term = TerminalMainWidget("terminal", plugin_mock, None)
     term.resize(900, 700)
     term._setup()
     term.setup()
