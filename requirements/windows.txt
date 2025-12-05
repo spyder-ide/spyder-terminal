@@ -4,4 +4,4 @@ tornado
 coloredlogs
 requests
 terminado>=0.13.1
-qt>=5.12,<6
+pyqt>=5.12,<6
