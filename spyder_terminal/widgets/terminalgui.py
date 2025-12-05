@@ -17,7 +17,11 @@ from qtpy.QtCore import (Qt, QUrl, Slot, QEvent, QTimer, Signal,
                          QObject)
 from qtpy.QtGui import QKeySequence
 from qtpy.QtWebChannel import QWebChannel
-from qtpy.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
+from qtpy.QtWebEngineWidgets import (
+    QWebEnginePage,
+    QWebEngineView,
+    QWebEngineProfile,
+)
 from qtpy.QtWidgets import QFrame, QVBoxLayout, QApplication
 from spyder.api.widgets.mixins import SpyderWidgetMixin
 from spyder.api.config.decorators import on_conf_change
@@ -372,8 +376,11 @@ class TermView(QWebEngineView, SpyderWidgetMixin):
     def __init__(self, parent, term_url='http://127.0.0.1:8070', handler=None):
         """Webview main constructor."""
         super().__init__(parent, class_parent=parent)
-        web_page = QWebEnginePage(self)
-        self.setPage(web_page)
+        # Define a profile instance so each webview is independent even when
+        # pointing to the same URL
+        # Don't set parent to prevent warning when releasing profile
+        self.profile = QWebEngineProfile()
+        self.setPage(QWebEnginePage(self.profile, self))
         self.source_text = ''
         self.parent = parent
         self.channel = QWebChannel(self.page())

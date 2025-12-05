@@ -391,6 +391,10 @@ class TerminalMainWidget(PluginMainWidget):
         """Perform actions before parent main window is closed."""
         self.closing = True
         for term in self.terms:
+            try:
+                term.terminal_closed.disconnect()
+            except TypeError:
+                pass
             term.close()
         self.server.kill()
         self.server.waitForFinished()
@@ -469,6 +473,7 @@ class TerminalMainWidget(PluginMainWidget):
         if index is not None:
             term = self.tabwidget.widget(index)
         if term:
+            term.terminal_closed.disconnect()
             term.close()
         self.tabwidget.removeTab(self.tabwidget.indexOf(term))
         if term in self.terms:
