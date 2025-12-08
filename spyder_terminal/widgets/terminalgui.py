@@ -196,7 +196,7 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
 
             self.exec_cmd(ssh_command)
             if _pass:
-                self.exec_delayed_cmd(_pass)
+                self.exec_delayed_cmd(_pass, "pass")
 
     def get_shortcut_data(self):
         """
@@ -279,7 +279,7 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         """Execute a command inside the terminal."""
         self.eval_javascript('exec("{0}")'.format(cmd))
 
-    def exec_delayed_cmd(self, cmd, delay=1500):
+    def exec_delayed_cmd(self, cmd, text_trigger, delay=1500):
         """
         Execute a command inside the terminal with a delay
 
@@ -287,10 +287,14 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         ----------
         cmd : str
             Command to type.
+        text_trigger : str
+            Text that should be in the console to trigger the command.
         delay : int, optional
             Milliseconds to wait to execute. The default is 1500.
         """
-        self.eval_javascript('exec_delayed("{0}", {1})'.format(cmd, delay))
+        self.eval_javascript(
+            'exec_delayed("{0}", "{1}", {2})'.format(cmd, text_trigger, delay)
+        )
 
     def reload(self):
         """Reload webview."""

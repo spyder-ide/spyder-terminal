@@ -158,8 +158,12 @@ function exec(cmd){
   socket.send('' + cmd + lineEnd);
 }
 
-function exec_delayed(cmd, delay){
-  setTimeout(() => { exec(cmd) }, delay)
+function exec_delayed(cmd, text_trigger, delay){
+  setTimeout(() => {
+    if(searchNext(text_trigger) !== -1){
+      exec(cmd);
+    }
+  }, delay)
 }
 
 function pasteText(cmd){
