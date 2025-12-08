@@ -41,7 +41,7 @@ def get_description():
 
 
 REQUIREMENTS = [
-    'spyder>=6.0.0,<7.0.0',
+    'spyder>=6.1.0,<7.0.0',
     'tornado',
     'terminado>=0.13.1',
     'coloredlogs',
@@ -87,7 +87,7 @@ setup(
     long_description_content_type='text/x-rst',
     packages=find_packages(exclude=['contrib', 'docs']),
     install_requires=REQUIREMENTS,
-    python_requires='>=3.8',
+    python_requires='>=3.9',
     include_package_data=True,
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -98,12 +98,12 @@ setup(
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX :: Linux',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
         'Programming Language :: Python :: 3.13',
+        'Programming Language :: Python :: 3.14',
         ],
     extras_require=EXTRAS_REQUIRE,
     entry_points={
