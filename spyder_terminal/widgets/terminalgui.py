@@ -107,6 +107,7 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         self.handler = ChannelHandler(self)
         self.handler.sig_ready.connect(lambda: self.terminal_ready.emit())
         self.handler.sig_closed.connect(lambda: self.terminal_closed.emit())
+        self.view_ready = False
         self.view = TermView(self, term_url=url, handler=self.handler)
         self.font = font
         self.initial_path = path
@@ -132,6 +133,7 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
         """Setup other terminal options after page has loaded."""
         # This forces to display the black background
         print("\0", end='')
+        self.view_ready = True
         self.set_font(self.font)
         self.set_dir(self.initial_path)
         self.current_theme = self.set_theme({})
@@ -210,7 +212,8 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
 
     def eval_javascript(self, script):
         """Evaluate Javascript instructions inside view."""
-        return self.view.eval_javascript(script)
+        if self.view_ready:
+            return self.view.eval_javascript(script)
 
     def set_scrollbar_style(self):
         """Set terminal scrollbar style."""
