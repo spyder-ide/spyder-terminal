@@ -1,3 +1,32 @@
+## Version 1.3.0 (2025-12-10)
+
+### Issues Closed
+
+* [Issue 360](https://github.com/spyder-ide/spyder-terminal/issues/360) - Release spyder-terminal 1.3.0
+* [Issue 348](https://github.com/spyder-ide/spyder-terminal/issues/348) - Spyder Terminal Cannot Restart/White Screen ([PR 358](https://github.com/spyder-ide/spyder-terminal/pull/358) by [@dalthviz](https://github.com/dalthviz))
+* [Issue 345](https://github.com/spyder-ide/spyder-terminal/issues/345) - Error with Spyder 6 ([PR 355](https://github.com/spyder-ide/spyder-terminal/pull/355) by [@dalthviz](https://github.com/dalthviz))
+* [Issue 344](https://github.com/spyder-ide/spyder-terminal/issues/344) - Focus lost when switching between terminal and other panes ([PR 362](https://github.com/spyder-ide/spyder-terminal/pull/362) by [@dalthviz](https://github.com/dalthviz))
+* [Issue 342](https://github.com/spyder-ide/spyder-terminal/issues/342) - Several errors on FreeBSD ([PR 356](https://github.com/spyder-ide/spyder-terminal/pull/356) by [@dalthviz](https://github.com/dalthviz))
+* [Issue 335](https://github.com/spyder-ide/spyder-terminal/issues/335) - Multiple tabs not working ([PR 358](https://github.com/spyder-ide/spyder-terminal/pull/358) by [@dalthviz](https://github.com/dalthviz))
+* [Issue 327](https://github.com/spyder-ide/spyder-terminal/issues/327) - Uncaught ReferenceError: spyder_terminal is not defined ([PR 361](https://github.com/spyder-ide/spyder-terminal/pull/361) by [@dalthviz](https://github.com/dalthviz))
+
+In this release 7 issues were closed.
+
+### Pull Requests Merged
+
+* [PR 362](https://github.com/spyder-ide/spyder-terminal/pull/362) - PR: Set `RAISE_AND_FOCUS` to `True` to give focus to terminal prompt, by [@dalthviz](https://github.com/dalthviz) ([344](https://github.com/spyder-ide/spyder-terminal/issues/344))
+* [PR 361](https://github.com/spyder-ide/spyder-terminal/pull/361) - PR: Prevent `ReferenceError` due to JS eval calls before page load, by [@dalthviz](https://github.com/dalthviz) ([327](https://github.com/spyder-ide/spyder-terminal/issues/327))
+* [PR 359](https://github.com/spyder-ide/spyder-terminal/pull/359) - PR: Bump express from 4.21.2 to 4.22.1, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 358](https://github.com/spyder-ide/spyder-terminal/pull/358) - PR: Add remote terminals menu using remote client connections info, update Spyder and Python min version requirements and other fixes, by [@dalthviz](https://github.com/dalthviz) ([348](https://github.com/spyder-ide/spyder-terminal/issues/348), [335](https://github.com/spyder-ide/spyder-terminal/issues/335))
+* [PR 357](https://github.com/spyder-ide/spyder-terminal/pull/357) - PR: Bump node-forge from 1.3.1 to 1.3.2, by [@dependabot[bot]](https://github.com/apps/dependabot) ([](https://github.com/typos.</issues/), [](https://github.com/typo.</issues/), [](https://github.com/style.</issues/))
+* [PR 356](https://github.com/spyder-ide/spyder-terminal/pull/356) - PR: Use `sh` as a default shell on BSD systems, by [@spchamp](https://github.com/spchamp) [@dalthviz](https://github.com/dalthviz) ([342](https://github.com/spyder-ide/spyder-terminal/issues/342))
+* [PR 355](https://github.com/spyder-ide/spyder-terminal/pull/355) - PR: Fix compatibility for Spyder 6 and update to xterm.js 5.5.0, by [@Zybulon](https://github.com/Zybulon) [@dalthviz](https://github.com/dalthviz) ([345](https://github.com/spyder-ide/spyder-terminal/issues/345))
+* [PR 353](https://github.com/spyder-ide/spyder-terminal/pull/353) - PR: Add Ubuntu Font License to LICENSE.txt, by [@juliangilbey](https://github.com/juliangilbey)
+* [PR 352](https://github.com/spyder-ide/spyder-terminal/pull/352) - PR: Replace deprecated `distutils` and `pipes` modules, by [@juliangilbey](https://github.com/juliangilbey)
+
+In this release 9 pull requests were closed.
+
+
 ## Version 1.2.2 (2022-03-29)
 
 
