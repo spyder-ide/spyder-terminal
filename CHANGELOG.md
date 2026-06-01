@@ -1,3 +1,30 @@
+## Version 1.3.1 (2026-06-01)
+
+### Issues Closed
+
+* [Issue 379](https://github.com/spyder-ide/spyder-terminal/issues/379) - Release spyder-terminal 1.3.1 ([PR 380](https://github.com/spyder-ide/spyder-terminal/pull/380) by [@dalthviz](https://github.com/dalthviz))
+
+In this release 1 issue was closed.
+
+### Pull Requests Merged
+
+* [PR 380](https://github.com/spyder-ide/spyder-terminal/pull/380) - PR: Update Spyder constraint (<6.2.0), by [@dalthviz](https://github.com/dalthviz) ([379](https://github.com/spyder-ide/spyder-terminal/issues/379))
+* [PR 378](https://github.com/spyder-ide/spyder-terminal/pull/378) - PR: Bump ws from 8.18.3 to 8.20.1, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 377](https://github.com/spyder-ide/spyder-terminal/pull/377) - PR: Bump webpack-dev-server from 5.2.2 to 5.2.4, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 376](https://github.com/spyder-ide/spyder-terminal/pull/376) - PR: Bump @babel/plugin-transform-modules-systemjs from 7.28.5 to 7.29.4, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 375](https://github.com/spyder-ide/spyder-terminal/pull/375) - PR: Bump fast-uri from 3.1.0 to 3.1.2, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 374](https://github.com/spyder-ide/spyder-terminal/pull/374) - PR: Bump follow-redirects from 1.15.11 to 1.16.0, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 373](https://github.com/spyder-ide/spyder-terminal/pull/373) - PR: Bump lodash from 4.17.23 to 4.18.1, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 372](https://github.com/spyder-ide/spyder-terminal/pull/372) - PR: Bump path-to-regexp from 0.1.12 to 0.1.13, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 371](https://github.com/spyder-ide/spyder-terminal/pull/371) - PR: Bump node-forge from 1.3.3 to 1.4.0, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 370](https://github.com/spyder-ide/spyder-terminal/pull/370) - PR: Bump picomatch from 2.3.1 to 2.3.2, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 368](https://github.com/spyder-ide/spyder-terminal/pull/368) - PR: Bump qs from 6.14.1 to 6.14.2, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 367](https://github.com/spyder-ide/spyder-terminal/pull/367) - PR: Bump webpack from 5.103.0 to 5.104.1, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 365](https://github.com/spyder-ide/spyder-terminal/pull/365) - PR: Bump lodash from 4.17.21 to 4.17.23, by [@dependabot[bot]](https://github.com/apps/dependabot)
+* [PR 363](https://github.com/spyder-ide/spyder-terminal/pull/363) - PR: Bump qs from 6.14.0 to 6.14.1, by [@dependabot[bot]](https://github.com/apps/dependabot)
+
+In this release 14 pull requests were closed.
+
 ## Version 1.3.0 (2025-12-10)
 
 ### Issues Closed
