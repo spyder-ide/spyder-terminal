@@ -26,19 +26,20 @@ from qtpy.QtWidgets import QFrame, QVBoxLayout, QApplication
 from spyder.api.widgets.mixins import SpyderWidgetMixin
 from spyder.api.config.decorators import on_conf_change
 from spyder.config.base import get_translation
-try:
-    from spyder.config.gui import is_dark_interface
-    THEME_MANAGER = None
-except ImportError:
-    # Spyder 6.2+
-    from spyder.utils.theme_manager import THEME_MANAGER
-    is_dark_interface = THEME_MANAGER.is_dark_interface
 from spyder.plugins.remoteclient.widgets import AuthenticationMethod
 from spyder.utils.palette import SpyderPalette
 
 # Local imports
 from spyder_terminal.api import TerminalMainWidgetActions, TermViewMenus
 from spyder_terminal.widgets.style.themes import ANSI_COLORS
+
+try:
+    # Spyder 6.2+
+    from spyder.utils.theme_manager import THEME_MANAGER
+    is_dark_interface = THEME_MANAGER.is_dark_interface
+except ImportError:
+    from spyder.config.gui import is_dark_interface
+    THEME_MANAGER = None
 
 
 PREFIX = 'spyder_terminal.default.'
@@ -229,8 +230,10 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
             'handle': SpyderPalette.COLOR_BACKGROUND_6,
             'handleHover': SpyderPalette.COLOR_ACCENT_2,
         }
+
         self.eval_javascript(
-            'setScrollbarColors({})'.format(json.dumps(colors)))
+            'setScrollbarColors({})'.format(json.dumps(colors))
+        )
 
     def set_dir(self, path):
         """Set terminal initial current working directory."""
@@ -244,9 +247,8 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
     @on_conf_change(section='appearance')
     def set_theme(self, _values):
         """Set theme for the terminal."""
-        supported_themes = ANSI_COLORS
-        new_theme = {}
         theme = self.get_conf('selected', section='appearance')
+
         if THEME_MANAGER is not None:
             # Spyder 6.2+: colors come from the theme manager
             scheme = THEME_MANAGER.get_color_scheme(theme)
@@ -260,11 +262,17 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
                 **ANSI_COLORS[ansi_theme],
             }
             self.eval_javascript(
-                'setOption("{}", {})'.format('theme', new_theme))
+                'setOption("{}", {})'.format('theme', new_theme)
+            )
             self.set_conf(
                 'fontFamily',
-                self.get_conf('font/family', section='appearance'))
+                self.get_conf('font/family', section='appearance')
+            )
+
             return new_theme
+
+        supported_themes = ANSI_COLORS
+        new_theme = {}
         color_scheme = self.get_conf('ui_theme', section='appearance')
         if theme not in supported_themes:
             theme = 'spyder' if color_scheme == 'light' else 'spyder/dark'

@@ -450,6 +450,7 @@ class TerminalMainWidget(PluginMainWidget):
                 path = self.project_path
             else:
                 path = self.current_cwd
+
         path = path.replace("\\", "/")
         term = TerminalWidget(
             self,

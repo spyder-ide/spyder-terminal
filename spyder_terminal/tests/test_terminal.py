@@ -43,6 +43,29 @@ if WINDOWS:
 
 PREFIX = 'spyder_terminal.default.'
 
+SCROLLBAR_STATE = """
+(function () {
+    var bar = document.querySelector(
+        '.xterm-scrollable-element > .scrollbar.vertical');
+    if (!bar) { return null; }
+    var slider = bar.querySelector('.slider');
+    var viewport = document.querySelector('.xterm-viewport');
+    return [getComputedStyle(bar).opacity, bar.offsetWidth,
+            slider ? slider.offsetHeight : 0, bar.offsetHeight,
+            getComputedStyle(bar).backgroundColor,
+            slider ? getComputedStyle(slider).backgroundColor : null,
+            viewport.offsetWidth - viewport.clientWidth];
+})()
+"""
+
+
+def css_rgb(color):
+    """CSS rgb() value of a hex color."""
+    color = color.lstrip("#")
+    return "rgb({}, {}, {})".format(
+        *(int(color[i : i + 2], 16) for i in (0, 2, 4))
+    )
+
 
 def check_pwd(termwidget):
     """Check if pwd command is executed."""
@@ -370,6 +393,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
     term.resize(900, 700)
     qtbot_module.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
 
+
 def test_output_redirection(setup_terminal, qtbot_module):
     """Test if stdout and stderr are redirected on DEV mode."""
     assert spyder_terminal.widgets.main_widget.get_debug_level() > 0
@@ -495,29 +519,6 @@ def test_zoom_new_term(setup_terminal, qtbot_module):
     new_zoom = term.get_conf("zoom")
 
     assert term1_zoom == new_zoom
-
-
-SCROLLBAR_STATE = """
-(function () {
-    var bar = document.querySelector(
-        '.xterm-scrollable-element > .scrollbar.vertical');
-    if (!bar) { return null; }
-    var slider = bar.querySelector('.slider');
-    var viewport = document.querySelector('.xterm-viewport');
-    return [getComputedStyle(bar).opacity, bar.offsetWidth,
-            slider ? slider.offsetHeight : 0, bar.offsetHeight,
-            getComputedStyle(bar).backgroundColor,
-            slider ? getComputedStyle(slider).backgroundColor : null,
-            viewport.offsetWidth - viewport.clientWidth];
-})()
-"""
-
-
-def css_rgb(color):
-    """CSS rgb() value of a hex color."""
-    color = color.lstrip('#')
-    return 'rgb({}, {}, {})'.format(
-        *(int(color[i:i + 2], 16) for i in (0, 2, 4)))
 
 
 @pytest.mark.skipif(os.name == 'nt', reason="Uses seq")
