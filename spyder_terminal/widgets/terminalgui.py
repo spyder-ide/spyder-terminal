@@ -26,13 +26,20 @@ from qtpy.QtWidgets import QFrame, QVBoxLayout, QApplication
 from spyder.api.widgets.mixins import SpyderWidgetMixin
 from spyder.api.config.decorators import on_conf_change
 from spyder.config.base import get_translation
-from spyder.config.gui import is_dark_interface
 from spyder.plugins.remoteclient.widgets import AuthenticationMethod
 from spyder.utils.palette import SpyderPalette
 
 # Local imports
 from spyder_terminal.api import TerminalMainWidgetActions, TermViewMenus
 from spyder_terminal.widgets.style.themes import ANSI_COLORS
+
+try:
+    # Spyder 6.2+
+    from spyder.utils.theme_manager import THEME_MANAGER
+    is_dark_interface = THEME_MANAGER.is_dark_interface
+except ImportError:
+    from spyder.config.gui import is_dark_interface
+    THEME_MANAGER = None
 
 
 PREFIX = 'spyder_terminal.default.'
@@ -216,9 +223,17 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
             return self.view.eval_javascript(script)
 
     def set_scrollbar_style(self):
-        """Set terminal scrollbar style."""
-        if is_dark_interface():
-            self.eval_javascript('addClassStyleToContainer("dark-scroll")')
+        """Style the scrollbar like Spyder's, with its theme's colors."""
+        colors = {
+            'track': SpyderPalette.COLOR_BACKGROUND_1,
+            'border': SpyderPalette.COLOR_BACKGROUND_4,
+            'handle': SpyderPalette.COLOR_BACKGROUND_6,
+            'handleHover': SpyderPalette.COLOR_ACCENT_2,
+        }
+
+        self.eval_javascript(
+            'setScrollbarColors({})'.format(json.dumps(colors))
+        )
 
     def set_dir(self, path):
         """Set terminal initial current working directory."""
@@ -232,9 +247,32 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
     @on_conf_change(section='appearance')
     def set_theme(self, _values):
         """Set theme for the terminal."""
+        theme = self.get_conf('selected', section='appearance')
+
+        if THEME_MANAGER is not None:
+            # Spyder 6.2+: colors come from the theme manager
+            scheme = THEME_MANAGER.get_color_scheme(theme)
+            ansi_theme = 'spyder/dark' if is_dark_interface() else 'spyder'
+            new_theme = {
+                'background': scheme['background'],
+                'foreground': scheme['normal'][0],
+                'cursor': scheme['normal'][0],
+                'cursorAccent': scheme['ctrlclick'],
+                'selection': scheme['occurrence'],
+                **ANSI_COLORS[ansi_theme],
+            }
+            self.eval_javascript(
+                'setOption("{}", {})'.format('theme', new_theme)
+            )
+            self.set_conf(
+                'fontFamily',
+                self.get_conf('font/family', section='appearance')
+            )
+
+            return new_theme
+
         supported_themes = ANSI_COLORS
         new_theme = {}
-        theme = self.get_conf('selected', section='appearance')
         color_scheme = self.get_conf('ui_theme', section='appearance')
         if theme not in supported_themes:
             theme = 'spyder' if color_scheme == 'light' else 'spyder/dark'
@@ -280,7 +318,9 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
 
     def exec_cmd(self, cmd):
         """Execute a command inside the terminal."""
-        self.eval_javascript('exec("{0}")'.format(cmd))
+        # JSON strings are valid Javascript strings, with quotes, backslashes
+        # and newlines escaped
+        self.eval_javascript('exec({0})'.format(json.dumps(cmd)))
 
     def exec_delayed_cmd(self, cmd, text_trigger, delay=1500):
         """
@@ -296,7 +336,9 @@ class TerminalWidget(QFrame, SpyderWidgetMixin):
             Milliseconds to wait to execute. The default is 1500.
         """
         self.eval_javascript(
-            'exec_delayed("{0}", "{1}", {2})'.format(cmd, text_trigger, delay)
+            'exec_delayed({0}, {1}, {2})'.format(
+                json.dumps(cmd), json.dumps(text_trigger), int(delay)
+            )
         )
 
     def reload(self):

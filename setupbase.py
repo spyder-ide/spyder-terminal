@@ -64,14 +64,9 @@ class BuildStatic(Command):
 
     def run(self):
         if not osp.isdir(COMPONENTS):
-            log.info("running [yarn install]")
-            run(['yarn', 'install'], cwd=repo_root)
-            log.info("installing webpack")
-            run(['npm', 'i', '-D', 'webpack'], cwd=repo_root)
-            run(['npm', 'i', 'webpack-cli', 'html-webpack-plugin', '@xterm/xterm',
-                 '@xterm/addon-attach', '@xterm/addon-search',
-                 '@xterm/addon-web-links', '@xterm/addon-fit'],
-                cwd=repo_root)
+            # Install the exact versions in package-lock.json
+            log.info("running [npm ci]")
+            run(['npm', 'ci'], cwd=repo_root)
             log.info('running webpack')
             run(['npm', 'run', 'webpack'], cwd=repo_root)
             log.info("copying static assests (jquery and xterm)")

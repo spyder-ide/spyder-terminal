@@ -157,9 +157,6 @@ typings/
 # Other yarn files
 .yarn/install-state.gz
 
-# Unused lock files
-package-lock.json
-
 # dotenv environment variables file
 .env
 

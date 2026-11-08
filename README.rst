@@ -139,13 +139,13 @@ the following bash script:
 Development and contribution
 ----------------------------
 
-To start contributing to this project, you need to install the ``yarn``
-and ``npm`` package managers. If you use conda, you can run the following
-command to do that:
+To start contributing to this project, you need to install Node.js
+(version 18 or later) and its ``npm`` package manager. If you use conda, you
+can run the following command to do that:
 
 ::
 
-    conda install -c conda-forge nodejs yarn
+    conda install -c conda-forge nodejs
 
 Then, please install the package's dependencies with:
 

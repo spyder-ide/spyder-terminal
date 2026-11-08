@@ -2,7 +2,9 @@ import { Terminal } from '@xterm/xterm';
 import { AttachAddon } from '@xterm/addon-attach';
 import { FitAddon } from '@xterm/addon-fit';
 import { SearchAddon } from '@xterm/addon-search';
+import { Unicode11Addon } from '@xterm/addon-unicode11';
 import { WebLinksAddon } from '@xterm/addon-web-links';
+import { WebglAddon } from '@xterm/addon-webgl';
 
 let term;
 let searchAddon;
@@ -12,6 +14,7 @@ let socketURL;
 let socket;
 let pid;
 let curFont;
+let curFontFamily;
 let curTheme;
 let alive;
 let fontSize;
@@ -38,8 +41,18 @@ function createTerminal(){
       cursorBlink: true,
       scrollback: 10000,
       tabStopWidth: 10,
-      windowsMode: isWindows
+      // Space between lines, so text is easier to read (Ubuntu Mono has
+      // almost none of its own)
+      lineHeight: 1.2,
+      // Needed by the Unicode 11 addon
+      allowProposedApi: true,
+      windowsPty: isWindows ? {backend: 'conpty'} : undefined
       });
+
+  // Use the character widths of modern terminals, which full screen
+  // programs (e.g. TUIs with emoji or symbols) rely on to lay out text
+  term.loadAddon(new Unicode11Addon());
+  term.unicode.activeVersion = '11';
 
   term.loadAddon(new WebLinksAddon());
   searchAddon = new SearchAddon();
@@ -56,14 +69,13 @@ function createTerminal(){
       const url = '/api/terminals/' + pid + '/size?cols=' + cols + '&rows=' + rows;
 
       fetch(url, {method: 'POST', headers: myHeaders});
-      term.options.theme = curTheme;
-      term.options.fontFamily = curFont
   });
 
   protocol = (location.protocol === 'https:') ? 'wss://' : 'ws://';
   socketURL = protocol + location.hostname + ((location.port) ? (':' + location.port) : '') + '/terminals/';
 
   term.open(terminalContainer);
+  loadRenderer();
   fitAddon.fit();
   term.focus();
 
@@ -94,10 +106,30 @@ function createTerminal(){
   });
 }
 
-window.onresize = (event) => {
+function loadRenderer() {
+  // The WebGL renderer draws each character in its cell, so it doesn't
+  // depend on the widths of fallback fonts. Use the DOM renderer if it's
+  // not available.
+  try {
+    const webgl = new WebglAddon();
+    webgl.onContextLoss(() => {
+      webgl.dispose();
+      refit();
+    });
+    term.loadAddon(webgl);
+  } catch (e) {
+    console.log("WebGL renderer not available, using the DOM renderer");
+  }
+}
+
+function refit() {
   if(fitAddon){
     fitAddon.fit();
   }
+}
+
+window.onresize = (event) => {
+  refit();
 }
 
 function searchNext(regex, options) {
@@ -119,16 +151,25 @@ function getFonts() {
 }
 
 function setFont(font) {
-    let fonts = "monospace";
-    fonts = "'"+font+"', "+fonts;
-    term.options.fontFamily = fonts;
+  curFontFamily = "'" + font + "', monospace";
+  term.options.fontFamily = curFontFamily;
+  refit();
 }
 
 function fitFont(font) {
   curFont = font;
   setFont(font);
-  setFont('Ubuntu Mono');
-  setFont(font);
+
+  // Measure the characters again once the font is loaded (e.g. the bundled
+  // Ubuntu Mono web font), and fit the terminal to the new size
+  if (document.fonts) {
+    document.fonts.load("16px '" + font + "'").finally(() => {
+      if (curFont === font) {
+        term.options.fontFamily = 'monospace';
+        setFont(font);
+      }
+    });
+  }
 }
 
 function setcwd(cwd) {
@@ -139,9 +180,7 @@ function getTerminalLines(){
   let text = '';
   let totalLines = term.buffer.active.length;
   for(let row = 0; row < totalLines; row++){
-    let actLine = term.buffer.active.getLine(row);
-    let length = actLine._line.length;
-    text += actLine.translateToString(false, 0, length) + '';
+    text += term.buffer.active.getLine(row).translateToString(false);
   }
   return text;
 }
@@ -196,14 +235,14 @@ function isAlive() {
 function increaseFontSize(){
   fontSize += 1;
   setOption('fontSize', fontSize);
-  fitAddon.fit();
+  refit();
   return fontSize;
 }
 
 function decreaseFontSize(){
   fontSize -= 1;
   setOption('fontSize', fontSize);
-  fitAddon.fit();
+  refit();
   return fontSize;
 }
 
@@ -218,8 +257,23 @@ function setOption(option_name, option) {
   if(option_name === 'theme'){
     curTheme = option;
     option['selection'] = hexToRGB(option['selection']);
+    // Name of the selection color since xterm.js 5
+    option['selectionBackground'] = option['selection'];
+    setBackground(option['background']);
   }
   term.options[option_name] = option
+}
+
+function setBackground(color) {
+  // Paint the terminal's padding and the rest of the page like its content
+  // (the viewport doesn't cover them since xterm.js 6)
+  if (!color) {
+    return;
+  }
+  document.body.style.backgroundColor = color;
+  if (term.element) {
+    term.element.style.backgroundColor = color;
+  }
 }
 
 function runRealTerminal() {
@@ -237,9 +291,13 @@ function runRealTerminal() {
   }, 200);
 }
 
-function addDomListener(element, type, handler){
-  element.addEventListener(type, handler);
-  term._core.register({dispose: () => element.removeEventListener(type, handler)});
+// Colors of the scrollbar, to match Spyder's (see style.css)
+function setScrollbarColors(colors) {
+  const style = document.documentElement.style;
+  style.setProperty('--scrollbar-track', colors.track);
+  style.setProperty('--scrollbar-border', colors.border);
+  style.setProperty('--scrollbar-handle', colors.handle);
+  style.setProperty('--scrollbar-handle-hover', colors.handleHover);
 }
 
 function addClassStyleToContainer(className){
@@ -276,6 +334,8 @@ const term_functions = {
   searchNext: searchNext,
   searchPrevious: searchPrevious,
   setOption: setOption,
+  setScrollbarColors: setScrollbarColors,
+  refit: refit,
   increaseFontSize: increaseFontSize,
   decreaseFontSize: decreaseFontSize,
   addClassStyleToContainer: addClassStyleToContainer,

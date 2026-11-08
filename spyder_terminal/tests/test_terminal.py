@@ -43,6 +43,29 @@ if WINDOWS:
 
 PREFIX = 'spyder_terminal.default.'
 
+SCROLLBAR_STATE = """
+(function () {
+    var bar = document.querySelector(
+        '.xterm-scrollable-element > .scrollbar.vertical');
+    if (!bar) { return null; }
+    var slider = bar.querySelector('.slider');
+    var viewport = document.querySelector('.xterm-viewport');
+    return [getComputedStyle(bar).opacity, bar.offsetWidth,
+            slider ? slider.offsetHeight : 0, bar.offsetHeight,
+            getComputedStyle(bar).backgroundColor,
+            slider ? getComputedStyle(slider).backgroundColor : null,
+            viewport.offsetWidth - viewport.clientWidth];
+})()
+"""
+
+
+def css_rgb(color):
+    """CSS rgb() value of a hex color."""
+    color = color.lstrip("#")
+    return "rgb({}, {}, {})".format(
+        *(int(color[i : i + 2], 16) for i in (0, 2, 4))
+    )
+
 
 def check_pwd(termwidget):
     """Check if pwd command is executed."""
@@ -370,6 +393,7 @@ def test_new_terminal(setup_terminal, qtbot_module):
     term.resize(900, 700)
     qtbot_module.waitUntil(lambda: check_pwd(term), timeout=TERM_UP)
 
+
 def test_output_redirection(setup_terminal, qtbot_module):
     """Test if stdout and stderr are redirected on DEV mode."""
     assert spyder_terminal.widgets.main_widget.get_debug_level() > 0
@@ -495,3 +519,61 @@ def test_zoom_new_term(setup_terminal, qtbot_module):
     new_zoom = term.get_conf("zoom")
 
     assert term1_zoom == new_zoom
+
+
+@pytest.mark.skipif(os.name == 'nt', reason="Uses seq")
+def test_scrollbar_visible(setup_terminal, qtbot_module):
+    """
+    The scrollbar stays visible when there's output to scroll, like before
+    xterm 6, whose scrollbar only shows while scrolling or hovering.
+    """
+    terminal = setup_terminal
+    terminal.get_widget().resize(640, 400)
+    qtbot_module.wait(1000)
+    term = terminal.get_widget().get_current_term()
+    term.exec_cmd('seq 1 300')
+    qtbot_module.wait(2000)
+
+    result = []
+    term.view.document.runJavaScript(SCROLLBAR_STATE, result.append)
+    qtbot_module.waitUntil(lambda: bool(result), timeout=5000)
+    (opacity, width, slider_height, bar_height, track, handle,
+     native_width) = result[0]
+    assert float(opacity) == 1
+    assert width > 0
+    assert 0 < slider_height < bar_height
+
+    # It has the colors of Spyder's scrollbars in the current theme
+    from spyder.utils.palette import SpyderPalette
+    assert track == css_rgb(SpyderPalette.COLOR_BACKGROUND_1)
+    assert handle == css_rgb(SpyderPalette.COLOR_BACKGROUND_6)
+
+    # The native scrollbar of xterm's viewport, which xterm 6 doesn't use,
+    # doesn't show behind it
+    assert native_width == 0
+
+
+@pytest.mark.skipif(os.name == 'nt', reason="Uses printf")
+def test_exec_cmd_quotes(setup_terminal, qtbot_module):
+    """Commands with quotes and backslashes run as they are."""
+    terminal = setup_terminal
+    widget = terminal.get_widget()
+    widget.create_new_term()
+    term = widget.get_current_term()
+    with qtbot_module.waitSignal(term.terminal_ready, timeout=TERM_UP):
+        pass
+    qtbot_module.wait(2000)
+    term.exec_cmd("""printf 'OUT:%s\\n' "it's \\"quoted\\"" 'back\\slash'""")
+
+    def has_output():
+        result = []
+        term.view.document.runJavaScript(
+            "spyder_terminal.default.getTerminalLines()", result.append)
+        qtbot_module.waitUntil(lambda: bool(result), timeout=5000)
+
+        # Rows come padded with spaces, without newlines. The command
+        # itself doesn't contain the "OUT:" prefix followed by the text.
+        text = result[0] or ""
+        return 'OUT:it\'s "quoted"' in text and 'OUT:back\\slash' in text
+
+    qtbot_module.waitUntil(has_output, timeout=10000)
